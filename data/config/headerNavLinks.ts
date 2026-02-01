@@ -1,9 +1,8 @@
-export const headerNavLinks: Array<{
-  href: string;
-  title: string;
-}> = [
-  { href: '/', title: 'Home' },
-  { href: '/pricing', title: 'Pricing' },
-  { href: '/about', title: 'About' },
-  { href: '/all-articles', title: 'Articles' },
+export const headerNavLinks = [
+  { href: '/category/Bayesian', title: 'Bayesian' },
+  { href: '/category/AI', title: 'AI' },
+  { href: '/category/Business', title: 'Business' },
+  { href: '/category/Science', title: 'Science' },
+  { href: '/category/Solution', title: 'Solution' },
+  { href: '/category/Documentation', title: 'Documentation' },
 ];

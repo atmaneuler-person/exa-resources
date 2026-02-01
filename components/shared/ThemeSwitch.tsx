@@ -30,7 +30,7 @@ export const ThemeSwitch = () => {
     <button
       aria-label="Toggle Dark Mode"
       onClick={updateTheme}
-      className="relative w-6 h-6"
+      className="relative w-6 h-6 text-gray-100 hover:text-orange-500 transition-colors"
     >
       {currentTheme === 'dark' ? (
         <motion.div

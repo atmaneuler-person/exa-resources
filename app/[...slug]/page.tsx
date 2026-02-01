@@ -1,173 +1,152 @@
-import 'css/prism.css';
-import 'katex/dist/katex.css';
-import Link from 'next/link';
-import { Metadata } from 'next';
-
-import PageTitle from '@/components/shared/PageTitle';
-import { components } from '@/components/MDXComponents';
-import { MDXLayoutRenderer } from '@shipixen/pliny/mdx-components';
-import {
-  sortPosts,
-  coreContent,
-  allCoreContent,
-} from '@shipixen/pliny/utils/contentlayer';
+import { sortPosts } from '@shipixen/pliny/utils/contentlayer';
 import { allBlogs, allAuthors } from 'contentlayer/generated';
 import type { Authors, Blog } from 'contentlayer/generated';
+import { coreContent } from '@shipixen/pliny/utils/contentlayer';
+import Link from 'next/link';
 import { Button } from '@/components/shared/ui/button';
 import Header from '@/components/shared/Header';
 import Footer from '@/components/shared/Footer';
+import PostCard from '@/components/shared/PostCard'; 
+import { MDXLayoutRenderer } from '@shipixen/pliny/mdx-components';
+import { components } from '@/components/MDXComponents';
 import PostSimple from '@/layouts/PostSimple';
 import PostLayout from '@/layouts/PostLayout';
 import PostBanner from '@/layouts/PostBanner';
-
 import { siteConfig } from '@/data/config/site.settings';
-
-const BLOG_URL = siteConfig.blogPath ? `/${siteConfig.blogPath}` : '';
+import { Metadata } from 'next';
+import { MainPage } from '@/components/shared/MainPage';
 
 const defaultLayout = 'PostLayout';
-const layouts = {
-  PostSimple,
-  PostLayout,
-  PostBanner,
-};
+const layouts = { PostSimple, PostLayout, PostBanner };
+const BLOG_URL = siteConfig.blogPath ? `/${siteConfig.blogPath}` : '';
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string[] }>;
 }): Promise<Metadata | undefined> {
   const params = await props.params;
-  const path = BLOG_URL + decodeURI(params.slug.join('/'));
-  const post = allBlogs.find((p) => p.path === path);
-  const authorList = post?.authors || ['default'];
-  const authorDetails = authorList.map((author) => {
-    const authorResults = allAuthors.find((p) => p.slug === author);
-    return coreContent(authorResults as Authors);
-  });
-  if (!post) {
-    return;
+  const slugArray = params.slug;
+
+  if (slugArray[0] === 'category') {
+    const categoryName = decodeURI(slugArray[1] || '');
+    return {
+      title: `${categoryName} | ${siteConfig.title}`,
+      description: `Articles in ${categoryName}`,
+    };
   }
 
-  const publishedAt = new Date(post.date).toISOString();
-  const modifiedAt = new Date(post.lastmod || post.date).toISOString();
-  const authors = authorDetails.map((author) => author.name);
-  let imageList = [siteConfig.socialBanner];
-  if (post.images) {
-    imageList = typeof post.images === 'string' ? [post.images] : post.images;
-  }
-  const ogImages = imageList.map((img) => {
-    return {
-      url: img.includes('http') ? img : siteConfig.siteUrl + img,
-    };
-  });
+  const path = BLOG_URL + decodeURI(slugArray.join('/'));
+  const post = allBlogs.find((p) => p.path === path);
+  if (!post) return;
 
   return {
     title: post.title,
     description: post.summary,
-    openGraph: {
-      title: post.title,
-      description: post.summary,
-      siteName: siteConfig.title,
-      locale: 'en_US',
-      type: 'article',
-      publishedTime: publishedAt,
-      modifiedTime: modifiedAt,
-      url: './',
-      images: ogImages,
-      authors: authors.length > 0 ? authors : [siteConfig.author],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description: post.summary,
-      images: imageList,
-    },
-    ...(post.canonicalUrl
-      ? {
-          alternates: {
-            canonical: post.canonicalUrl,
-          },
-        }
-      : {}),
   };
 }
 
 export const generateStaticParams = async () => {
-  const paths = allBlogs.map((p) => ({ slug: p.path.split('/') }));
-  return paths;
+  return allBlogs.map((p) => ({ slug: p.path.split('/') }));
 };
 
-export default async function Page(props: {
-  params: Promise<{ slug: string[] }>;
-}) {
+export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
   const params = await props.params;
-  const path = decodeURI(params.slug.join('/'));
-  // Filter out drafts in production
-  const sortedCoreContents = allCoreContent(sortPosts(allBlogs));
-  const postIndex = sortedCoreContents.findIndex((p) => p.path === path);
-  if (postIndex === -1) {
+  const slugArray = params.slug;
+
+  // =========================================================
+  // [CASE 0] Locale Home Page (e.g. /en, /ja)
+  // =========================================================
+  if (slugArray.length === 1 && siteConfig.locales.includes(slugArray[0])) {
+    return <MainPage locale={slugArray[0]} />;
+  }
+
+  // =========================================================
+  // [CASE 1] Category List
+  // =========================================================
+  let isCategoryPage = false;
+  let categoryName = '';
+  let currentLocale = siteConfig.defaultLocale; // Default to 'ko'
+
+  // Pattern 1: /category/[name] -> Default Locale
+  if (slugArray[0] === 'category') {
+    isCategoryPage = true;
+    categoryName = decodeURI(slugArray[1] || '');
+  }
+  // Pattern 2: /[locale]/category/[name] -> Specific Locale
+  else if (siteConfig.locales.includes(slugArray[0]) && slugArray[1] === 'category') {
+    isCategoryPage = true;
+    currentLocale = slugArray[0];
+    categoryName = decodeURI(slugArray[2] || '');
+  }
+
+  if (isCategoryPage) {
+    const posts = sortPosts(allBlogs);
+
+    // Filter by Category AND Locale
+    const filteredPosts = posts.filter((post) => {
+      const lowerPath = post.path.toLowerCase();
+      const lowerCat = categoryName.toLowerCase();
+      const localePath = `/${currentLocale}/`;
+      
+      return lowerPath.includes(lowerCat) && lowerPath.includes(localePath);
+    });
+
     return (
-      <div className="w-full flex flex-col items-center fancy-overlay">
+      <div className="flex flex-col w-full items-center">
         <Header />
+        <div className="w-full max-w-6xl px-4 py-12">
+          <div className="space-y-2 pb-8 pt-6 md:space-y-5 border-b border-gray-200 dark:border-gray-700">
+            <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+              {categoryName} <span className="text-primary-500 text-2xl align-top">({currentLocale.toUpperCase()})</span>
+            </h1>
+            <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
+              {filteredPosts.length} posts found.
+            </p>
+          </div>
 
-        <div className="mt-24 text-center min-h-[40vh]">
-          <PageTitle>
-            Under Construction{' '}
-            <span role="img" aria-label="roadwork sign">
-              🚧
-            </span>
-          </PageTitle>
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 mt-10">
+            {filteredPosts.map((post) => (
+              <PostCard key={post.path} post={post} />
+            ))}
+          </div>
 
-          <p className="mt-4">
-            Oops, you've hit a page that doesn't seem to exist anymore.
-          </p>
-
-          <Button asChild className="mt-8">
-            <Link href="/">Back to Home</Link>
-          </Button>
+          {!filteredPosts.length && (
+            <div className="mt-20 text-center py-20 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+              <h3 className="text-xl font-bold text-gray-500">No posts found in this language.</h3>
+              <p className="mt-2 text-gray-400">Try switching to another language.</p>
+            </div>
+          )}
         </div>
-
         <Footer />
       </div>
     );
   }
 
-  const prev = sortedCoreContents[postIndex + 1];
-  const next = sortedCoreContents[postIndex - 1];
+  // =========================================================
+  // [CASE 2] 글 상세 화면
+  // =========================================================
+  const path = decodeURI(slugArray.join('/'));
   const post = allBlogs.find((p) => p.path === path) as Blog;
-  const authorList = post?.authors || ['default'];
-  const authorDetails = authorList.map((author) => {
-    const authorResults = allAuthors.find((p) => p.slug === author);
-    return coreContent(authorResults as Authors);
-  });
-  const mainContent = coreContent(post);
-  const jsonLd = post.structuredData;
-  jsonLd['author'] = authorDetails.map((author) => {
-    return {
-      '@type': 'Person',
-      name: author.name,
-    };
-  });
 
+  if (!post) {
+    return (
+      <div className="flex flex-col w-full items-center">
+        <Header />
+        <div className="mt-24 text-center min-h-[50vh]">
+          <h1 className="text-3xl font-bold">Page Not Found</h1>
+          <div className="mt-4 text-gray-500">Path: {path}</div>
+          <Button asChild className="mt-8"><Link href="/">Back to Home</Link></Button>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const mainContent = coreContent(post);
   const Layout = layouts[post.layout || defaultLayout];
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
-      <Layout
-        content={mainContent}
-        authorDetails={authorDetails}
-        next={next}
-        prev={prev}
-      >
-        <MDXLayoutRenderer
-          code={post.body.code}
-          components={components}
-          toc={post.toc}
-        />
-      </Layout>
-    </>
+    <Layout content={mainContent} authorDetails={[]} next={undefined} prev={undefined}>
+      <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
+    </Layout>
   );
 }

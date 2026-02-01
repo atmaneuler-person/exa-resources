@@ -28,6 +28,7 @@ import {
   sortPosts,
 } from '@shipixen/pliny/utils/contentlayer.js';
 
+// Force rebuild
 const root = process.cwd();
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -46,6 +47,16 @@ const computedFields: ComputedFields = {
     resolve: (doc) => doc._raw.sourceFilePath,
   },
   toc: { type: 'json', resolve: (doc) => extractTocHeadings(doc.body.raw) },
+  locale: {
+    type: 'string',
+    resolve: (doc) => {
+      const pathParts = doc._raw.flattenedPath.split('/');
+      const locale = pathParts.find((part) =>
+        siteConfig.locales.includes(part),
+      );
+      return locale || siteConfig.defaultLocale;
+    },
+  },
 };
 
 /**

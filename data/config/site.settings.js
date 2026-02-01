@@ -36,6 +36,8 @@ const siteConfig = {
     // provider: 'emailoctopus',
   },
   search: true, // Enable or disable search
+  locales: ['ko', 'en', 'vi', 'ja', 'zh'], // Supported locales
+  defaultLocale: 'ko', // Default locale
 };
 
 module.exports = { siteConfig };
