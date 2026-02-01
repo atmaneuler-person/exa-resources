@@ -1,0 +1,83 @@
+---
+description:
+globs: *.mdx
+alwaysApply: false
+---
+
+# Adding a Blog Post
+
+This rule explains how to add a new blog post to the project, including required Frontmatter fields and document properties. It references [`contentlayer.config.ts`](mdc:contentlayer.config.ts), [`code.mdx`](mdc:data/code.mdx), and [`using-the-blog.mdx`](mdc:data/using-the-blog.mdx).
+
+## 1. Create a New Markdown File
+
+- Add your `.mdx` file to the `data/` directory or a subfolder (nested routes are supported).
+- The file name becomes the slug for the article.
+
+## 2. Add Frontmatter
+
+Frontmatter is a YAML block at the top of your file that defines metadata for the post. Required and optional fields are defined in [`contentlayer.config.ts`](mdc:contentlayer.config.ts) and demonstrated in [`using-the-blog.mdx`](mdc:data/using-the-blog.mdx).
+
+When writing arrays in Frontmatter, use the syntax `- item` for each element. For example:
+
+```yaml
+tags:
+  - 'tag1'
+  - 'tag2'
+```
+
+### Example Frontmatter
+```yaml
+title: 'Blog post title'           # Required
+summary: 'A short summary'         # Optional but recommended
+date: '2025-01-01'                 # Required (YYYY-MM-DD), use today's date
+tags:                              # Optional, array of strings
+  - 'next-js'
+  - 'guide'
+lastmod: '2025-02-01'              # Optional, last modified date
+images:                            # Optional, array of image paths
+  - '/static/images/img.webp'
+authors:
+  - 'default'                      # Optional, array of author IDs
+layout: 'PostLayout'               # Optional, see below
+draft: false                       # Optional, set true to hide
+canonicalUrl: 'https://...'        # Optional, canonical link
+```
+
+## 3. Supported Layouts
+
+Specify the layout in Frontmatter with the `layout` field. Available layouts (see [`using-the-blog.mdx`](mdc:data/using-the-blog.mdx)):
+- `PostLayout` (default)
+- `PostLayoutWithToc`
+- `PostSimple`
+- `PostBanner`
+
+## 4. Document Properties (from [`contentlayer.config.ts`](mdc:contentlayer.config.ts))
+
+- `title` (string, required): The post title
+- `date` (date, required): Publish date
+- `tags` (string[], optional): Tags for the post
+- `lastmod` (date, optional): Last modified date
+- `draft` (boolean, optional): If true, post is hidden
+- `summary` (string, optional): Short summary
+- `images` (json, optional): Array of image paths
+- `authors` (string[], optional): Author IDs (see `data/authors/`)
+- `layout` (string, optional): Layout component
+- `canonicalUrl` (string, optional): Canonical URL
+
+## 5. Writing Content
+
+- Use Markdown and MDX for content, including code blocks, images, tables, and custom components.
+
+## 6. Table of Contents
+
+- Use the `<TOCInline toc={props.toc} asDisclosure />` component to add an inline table of contents to your post.
+
+## 7. Nested Routes
+
+- Organize posts in subfolders under `data/` for nested routes (e.g., `data/guides/my-guide.mdx`).
+
+## 8. Drafts
+
+- Set `draft: true` in Frontmatter to hide a post from the blog.
+
+Refer to this rule and the example files for a complete guide to adding and formatting blog posts.
