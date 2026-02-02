@@ -91,7 +91,7 @@ export default function PostLayout({
         <ScrollTop />
         <article className="space-y-8">
           <header className="pt-8 pb-12 border-b border-gray-100 dark:border-white/5">
-            <div className="space-y-4 text-center">
+            <div className="space-y-4 text-center mt-12 mb-4">
               <dl>
                 <div className="flex flex-col items-center gap-2">
                   <dt className="sr-only">Published on</dt>
@@ -112,6 +112,7 @@ export default function PostLayout({
                   </span>
                 </h1>
               </div>
+
             </div>
           </header>
 
@@ -139,7 +140,7 @@ export default function PostLayout({
                           )}
                           <div className="flex flex-col">
                             <span className="text-sm font-bold text-gray-900 dark:text-gray-100">{author.name}</span>
-                            <span className="text-[10px] text-gray-500 font-medium">Enterprise Analyst</span>
+                            <span className="text-[10px] text-gray-500 font-medium">{author.occupation || 'Enterprise Analyst'}</span>
                           </div>
                         </li>
                       ))}
@@ -181,9 +182,9 @@ export default function PostLayout({
             </aside>
 
             {/* Main Content Area - Glassmorphism Card */}
-            <main className="lg:col-span-3 space-y-8">
-              <div className="bg-white dark:bg-gray-900/40 backdrop-blur-sm p-6 md:p-12 lg:p-16 rounded-[2.5rem] border border-gray-100 dark:border-white/5 shadow-xl shadow-gray-200/50 dark:shadow-none min-h-[600px]">
-                <div className="prose max-w-none pt-2 dark:prose-invert prose-headings:font-black prose-headings:tracking-tighter prose-p:text-gray-600 dark:prose-p:text-gray-400 prose-p:leading-relaxed prose-p:text-lg">
+            <main className="lg:col-span-3 space-y-8 overflow-x-auto lg:overflow-x-visible">
+              <div className="bg-white dark:bg-gray-900/40 backdrop-blur-sm p-6 md:p-12 lg:p-16 rounded-[2.5rem] border border-gray-100 dark:border-white/5 shadow-xl shadow-gray-200/50 dark:shadow-none min-h-[600px] break-words">
+                <div className="prose max-w-none pt-2 dark:prose-invert prose-headings:font-black prose-headings:tracking-tighter prose-p:text-gray-600 dark:prose-p:text-gray-400 prose-p:leading-relaxed prose-p:text-lg break-words">
                   {children}
                 </div>
 

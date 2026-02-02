@@ -43,8 +43,9 @@ const Header = () => {
       <div className="flex items-center leading-5 space-x-4 sm:space-x-6">
         <div className="hidden lg:flex space-x-6">
           {headerNavLinks.map((link) => {
-            const isActive = pathname.startsWith(link.href) || 
-                             (link.title === 'Documentation' && pathname.includes('/Documentation/'));
+            const isActive = link.href === '/' 
+              ? (pathname === '/' || siteConfig.locales.some(locale => pathname === `/${locale}`))
+              : pathname.startsWith(link.href) || (link.title === 'Documentation' && pathname.includes('/Documentation/'));
             const isRestricted = !isLoggedIn && link.title === 'Documentation';
 
             return (

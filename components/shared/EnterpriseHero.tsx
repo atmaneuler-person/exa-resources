@@ -130,32 +130,40 @@ export const EnterpriseHero = () => {
                     </motion.div>
                 </div>
 
-                {/* Right Side: Visual Placeholder */}
+                {/* Right Side: High-Impact Visualized Engine */}
                 <motion.div 
-                    initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
-                    animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                    transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-                    className="relative group perspective-1000 hidden lg:block"
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
+                    className="relative lg:h-[650px] flex items-center justify-center"
                 >
-                    {/* Multi-layered glass effect */}
-                    <div className="absolute -inset-4 bg-gradient-to-tr from-orange-500/10 to-blue-500/5 rounded-[2rem] blur-2xl opacity-40"></div>
+                    {/* Atmospheric effects surrounding the visual */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/10 to-transparent blur-[120px] rounded-full opacity-40 animate-pulse" />
+                    <div className="absolute -top-20 -left-20 w-64 h-64 bg-blue-500/5 blur-[100px] rounded-full" />
                     
-                    <div className="relative aspect-[16/10] lg:aspect-auto lg:h-[500px] bg-white/40 dark:bg-white/[0.02] backdrop-blur-3xl rounded-2xl border border-white/60 dark:border-white/[0.05] shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden flex flex-col">
-                        
-                        {/* Fake Browser Top Bar */}
-                        <div className="h-10 border-b border-gray-100 dark:border-white/5 flex items-center px-4 gap-1.5 bg-gray-50/50 dark:bg-white/5">
-                            <div className="w-2.5 h-2.5 rounded-full bg-gray-200 dark:bg-white/10" />
-                            <div className="w-2.5 h-2.5 rounded-full bg-gray-200 dark:bg-white/10" />
-                            <div className="w-2.5 h-2.5 rounded-full bg-gray-200 dark:bg-white/10" />
-                        </div>
-
-                        {/* Content Area */}
-                        <div className="flex-1 flex flex-col items-center justify-center relative">
+                    <div className="w-full relative z-10 perspective-2000">
+                        <motion.div
+                            whileHover={{ rotateY: 5, rotateX: -5 }}
+                            transition={{ type: "spring", stiffness: 100 }}
+                        >
                             <BayesianVisual />
-                        </div>
+                        </motion.div>
+                        
+                        {/* Floating Tech Labels */}
+                        <motion.div 
+                            animate={{ y: [0, -10, 0] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                            className="absolute -top-10 -right-5 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-gray-200 dark:border-white/10 p-4 rounded-xl shadow-2xl z-30 hidden xl:block"
+                        >
+                            <div className="flex flex-col gap-1">
+                                <span className="text-[8px] text-orange-600 dark:text-orange-500 font-black uppercase tracking-widest">Inference Core</span>
+                                <span className="text-sm font-bold text-gray-900 dark:text-gray-200">MCMC / SIGMOID</span>
+                            </div>
+                        </motion.div>
                     </div>
 
-                    {/* Ambient glow following mouse could be added later */}
+                    {/* Technical Decals */}
+                    <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-4/5 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
                 </motion.div>
             </div>
         </section>

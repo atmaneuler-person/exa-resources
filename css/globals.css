@@ -7,6 +7,7 @@
   body {
     overflow-x: hidden;
     width: 100%;
+    scroll-behavior: smooth;
   }
 
   :root {
@@ -68,7 +69,7 @@
   h4,
   h5,
   h6 {
-    @apply font-semibold font-display;
+    @apply font-semibold font-display scroll-mt-24;
   }
 }
 
@@ -433,4 +434,26 @@ input:-webkit-autofill:focus {
 .dark ::selection {
   background-color: var(--primary-darker);
   color: white;
+}
+
+/**
+ * KaTeX centering fix - Robust version
+ */
+.prose .katex-display,
+.katex-display {
+  display: block !important;
+  margin: 1.5em 0 !important;
+  text-align: center !important;
+}
+
+.prose .katex-display \u003e .katex,
+.katex-display \u003e .katex {
+  display: inline-block !important;
+  text-align: center !important;
+  margin: 0 auto !important;
+  width: auto !important;
+}
+
+.text-center {
+  text-align: center !important;
 }

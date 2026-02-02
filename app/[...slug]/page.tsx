@@ -8,7 +8,6 @@ import Header from '@/components/shared/Header';
 import Footer from '@/components/shared/Footer';
 import PostCard from '@/components/shared/PostCard'; 
 import { TagBar } from '@/components/shared/TagBar';
-import DocumentationListLayout from '@/layouts/DocumentationListLayout'; // Import Doc Layout
 import RestrictedContentGate from '@/components/shared/RestrictedContentGate'; // Import Gate Component
 import { MDXLayoutRenderer } from '@shipixen/pliny/mdx-components';
 import { components } from '@/components/MDXComponents';
@@ -16,6 +15,7 @@ import PostSimple from '@/layouts/PostSimple';
 import PostLayout from '@/layouts/PostLayout';
 import PostBanner from '@/layouts/PostBanner';
 import ListLayoutWithTags from '@/layouts/ListLayoutWithTags';
+import DocLayout from '@/layouts/DocLayout';
 import { siteConfig } from '@/data/config/site.settings';
 import { Metadata } from 'next';
 import { MainPage } from '@/components/shared/MainPage';
@@ -61,10 +61,19 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
   const slugArray = params.slug;
 
   // =========================================================
-  // [CASE 0] Locale Home Page (e.g. /en, /ja)
+  // [NEW] Resolve Locale and Base Slug
   // =========================================================
-  if (slugArray.length === 1 && siteConfig.locales.includes(slugArray[0])) {
-    return <MainPage locale={slugArray[0]} />;
+  let currentLocale = siteConfig.defaultLocale;
+  let baseSlug = slugArray;
+
+  if (siteConfig.locales.includes(slugArray[0])) {
+    currentLocale = slugArray[0];
+    // If it's just the locale (e.g. /en), render MainPage
+    if (slugArray.length === 1) {
+      return <MainPage locale={currentLocale} />;
+    }
+    // Otherwise, strip the locale from the slug for further processing
+    baseSlug = slugArray.slice(1);
   }
 
   // =========================================================
@@ -72,18 +81,11 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
   // =========================================================
   let isCategoryPage = false;
   let categoryName = '';
-  let currentLocale = siteConfig.defaultLocale; // Default to 'ko'
 
-  // Pattern 1: /category/[name] -> Default Locale
-  if (slugArray[0] === 'category') {
+  // Pattern: /category/[name] or /[locale]/category/[name]
+  if (baseSlug[0] === 'category') {
     isCategoryPage = true;
-    categoryName = decodeURI(slugArray[1] || '');
-  }
-  // Pattern 2: /[locale]/category/[name] -> Specific Locale
-  else if (siteConfig.locales.includes(slugArray[0]) && slugArray[1] === 'category') {
-    isCategoryPage = true;
-    currentLocale = slugArray[0];
-    categoryName = decodeURI(slugArray[2] || '');
+    categoryName = decodeURI(baseSlug[1] || '');
   }
 
   if (isCategoryPage) {
@@ -124,11 +126,31 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
           return <RestrictedContentGate postTitle="Documentation Library" />;
        }
 
+       const sortedPosts = filteredPosts.sort((a, b) => {
+          const orderA = a.order ?? 999;
+          const orderB = b.order ?? 999;
+          return orderA - orderB;
+       });
+
        return (
          <div className="flex flex-col w-full items-center">
             <Header />
-            {/* Doc Layout handles its own sidebar */}
-            <DocumentationListLayout posts={filteredPosts} title={categoryName} />
+            <DocLayout allDocPosts={sortedPosts}>
+               <div className="py-12">
+                  <h2 className="text-2xl font-bold mb-6">Welcome to the {categoryName}</h2>
+                  <p className="text-gray-600 dark:text-gray-400 mb-12">
+                     Select a topic from the sidebar to start reading our comprehensive guides.
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                     {sortedPosts.map(p => (
+                        <Link key={p.path} href={`/${p.path}`} className="p-6 border border-gray-100 dark:border-white/5 rounded-2xl hover:border-orange-500/50 transition-all">
+                           <h3 className="font-bold mb-2">{p.title}</h3>
+                           <p className="text-sm text-gray-500 line-clamp-2">{p.summary}</p>
+                        </Link>
+                     ))}
+                  </div>
+               </div>
+            </DocLayout>
             <Footer />
          </div>
        );
@@ -152,7 +174,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
   // =========================================================
   // [CASE 2] 글 상세 화면
   // =========================================================
-  const path = decodeURI(slugArray.join('/'));
+  const path = decodeURI(baseSlug.join('/'));
   const post = allBlogs.find((p) => p.path === path) as Blog;
 
   if (!post) {
@@ -185,7 +207,27 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
     return coreContent(authorRes as Authors);
   }) || [];
   
-  const Layout = layouts[post.layout || defaultLayout];
+  if (isDocumentation) {
+    const pathParts = post.path.split('/');
+    const postLocale = pathParts[1].toLowerCase();
+    
+    const allDocPosts = allBlogs.filter(p => {
+       const pParts = p.path.split('/');
+       return pParts.length >= 3 && pParts[1].toLowerCase() === postLocale && pParts[2].toLowerCase() === 'documentation';
+    }).sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+
+    return (
+      <div className="flex flex-col w-full">
+         <Header />
+         <DocLayout content={mainContent} allDocPosts={allDocPosts} toc={post.toc}>
+            <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
+         </DocLayout>
+         <Footer />
+      </div>
+    );
+  }
+
+  const Layout = layouts[post.layout || defaultLayout as keyof typeof layouts];
 
   return (
     <Layout content={mainContent} authorDetails={authorDetails} next={undefined} prev={undefined}>

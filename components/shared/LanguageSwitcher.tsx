@@ -1,43 +1,46 @@
 'use client';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { siteConfig } from '@/data/config/site.settings';
 
 export default function LanguageSwitcher() {
   const pathname = usePathname();
 
   // 현재 경로에서 언어 코드 교체 로직
   const switchLanguage = (targetLang: string) => {
-    // 1. 현재 경로가 '/'(루트)인 경우
-    if (pathname === '/') {
-      return targetLang === 'ko' ? '/' : `/${targetLang}`;
+    // 1. Clean current path from any existing locale prefix at the start
+    // (e.g., /en/posts/... -> /posts/...)
+    let cleanPath = pathname;
+    const currentLocales = siteConfig.locales.filter(l => l !== 'ko').join('|');
+    const localePrefixRegex = new RegExp(`^\\/(${currentLocales})(\\/|$)`);
+    
+    cleanPath = pathname.replace(localePrefixRegex, '/');
+    if (cleanPath === '') cleanPath = '/';
+
+    // 2. Handle /posts/ paths (which have internal locale like /posts/ko/...)
+    const postPathRegex = /^\/posts\/(ko|en|ja|zh|vi)\//;
+    if (cleanPath.match(postPathRegex)) {
+      return cleanPath.replace(postPathRegex, `/posts/${targetLang}/`);
     }
 
-    // 2. 현재 경로가 '/[locale]' 또는 '/[locale]/...' 형태인지 확인
-    const localeRegex = /^\/(en|ja|zh|vi)(\/|$)/;
-    const match = pathname.match(localeRegex);
-
-    if (match) {
-      // 현재 URL에 언어 코드가 있음 (예: /en/..., /en)
-      const currentLoc = match[1];
-      
-      // 타겟 언어가 'ko'이면 언어 코드 제거 (예: /en/blog -> /blog)
-      if (targetLang === 'ko') {
-        return pathname.replace(`/${currentLoc}`, '') || '/';
-      }
-      
-      // 타겟 언어가 다른 언어이면 코드 교체 (예: /en/blog -> /ja/blog)
-      return pathname.replace(`/${currentLoc}`, `/${targetLang}`);
-    } 
-
-    // 3. 언어 코드가 없는 경우 (현재 ko 상태)
-    if (targetLang === 'ko') return pathname;
+    // 3. For other paths (home, category, etc.)
+    if (targetLang === 'ko') {
+      return cleanPath;
+    }
     
-    // ko -> 다른 언어: 맨 앞에 붙임 (예: /blog -> /en/blog)
-    return `/${targetLang}${pathname}`;
+    // Prefix with target locale
+    return `/${targetLang}${cleanPath === '/' ? '' : cleanPath}`;
   };
 
   // 현재 활성화된 언어인지 확인하는 헬퍼 함수
   const isActive = (langCode: string) => {
+    // 1. 블로그 포스트 경로 확인
+    const postPathRegex = /^\/posts\/(ko|en|ja|zh|vi)\//;
+    const postMatch = pathname.match(postPathRegex);
+    if (postMatch) {
+      return postMatch[1] === langCode;
+    }
+
     if (langCode === 'ko') {
       // ko는 경로에 (en|ja|zh|vi)가 없으면 활성
       return !pathname.match(/^\/(en|ja|zh|vi)(\/|$)/);

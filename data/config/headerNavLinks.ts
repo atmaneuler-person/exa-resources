@@ -1,4 +1,5 @@
 export const headerNavLinks = [
+  { href: '/', title: 'Home' },
   { href: '/category/Bayesian', title: 'Bayesian' },
   { href: '/category/AI', title: 'AI' },
   { href: '/category/Business', title: 'Business' },

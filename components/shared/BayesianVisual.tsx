@@ -1,220 +1,168 @@
 "use client";
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
-interface Point {
-    x: number;
-    y: number;
-}
-
+// --- Mathematical Helpers ---
 const getNormal = (x: number, mean: number, stdDev: number, scale: number) => {
     return (1 / (stdDev * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * Math.pow((x - mean) / stdDev, 2)) * scale;
 };
 
-const generatePath = (mean: number, stdDev: number, scale: number) => {
-    const points: Point[] = [];
-    for (let x = 0; x <= 100; x += 1) {
-        points.push({ x, y: getNormal(x, mean, stdDev, scale) });
+const generateNormalPath = (mean: number, stdDev: number, scale: number, time: number, waveAmp: number = 2) => {
+    const points: {x: number, y: number}[] = [];
+    for (let x = -10; x <= 110; x += 2) {
+        const wave = Math.sin(time * 0.001 + x * 0.05) * waveAmp;
+        points.push({ x, y: getNormal(x, mean, stdDev, scale) + wave });
     }
     return `M ${points.map(p => `${p.x * 4},${250 - p.y}`).join(' L ')}`;
 };
 
 export const BayesianVisual = () => {
-    const [step, setStep] = useState(0);
-    const [precision, setPrecision] = useState(0.999404);
+    const [time, setTime] = useState(0);
+    const requestRef = useRef<number>(0);
     
-    // Core Bayesian State
-    const [paths, setPaths] = useState({
-        prior: generatePath(30, 15, 1200),
-        likelihood: generatePath(70, 8, 800),
-        posterior: generatePath(55, 6, 1600)
+    const [targets, setTargets] = useState({
+        priorM: 35, postM: 65, likM: 80, postS: 6
     });
 
-    // Refs to track the mathematical state for sequential updates
-    const stateRef = useRef({
-        priorMean: 30,
-        priorStd: 15,
-        targetMean: 70
-    });
+    const animate = (t: number) => {
+        setTime(t / 1000);
+        requestRef.current = requestAnimationFrame(animate);
+    };
 
     useEffect(() => {
-        // 1. Ticking precision (Visual feedback only)
-        const tickInterval = setInterval(() => {
-            setPrecision(prev => {
-                const delta = (Math.random() - 0.5) * 0.00001;
-                return Math.max(0.9994, Math.min(0.999999, prev + delta));
-            });
-        }, 80);
-
-        // 2. Sequential Bayesian Update (Biological/Sequential feel)
-        const updateInterval = setInterval(() => {
-            const current = stateRef.current;
-            
-            // Generate a new piece of evidence (Likelihood) 
-            // It "pulls" the prior towards it, but smoothly
-            const likelihoodMean = 20 + Math.random() * 60; 
-            const likelihoodStd = 5 + Math.random() * 5;
-
-            // Bayesian Formula:
-            // Precision = 1 / Variance
-            const priorPrec = 1 / Math.pow(current.priorStd, 2);
-            const likPrec = 1 / Math.pow(likelihoodStd, 2);
-            
-            const postPrec = priorPrec + likPrec;
-            const postStd = Math.sqrt(1 / postPrec);
-            const postMean = (current.priorMean * priorPrec + likelihoodMean * likPrec) / postPrec;
-
-            // Update Paths
-            setPaths({
-                prior: generatePath(current.priorMean, current.priorStd, 1000),
-                likelihood: generatePath(likelihoodMean, likelihoodStd, 800),
-                posterior: generatePath(postMean, postStd, 1800)
-            });
-
-            // The Posterior of this step becomes the Prior of the next step (Sequential update)
-            // We add a tiny bit of "noise/entropy" to the Prior Std to prevent it from converging to zero zero (infinite precision)
-            // for the sake of continuous animation.
-            stateRef.current = {
-                priorMean: postMean,
-                priorStd: Math.max(postStd, 4) + (Math.random() * 0.5), // Minimum Std for visual visibility
-                targetMean: likelihoodMean
-            };
-
-            setStep(s => (s + 1) % 1000);
-
-            // If it becomes too narrow, reset slightly to keep it moving
-            if (stateRef.current.priorStd < 5) {
-                stateRef.current.priorStd = 12;
-            }
-
-        }, 3500); // 3.5s for a more deliberate, scientific feel
-
-        return () => {
-            clearInterval(tickInterval);
-            clearInterval(updateInterval);
-        };
+        requestRef.current = requestAnimationFrame(animate);
+        return () => cancelAnimationFrame(requestRef.current);
     }, []);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTargets({
+                priorM: 20 + Math.random() * 30,
+                postM: 50 + Math.random() * 35,
+                likM: 65 + Math.random() * 30,
+                postS: 5 + Math.random() * 5
+            });
+        }, 8000); 
+        return () => clearInterval(interval);
+    }, []);
+
+    const smoothState = useRef({ m1: 35, m2: 65, m3: 80, s2: 6 });
+    useEffect(() => {
+        let frame: number;
+        const update = () => {
+            const lerp = 0.012; 
+            smoothState.current.m1 += (targets.priorM - smoothState.current.m1) * lerp;
+            smoothState.current.m2 += (targets.postM - smoothState.current.m2) * lerp;
+            smoothState.current.m3 += (targets.likM - smoothState.current.m3) * lerp;
+            smoothState.current.s2 += (targets.postS - smoothState.current.s2) * lerp;
+            frame = requestAnimationFrame(update);
+        };
+        frame = requestAnimationFrame(update);
+        return () => cancelAnimationFrame(frame);
+    }, [targets]);
+
+    const paths = useMemo(() => ({
+        prior: generateNormalPath(smoothState.current.m1, 15, 800, time * 1000, 2),
+        posterior: generateNormalPath(smoothState.current.m2, smoothState.current.s2, 1800, time * 1000, 4),
+        likelihood: generateNormalPath(smoothState.current.m3, 12, 600, time * 1000, 2.5)
+    }), [time]);
+
+    const winProb = (smoothState.current.m2).toFixed(2);
+
     return (
-        <div className="relative w-full h-full flex flex-col items-center justify-center p-6 transition-colors duration-500 bg-white dark:bg-[#020617]/50 lg:rounded-2xl">
-            {/* Header */}
-            <div className="absolute top-6 left-8 text-left space-y-1.5 z-20">
-                <div className="flex items-center gap-2">
-                    <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
-                    </span>
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-800 dark:text-white/70">Probability Engine v2.2</span>
+        <div className="relative w-full h-[500px] lg:h-[650px] bg-white dark:bg-black/90 backdrop-blur-3xl rounded-3xl border border-gray-200 dark:border-white/10 overflow-hidden font-mono shadow-2xl transition-colors duration-500">
+            
+            {/* 1. Background "Ghost" Math Formulas - Much Fainter Unicode Notation */}
+            <div className="absolute inset-0 z-0 pointer-events-none select-none p-16 pt-40 pb-32 overflow-hidden flex flex-col justify-between">
+                <div className="flex justify-between items-start opacity-40 dark:opacity-10">
+                    <div className="text-xl lg:text-3xl font-serif italic text-gray-300 dark:text-orange-200/40 whitespace-nowrap">
+                        {"P(θ | D) = [ P(D | θ) P(θ) ] / P(D)"}
+                    </div>
                 </div>
-                <div className="flex gap-4 text-[9px] font-mono text-gray-500 dark:text-gray-400 leading-tight">
-                   <div className="flex items-center gap-1.5"><span className="w-2 h-0.5 bg-gray-400 dark:bg-gray-600" /> Current Belief (Prior)</div>
-                   <div className="flex items-center gap-1.5"><span className="w-2 h-0.5 bg-yellow-500/50" /> New Evidence (Likelihood)</div>
-                   <div className="flex items-center gap-1.5"><span className="w-2 h-0.5 bg-orange-500" /> Optimal Conclusion (Posterior)</div>
+                
+                <div className="flex justify-end pr-10 lg:pr-32 opacity-30 dark:opacity-8">
+                    <div className="text-lg lg:text-2xl font-serif italic text-gray-300 dark:text-orange-100/30 whitespace-nowrap">
+                        {"rᵢ = [ π · N₁ ] / [ (1-π) · N₀ + π · N₁ ]"}
+                    </div>
+                </div>
+
+                <div className="flex justify-start pl-10 lg:pl-20 opacity-20 dark:opacity-5">
+                    <div className="text-base lg:text-xl font-serif italic text-gray-300 dark:text-orange-100/20 whitespace-nowrap">
+                        {"zᵢ ~ Bernoulli( rᵢ )"}
+                    </div>
+                </div>
+
+                <div className="flex justify-center opacity-20 dark:opacity-3">
+                    <div className="text-xl lg:text-3xl font-serif italic text-gray-300 dark:text-orange-50/10 whitespace-nowrap">
+                        {"∫ p(θ | D) dθ = 1"}
+                    </div>
                 </div>
             </div>
 
-            {/* Formula - Fraction Style */}
-            <motion.div 
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-                className="absolute top-[110px] left-8 z-20 pointer-events-none"
-            >
-                <div className="flex flex-col gap-2.5">
-                    <span className="text-[7px] font-black text-orange-600 dark:text-orange-500/80 uppercase tracking-[0.5em]">Identity Logic</span>
-                    <div className="flex items-center gap-2 text-gray-900 dark:text-white/95 font-serif italic text-base md:text-xl font-extralight tracking-widest leading-none">
-                        <span>P(θ|D) = </span>
-                        <div className="flex flex-col items-center px-1">
-                            <span className="px-3 pb-1 border-b border-gray-900/20 dark:border-white/30">P(D|θ) P(θ)</span>
-                            <span className="text-[10px] opacity-60 dark:opacity-50 not-italic mt-1">P(D)</span>
-                        </div>
-                    </div>
+            {/* 2. Technical HUD Tags - Clean Title & High Contrast */}
+            <div className="absolute top-10 left-10 z-20 space-y-2">
+                <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-orange-600 animate-pulse" />
+                    <h2 className="text-base lg:text-xl font-black text-gray-950 dark:text-gray-200 uppercase tracking-[0.2em]">EXA Uncertainty Core v4</h2>
                 </div>
-            </motion.div>
+                <div className="flex gap-6 pl-5">
+                    <span className="text-[10px] lg:text-xs text-gray-700 dark:text-gray-500 font-bold uppercase tracking-widest">Model: MIXTURE DENSITY</span>
+                    <span className="text-[10px] lg:text-xs text-orange-600 dark:text-orange-500 font-bold uppercase tracking-widest">Logic: MCMC GIBBS SAMPLING</span>
+                </div>
+            </div>
 
-            {/* Main SVG Plot */}
-            <div className="relative w-full h-auto max-w-md mt-24">
-                <svg viewBox="0 0 400 320" className="w-full h-auto drop-shadow-[0_0_35px_rgba(249,115,22,0.1)]">
-                    <g className="opacity-[0.1] dark:opacity-[0.08]">
+            {/* 4. The Visual Plot */}
+            <div className="absolute inset-0 flex items-center justify-center p-12 lg:p-24">
+                <svg viewBox="0 0 400 300" className="w-full h-full overflow-visible">
+                    <g className="opacity-25 dark:opacity-30 text-gray-300 dark:text-gray-800">
                         {[0, 50, 100, 150, 200, 250].map(y => (
-                            <line key={y} x1="0" y1={280-y} x2="400" y2={280-y} stroke="currentColor" className="text-gray-400 dark:text-white" strokeWidth="0.5" strokeDasharray="5 5" />
+                            <line key={y} x1="0" y1={y} x2="400" y2={y} stroke="currentColor" strokeWidth="0.5" strokeDasharray="10 5" />
                         ))}
                     </g>
 
-                    <motion.path
-                        animate={{ d: paths.prior }}
-                        transition={{ duration: 2.8, ease: "easeInOut" }}
-                        fill="none"
-                        stroke="currentColor"
-                        className="text-gray-400 dark:text-gray-700"
-                        strokeWidth="1.2"
-                        strokeDasharray="4 2"
-                    />
-                    
-                    <motion.path
-                        animate={{ d: paths.likelihood }}
-                        transition={{ duration: 2.5, ease: "easeInOut" }}
-                        fill="none"
-                        stroke="#eab308"
-                        className="opacity-30 dark:opacity-20"
-                        strokeWidth="1.5"
-                    />
+                    {/* Curves */}
+                    <path d={paths.prior} fill="none" stroke="currentColor" className="text-gray-400 dark:text-gray-700" strokeWidth="1" strokeDasharray="5 5" />
+                    <path d={paths.likelihood} fill="none" stroke="#eab308" className="opacity-30 dark:opacity-20" strokeWidth="1.5" />
+                    <path d={paths.posterior} fill="url(#mainFillHero)" stroke="#f97316" strokeWidth="6" strokeLinecap="round" className="drop-shadow-[0_0_30px_rgba(249,115,22,0.5)]" />
 
-                    <motion.path
-                        animate={{ d: paths.posterior }}
-                        transition={{ duration: 2.2, ease: "easeInOut" }}
-                        fill="url(#gradient-post-responsive)"
-                        stroke="#f97316"
-                        strokeWidth="3.5"
-                        className="drop-shadow-[0_0_15px_rgba(249,115,22,0.4)]"
+                    {/* Peak Point */}
+                    <motion.circle
+                        cx={smoothState.current.m2 * 4}
+                        cy={250 - getNormal(smoothState.current.m2, smoothState.current.m2, smoothState.current.s2, 1800)}
+                        r={4}
+                        fill="#f97316"
+                        className="filter blur-[0.5px]"
                     />
-
-                    <motion.g animate={{ x: 200, y: 295 }} className="text-[10px] font-bold fill-gray-400 dark:fill-gray-500 uppercase tracking-[0.3em] opacity-40">
-                        <text textAnchor="middle">S-{step}</text>
-                    </motion.g>
 
                     <defs>
-                        <linearGradient id="gradient-post-responsive" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <linearGradient id="mainFillHero" x1="0%" y1="0%" x2="0%" y2="100%">
                             <stop offset="0%" stopColor="#f97316" stopOpacity="0.4" />
                             <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
                         </linearGradient>
                     </defs>
                 </svg>
-
-                {/* Evidence Particles */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ bottom: "20%", left: "50%", opacity: 0 }}
-                            animate={{ 
-                                bottom: ["20%", "45%"],
-                                opacity: [0, 0.8, 0],
-                                left: [`${30 + i*8}%`, `${32 + i*8 + (Math.random()-0.5)*10}%`]
-                            }}
-                            transition={{ 
-                                duration: 2.5 + Math.random(), 
-                                repeat: Infinity, 
-                                delay: i * 0.6,
-                                ease: "easeOut"
-                            }}
-                            className="absolute w-1.5 h-1.5 bg-yellow-500/80 rounded-full blur-[1px]"
-                        />
-                    ))}
-                </div>
             </div>
 
-            {/* Bottom Panel */}
-            <div className="absolute bottom-6 left-8 right-8 flex justify-between items-end border-t border-gray-100 dark:border-white/5 pt-4">
-                <div className="space-y-0.5">
-                    <p className="text-[7px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em]">Learning Convergence</p>
-                    <p className="text-[9px] font-mono text-gray-800 dark:text-white/60">iter_idx: {step}</p>
+            {/* 5. Bottom Data Stream */}
+            <div className="absolute bottom-12 left-12 right-12 flex justify-between items-end border-t border-gray-200 dark:border-white/10 pt-8 z-20">
+                <div className="space-y-3">
+                    <h5 className="text-xs font-black text-gray-800 dark:text-gray-400 uppercase tracking-widest">Information Stability</h5>
+                    <div className="flex gap-1.5 h-16 items-end">
+                        {[...Array(20)].map((_, i) => (
+                            <div 
+                                key={i} 
+                                className="w-1.5 bg-orange-600/60 dark:bg-orange-500/30 rounded-t-sm"
+                                style={{ height: `${30 + Math.sin(time * 3 + i) * 35}%` }}
+                            />
+                        ))}
+                    </div>
                 </div>
+
                 <div className="text-right">
-                    <p className="text-[7px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em]">Certainty Precision</p>
-                    <motion.p className="text-sm md:text-base font-mono font-bold text-orange-600 dark:text-orange-500/90">
-                         {precision.toFixed(6)}
-                    </motion.p>
+                    <span className="text-xs lg:text-sm text-gray-700 dark:text-gray-400 font-bold uppercase tracking-[0.3em]">Decision Significance</span>
+                    <div className="text-6xl lg:text-8xl font-black text-gray-950 dark:text-white tabular-nums tracking-tighter">
+                        {winProb}<span className="text-3xl opacity-30 ml-2 font-bold">%</span>
+                    </div>
                 </div>
             </div>
         </div>

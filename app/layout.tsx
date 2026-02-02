@@ -9,6 +9,7 @@ import { colors } from '@/data/config/colors.js';
 import '@/css/globals.css';
 import { SearchProvider } from '@/components/shared/SearchProvider';
 import { AnalyticsWrapper } from '@/components/shared/Analytics';
+import 'katex/dist/katex.min.css';
 
 export const viewport: Viewport = {
   width: 'device-width',
