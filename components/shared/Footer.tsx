@@ -26,196 +26,144 @@ export const Footer = ({ className }: { className?: string }) => {
   return (
     <footer
       className={cn(
-        'mt-auto w-full bg-gradient-to-r from-white/5 via-white/60 to-white/5 backdrop-blur-sm dark:from-slate-700/5 dark:via-slate-700/60 dark:to-slate-700/5',
+        'relative w-full mt-32 border-t border-gray-100 dark:border-white/5 bg-white dark:bg-gray-950 px-6 overflow-hidden',
         className,
       )}
     >
-      <div
-        className={cn(
-          'flex flex-col gap-4 justify-between items-center w-full md:my-10 p-6',
-        )}
-      >
-        <div className="w-full flex flex-col md:flex-row justify-between gap-6 mt-12  p-6 max-w-full container-wide">
-          <div className="w-full flex flex-col gap-4 md:max-w-xs lg:max-w-sm">
-            <Link href="/" aria-label={siteConfig.title}>
-              <div className="flex items-center gap-3 justify-start">
-                <Image
-                  src="/static/images/logo.png"
-                  alt="EXA Resources logo"
-                  height={36}
-                  width={36}
-                  className="group-hover:animate-wiggle "
-                />
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05]"
+          style={{ 
+              backgroundImage: `linear-gradient(to right, #80808060 1px, transparent 1px), linear-gradient(to bottom, #80808060 1px, transparent 1px)`,
+              backgroundSize: '32px 32px'
+          }}
+      />
+
+      <div className="relative z-10 max-w-screen-2xl mx-auto py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
+          
+          {/* Brand Section */}
+          <div className="lg:col-span-4 space-y-8">
+            <Link href="/" className="inline-block group">
+              <div className="flex items-center gap-4">
+                <div className="relative h-8 w-32 group-hover:scale-105 transition-transform duration-500">
+                  {/* Light Mode Logo */}
+                  <Image
+                    src="/static/images/logo-light.svg"
+                    alt="EXA Resources"
+                    fill
+                    className="object-contain object-left block dark:hidden"
+                  />
+                  {/* Dark Mode Logo */}
+                  <Image
+                    src="/static/images/logo-dark.svg"
+                    alt="EXA Resources"
+                    fill
+                    className="object-contain object-left hidden dark:block"
+                  />
+                </div>
+                <div className="border-l border-gray-100 dark:border-white/10 pl-4">
+                    <h2 className="text-xl font-black tracking-tighter text-gray-900 dark:text-white uppercase leading-none">
+                        RESOURCES
+                    </h2>
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mt-1">
+                        Intelligence Infrastructure
+                    </p>
+                </div>
               </div>
             </Link>
 
-            {typeof siteConfig.title === 'string' ? (
-              <div className="text-lg font-semibold">{siteConfig.title}</div>
-            ) : null}
-
-            {siteConfig.description ? (
-              <p className="text-sm opacity-70">{siteConfig.description}</p>
-            ) : null}
-
-            <p className="text-xs">Copyright © {siteConfig.businessName}</p>
+            <div className="space-y-4 max-w-sm">
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed font-medium">
+                {siteConfig.description || "Next-generation business orchestration powered by Bayesian logic and sovereign GAI. Transforming enterprise uncertainty into definitive strategic results."}
+              </p>
+              
+              {/* Professional Badges or Certificates could go here */}
+              <div className="flex items-center gap-3 pt-4">
+                <div className="px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-500/10 border border-orange-200 dark:border-orange-500/20 text-[10px] font-bold text-orange-600 uppercase tracking-wider">
+                  Enterprise AI 2.0
+                </div>
+                <div className="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-[10px] font-bold text-blue-600 uppercase tracking-wider">
+                  Sovereign Logic
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div
-            className={cn(
-              'grid md:grid-cols-2 gap-12 items-start mt-6 md:mt-0',
-              columnNumber === 3 ? 'md:grid-cols-3' : '',
-              columnNumber === 4 ? 'lg:grid-cols-4' : '',
-            )}
-          >
-            {footerLinks
-              .filter(({ links }) => links.length)
-              .map((column, index) => {
-                return (
-                  <ul
-                    key={index}
-                    className={cn(
-                      'flex flex-col flex-wrap gap-4 justify-center w-full text-xs',
-                    )}
-                  >
-                    {column.columnName ? (
-                      <li>
-                        <p className="text-slate-900 dark:text-slate-100 font-light text-base">
-                          {column.columnName}
-                        </p>
-                      </li>
-                    ) : null}
-
-                    {column.links.map((link, index) => {
-                      if (!link.href) {
-                        return null;
-                      }
-
-                      if (link.href === '#support') {
-                        return (
-                          <li key={index}>
-                            <FooterSupportButton />
-                          </li>
-                        );
-                      }
-
-                      return (
-                        <li key={index}>
+          {/* Links Grid */}
+          <div className="lg:col-span-8">
+            <div className={cn(
+              "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12",
+              columnNumber <= 2 ? "md:grid-cols-2" : "md:grid-cols-3"
+            )}>
+              {footerLinks
+                .filter(({ links }) => links.length)
+                .map((column, index) => (
+                  <div key={index} className="space-y-6">
+                    <h3 className="text-xs font-black uppercase tracking-[0.3em] text-gray-900 dark:text-white pb-4 border-b border-gray-100 dark:border-white/5">
+                      {column.columnName}
+                    </h3>
+                    <ul className="space-y-4">
+                      {column.links.map((link, linkIdx) => (
+                        <li key={linkIdx}>
                           <ActiveLink
-                            href={link.href}
-                            className={'nav-link'}
-                            activeClassName={'nav-link-active'}
+                            href={link.href || '#'}
+                            className="text-sm font-bold text-gray-500 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-500 transition-colors flex items-center gap-2 group"
+                            activeClassName="text-orange-600 dark:text-orange-500"
                           >
-                            <span>{link.title}</span>
+                            <span className="w-1 h-1 rounded-full bg-gray-200 dark:bg-gray-800 group-hover:bg-orange-600 transition-colors" />
+                            {link.title}
                           </ActiveLink>
                         </li>
-                      );
-                    })}
-                  </ul>
-                );
-              })}
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+
+                {/* Newsletter or CTA column */}
+                <div className="space-y-6">
+                  <h3 className="text-xs font-black uppercase tracking-[0.3em] text-gray-900 dark:text-white pb-4 border-b border-gray-100 dark:border-white/5">
+                    Connect
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {siteConfig.email && (
+                      <a href={`mailto:${siteConfig.email}`} className="p-2.5 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 hover:border-orange-500/30 hover:bg-white dark:hover:bg-white/10 transition-all text-gray-500 dark:text-gray-400 hover:text-orange-600" aria-label="Email">
+                        <MailIcon className="w-5 h-5" />
+                      </a>
+                    )}
+                    {siteConfig.linkedin && (
+                      <a href={siteConfig.linkedin} className="p-2.5 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 hover:border-orange-500/30 hover:bg-white dark:hover:bg-white/10 transition-all text-gray-500 dark:text-gray-400 hover:text-orange-600" aria-label="LinkedIn">
+                        <LinkedinIcon className="w-5 h-5" />
+                      </a>
+                    )}
+                    {siteConfig.github && (
+                      <a href={siteConfig.github} className="p-2.5 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 hover:border-orange-500/30 hover:bg-white dark:hover:bg-white/10 transition-all text-gray-500 dark:text-gray-400 hover:text-orange-600" aria-label="GitHub">
+                        <GithubIcon className="w-5 h-5" />
+                      </a>
+                    )}
+                  </div>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-relaxed">
+                    Join the ecosystem of <br/> intelligent business.
+                  </p>
+                </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div>
-        <hr
-          className="w-full my-4 border-0 bg-gradient-to-r from-white/5 via-black/10 to-white/5 dark:from-black/5 dark:via-white/30 darK:to-black/5"
-          style={{ height: '1px' }}
-        />
-
-        <div className="py-8 px-2 flex flex-col items-center">
-          <div className="mb-3 flex flex-wrap justify-center gap-4">
-            {siteConfig.email && (
-              <a href={`mailto:${siteConfig.email}`}>
-                <Button variant="ghost" size="icon" aria-label="Email">
-                  <MailIcon className="w-6 h-6" />
-                </Button>
-              </a>
-            )}
-
-            {siteConfig.twitter && (
-              <a href={siteConfig.twitter}>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  aria-label="𝕏 (formerly Twitter)"
-                >
-                  <TwitterXIcon className="w-5 h-5" />
-                </Button>
-              </a>
-            )}
-
-            {siteConfig.instagram && (
-              <a href={siteConfig.instagram}>
-                <Button variant="ghost" size="icon" aria-label="Instagram">
-                  <InstagramIcon className="w-5 h-5" />
-                </Button>
-              </a>
-            )}
-
-            {siteConfig.tiktok && (
-              <a href={siteConfig.tiktok}>
-                <Button variant="ghost" size="icon" aria-label="TikTok">
-                  <TiktokIcon className="w-5 h-5" />
-                </Button>
-              </a>
-            )}
-
-            {siteConfig.github && (
-              <a href={siteConfig.github}>
-                <Button variant="ghost" size="icon" aria-label="GitHub">
-                  <GithubIcon className="w-6 h-6" />
-                </Button>
-              </a>
-            )}
-
-            {siteConfig.linkedin && (
-              <a href={siteConfig.linkedin}>
-                <Button variant="ghost" size="icon" aria-label="LinkedIn">
-                  <LinkedinIcon className="w-6 h-6" />
-                </Button>
-              </a>
-            )}
-
-            {siteConfig.youtube && (
-              <a href={siteConfig.youtube}>
-                <Button variant="ghost" size="icon" aria-label="YouTube">
-                  <YoutubeIcon className="w-7 h-7" />
-                </Button>
-              </a>
-            )}
-
-            {siteConfig.facebook && (
-              <a href={siteConfig.facebook}>
-                <Button variant="ghost" size="icon" aria-label="Facebook">
-                  <FacebookIcon className="w-6 h-6" />
-                </Button>
-              </a>
-            )}
-
-            {siteConfig.threads && (
-              <a href={siteConfig.threads}>
-                <Button variant="ghost" size="icon" aria-label="Threads">
-                  <ThreadsIcon className="w-6 h-6" />
-                </Button>
-              </a>
-            )}
-
-            {siteConfig.mastodon && (
-              <a href={siteConfig.mastodon}>
-                <Button variant="ghost" size="icon" aria-label="Mastodon">
-                  <BoxesIcon className="w-6 h-6" />
-                </Button>
-              </a>
-            )}
+        {/* Bottom Bar */}
+        <div className="mt-20 pt-10 border-t border-gray-100 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
+            <span>&copy; {new Date().getFullYear()} {siteConfig.businessName}</span>
+            <span className="hidden md:inline text-gray-200 dark:text-gray-800">|</span>
+            <span>All Rights Reserved</span>
+            <span className="hidden md:inline text-gray-200 dark:text-gray-800">|</span>
+            <Link href="/privacy" className="hover:text-gray-900 dark:hover:text-white transition-colors">Privacy Policy</Link>
           </div>
-          <div className="w-full text-center lg:flex lg:justify-center p-4 mb-2 space-x-2 text-sm text-gray-500 dark:text-gray-400">
-            <span>{siteConfig.author}</span>
-            <span>{` • `}</span>
-            <span>{`© ${new Date().getFullYear()}`}</span>
-            <span>{` • `}</span>
-            <Link href="/">{siteConfig.businessName}</Link>
-            
+          
+          <div className="flex items-center gap-6">
+             <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Systems Operational</span>
+             </div>
           </div>
         </div>
       </div>

@@ -1,4 +1,6 @@
+import React from 'react';
 import { sortPosts } from '@shipixen/pliny/utils/contentlayer';
+
 import { allBlogs, allAuthors } from 'contentlayer/generated';
 import Link from 'next/link';
 import Image from '@/components/shared/Image';
@@ -7,6 +9,14 @@ import Footer from '@/components/shared/Footer';
 import { MainPageSection } from '@/components/shared/MainPageSection';
 import { TagBar } from '@/components/shared/TagBar';
 import { siteConfig } from '@/data/config/site.settings';
+import { EnterpriseHero } from '@/components/shared/EnterpriseHero';
+import { EnterpriseShowcase } from '@/components/shared/EnterpriseShowcase';
+import { EnterpriseBentoGrid } from '@/components/shared/EnterpriseBentoGrid';
+import { ScrollProgressBar } from '@/components/shared/ScrollProgressBar';
+
+
+
+
 
 interface MainPageProps {
   locale?: string;
@@ -51,44 +61,30 @@ export const MainPage = ({ locale = siteConfig.defaultLocale }: MainPageProps) =
   ];
 
   return (
-    <div className="flex flex-col w-full items-center bg-white dark:bg-gray-950 pt-[120px] lg:pt-0">
+    <div className="relative flex flex-col w-full items-center bg-white dark:bg-gray-950 pt-[120px] lg:pt-0">
+      <ScrollProgressBar />
+      
+      {/* Global Background Pattern */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03] dark:hidden"
+           style={{ 
+             backgroundImage: `radial-gradient(#808080 0.5px, transparent 0.5px)`,
+             backgroundSize: '24px 24px' 
+           }}
+      />
+      <div className="absolute inset-0 z-0 pointer-events-none hidden dark:block opacity-[0.12]"
+           style={{ 
+             backgroundImage: `radial-gradient(#ffffff 0.5px, transparent 0.5px)`,
+             backgroundSize: '24px 24px' 
+           }}
+      />
+
       <Header />
       <TagBar tags={uniqueTags} />
 
-      <div className="w-full max-w-screen-2xl px-4 py-8 space-y-12">
+      <EnterpriseHero />
+
+      <div className="relative z-10 w-full max-w-screen-2xl px-4 py-8 space-y-12">
         
-        {/* Intro / Hero Section (Split Layout) */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-12 mb-12 border-b border-gray-200 dark:border-gray-800">
-          {/* Left Column: Title */}
-          <div className="text-left space-y-4">
-            <h1 className="relative w-fit text-2xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-gray-900 via-gray-700 to-gray-600 dark:from-white dark:via-gray-200 dark:to-gray-500 pb-2">
-              {siteConfig.title}
-              {/* Alive Indicator */}
-              <span className="absolute -top-1 -right-4 flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
-              </span>
-            </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-lg">
-              {siteConfig.description}
-            </p>
-          </div>
-
-             {/* Right Column: Intro Text + Image */}
-          <section className="flex flex-col gap-6">
-             <div className="relative overflow-hidden p-8 rounded-2xl bg-white/40 dark:bg-white/5 backdrop-blur-sm lg:backdrop-blur-xl border border-white/60 dark:border-white/10 shadow-[0_8px_40px_rgb(0,0,0,0.08)] text-lg leading-relaxed text-gray-800 dark:text-gray-200 group transition-all duration-300 hover:shadow-[0_12px_50px_rgb(0,0,0,0.12)]">
-               {/* Ambient Light Effect (Enhanced for Dark Mode) */}
-               <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-blue-400/10 dark:bg-blue-500/20 blur-[40px] lg:blur-[80px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/3 transition-opacity duration-500" />
-               
-               <div className="relative z-10 font-medium">
-                 This room is a knowledge warehouse for business people. It doesn't distinguish between natural science, mathematics, artificial intelligence, humanities, and business theory. It values the correct thought process and thinking ability. EXA acknowledges only『Undeniable clear Facts & Unrefutable Conclusions』
-               </div>
-             </div>
-             
-             {/* Image Removed as per User Request */}
-          </section>
-        </section>
-
         {/* === TOP SECTION: LATEST STORIES (All Categories) === */}
         {latestPosts.length > 0 && (
           <MainPageSection 
@@ -98,6 +94,7 @@ export const MainPage = ({ locale = siteConfig.defaultLocale }: MainPageProps) =
             layout="magazine"
           />
         )}
+
 
         {/* === BANNER SECTION === */}
         <div className="w-full mb-12 relative group">
@@ -134,46 +131,34 @@ export const MainPage = ({ locale = siteConfig.defaultLocale }: MainPageProps) =
         </div>
 
         {/* === CATEGORY SECTIONS === */}
-        {categories.map((category) => {
+        {categories.map((category, index) => {
           
           // Strict Filtering Logic
           const categoryPosts = posts.filter((post) => {
-            const lowerPath = post.path.toLowerCase(); // e.g. posts/ko/bayesian/ba01...
+            const lowerPath = post.path.toLowerCase();
             const pathParts = lowerPath.split('/');
-
-            // 1. Check Locale
             if (!pathParts.includes(currentLocale.toLowerCase())) return false;
-
-            // 2. Check Category
-            if (!pathParts.includes(category.toLowerCase())) return false;
-
-            return true;
+            if (pathParts.includes(category.toLowerCase())) return true;
+            return false;
           });
 
-          // Even if empty, show section (with placeholder handled inside component) but pass empty array
-          // Actually, MainPageSection returns null if empty. 
-          // Re-reading task: "Verified UI shows all sections" -> user wanted empty sections visible.
-          // I should modify MainPageSection to handle empty, OR handle it here.
-          // Let's modify MainPageSection logic via props, or just pass empty array.
-          
-          // logic update: MainPageSection currently returns null if empty.
-          // Let's rely on the previous logic I added to MainPage.tsx? 
-          // Check MainPageSection code I just wrote: `if (!posts) return null`.
-          // Ah, I need to update MainPageSection to NOT return null if I want to show "No posts".
-          // BUT, for now, let's use the component. I will update MainPageSection in next step if needed to show empty. 
-          // Wait, user explicitly asked for "Empty State: If a category has no posts, it will now simply show...".
-          // My previous edit to MainPage.tsx did this manually. My NEW MainPageSection.tsx has `if (!posts) return null`.
-          // I MUST fix MainPageSection.tsx to allow empty state. 
-          // For now, let's insert the code.
-          
           return (
-             <MainPageSection 
-                key={category}
-                title={category}
-                posts={categoryPosts.slice(0, 12)} 
-                linkTo={currentLocale === siteConfig.defaultLocale ? `/category/${category}` : `/${currentLocale}/category/${category}`}
-                categoryName={category}
-             />
+             <React.Fragment key={category}>
+                <MainPageSection 
+                    title={category}
+                    posts={categoryPosts.slice(0, 12)} 
+                    linkTo={currentLocale === siteConfig.defaultLocale ? `/category/${category}` : `/${currentLocale}/category/${category}`}
+                    categoryName={category}
+                />
+                
+                {/* 
+                   Visual Break Logic: 
+                   Show EnterpriseShowcase after 'AI' section
+                   Show EnterpriseBentoGrid after 'Solution' section
+                */}
+                {category === 'AI' && <EnterpriseShowcase />}
+                {category === 'Solution' && <EnterpriseBentoGrid />}
+             </React.Fragment>
           );
         })}
 

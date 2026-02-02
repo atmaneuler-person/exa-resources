@@ -60,57 +60,48 @@ export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = '
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Featured Post Card (Clean UI + Ribbon) */}
           {/* Featured Post Card (Clean UI + Ribbon) */}
-          <div className="lg:col-span-2 group relative grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch transition-all lg:h-[456px]"> 
+          <div className="lg:col-span-2 group relative grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch transition-all min-h-[456px]"> 
             
             {/* 1. Text Content (Left, Narrower ~40%) */}
-            <div className="order-2 md:order-1 md:col-span-5 flex flex-col h-full justify-start py-1 gap-4">
-                 <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold uppercase text-orange-600 tracking-wider">
-                      {featuredPost.path.split('/').length > 2 ? featuredPost.path.split('/')[featuredPost.path.split('/').length - 2] : (categoryName || "BLOG")}
-                    </span>
+            <div className="order-2 md:order-1 md:col-span-6 flex flex-col h-full justify-start py-10 px-10 gap-8 bg-white dark:bg-gray-900/50 rounded-l-2xl border-l-[6px] border-orange-500">
+                 <div className="flex items-center gap-3">
+                    <div className="bg-gray-900 dark:bg-white -skew-x-12 px-3 py-1">
+                        <span className="skew-x-12 text-[10px] font-black uppercase text-white dark:text-gray-900 tracking-[0.2em]">
+                          {featuredPost.path.split('/').length > 2 ? featuredPost.path.split('/')[featuredPost.path.split('/').length - 2].replace('-', ' ') : (categoryName || "INTEL")}
+                        </span>
+                    </div>
                     {featuredPost.tags?.[0] && (
-                       <>
-                         <span className="text-xs text-gray-300">|</span>
-                         <span className="text-xs font-bold uppercase text-gray-500 tracking-wider">
+                       <div className="bg-orange-500 -skew-x-12 px-3 py-1">
+                         <span className="skew-x-12 text-[10px] font-black uppercase text-white tracking-[0.2em]">
                            {featuredPost.tags[0]}
                          </span>
-                       </>
+                       </div>
                     )}
                  </div>
 
-                <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white leading-tight group-hover:text-orange-600 transition-colors">
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-gray-900 dark:text-white leading-tight group-hover:text-orange-600 transition-colors">
                   <Link href={`/${featuredPost.path}`}>
                     {featuredPost.title}
                   </Link>
                 </h3>
                 
-                <p className="text-gray-600 dark:text-gray-400 line-clamp-2 md:line-clamp-[6] text-base leading-relaxed overflow-hidden">
+                <p className="text-gray-500 dark:text-gray-400 line-clamp-4 md:line-clamp-6 text-base leading-relaxed overflow-hidden opacity-90">
                   {featuredPost.summary}
                 </p>
 
-                <div className="flex items-center justify-between text-xs font-bold uppercase tracking-widest mt-auto border-t border-gray-100 dark:border-gray-800 pt-4">
-                  <div className="flex items-center gap-2">
-                    {featuredPost.author?.avatar && (
-                      <Image 
-                        src={featuredPost.author.avatar} 
-                        alt={featuredPost.author.name} 
-                        width={20} 
-                        height={20} 
-                        className="rounded-full w-5 h-5"
-                      />
-                    )}
-                    <span className="text-gray-900 dark:text-gray-100">
-                      {featuredPost.author?.name || 'EXA Team'}
-                    </span>
+                <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-[0.2em] mt-auto pt-6 border-t border-gray-100 dark:border-white/5">
+                  <div className="flex items-center gap-3 text-gray-900 dark:text-white">
+                    <span className="w-2 h-2 rounded-full bg-orange-500" />
+                    <span>{featuredPost.author?.name || 'EXA Intel'}</span>
                   </div>
-                  <div className="text-gray-400">
+                  <div className="text-gray-400 font-mono">
                     {formatDate(featuredPost.date, siteConfig.locale)}
                   </div>
                 </div>
             </div>
 
-            {/* 2. Image (Right, Wider ~60%, Full Height) */}
-            <Link href={`/${featuredPost.path}`} className="order-1 md:order-2 md:col-span-7 block relative overflow-hidden h-full min-h-[300px] shadow-sm">
+            {/* 2. Image (Right, Wider ~50%, Full Height) */}
+            <Link href={`/${featuredPost.path}`} className="order-1 md:order-2 md:col-span-6 block relative overflow-hidden h-full min-h-[400px] shadow-2xl rounded-r-2xl">
               {featuredPost.images && featuredPost.images.length > 0 ? (
                   <div className="relative w-full h-full">
                     <Image
@@ -147,7 +138,7 @@ export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = '
                           )}
                       </div>
                       
-                      <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 leading-snug group-hover:text-orange-600 transition-colors line-clamp-2">
+                      <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 leading-snug group-hover:text-orange-600 transition-colors line-clamp-2 mt-2">
                           {post.title}
                       </h4>
 
@@ -173,33 +164,34 @@ export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = '
           </div>
         </div>
 
-        {/* Bottom Grid for Remaining Posts (Text Only + Ribbons) */}
+         {/* Bottom Grid for Remaining Posts (Text Only + Ribbons) */}
         {bottomPosts.length > 0 && (
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mt-12 pt-10 border-t border-gray-100 dark:border-gray-800">
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-12 pt-10 border-t border-gray-100 dark:border-gray-800">
               {bottomPosts.map((post) => (
-                 <div key={post.path} className="group flex flex-col gap-3 items-start">
+                 <div key={post.path} className="group relative flex flex-col gap-4 items-start p-4 hover:bg-white dark:hover:bg-white/5 transition-all rounded-xl border-l-2 border-transparent hover:border-orange-500 hover:shadow-lg">
                      {/* Ribbon Tag */}
-                     <Link href={`/${post.path}`} className="relative inline-flex items-center gap-2 px-3 py-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-[10px] font-bold uppercase tracking-wider transform -skew-x-12 hover:skew-x-0 transition-transform duration-300 shadow-sm rounded-sm">
-                        <span className="transform skew-x-12 group-hover:skew-x-0 transition-transform duration-300">
-                             {post.path.split('/').length > 2 ? post.path.split('/')[post.path.split('/').length - 2] : (categoryName || "BLOG")}
-                        </span>
+                     <Link href={`/${post.path}`} className="inline-flex items-center gap-1">
+                        <div className="bg-gray-900 dark:bg-white -skew-x-12 px-2 py-0.5">
+                             <span className="skew-x-12 text-[8px] font-black uppercase text-white dark:text-gray-900 tracking-[0.2em]">
+                                {post.path.split('/').length > 2 ? post.path.split('/')[post.path.split('/').length - 2].replace('-', ' ') : (categoryName || "INTEL")}
+                             </span>
+                        </div>
                         {post.tags?.[0] && (
-                           <span className="transform skew-x-12 group-hover:skew-x-0 transition-transform duration-300 flex items-center gap-2">
-                             <span className="opacity-60">|</span>
-                             <span>{post.tags[0]}</span>
-                           </span>
+                           <div className="bg-orange-500 -skew-x-12 px-2 py-0.5">
+                                <span className="skew-x-12 text-[8px] font-black uppercase text-white tracking-[0.2em]">{post.tags[0]}</span>
+                           </div>
                         )}
                      </Link>
 
-                     <h5 className="text-sm font-bold text-gray-900 dark:text-gray-100 leading-snug group-hover:text-orange-600 transition-colors line-clamp-3 mt-2">
+                     <h5 className="text-md font-bold text-gray-900 dark:text-gray-100 leading-snug group-hover:text-orange-600 transition-colors line-clamp-3 mt-4">
                        <Link href={`/${post.path}`}>
                          {post.title}
                        </Link>
                      </h5>
                      
-                     <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider flex items-center justify-between w-full">
-                       <span>{post.author?.name || 'EXA Team'}</span>
-                       <time>{formatDate(post.date, siteConfig.locale)}</time>
+                     <div className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] flex items-center justify-between w-full mt-auto">
+                       <span>{post.author?.name || 'EXA Intel'}</span>
+                       <time className="font-mono">{formatDate(post.date, siteConfig.locale)}</time>
                      </div>
                  </div>
               ))}

@@ -6,15 +6,26 @@ import { formatDate } from '@shipixen/pliny/utils/formatDate';
 import { CoreContent } from '@shipixen/pliny/utils/contentlayer';
 import type { Blog } from 'contentlayer/generated';
 import { allAuthors } from 'contentlayer/generated'; // Import allAuthors
+import SectionContainer from '@/components/shared/SectionContainer';
+import PostCard from '@/components/shared/PostCard';
 import Link from '@/components/shared/Link';
+import { cn } from '@/lib/utils';
 import { siteConfig } from '@/data/config/site.settings';
 import tagData from 'app/tag-data.json';
-import SectionContainer from '@/components/shared/SectionContainer';
-import {
-  LandingBlogPost,
-  BlogPost,
-} from '@/components/landing/blog/LandingBlogPost';
-import { LandingBlogList } from '@/components/landing/blog/LandingBlogList';
+import { ProductBanner } from '@/components/shared/ProductBanner';
+import { TrendingUp } from 'lucide-react';
+
+interface InternalPost {
+  path: string;
+  slug: string;
+  date: string;
+  title: string;
+  summary?: string;
+  tags?: { url: string; text: string }[];
+  images?: string[];
+  readingTime?: string;
+  author: { name: string; avatar?: string };
+}
 
 const BLOG_URL = siteConfig.blogPath ? `/${siteConfig.blogPath}` : '/';
 
@@ -107,7 +118,7 @@ export default function ListLayoutWithTags({
     );
   }
 
-  const formattedPosts = displayPosts.map((post): BlogPost => {
+  const formattedPosts = displayPosts.map((post): InternalPost => {
     return {
       path: `/${post.path}`,
       slug: post.slug || '',
@@ -134,86 +145,125 @@ export default function ListLayoutWithTags({
   });
 
   return (
-    <>
-      <SectionContainer type="ultrawide" className="!p-0">
-        <div className="flex sm:gap-12">
-          <div className="w-full">
-            <div className="px-6">
-              <h1 className="text-2xl font-semibold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl sm:leading-10 md:text-4xl md:leading-14">
-                {title}
-              </h1>
-            </div>
+    <div className="relative min-h-screen bg-white dark:bg-gray-950 transition-colors duration-500 overflow-hidden">
+      {/* Background Grid */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]"
+            style={{ 
+                backgroundImage: `linear-gradient(to right, #80808060 1px, transparent 1px), linear-gradient(to bottom, #80808060 1px, transparent 1px)`,
+                backgroundSize: '32px 32px'
+            }}
+        />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-screen-2xl h-[400px] bg-orange-500/5 blur-[120px] rounded-full opacity-30" />
+      </div>
 
-            <LandingBlogList display="grid" variant="primary" className="!pt-6">
+      <SectionContainer type="wide" className="relative z-10 !max-w-screen-2xl">
+        <div className="flex flex-col items-center py-12 space-y-20">
+          
+          {/* 1. Master Header - Centered Apex */}
+          <header className="w-full max-w-5xl space-y-6 text-center">
+            <div className="flex flex-col items-center gap-4">
+              <div className="h-px w-24 bg-orange-600" />
+              <span className="text-xs font-black uppercase tracking-[0.5em] text-orange-600">Enterprise Intelligence Hub</span>
+            </div>
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-gray-900 dark:text-white leading-[0.8]">
+              <span className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-gray-950 via-gray-800 to-gray-400 dark:from-white dark:via-gray-100 dark:to-gray-400">
+                  {title}
+              </span>
+            </h1>
+          </header>
+
+          {/* 2. System Performance Banner - Centered Focus */}
+          <div className="w-full max-w-5xl">
+            <ProductBanner 
+              type={
+                title.toLowerCase().includes('bayesian') ? 'bayesian' :
+                title.toLowerCase().includes('ai') ? 'gai' :
+                title.toLowerCase().includes('enterprise') ? 'enterprise' : 'generic'
+              } 
+            />
+          </div>
+
+          {/* 3. Navigation & Filtering - Integrated Horizontal Bar */}
+          <div className="sticky top-16 z-40 w-full py-4 bg-gray-950/95 backdrop-blur-md border-b border-white/5 shadow-xl transition-all duration-300">
+            <div className="max-w-screen-2xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-8">
+                {/* Categories as main filters */}
+                <div className="flex items-center gap-3">
+                    <div className="p-1.5 rounded-lg bg-orange-500/10 border border-orange-500/20">
+                        <TrendingUp size={14} className="text-orange-600" />
+                    </div>
+                    <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 md:pb-0">
+                        {categoryKeys.map((c) => (
+                            <Link
+                                key={c}
+                                href={`/category/${c}`}
+                                className={cn(
+                                    "whitespace-nowrap px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded-full transition-all border",
+                                    pathname.includes(`/category/${c}`)
+                                        ? "bg-orange-600 border-orange-600 text-white shadow-lg shadow-orange-900/20"
+                                        : "bg-white/5 border-white/10 text-gray-400 hover:text-white hover:border-white/20 hover:bg-white/10"
+                                )}
+                            >
+                                {c}
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Vertical Divider in desktop */}
+                <div className="hidden md:block w-px h-6 bg-white/10" />
+
+                {/* Tags as secondary filters */}
+                <div className="flex flex-wrap justify-center gap-2 max-w-2xl overflow-x-auto no-scrollbar">
+                    {sortedTags.slice(0, 10).map((t) => {
+                        const isActive = pathname.split('/tags/')[1] === slug(t);
+                        return (
+                            <Link
+                                key={t}
+                                href={`/tags/${slug(t)}`}
+                                className={cn(
+                                    "whitespace-nowrap px-3 py-1 rounded-lg text-[9px] font-bold uppercase tracking-wider transition-all",
+                                    isActive 
+                                        ? "bg-orange-600/20 text-orange-500 border border-orange-500/30" 
+                                        : "bg-white/5 text-gray-500 hover:bg-white/10 hover:text-gray-300 border border-transparent"
+                                )}
+                            >
+                                {t}
+                            </Link>
+                        );
+                    })}
+                </div>
+            </div>
+          </div>
+
+          {/* 4. Main Intelligence Grid - The Real Protagonist */}
+          <main className="w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
               {formattedPosts.map((post) => (
-                <LandingBlogPost
-                  key={post.slug}
-                  post={post}
-                />
+                <PostCard key={post.path} post={{
+                  path: post.path.replace(/^\//, ''),
+                  date: post.date,
+                  title: post.title,
+                  summary: post.summary,
+                  images: post.images,
+                  tags: post.tags?.map(t => t.text) || [],
+                  author: post.author
+                }} />
               ))}
-            </LandingBlogList>
+            </div>
 
             {pagination && pagination.totalPages > 1 && (
-              <Pagination
-                currentPage={pagination.currentPage}
-                totalPages={pagination.totalPages}
-              />
+              <div className="mt-32 pt-16 border-t border-gray-100 dark:border-white/5 flex justify-center">
+                <Pagination
+                  currentPage={pagination.currentPage}
+                  totalPages={pagination.totalPages}
+                />
+              </div>
             )}
-          </div>
+          </main>
 
-          <div className="hidden max-h-screen h-full lg:flex flex-col min-w-[280px] max-w-[280px] overflow-y-auto pt-24 no-scrollbar">
-            {/* Categories (Menu) Section */}
-            <div className="py-4 px-6">
-              <h3 className="font-bold uppercase text-xl mb-4">Menu</h3>
-              <ul className="flex flex-col gap-2">
-                {categoryKeys.map((cat) => (
-                  <li key={cat}>
-                    <Link
-                      href={`/category/${cat}`}
-                      className="flex items-center justify-between group"
-                    >
-                      <span className="text-gray-700 dark:text-gray-300 font-medium group-hover:text-primary-500 transition-colors">
-                        {cat}
-                      </span>
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500">
-                        {categoryCounts[cat]}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Tags Section */}
-            <div className="py-4 px-6 mt-4 border-t border-gray-100 dark:border-gray-800">
-              <h3 className="font-bold uppercase text-sm text-gray-400 mb-4 tracking-wider">
-                Tags
-              </h3>
-              <ul className="flex flex-col gap-2">
-                {sortedTags.map((t) => {
-                  return (
-                    <li key={t}>
-                      {pathname.split('/tags/')[1] === slug(t) ? (
-                        <h3 className="inline-block transition-all uppercase text-sm font-bold text-primary-500">
-                          {`${t} (${tagCounts[t]})`}
-                        </h3>
-                      ) : (
-                        <Link
-                          href={`/tags/${slug(t)}`}
-                          className="inline-block translate-x-0 transition-all uppercase text-sm font-medium text-gray-500 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-500"
-                          aria-label={`View posts tagged ${t}`}
-                        >
-                          {`${t} (${tagCounts[t]})`}
-                        </Link>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </div>
         </div>
       </SectionContainer>
-    </>
+    </div>
   );
 }

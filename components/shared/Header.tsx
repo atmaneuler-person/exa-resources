@@ -23,17 +23,17 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[100] w-full bg-[#000519] border-b border-gray-800 shadow-md">
+    <header className="fixed top-0 left-0 right-0 z-[100] w-full bg-gradient-to-r from-gray-950 via-gray-950 to-gray-900/90 backdrop-blur-xl border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
       <div className="flex items-center justify-between py-4 px-4 w-full max-w-screen-2xl mx-auto h-16">
       <div>
         <Link href="/" aria-label={siteConfig.title}>
-          <div className="flex items-center justify-between">
-            <div className="mr-3 relative h-8 w-32">
+          <div className="flex items-center">
+            <div className="relative h-8 w-32">
               <Image
                 src="/static/images/logo-dark.svg"
                 alt={siteConfig.title}
                 fill
-                className="block object-contain object-left"
+                className="object-contain object-left"
                 priority
               />
             </div>
@@ -45,6 +45,7 @@ const Header = () => {
           {headerNavLinks.map((link) => {
             const isActive = pathname.startsWith(link.href) || 
                              (link.title === 'Documentation' && pathname.includes('/Documentation/'));
+            const isRestricted = !isLoggedIn && link.title === 'Documentation';
 
             return (
               <Link
@@ -55,10 +56,10 @@ const Header = () => {
                   isActive 
                     ? 'text-orange-500 font-bold' 
                     : 'text-gray-100 hover:text-orange-500'
-                } ${!isLoggedIn && link.title === 'Documentation' ? 'opacity-90' : ''}`}
+                } ${isRestricted ? 'opacity-90' : ''}`}
               >
                 {link.title}
-                {!isLoggedIn && link.title === 'Documentation' && (
+                {isRestricted && (
                     <span className="ml-1 text-[10px] align-top text-gray-500">🔒</span>
                 )}
               </Link>
