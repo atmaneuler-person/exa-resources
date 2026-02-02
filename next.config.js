@@ -100,6 +100,20 @@ module.exports = () => {
         use: ['@svgr/webpack'],
       });
 
+      if (!options.isServer) {
+        config.resolve.fallback = {
+          ...config.resolve.fallback,
+          fs: false,
+          net: false,
+          tls: false,
+        };
+      }
+
+      // Treat native modules as externals
+      config.externals.push({
+        'better-sqlite3': 'commonjs better-sqlite3',
+      });
+
       return config;
     },
   });

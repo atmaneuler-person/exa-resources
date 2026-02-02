@@ -10,6 +10,7 @@ import Footer from '@/components/shared/Footer';
 import SectionContainer from '@/components/shared/SectionContainer';
 import { siteConfig } from '@/data/config/site.settings';
 import ScrollTop from '@/components/shared/ScrollTop';
+import Comments from '@/components/blog/Comments'; 
 
 interface LayoutProps {
   className?: string;
@@ -58,6 +59,8 @@ export default function PostLayout({
                 <div className="prose max-w-none pb-8 pt-10 dark:prose-invert">
                   {children}
                 </div>
+                
+                <Comments postId={path} />
               </div>
 
               <footer>

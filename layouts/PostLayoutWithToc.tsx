@@ -12,6 +12,7 @@ import { siteConfig } from '@/data/config/site.settings';
 import ScrollTop from '@/components/shared/ScrollTop';
 import Header from '@/components/shared/Header';
 import { TOC } from '@/components/blog/Toc';
+import Comments from '@/components/blog/Comments'; 
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: 'long',
@@ -37,7 +38,7 @@ export default function PostLayout({
   prev,
   children,
 }: LayoutProps) {
-  const { date, images, title, lastmod, tags, toc } = content;
+  const { path, date, images, title, lastmod, tags, toc } = content;
   const displayImage = images && images.length > 0 ? images[0] : null;
 
   // Metadata sections that appear in both mobile and desktop views
@@ -154,7 +155,7 @@ export default function PostLayout({
       type="ultrawide"
       className={cn('fancy-overlay !p-0', className)}
     >
-      <Header className="mb-4 lg:mb-12" />
+      <Header />
 
       <ScrollTop />
 
@@ -213,6 +214,8 @@ export default function PostLayout({
             <div className="prose max-w-none pb-8 pt-10 dark:prose-invert">
               {children}
             </div>
+
+            <Comments postId={path} />
           </div>
 
           <div className="hidden xl:block xl:col-span-1 xl:row-span-1">

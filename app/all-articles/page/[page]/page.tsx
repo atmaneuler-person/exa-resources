@@ -18,7 +18,14 @@ export default async function Page(props: {
   params: Promise<{ page: string }>;
 }) {
   const params = await props.params;
-  const posts = allCoreContent(sortPosts(allBlogs));
+  const sortedPosts = sortPosts(allBlogs).filter(
+    (p) =>
+      p._raw.flattenedPath.includes('/ko/') &&
+      !p._raw.flattenedPath.includes('/vi/') &&
+      !p._raw.flattenedPath.includes('/zh/') &&
+      (process.env.NODE_ENV === 'development' || p.draft !== true)
+  );
+  const posts = allCoreContent(sortedPosts);
   const pageNumber = parseInt(params.page as string);
   const initialDisplayPosts = posts.slice(
     POSTS_PER_PAGE * (pageNumber - 1),

@@ -1,5 +1,5 @@
 import { sortPosts } from '@shipixen/pliny/utils/contentlayer';
-import { allBlogs } from 'contentlayer/generated';
+import { allBlogs, allAuthors } from 'contentlayer/generated';
 import Link from 'next/link';
 import Image from '@/components/shared/Image';
 import Header from '@/components/shared/Header';
@@ -13,7 +13,14 @@ interface MainPageProps {
 }
 
 export const MainPage = ({ locale = siteConfig.defaultLocale }: MainPageProps) => {
-  const posts = sortPosts(allBlogs);
+  const posts = sortPosts(allBlogs).map(post => {
+    const authorSlug = post.authors?.[0] || 'default';
+    const authorDoc = allAuthors.find(a => a.slug === authorSlug) || allAuthors.find(a => a._raw.flattenedPath === `authors/${authorSlug}`);
+    return {
+      ...post,
+      author: authorDoc ? { name: authorDoc.name, avatar: authorDoc.avatar } : { name: 'EXA Team' }
+    };
+  });
   const currentLocale = locale;
 
   // 1. Get Top 4 Latest Posts (Mixed Categories) for this locale
@@ -95,7 +102,7 @@ export const MainPage = ({ locale = siteConfig.defaultLocale }: MainPageProps) =
         {/* === BANNER SECTION === */}
         <div className="w-full mb-12 relative group">
           {/* Banner Image (Links to Home) */}
-          <Link href="/" className="block relative overflow-hidden">
+          <Link href="/" className="block relative overflow-hidden rounded-2xl">
             <Image 
               src="/static/images/home-banner.png" 
               alt="Home Banner" 

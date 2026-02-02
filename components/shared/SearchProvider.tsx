@@ -1,6 +1,7 @@
 'use client';
 
 import { KBarSearchProvider } from '@shipixen/pliny/search/KBar';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRouter } from 'next/navigation';
 import { CoreContent } from '@shipixen/pliny/utils/contentlayer';
 import { Blog } from 'contentlayer/generated';
@@ -24,14 +25,12 @@ export const SearchProvider = ({ children }) => {
         searchDocumentsPath: 'search.json',
         onSearchDocumentsLoad(json) {
           return [
-            ...json.map((post: CoreContent<Blog>) => ({
+            ...json.map((post: any) => ({
               id: post.path,
               name: post.title,
-              keywords: post?.summary || '',
+              keywords: (post?.description || '') + ' ' + (post?.summary || '') + ' ' + (post.body?.raw || ''),
               section: 'Blog',
-              subtitle: `${
-                post.date ? `${formatDate(post.date, 'en-US')} · ` : ''
-              }${post.tags.join(', ')}`,
+              subtitle: post.description || post.summary || post.tags.join(', '),
               perform: () => router.push(makeRootPath(post.path)),
             })),
 

@@ -6,21 +6,29 @@ export const footerLinks: Array<{
   }>;
 }> = [
   {
-    columnName: 'Company',
+    columnName: 'Blog',
     links: [
-      { href: '/', title: 'Home' },
-      { href: '/pricing', title: 'Pricing' },
-      { href: '/about', title: 'About' },
-      { href: '/all-articles', title: 'Blog' },
+      { href: '/category/Bayesian', title: 'Bayesian' },
+      { href: '/category/AI', title: 'AI' },
+      { href: '/category/Business', title: 'Business' },
+      { href: '/category/Science', title: 'Science' },
+      { href: '/category/Solution', title: 'Solution' },
     ],
   },
-  { columnName: 'Product', links: [] },
-  { columnName: 'Docs', links: [] },
   {
-    columnName: 'Support',
+    columnName: 'Resources',
     links: [
-      { href: '/terms', title: 'Terms of Service' },
-      { href: '/privacy', title: 'Privacy Policy' },
+      { href: '/category/Documentation', title: 'Documentation' },
+      { href: '/all-articles', title: 'All Posts' },
+    ],
+  },
+  {
+    columnName: 'Company',
+    links: [
+      { href: '/about', title: 'About' },
+      { href: '/pricing', title: 'Pricing' },
+      { href: '/terms', title: 'Terms' },
+      { href: '/privacy', title: 'Privacy' },
     ],
   },
 ];

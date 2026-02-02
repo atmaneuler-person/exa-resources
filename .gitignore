@@ -46,3 +46,14 @@ yarn-error.log*
 
 # Contentlayer
 .contentlayer
+
+/generated/prisma
+
+# SQLite
+*.db
+*.db-journal
+
+# Environment
+.env
+.env.*
+!.env.example

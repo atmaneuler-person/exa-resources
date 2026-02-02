@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { siteConfig } from '../../data/config/site.settings';
@@ -6,6 +7,7 @@ import Link from './Link';
 import MobileNav from './MobileNav';
 import ThemeSwitch from './ThemeSwitch';
 import LanguageSwitcher from './LanguageSwitcher';
+import SearchButton from '@/components/search/SearchButton';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 
@@ -17,11 +19,7 @@ const Header = () => {
   const isLoggedIn = status === 'authenticated';
 
   const handleRestrictedClick = (e: React.MouseEvent, href: string) => {
-    // Optional: If you want to force redirect on click instead of showing alert
-    // if (!isLoggedIn && href.includes('Documentation')) {
-    //    // e.preventDefault();
-    //    // alert("🔒 Please log in.");
-    // }
+    // Optional
   };
 
   return (
@@ -45,8 +43,6 @@ const Header = () => {
       <div className="flex items-center leading-5 space-x-4 sm:space-x-6">
         <div className="hidden lg:flex space-x-6">
           {headerNavLinks.map((link) => {
-            // Check if current path starts with the link href (e.g. /category/Bayesian matches /category/Bayesian/post-1)
-            // Also handle the Documentation case if it maps differently in URL structure
             const isActive = pathname.startsWith(link.href) || 
                              (link.title === 'Documentation' && pathname.includes('/Documentation/'));
 
@@ -68,6 +64,20 @@ const Header = () => {
               </Link>
             );
           })}
+          
+        {/* Admin Stats Link - Only visible when logged in AS ADMIN */}
+        {isLoggedIn && (session?.user as any)?.isAdmin && (
+          <Link
+            href="/admin/stats"
+            className={`font-medium transition-colors ${
+              pathname === '/admin/stats' 
+                ? 'text-orange-500 font-bold' 
+                : 'text-gray-100 hover:text-orange-500'
+            }`}
+          >
+            Stats
+          </Link>
+        )}
         </div>
         
         {/* 언어 선택 버튼 (Desktop only) */}
@@ -75,6 +85,10 @@ const Header = () => {
            <LanguageSwitcher />
         </div>
         
+        <div className="hidden lg:block text-gray-100 hover:text-orange-500 transition-colors">
+            <SearchButton />
+        </div>
+
         <div className="hidden lg:block">
            <ThemeSwitch className="text-gray-100" />
         </div>
@@ -105,8 +119,9 @@ const Header = () => {
       </div>
       
       {/* Mobile Utility Bar (New) */}
-      <div className="lg:hidden w-full bg-[#000519] border-t border-gray-800 flex items-center justify-center px-4 py-2 gap-6">
+      <div className="lg:hidden w-full bg-[#000519] border-t border-gray-800 flex items-center justify-center px-4 py-2 gap-6 text-gray-100">
          <LanguageSwitcher />
+         <SearchButton />
          <ThemeSwitch className="text-gray-100" />
       </div>
     </header>

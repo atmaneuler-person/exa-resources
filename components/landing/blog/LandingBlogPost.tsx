@@ -1,6 +1,7 @@
 import Image from '@/components/shared/Image';
 import Link from 'next/link';
 import { clsx } from 'clsx';
+import { slug as slugifier } from 'github-slugger';
 
 export interface BlogPost {
   path?: string;
@@ -47,6 +48,17 @@ export const LandingBlogPost = ({
   } = post;
   const firstImage = images?.[0];
 
+  // Extract category from path: posts/locale/Category/Slug
+  // formattedPosts adds a leading slash, so splitting gives ['', 'posts', 'locale', 'category', ...]
+  // We use filter(Boolean) to get ['posts', 'locale', 'category', ...]
+  const pathParts = path ? path.split('/').filter(Boolean) : []; 
+  // Index 0: posts, 1: locale, 2: Category
+  const category = pathParts.length > 2 ? pathParts[2] : 'Blog';
+  
+  const firstTag = tags && tags.length > 0 ? tags[0] : null;
+  const firstTagText = typeof firstTag === 'string' ? firstTag : firstTag?.text;
+  const firstTagUrl = typeof firstTag === 'string' ? `/tags/${slugifier(firstTag)}` : firstTag?.url;
+
   const isHorizontalLayout = imagePosition
     ? imagePosition === 'left' || imagePosition === 'right'
     : true; // Use imagePosition prop if provided, otherwise use data attributes to control the layout. Default to horizontal when no prop (data attributes will override)
@@ -54,33 +66,45 @@ export const LandingBlogPost = ({
   return (
     <div
       className={clsx(
-        'flex group/post bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-200 dark:border-gray-800',
+        'flex group/post overflow-hidden transition-all',
         imagePosition &&
           (isHorizontalLayout ? 'flex-col-reverse md:flex-row' : 'flex-col'),
         !imagePosition && 'flex-col-reverse md:flex-row',
 
         // When inside a list container
-        '[.list_&]:!p-0 [.list_&]:rounded-xl',
-        '[.list_&]:p-4 [.list_&]:lg:p-10 [.list_&]:m-0 [.list_&]:lg:m-0 [.list_&]:h-full',
+        '[.list_&]:!p-0',
+        '[.list_&]:m-0 [.list_&]:lg:m-0 [.list_&]:h-full',
         '[.bgrid_&]:flex-col [.bgrid_&]:md:flex-col',
         className,
       )}
     >
-      {firstImage && (
-        <div
-          className={clsx(
-            'relative overflow-hidden',
-            imagePosition === 'center' && 'w-full h-48',
-            imagePosition === 'left' && 'w-full h-40 md:w-1/3 md:h-auto',
-            imagePosition === 'right' &&
-              'w-full h-40 md:w-1/3 md:h-auto order-last',
-            !imagePosition && 'w-full h-40 md:w-1/3 md:h-auto order-last',
+      <div
+        className={clsx(
+          'relative overflow-hidden',
+          imagePosition === 'center' && 'w-full h-48',
+          imagePosition === 'left' && 'w-full h-40 md:w-1/3 md:h-auto',
+          imagePosition === 'right' &&
+            'w-full h-40 md:w-1/3 md:h-auto order-last',
+          !imagePosition && 'w-full h-40 md:w-1/3 md:h-auto order-last',
 
-            // When inside a grid container
-            !imagePosition &&
-              '[.bgrid_&]:w-full [.bgrid_&]:h-48 [.bgrid_&]:order-first',
-          )}
-        >
+          // When inside a grid container
+          !imagePosition &&
+            '[.bgrid_&]:w-full [.bgrid_&]:h-48 [.bgrid_&]:order-first',
+           !firstImage && 'bg-gray-100 dark:bg-gray-800'
+        )}
+      >
+        <div className="absolute top-4 left-4 z-20 flex flex-row gap-2 items-start pointer-events-none">
+           <Link href={`/category/${category}`} className="pointer-events-auto px-3 py-1 bg-black/70 backdrop-blur-sm text-white text-xs font-bold rounded shadow-sm hover:bg-black/90 transition-colors">
+             {category}
+           </Link>
+           {firstTagText && (
+             <Link href={firstTagUrl || '#'} className="pointer-events-auto px-3 py-1 bg-white/90 backdrop-blur-sm text-gray-800 text-xs font-bold rounded shadow-sm hover:bg-white transition-colors">
+               {firstTagText}
+             </Link>
+           )}
+        </div>
+
+        {firstImage ? (
           <Link href={path || `${basePath}/${slug}`}>
             <Image
               src={firstImage}
@@ -89,12 +113,14 @@ export const LandingBlogPost = ({
               className="object-cover transition-transform group-hover/post:scale-105 duration-500"
             />
           </Link>
-        </div>
-      )}
+        ) : (
+          <Link href={path || `${basePath}/${slug}`} className="block w-full h-full" />
+        )}
+      </div>
 
       <div
         className={clsx(
-          'relative flex flex-col gap-4 p-6',
+          'relative flex flex-col gap-3 p-4', // Increased padding slightly, reduced gap
           isHorizontalLayout && 'flex-1',
           innerClassName,
         )}
@@ -105,79 +131,36 @@ export const LandingBlogPost = ({
         >
           Open post
         </Link>
+        
+        {/* Title */}
+        <h3 className="text-lg font-bold line-clamp-2 group-hover/post:text-primary-600 dark:group-hover/post:text-primary-400 transition-colors leading-tight">
+          {title}
+        </h3>
 
-        <div className="flex items-center justify-between">
+        {/* Metas: Author & Date */}
+        <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
           <div className="flex items-center gap-2">
-            {author?.avatar && (
-              <div className="relative w-8 h-8 rounded-full overflow-hidden">
-                <Image
-                  src={author.avatar}
-                  alt={author.name || 'Author'}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            )}
-            {author?.name ? (
-              <span className="text-sm text-gray-600 dark:text-gray-400">
-                {author.name}
-              </span>
-            ) : null}
+             <span className="font-medium">
+                {author?.name || 'EXA Team'} {/* Fallback Author */}
+             </span>
           </div>
-          <time className="text-sm text-gray-500 dark:text-gray-400">
+          <time>
             {date}
           </time>
         </div>
 
-        <h3 className="text-xl font-semibold line-clamp-2 group-hover/post:text-gray-700 dark:group-hover/post:text-gray-300 transition-colors">
-          {title}
-        </h3>
-
+        {/* Summary */}
         {summary && (
-          <p className="text-gray-600 dark:text-gray-300 line-clamp-3">
-            {summary}
-          </p>
+          <div className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+            <p className="line-clamp-4 inline">{summary}</p>
+            <Link
+              href={path || `${basePath}/${slug}`}
+              className="inline-block ml-1 text-green-500 font-medium hover:text-green-600 transition-colors"
+            >
+              Read More »
+            </Link>
+          </div>
         )}
-
-        <div className="flex flex-wrap justify-between gap-4 mt-auto pt-4">
-          {readingTime && (
-            <span className="flex-shrink-0 text-sm text-gray-500 dark:text-gray-400 py-0.5">
-              {readingTime} {typeof readingTime === 'number' ? 'min read' : ''}
-            </span>
-          )}
-
-          {tags && tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 items-center">
-              {tags.map(
-                (
-                  tag: string | { url: string; text: string },
-                  index: number,
-                ) => {
-                  if (typeof tag === 'string') {
-                    return (
-                      <span
-                        key={index}
-                        className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full"
-                      >
-                        {tag}
-                      </span>
-                    );
-                  } else {
-                    return (
-                      <Link
-                        href={tag.url}
-                        key={index}
-                        className="relative z-10 text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                      >
-                        {tag.text}
-                      </Link>
-                    );
-                  }
-                },
-              )}
-            </div>
-          )}
-        </div>
       </div>
     </div>
   );

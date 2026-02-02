@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Link from 'next/link';
 import Image from '@/components/shared/Image';
 import { formatDate } from '@shipixen/pliny/utils/formatDate';
@@ -10,7 +11,7 @@ interface MainPageSectionProps {
   posts: any[];
   linkTo?: string;
   categoryName?: string;
-  layout?: 'grid' | 'magazine'; // New prop
+  layout?: 'grid' | 'magazine';
 }
 
 export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = 'grid' }: MainPageSectionProps) => {
@@ -87,8 +88,24 @@ export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = '
                   {featuredPost.summary}
                 </p>
 
-                <div className="text-sm font-medium text-gray-400 mt-auto">
-                  {formatDate(featuredPost.date, siteConfig.locale)}
+                <div className="flex items-center justify-between text-xs font-bold uppercase tracking-widest mt-auto border-t border-gray-100 dark:border-gray-800 pt-4">
+                  <div className="flex items-center gap-2">
+                    {featuredPost.author?.avatar && (
+                      <Image 
+                        src={featuredPost.author.avatar} 
+                        alt={featuredPost.author.name} 
+                        width={20} 
+                        height={20} 
+                        className="rounded-full w-5 h-5"
+                      />
+                    )}
+                    <span className="text-gray-900 dark:text-gray-100">
+                      {featuredPost.author?.name || 'EXA Team'}
+                    </span>
+                  </div>
+                  <div className="text-gray-400">
+                    {formatDate(featuredPost.date, siteConfig.locale)}
+                  </div>
                 </div>
             </div>
 
@@ -134,8 +151,9 @@ export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = '
                           {post.title}
                       </h4>
 
-                      <div className="text-xs text-gray-400">
-                        {formatDate(post.date, siteConfig.locale)}
+                      <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-gray-400">
+                        <span>{post.author?.name || 'EXA Team'}</span>
+                        <time>{formatDate(post.date, siteConfig.locale)}</time>
                       </div>
                     </div>
 
@@ -179,9 +197,9 @@ export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = '
                        </Link>
                      </h5>
                      
-                     <div className="text-[10px] text-gray-400 flex items-center gap-2">
-                       <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
-                       {formatDate(post.date, siteConfig.locale)}
+                     <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider flex items-center justify-between w-full">
+                       <span>{post.author?.name || 'EXA Team'}</span>
+                       <time>{formatDate(post.date, siteConfig.locale)}</time>
                      </div>
                  </div>
               ))}

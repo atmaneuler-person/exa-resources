@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 import { createPortal } from 'react-dom';
 import Link from './Link';
 import { headerNavLinks } from '@/data/config/headerNavLinks';
@@ -8,6 +10,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 export const MobileNav = () => {
   const [navShow, setNavShow] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     setMounted(true);
@@ -83,6 +86,18 @@ export const MobileNav = () => {
                 </Link>
               </div>
             ))}
+            
+            {status === 'authenticated' && (session?.user as any)?.isAdmin && (
+              <div className="border-b border-gray-100 dark:border-gray-800 last:border-none">
+                <Link
+                  href="/admin/stats"
+                  className="block py-4 text-2xl font-bold tracking-widest text-orange-500 hover:text-orange-400 transition-colors"
+                  onClick={onToggleNav}
+                >
+                  Stats
+                </Link>
+              </div>
+            )}
             
             <div className="mt-auto pt-8 pb-12 flex flex-col space-y-6">
                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">

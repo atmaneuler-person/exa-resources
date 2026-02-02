@@ -21,17 +21,7 @@ export const viewport: Viewport = {
   ],
 };
 
-const displayFont = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-space-display',
-});
 
-const baseFont = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-space-default',
-});
 
 const globalColors = colors;
 const style: string[] = [];
@@ -91,34 +81,36 @@ export default function RootLayout({
   return (
     <html
       lang={siteConfig.language}
-      className={`${baseFont.variable} ${displayFont.variable} scroll-smooth`}
+      className="scroll-smooth"
       suppressHydrationWarning
     >
       <head>
+        <link rel="stylesheet" as="style" crossOrigin="anonymous" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
         <style>
           {`
+          :root {
+            --font-space-default: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            --font-space-display: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+          }
           :root, :before, :after {
             ${style.join(';')}
+          }
+          body {
+            font-family: var(--font-space-default);
+          }
+          h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-space-display);
           }
         `}
         </style>
 
         <link
+          rel="icon"
+          href="/static/favicons/ex-favicon.png"
+        />
+        <link
           rel="apple-touch-icon"
-          sizes="76x76"
-          href="/static/favicons/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/static/favicons/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/static/favicons/favicon-16x16.png"
+          href="/static/favicons/ex-favicon.png"
         />
         <link rel="manifest" href="/static/favicons/manifest.webmanifest" />
         <link

@@ -1,5 +1,5 @@
 import { allCoreContent, sortPosts } from '@shipixen/pliny/utils/contentlayer';
-import { allBlogs } from 'contentlayer/generated';
+import { allBlogs, allAuthors } from 'contentlayer/generated';
 import { genPageMetadata } from 'app/seo';
 import { POSTS_PER_PAGE } from '@/app/all-articles/settings';
 import ListLayout from '@/layouts/ListLayoutWithTags';
@@ -9,7 +9,17 @@ import Footer from '@/components/shared/Footer';
 export const metadata = genPageMetadata({ title: 'Blog' });
 
 export default function BlogPage() {
-  const posts = allCoreContent(sortPosts(allBlogs));
+  const sortedPosts = sortPosts(allBlogs).filter(
+    (p) =>
+      p._raw.flattenedPath.includes('/ko/') &&
+      !p._raw.flattenedPath.includes('/vi/') &&
+      !p._raw.flattenedPath.includes('/zh/') &&
+      (process.env.NODE_ENV === 'development' || p.draft !== true)
+  );
+  const posts = allCoreContent(sortedPosts).map((post, index) => ({
+    ...post,
+    images: sortedPosts[index].images,
+  }));
   const pageNumber = 1;
   const initialDisplayPosts = posts.slice(
     POSTS_PER_PAGE * (pageNumber - 1),
@@ -27,7 +37,7 @@ export default function BlogPage() {
         posts={posts}
         initialDisplayPosts={initialDisplayPosts}
         pagination={pagination}
-        title="All Articles"
+        title="All Articles (KO)"
       />
       <Footer />
     </div>

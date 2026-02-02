@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Link from '@/components/shared/Link';
 import Image from '@/components/shared/Image';
 import Tag from '@/components/blog/Tag';
@@ -55,8 +56,22 @@ const PostCard = ({ post }: PostCardProps) => {
       {/* 2. 텍스트 내용 영역 (박스 제거, 패딩 최소화) */}
       <div className="flex flex-1 flex-col justify-between pt-4">
         <div className="space-y-2">
-          {/* 날짜 (작게) */}
-          <div className="text-xs font-medium text-gray-400">
+          {/* Metas: Author & Date */}
+          <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-gray-400">
+            <div className="flex items-center gap-2">
+              {post.author?.avatar && (
+                <Image 
+                  src={post.author.avatar} 
+                  alt={post.author.name} 
+                  width={16} 
+                  height={16} 
+                  className="rounded-full w-4 h-4 grayscale group-hover:grayscale-0 transition-all"
+                />
+              )}
+              <span className="text-gray-500 group-hover:text-orange-600 transition-colors">
+                {post.author?.name || 'EXA Team'}
+              </span>
+            </div>
             <time dateTime={date}>{formatDate(date, siteConfig.locale)}</time>
           </div>
 

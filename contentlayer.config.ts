@@ -81,9 +81,22 @@ function createTagCount(allBlogs) {
 
 function createSearchIndex(allBlogs) {
   if (siteConfig?.search === true) {
+    const searchDocs = sortPosts(allBlogs)
+      .filter((post) => !isProduction || post.draft !== true)
+      .map((post) => ({
+        title: post.title,
+        description: post.description,
+        summary: post.summary,
+        date: post.date,
+        tags: post.tags,
+        path: post.path,
+        slug: post.slug,
+        body: { raw: post.body.raw },
+      }));
+
     writeFileSync(
       `public/search.json`,
-      JSON.stringify(allCoreContent(sortPosts(allBlogs))),
+      JSON.stringify(searchDocs),
     );
     console.log('Local search index generated...');
   }
@@ -103,6 +116,7 @@ export const Blog = defineDocumentType(() => ({
     lastmod: { type: 'date' },
     draft: { type: 'boolean' },
     summary: { type: 'string' },
+    description: { type: 'string' }, // [NEW] Added description field
     images: { type: 'json' },
     authors: { type: 'list', of: { type: 'string' } },
     layout: { type: 'string' },

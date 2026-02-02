@@ -96,7 +96,7 @@ export const LandingBlogList = ({
             'gap-8 w-full list',
             variant,
             display === 'grid'
-              ? 'bgrid grid grid-cols-1 md:grid-cols-2'
+              ? 'bgrid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3'
               : 'blist flex flex-col',
           )}
         >
