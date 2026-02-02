@@ -155,48 +155,32 @@ export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = '
           </div>
         </div>
 
-        {/* Bottom Grid for Remaining Posts (if any) */}
+        {/* Bottom Grid for Remaining Posts (Text Only + Ribbons) */}
         {bottomPosts.length > 0 && (
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mt-12 pt-10 border-t border-gray-100 dark:border-gray-800">
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mt-12 pt-10 border-t border-gray-100 dark:border-gray-800">
               {bottomPosts.map((post) => (
-                 <div key={post.path} className="group flex flex-col gap-3">
-                     <Link href={`/${post.path}`} className="block relative overflow-hidden aspect-[16/10]">
-                        {post.images && post.images.length > 0 ? (
-                           <Image
-                             src={post.images[0]}
-                             alt={post.title}
-                             fill
-                             className="object-cover transition-transform duration-300 group-hover:scale-105"
-                           />
-                        ) : (
-                           <div className="w-full h-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-400 text-xs">
-                             No Image
-                           </div>
-                        )}
-                        
-                        {/* Tiny Category Label + Tag */}
-                        <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded-sm flex items-center gap-1">
-                           <span className="text-[9px] font-bold text-white uppercase tracking-wider">
+                 <div key={post.path} className="group flex flex-col gap-3 items-start">
+                     {/* Ribbon Tag */}
+                     <Link href={`/${post.path}`} className="relative inline-flex items-center gap-2 px-3 py-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-[10px] font-bold uppercase tracking-wider transform -skew-x-12 hover:skew-x-0 transition-transform duration-300 shadow-sm rounded-sm">
+                        <span className="transform skew-x-12 group-hover:skew-x-0 transition-transform duration-300">
                              {post.path.split('/').length > 2 ? post.path.split('/')[post.path.split('/').length - 2] : (categoryName || "BLOG")}
+                        </span>
+                        {post.tags?.[0] && (
+                           <span className="transform skew-x-12 group-hover:skew-x-0 transition-transform duration-300 flex items-center gap-2">
+                             <span className="opacity-60">|</span>
+                             <span>{post.tags[0]}</span>
                            </span>
-                           {post.tags?.[0] && (
-                              <>
-                                <span className="text-[9px] text-gray-400">|</span>
-                                <span className="text-[9px] font-bold text-gray-200 uppercase tracking-wider">
-                                  {post.tags[0]}
-                                </span>
-                              </>
-                           )}
-                        </div>
+                        )}
                      </Link>
 
-                     <h5 className="text-sm font-bold text-gray-900 dark:text-gray-100 leading-snug group-hover:text-orange-600 transition-colors line-clamp-2">
+                     <h5 className="text-sm font-bold text-gray-900 dark:text-gray-100 leading-snug group-hover:text-orange-600 transition-colors line-clamp-3 mt-2">
                        <Link href={`/${post.path}`}>
                          {post.title}
                        </Link>
                      </h5>
                      
-                     <div className="text-[10px] text-gray-400">
+                     <div className="text-[10px] text-gray-400 flex items-center gap-2">
+                       <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
                        {formatDate(post.date, siteConfig.locale)}
                      </div>
                  </div>
@@ -224,7 +208,7 @@ export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = '
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
          {posts.map((post) => (
            <PostCard key={post.path} post={post} />
          ))}

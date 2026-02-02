@@ -5,7 +5,7 @@ import { MoonIcon, SunIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useThemeSwitch } from '@/components/shared/useThemeSwitch';
 
-export const ThemeSwitch = () => {
+export const ThemeSwitch = ({ className }: { className?: string }) => {
   const [mounted, setMounted] = useState(false);
   const { currentTheme, updateTheme } = useThemeSwitch();
 
@@ -30,7 +30,7 @@ export const ThemeSwitch = () => {
     <button
       aria-label="Toggle Dark Mode"
       onClick={updateTheme}
-      className="relative w-6 h-6 text-gray-100 hover:text-orange-500 transition-colors"
+      className={`relative w-6 h-6 hover:text-orange-500 transition-colors ${className || 'text-gray-900 dark:text-gray-100'}`}
     >
       {currentTheme === 'dark' ? (
         <motion.div

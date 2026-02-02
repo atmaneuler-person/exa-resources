@@ -17,7 +17,7 @@ const PostCard = ({ post }: PostCardProps) => {
   return (
     <div className="group flex flex-col transition-all">
       {/* 1. 이미지 영역 + 리본 태그 */}
-      <Link href={`/${path}`} aria-label={`Link to ${title}`} className="relative block aspect-video w-full overflow-hidden rounded-lg">
+      <Link href={`/${path}`} aria-label={`Link to ${title}`} className="relative block aspect-video w-full overflow-hidden">
         {displayImage ? (
           <Image
             alt={title}
@@ -67,9 +67,13 @@ const PostCard = ({ post }: PostCardProps) => {
             </Link>
           </h2>
 
-          {/* 요약글 (작게, 2줄 제한) */}
-          <div className="prose max-w-none text-xs text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed">
+          {/* 요약글 (길게, 5줄) */}
+          <div className="prose max-w-none text-xs text-gray-500 dark:text-gray-400 line-clamp-5 leading-relaxed mb-4">
             {summary}
+          </div>
+
+          <div className="text-xs font-bold text-green-500 hover:text-green-600 transition-colors uppercase tracking-wide">
+             Read More »
           </div>
         </div>
       </div>

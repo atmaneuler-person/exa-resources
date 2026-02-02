@@ -1,13 +1,25 @@
 import { Inter } from 'next/font/google';
 import { siteConfig } from '@/data/config/site.settings';
 import { ThemeProviders } from './theme-providers';
-import { Metadata } from 'next';
+import SessionProviderWrapper from '@/components/shared/SessionProviderWrapper';
+import { Metadata, Viewport } from 'next';
 
 import { colors } from '@/data/config/colors.js';
 
 import '@/css/globals.css';
 import { SearchProvider } from '@/components/shared/SearchProvider';
 import { AnalyticsWrapper } from '@/components/shared/Analytics';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#000000' },
+  ],
+};
 
 const displayFont = Inter({
   subsets: ['latin'],
@@ -130,6 +142,7 @@ export default function RootLayout({
       </head>
 
       <body className="flex flex-col bg-white text-black antialiased dark:bg-gray-950 dark:text-white min-h-screen">
+        <SessionProviderWrapper>
         <ThemeProviders>
           <AnalyticsWrapper />
 
@@ -141,6 +154,7 @@ export default function RootLayout({
             </SearchProvider>
           </div>
         </ThemeProviders>
+        </SessionProviderWrapper>
       </body>
     </html>
   );

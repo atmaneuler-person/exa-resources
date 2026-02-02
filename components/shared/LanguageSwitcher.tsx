@@ -48,16 +48,16 @@ export default function LanguageSwitcher() {
 
   return (
     <div className="flex gap-2 text-sm font-bold items-center ml-4">
-      <Link href={switchLanguage('ko')} className={isActive('ko') ? 'text-primary-500' : 'text-gray-500 hover:text-primary-400'}>KR</Link>
-      <span className="text-gray-300">|</span>
-      <Link href={switchLanguage('en')} className={isActive('en') ? 'text-primary-500' : 'text-gray-500 hover:text-primary-400'}>EN</Link>
-      <span className="text-gray-300">|</span>
-      <Link href={switchLanguage('ja')} className={isActive('ja') ? 'text-primary-500' : 'text-gray-500 hover:text-primary-400'}>JP</Link>
-      <span className="text-gray-300">|</span>
-      <Link href={switchLanguage('zh')} className={isActive('zh') ? 'text-primary-500' : 'text-gray-500 hover:text-primary-400'}>CN</Link>
-      <span className="text-gray-300">|</span>
+      <Link href={switchLanguage('ko')} className={isActive('ko') ? 'text-primary-500' : 'text-gray-500 dark:text-gray-400 hover:text-primary-400'}>KR</Link>
+      <span className="text-gray-300 dark:text-gray-600">|</span>
+      <Link href={switchLanguage('en')} className={isActive('en') ? 'text-primary-500' : 'text-gray-500 dark:text-gray-400 hover:text-primary-400'}>EN</Link>
+      <span className="text-gray-300 dark:text-gray-600">|</span>
+      <Link href={switchLanguage('ja')} className={isActive('ja') ? 'text-primary-500' : 'text-gray-500 dark:text-gray-400 hover:text-primary-400'}>JP</Link>
+      <span className="text-gray-300 dark:text-gray-600">|</span>
+      <Link href={switchLanguage('zh')} className={isActive('zh') ? 'text-primary-500' : 'text-gray-500 dark:text-gray-400 hover:text-primary-400'}>CN</Link>
+      <span className="text-gray-300 dark:text-gray-600">|</span>
       {/* 폴더는 vi, 화면 표시는 VN */}
-      <Link href={switchLanguage('vi')} className={isActive('vi') ? 'text-primary-500' : 'text-gray-500 hover:text-primary-400'}>VN</Link>
+      <Link href={switchLanguage('vi')} className={isActive('vi') ? 'text-primary-500' : 'text-gray-500 dark:text-gray-400 hover:text-primary-400'}>VN</Link>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import Image from '@/components/shared/Image';
 import Header from '@/components/shared/Header';
 import Footer from '@/components/shared/Footer';
 import { MainPageSection } from '@/components/shared/MainPageSection';
+import { TagBar } from '@/components/shared/TagBar';
 import { siteConfig } from '@/data/config/site.settings';
 
 interface MainPageProps {
@@ -22,6 +23,17 @@ export const MainPage = ({ locale = siteConfig.defaultLocale }: MainPageProps) =
     return pathParts.includes(currentLocale.toLowerCase());
   }).slice(0, 10);
 
+  // --- Extract Unique Sub-Category Tags (First Tag of each post) ---
+  const allTags = posts
+    .filter((post) => {
+        const lowerPath = post.path.toLowerCase();
+        return lowerPath.includes(currentLocale.toLowerCase());
+    })
+    .map(post => post.tags?.[0]) // Get first tag
+    .filter((tag): tag is string => !!tag); // Remove undefined/null
+
+  const uniqueTags = Array.from(new Set(allTags));
+
   const categories = [
     'Bayesian',
     'AI',
@@ -32,8 +44,9 @@ export const MainPage = ({ locale = siteConfig.defaultLocale }: MainPageProps) =
   ];
 
   return (
-    <div className="flex flex-col w-full items-center fancy-overlay">
+    <div className="flex flex-col w-full items-center bg-white dark:bg-gray-950 pt-[120px] lg:pt-0">
       <Header />
+      <TagBar tags={uniqueTags} />
 
       <div className="w-full max-w-screen-2xl px-4 py-8 space-y-12">
         
@@ -41,22 +54,32 @@ export const MainPage = ({ locale = siteConfig.defaultLocale }: MainPageProps) =
         <section className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-12 mb-12 border-b border-gray-200 dark:border-gray-800">
           {/* Left Column: Title */}
           <div className="text-left space-y-4">
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">
+            <h1 className="relative w-fit text-2xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-gray-900 via-gray-700 to-gray-600 dark:from-white dark:via-gray-200 dark:to-gray-500 pb-2">
               {siteConfig.title}
+              {/* Alive Indicator */}
+              <span className="absolute -top-1 -right-4 flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
+              </span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-lg">
               {siteConfig.description}
             </p>
           </div>
 
-          {/* Right Column: Intro Text + Image */}
-          <div className="flex flex-col gap-6">
-             <div className="bg-blue-50/50 dark:bg-blue-900/10 p-6 rounded-2xl border border-blue-100 dark:border-blue-900/30 text-base leading-relaxed text-gray-700 dark:text-gray-300 shadow-sm">
-               This room is a knowledge warehouse for business people. It doesn't distinguish between natural science, mathematics, artificial intelligence, humanities, and business theory. It values the correct thought process and thinking ability. EXA acknowledges only『Undeniable clear Facts & Unrefutable Conclusions』
+             {/* Right Column: Intro Text + Image */}
+          <section className="flex flex-col gap-6">
+             <div className="relative overflow-hidden p-8 rounded-2xl bg-white/40 dark:bg-white/5 backdrop-blur-sm lg:backdrop-blur-xl border border-white/60 dark:border-white/10 shadow-[0_8px_40px_rgb(0,0,0,0.08)] text-lg leading-relaxed text-gray-800 dark:text-gray-200 group transition-all duration-300 hover:shadow-[0_12px_50px_rgb(0,0,0,0.12)]">
+               {/* Ambient Light Effect (Enhanced for Dark Mode) */}
+               <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-blue-400/10 dark:bg-blue-500/20 blur-[40px] lg:blur-[80px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/3 transition-opacity duration-500" />
+               
+               <div className="relative z-10 font-medium">
+                 This room is a knowledge warehouse for business people. It doesn't distinguish between natural science, mathematics, artificial intelligence, humanities, and business theory. It values the correct thought process and thinking ability. EXA acknowledges only『Undeniable clear Facts & Unrefutable Conclusions』
+               </div>
              </div>
              
              {/* Image Removed as per User Request */}
-          </div>
+          </section>
         </section>
 
         {/* === TOP SECTION: LATEST STORIES (All Categories) === */}
@@ -78,6 +101,7 @@ export const MainPage = ({ locale = siteConfig.defaultLocale }: MainPageProps) =
               alt="Home Banner" 
               width={1400} 
               height={300} 
+              priority
               className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.01]"
             />
             {/* Dark Overlay for better text readability (optional, light) */}
@@ -139,7 +163,7 @@ export const MainPage = ({ locale = siteConfig.defaultLocale }: MainPageProps) =
              <MainPageSection 
                 key={category}
                 title={category}
-                posts={categoryPosts.slice(0, 4)} 
+                posts={categoryPosts.slice(0, 12)} 
                 linkTo={currentLocale === siteConfig.defaultLocale ? `/category/${category}` : `/${currentLocale}/category/${category}`}
                 categoryName={category}
              />

@@ -1,34 +1,32 @@
+'use client';
+
 import { siteConfig } from '../../data/config/site.settings';
 import Image from 'next/image'; 
 import Link from './Link';
 import MobileNav from './MobileNav';
 import ThemeSwitch from './ThemeSwitch';
 import LanguageSwitcher from './LanguageSwitcher';
+import { usePathname } from 'next/navigation';
+import { useSession, signOut } from 'next-auth/react';
 
-// [수정] 6대 메인 메뉴 정의 (경로는 /category/이름 으로 설정)
-const headerNavLinks = [
-  { href: '/category/Bayesian', title: 'Bayesian' },
-  { href: '/category/AI', title: 'AI' },
-  { href: '/category/Business', title: 'Business' },
-  { href: '/category/Science', title: 'Science' },
-  { href: '/category/Solution', title: 'Solution' },
-  { href: '/category/Documentation', title: 'Documentation' },
-];
-
-// [수정] 주소를 /category/ -> /topics/ 로 변경
-// const headerNavLinks = [
-//   { href: '/topics/Bayesian', title: 'Bayesian' },
-//   { href: '/topics/AI', title: 'AI' },
-//   { href: '/topics/Business', title: 'Business' },
-//   { href: '/topics/Science', title: 'Science' },
-//   { href: '/topics/Solution', title: 'Solution' },
-//   { href: '/topics/Documentation', title: 'Documentation' },
-// ];
+import { headerNavLinks } from '../../data/config/headerNavLinks';
 
 const Header = () => {
+  const pathname = usePathname();
+  const { data: session, status } = useSession();
+  const isLoggedIn = status === 'authenticated';
+
+  const handleRestrictedClick = (e: React.MouseEvent, href: string) => {
+    // Optional: If you want to force redirect on click instead of showing alert
+    // if (!isLoggedIn && href.includes('Documentation')) {
+    //    // e.preventDefault();
+    //    // alert("🔒 Please log in.");
+    // }
+  };
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#000519]/90 backdrop-blur-md border-b border-gray-800">
-      <div className="flex items-center justify-between py-4 px-4 w-full max-w-screen-2xl mx-auto">
+    <header className="fixed top-0 left-0 right-0 z-[100] w-full bg-[#000519] border-b border-gray-800 shadow-md">
+      <div className="flex items-center justify-between py-4 px-4 w-full max-w-screen-2xl mx-auto h-16">
       <div>
         <Link href="/" aria-label={siteConfig.title}>
           <div className="flex items-center justify-between">
@@ -45,22 +43,71 @@ const Header = () => {
         </Link>
       </div>
       <div className="flex items-center leading-5 space-x-4 sm:space-x-6">
-        {headerNavLinks.map((link) => (
-          <Link
-            key={link.title}
-            href={link.href}
-            className="hidden sm:block font-medium text-gray-100 hover:text-orange-500 transition-colors"
-          >
-            {link.title}
-          </Link>
-        ))}
+        <div className="hidden lg:flex space-x-6">
+          {headerNavLinks.map((link) => {
+            // Check if current path starts with the link href (e.g. /category/Bayesian matches /category/Bayesian/post-1)
+            // Also handle the Documentation case if it maps differently in URL structure
+            const isActive = pathname.startsWith(link.href) || 
+                             (link.title === 'Documentation' && pathname.includes('/Documentation/'));
+
+            return (
+              <Link
+                key={link.title}
+                href={link.href}
+                onClick={(e) => handleRestrictedClick(e, link.href)}
+                className={`font-medium transition-colors ${
+                  isActive 
+                    ? 'text-orange-500 font-bold' 
+                    : 'text-gray-100 hover:text-orange-500'
+                } ${!isLoggedIn && link.title === 'Documentation' ? 'opacity-90' : ''}`}
+              >
+                {link.title}
+                {!isLoggedIn && link.title === 'Documentation' && (
+                    <span className="ml-1 text-[10px] align-top text-gray-500">🔒</span>
+                )}
+              </Link>
+            );
+          })}
+        </div>
         
-        {/* 언어 선택 버튼 */}
-        <LanguageSwitcher />
+        {/* 언어 선택 버튼 (Desktop only) */}
+        <div className="hidden lg:block">
+           <LanguageSwitcher />
+        </div>
         
-        <ThemeSwitch />
-        <MobileNav />
+        <div className="hidden lg:block">
+           <ThemeSwitch className="text-gray-100" />
+        </div>
+
+        {/* Auth Buttons */}
+        {status === 'loading' ? (
+           <div className="w-16 h-8" /> // Spacer
+        ) : isLoggedIn ? (
+           <button 
+             onClick={() => signOut()}
+             className="hidden lg:inline-flex items-center justify-center px-4 py-1.5 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 rounded-full transition-colors"
+           >
+             Sign Out
+           </button>
+        ) : (
+           <Link
+             href="/login"
+             className="hidden lg:inline-flex items-center justify-center px-4 py-1.5 text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-colors shadow-lg shadow-orange-900/20"
+           >
+             Sign In
+           </Link>
+        )}
+
+        <div className="lg:hidden">
+            <MobileNav />
+        </div>
       </div>
+      </div>
+      
+      {/* Mobile Utility Bar (New) */}
+      <div className="lg:hidden w-full bg-[#000519] border-t border-gray-800 flex items-center justify-center px-4 py-2 gap-6">
+         <LanguageSwitcher />
+         <ThemeSwitch className="text-gray-100" />
       </div>
     </header>
   );
