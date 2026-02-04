@@ -29,7 +29,7 @@ export default function LoginPage() {
       if (result?.error) {
         setError('Invalid email or password.');
       } else {
-        router.push('/category/Documentation'); // Redirect to docs on success
+        router.push('/category/Docs'); // Redirect to docs on success
         router.refresh();
       }
     } catch (err) {

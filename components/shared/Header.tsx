@@ -43,16 +43,27 @@ const Header = () => {
       <div className="flex items-center leading-5 space-x-4 sm:space-x-6">
         <div className="hidden lg:flex space-x-6">
           {headerNavLinks.map((link) => {
+            const possibleLocale = pathname.split('/')[1];
+            const currentLocale = siteConfig.locales.includes(possibleLocale) 
+              ? possibleLocale 
+              : (siteConfig.defaultLocale || 'ko');
+            
+            // Generate locale-aware href - ALWAYS include currentLocale
+            let href = link.href;
+            if (href.startsWith('/')) {
+              href = `/${currentLocale}${href === '/' ? '' : href}`.replace(/\/+/g, '/');
+            }
+
             const isActive = link.href === '/' 
-              ? (pathname === '/' || siteConfig.locales.some(locale => pathname === `/${locale}`))
-              : pathname.startsWith(link.href) || (link.title === 'Documentation' && pathname.includes('/Documentation/'));
-            const isRestricted = !isLoggedIn && link.title === 'Documentation';
+              ? pathname === `/${currentLocale}`
+              : pathname.startsWith(href) || (link.title === 'Docs' && pathname.includes('/Docs/'));
+            const isRestricted = !isLoggedIn && link.title === 'Docs';
 
             return (
               <Link
                 key={link.title}
-                href={link.href}
-                onClick={(e) => handleRestrictedClick(e, link.href)}
+                href={href}
+                onClick={(e) => handleRestrictedClick(e, href)}
                 className={`font-medium transition-colors ${
                   isActive 
                     ? 'text-orange-500 font-bold' 
@@ -96,23 +107,33 @@ const Header = () => {
         </div>
 
         {/* Auth Buttons */}
-        {status === 'loading' ? (
-           <div className="w-16 h-8" /> // Spacer
-        ) : isLoggedIn ? (
-           <button 
-             onClick={() => signOut()}
-             className="hidden lg:inline-flex items-center justify-center px-4 py-1.5 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 rounded-full transition-colors"
-           >
-             Sign Out
-           </button>
-        ) : (
-           <Link
-             href="/login"
-             className="hidden lg:inline-flex items-center justify-center px-4 py-1.5 text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-colors shadow-lg shadow-orange-900/20"
-           >
-             Sign In
-           </Link>
-        )}
+        <div className="flex items-center gap-4">
+             {/* Primary CTA: Contact Sales */}
+             <Link
+               href="mailto:sales@exa.ai"
+               className="hidden lg:inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-all shadow-lg shadow-orange-900/20 hover:scale-105 active:scale-95"
+             >
+               Contact Sales
+             </Link>
+
+             {status === 'loading' ? (
+                <div className="w-16 h-8" /> // Spacer
+             ) : isLoggedIn ? (
+                <button 
+                  onClick={() => signOut()}
+                  className="hidden lg:inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-300 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 rounded-full transition-colors"
+                >
+                  Sign Out
+                </button>
+             ) : (
+                <Link
+                  href="/login"
+                  className="hidden lg:inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-300 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 rounded-full transition-colors"
+                >
+                  Sign In
+                </Link>
+             )}
+        </div>
 
         <div className="lg:hidden">
             <MobileNav />

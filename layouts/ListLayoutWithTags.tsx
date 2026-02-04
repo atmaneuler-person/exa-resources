@@ -43,15 +43,21 @@ interface ListLayoutProps {
 
 function Pagination({ totalPages, currentPage }: PaginationProps) {
   const pathname = usePathname();
-  const basePath = pathname.split('/')[1];
-
+  
   return (
     <div className="space-y-2 pb-8 pt-6 md:space-y-5">
       <nav className="flex justify-center gap-2">
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
           const isCurrent = page === currentPage;
-          const link =
-            page === 1 ? `/${basePath}/` : `/${basePath}/page/${page}`;
+          
+          // Construct the link correctly:
+          // If the path already has a page, we need to replace it or append it.
+          // However, in this app's structure, pagination is handled by searchParams usually,
+          // OR by path like /category/AI/page/2.
+          // Let's check how the Page component handles it.
+          // Based on app/[...slug]/page.tsx line 143, it uses searchParams.page.
+          
+          const link = page === 1 ? pathname : `${pathname}?page=${page}`;
           
           return isCurrent ? (
             <span
@@ -193,20 +199,28 @@ export default function ListLayoutWithTags({
                         <TrendingUp size={14} className="text-orange-600" />
                     </div>
                     <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 md:pb-0">
-                        {categoryKeys.map((c) => (
-                            <Link
-                                key={c}
-                                href={`/category/${c}`}
-                                className={cn(
-                                    "whitespace-nowrap px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded-full transition-all border",
-                                    pathname.includes(`/category/${c}`)
-                                        ? "bg-orange-600 border-orange-600 text-white shadow-lg shadow-orange-900/20"
-                                        : "bg-white/5 border-white/10 text-gray-400 hover:text-white hover:border-white/20 hover:bg-white/10"
-                                )}
-                            >
-                                {c}
-                            </Link>
-                        ))}
+                        {categoryKeys.map((c) => {
+                            const possibleLocale = pathname.split('/')[1];
+                            const currentLocale = siteConfig.locales.includes(possibleLocale) 
+                                ? possibleLocale 
+                                : (siteConfig.defaultLocale || 'ko');
+                            const href = `/${currentLocale}/category/${c}`.replace(/\/+/g, '/');
+                            
+                            return (
+                                <Link
+                                    key={c}
+                                    href={href}
+                                    className={cn(
+                                        "whitespace-nowrap px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded-full transition-all border",
+                                        pathname.includes(`/category/${c}`)
+                                            ? "bg-orange-600 border-orange-600 text-white shadow-lg shadow-orange-900/20"
+                                            : "bg-white/5 border-white/10 text-gray-400 hover:text-white hover:border-white/20 hover:bg-white/10"
+                                    )}
+                                >
+                                    {c}
+                                </Link>
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -216,11 +230,19 @@ export default function ListLayoutWithTags({
                 {/* Tags as secondary filters */}
                 <div className="flex flex-wrap justify-center gap-2 max-w-2xl overflow-x-auto no-scrollbar">
                     {sortedTags.slice(0, 10).map((t) => {
-                        const isActive = pathname.split('/tags/')[1] === slug(t);
+                        const tagSlug = slug(t);
+                        const isActive = pathname.includes(`/tags/${tagSlug}`);
+                        
+                        const possibleLocale = pathname.split('/')[1];
+                        const currentLocale = siteConfig.locales.includes(possibleLocale) 
+                            ? possibleLocale 
+                            : (siteConfig.defaultLocale || 'ko');
+                        const href = `/${currentLocale}/tags/${tagSlug}`.replace(/\/+/g, '/');
+
                         return (
                             <Link
                                 key={t}
-                                href={`/tags/${slug(t)}`}
+                                href={href}
                                 className={cn(
                                     "whitespace-nowrap px-3 py-1 rounded-lg text-[9px] font-bold uppercase tracking-wider transition-all",
                                     isActive 
@@ -233,6 +255,30 @@ export default function ListLayoutWithTags({
                         );
                     })}
                 </div>
+
+                {/* All Posts Button for specific categories */}
+                {['bayesian', 'ai', 'business', 'science', 'solution'].includes(title.toLowerCase()) && (
+                  <div className="ml-auto hidden lg:block">
+                      {(() => {
+                          const possibleLocale = pathname.split('/')[1];
+                          const currentLocale = siteConfig.locales.includes(possibleLocale) 
+                              ? possibleLocale 
+                              : (siteConfig.defaultLocale || 'ko');
+                          
+                          return (
+                            <Link
+                                href={`/${currentLocale}/all-articles`.replace(/\/+/g, '/')}
+                                className="flex items-center gap-2 px-4 py-1.5 bg-orange-600 hover:bg-orange-700 text-white text-[10px] font-black uppercase tracking-widest rounded-lg transition-all shadow-md active:scale-95"
+                            >
+                                All Posts
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            </Link>
+                          );
+                      })()}
+                  </div>
+                )}
             </div>
           </div>
 

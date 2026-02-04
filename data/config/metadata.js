@@ -19,7 +19,7 @@ const metadata = {
   threads: '',
   mastodon: '',
   author: 'EXA Resources',
-  language: 'en-us',
+  language: 'en-US',
   theme: 'system',
   locale: 'en-US'
 };

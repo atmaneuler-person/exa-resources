@@ -15,8 +15,10 @@ export function genPageMetadata({
   description,
   image,
   canonical,
+  locale,
   ...rest
-}: PageSEOProps): Metadata {
+}: PageSEOProps & { locale?: string }): Metadata {
+  const currentLocale = locale || siteConfig.locale || 'en-US';
   return {
     title,
     description,
@@ -26,7 +28,7 @@ export function genPageMetadata({
       url: './',
       siteName: siteConfig.title,
       images: image ? [image] : [siteConfig.socialBanner],
-      locale: 'en_US',
+      locale: currentLocale,
       type: 'website',
     },
     twitter: {

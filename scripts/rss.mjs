@@ -43,7 +43,10 @@ const generateRss = (config, posts, page = 'feed.xml') => `
 
 async function generateRSS(config, allBlogs, page = 'feed.xml') {
   const publishPosts = allBlogs
-    .filter((post) => post.draft !== true)
+    .filter((post) => {
+      const isDocs = post._raw.sourceFilePath.toLowerCase().split('/').includes('docs');
+      return post.draft !== true && !isDocs;
+    })
     .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   // RSS for post
@@ -55,7 +58,10 @@ async function generateRSS(config, allBlogs, page = 'feed.xml') {
   if (publishPosts.length > 0) {
     for (const tag of Object.keys(tagData)) {
       const filteredPosts = allBlogs
-        .filter((post) => post.tags.map((t) => slug(t)).includes(tag))
+        .filter((post) => {
+          const isDocs = post._raw.sourceFilePath.toLowerCase().split('/').includes('docs');
+          return post.tags.map((t) => slug(t)).includes(tag) && !isDocs;
+        })
         .sort((a, b) => new Date(b.date) - new Date(a.date));
       const rss = generateRss(config, filteredPosts, `tags/${tag}/${page}`);
       const rssPath = path.join('public', 'tags', tag);

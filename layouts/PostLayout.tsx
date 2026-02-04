@@ -42,13 +42,26 @@ export default function PostLayout({
 }: LayoutProps) {
   const { path, date, title, tags } = content;
 
-  // 1. 현재 카테고리 파악 및 관련 글 3개 추출
-  const allPosts = allCoreContent(sortPosts(allBlogs));
-  const lastSlashIndex = path.lastIndexOf('/');
-  const parentFolder = lastSlashIndex > -1 ? path.substring(0, lastSlashIndex) : '';
-  const categoryName = parentFolder.split('/').pop() || 'Blog';
+  // 1. 현재 카테고리 파악 및 관련 글 3개 추출 (물리적 폴더 구조 기준)
+  const currentSourcePath = content.filePath; // Use computed field filePath
+  const currentPathParts = currentSourcePath.split('/');
+  const currentLocale = currentPathParts[1];
+  const currentCategory = currentPathParts[2];
 
-  const categoryPosts = allPosts.filter((p) => p.path.startsWith(parentFolder));
+  const allPosts = allCoreContent(sortPosts(allBlogs));
+
+  // 현재 포스트와 동일한 언어 및 카테고리의 글들만 필터링
+  const categoryPosts = allPosts.filter((p) => {
+    const pParts = (p as any).filePath.split('/'); // CoreContent includes computed fields
+    if (pParts.length < 3) return false;
+    
+    const pLocale = pParts[1];
+    const pCategory = pParts[2];
+    
+    return pLocale === currentLocale && pCategory === currentCategory;
+  });
+
+  const categoryName = currentCategory || 'Blog';
   
   const relatedPosts = categoryPosts
     .filter((p) => p.path !== path)

@@ -36,8 +36,9 @@ const siteConfig = {
     // provider: 'emailoctopus',
   },
   search: true, // Enable or disable search
+  theme: 'dark', // Default theme
   locales: ['ko', 'en', 'vi', 'ja', 'zh'], // Supported locales
-  defaultLocale: 'ko', // Default locale
+  defaultLocale: 'en', // Set default locale to English for global visitors
 };
 
 module.exports = { siteConfig };

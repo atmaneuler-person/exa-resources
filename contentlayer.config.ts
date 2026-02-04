@@ -65,7 +65,8 @@ const computedFields: ComputedFields = {
 function createTagCount(allBlogs) {
   const tagCount: Record<string, number> = {};
   allBlogs.forEach((file) => {
-    if (file.tags && (!isProduction || file.draft !== true)) {
+    const isDocs = file._raw.sourceFilePath.toLowerCase().split('/').includes('docs');
+    if (file.tags && (!isProduction || file.draft !== true) && !isDocs) {
       file.tags.forEach((tag) => {
         const formattedTag = slug(tag);
         if (formattedTag in tagCount) {
@@ -82,7 +83,10 @@ function createTagCount(allBlogs) {
 function createSearchIndex(allBlogs) {
   if (siteConfig?.search === true) {
     const searchDocs = sortPosts(allBlogs)
-      .filter((post) => !isProduction || post.draft !== true)
+      .filter((post) => {
+        const isDocs = post._raw.sourceFilePath.toLowerCase().split('/').includes('docs');
+        return (!isProduction || post.draft !== true) && !isDocs;
+      })
       .map((post) => ({
         title: post.title,
         description: post.description,

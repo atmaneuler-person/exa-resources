@@ -60,53 +60,105 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
   const searchParams = await props.searchParams;
   const slugArray = params.slug;
 
-  // =========================================================
-  // [NEW] Resolve Locale and Base Slug
-  // =========================================================
-  let currentLocale = siteConfig.defaultLocale;
-  let baseSlug = slugArray;
+  const currentLocale = slugArray[0];
+  let baseSlug = slugArray.slice(1);
 
-  if (siteConfig.locales.includes(slugArray[0])) {
-    currentLocale = slugArray[0];
-    // If it's just the locale (e.g. /en), render MainPage
-    if (slugArray.length === 1) {
-      return <MainPage locale={currentLocale} />;
-    }
-    // Otherwise, strip the locale from the slug for further processing
-    baseSlug = slugArray.slice(1);
+  // If it's just the locale (e.g. /en), render MainPage
+  if (baseSlug.length === 0) {
+    return <MainPage locale={currentLocale} />;
   }
 
   // =========================================================
-  // [CASE 1] Category List
+  // [CASE 1] Category or Tag List
   // =========================================================
   let isCategoryPage = false;
+  let isTagPage = false;
   let categoryName = '';
+  let tagName = '';
 
-  // Pattern: /category/[name] or /[locale]/category/[name]
+  // Pattern: /category/[name], /tags, /tags/[name]
   if (baseSlug[0] === 'category') {
     isCategoryPage = true;
     categoryName = decodeURI(baseSlug[1] || '');
+  } else if (baseSlug[0] === 'tags') {
+    isTagPage = true;
+    tagName = decodeURI(baseSlug[1] || '');
   }
 
-  if (isCategoryPage) {
-    const posts = sortPosts(allBlogs);
+  // =========================================================
+  // [NEW] All Articles List
+  // =========================================================
+  let isAllArticlesPage = false;
+  if (baseSlug[0] === 'all-articles') {
+    isAllArticlesPage = true;
+    categoryName = 'EXA Business Science Lab';
+  }
 
-    // Filter by Category AND Locale (STRICT FOLDER MATCHING)
+  if (isCategoryPage || isAllArticlesPage || isTagPage) {
+    const posts = sortPosts(allBlogs);
+    const { slug } = await import('github-slugger');
+
+    // Filter by Category/Tag AND Locale
     const filteredPosts = posts.filter((post) => {
-      const pathParts = post.path.split('/'); // e.g. ['posts', 'ko', 'Bayesian', 'filename']
-      
-      // Ensure path has enough parts (posts/locale/category/filename)
+      const sourcePath = post._raw.sourceFilePath;
+      const pathParts = sourcePath.split('/'); 
       if (pathParts.length < 3) return false;
 
       const postLocale = pathParts[1].toLowerCase();
-      const postCategory = pathParts[2].toLowerCase(); // The folder name
-      
-      const targetLocale = currentLocale.toLowerCase();
+      if (postLocale !== currentLocale.toLowerCase()) return false;
+
+      const isDocsPost = pathParts.some(part => part.toLowerCase() === 'docs');
+
+      if (isTagPage) {
+        if (!tagName) return !isDocsPost;
+        return post.tags && post.tags.map((t) => slug(t)).includes(tagName) && !isDocsPost;
+      }
+
+      if (isAllArticlesPage) return !isDocsPost;
+
+      const postCategory = pathParts[2].toLowerCase();
       const targetCategory = categoryName.toLowerCase();
-      
-      return postLocale === targetLocale && postCategory === targetCategory;
+      if (targetCategory !== 'docs' && isDocsPost) return false;
+      return postCategory === targetCategory;
     });
     
+    // If it's a Tag Root Page (/ko/tags), render a list of tags
+    if (isTagPage && !tagName) {
+       const tagData = (await import('app/tag-data.json')).default as Record<string, number>;
+       return (
+         <div className="flex flex-col w-full items-center">
+            <Header />
+            <div className="flex items-center justify-center min-h-[50vh] py-10">
+              <div className="flex flex-col items-start justify-start divide-y divide-gray-200 dark:divide-gray-700 md:flex-row md:items-center md:justify-center md:space-x-6 md:divide-y-0">
+                <div className="space-x-2 pb-8 pt-6 md:space-y-5">
+                  <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:border-r-2 md:px-6 md:text-6xl md:leading-14 uppercase">
+                    Tags
+                  </h1>
+                </div>
+                <div className="flex flex-wrap max-w-lg">
+                  {Object.keys(tagData).length === 0 && 'No tags found.'}
+                  {Object.keys(tagData).map((t) => (
+                    <div key={t} className="mb-2 mr-5 mt-2">
+                      <Link
+                        href={`/${currentLocale}/tags/${slug(t)}`}
+                        className="-ml-2 text-sm font-semibold uppercase text-orange-600 hover:text-orange-500"
+                        aria-label={`View posts tagged ${t}`}
+                      >
+                        {t} ({tagData[t]})
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <Footer />
+         </div>
+       );
+    }
+
+    if (isTagPage) {
+      categoryName = `${tagName[0].toUpperCase() + tagName.slice(1)} Posts`;
+    }
     // Extract Unique Tags from Filtered Posts
     const allTags = filteredPosts
         .map(post => post.tags?.[0])
@@ -120,7 +172,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
     const displayPosts = filteredPosts.slice((pageNumber - 1) * POSTS_PER_PAGE, pageNumber * POSTS_PER_PAGE);
 
     // [CASE 1-A] Documentation Layout (Sidebar Style)
-    if (categoryName.toLowerCase() === 'documentation') {
+    if (categoryName.toLowerCase() === 'docs') {
        const session = await auth();
        if (!session?.user) {
           return <RestrictedContentGate postTitle="Documentation Library" />;
@@ -192,7 +244,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
   }
 
   // [ACCESS CONTROL] Check if post is Documentation
-  const isDocumentation = post.tags?.includes('Manual') || post.path.includes('/Documentation/');
+  const isDocumentation = post.tags?.includes('Manual') || post.path.includes('/Docs/');
   
   if (isDocumentation) {
      const session = await auth();
@@ -213,7 +265,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
     
     const allDocPosts = allBlogs.filter(p => {
        const pParts = p.path.split('/');
-       return pParts.length >= 3 && pParts[1].toLowerCase() === postLocale && pParts[2].toLowerCase() === 'documentation';
+       return pParts.length >= 3 && pParts[1].toLowerCase() === postLocale && pParts[2].toLowerCase() === 'docs';
     }).sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
 
     return (

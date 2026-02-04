@@ -18,7 +18,10 @@ export default function LatestArticles({
   showImage?: boolean;
   showNewsletter?: boolean;
 }) {
-  const sortedPosts = sortPosts(allBlogs);
+  const sortedPosts = sortPosts(allBlogs).filter((post) => {
+    const isDocs = post._raw.sourceFilePath.toLowerCase().split('/').includes('docs');
+    return !isDocs;
+  });
   const posts = allCoreContent(sortedPosts);
 
   return (

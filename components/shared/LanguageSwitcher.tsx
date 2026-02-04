@@ -8,14 +8,18 @@ export default function LanguageSwitcher() {
 
   // 현재 경로에서 언어 코드 교체 로직
   const switchLanguage = (targetLang: string) => {
-    // 1. Clean current path from any existing locale prefix at the start
-    // (e.g., /en/posts/... -> /posts/...)
+    // 1. Clean current path from ANY existing locale prefix at the start
+    // We check against all supported locales
     let cleanPath = pathname;
-    const currentLocales = siteConfig.locales.filter(l => l !== 'ko').join('|');
-    const localePrefixRegex = new RegExp(`^\\/(${currentLocales})(\\/|$)`);
+    const allLocales = siteConfig.locales.join('|');
+    const localePrefixRegex = new RegExp(`^\\/(${allLocales})(\\/|$)`);
     
+    // Replace the locale prefix with a single slash
     cleanPath = pathname.replace(localePrefixRegex, '/');
-    if (cleanPath === '') cleanPath = '/';
+    
+    // Normalize path to ensure it starts with / and doesn't have double slashes
+    if (!cleanPath.startsWith('/')) cleanPath = '/' + cleanPath;
+    cleanPath = cleanPath.replace(/\/+/g, '/');
 
     // 2. Handle /posts/ paths (which have internal locale like /posts/ko/...)
     const postPathRegex = /^\/posts\/(ko|en|ja|zh|vi)\//;
@@ -23,13 +27,13 @@ export default function LanguageSwitcher() {
       return cleanPath.replace(postPathRegex, `/posts/${targetLang}/`);
     }
 
-    // 3. For other paths (home, category, etc.)
-    if (targetLang === 'ko') {
-      return cleanPath;
-    }
-    
-    // Prefix with target locale
-    return `/${targetLang}${cleanPath === '/' ? '' : cleanPath}`;
+    // 3. Prefix with target locale
+    // Special case: if target is 'ko' (default), we might want to skip the prefix 
+    // but to be safe and consistent with your "Not Null" rule, 
+    // we can either always include it or follow the app's routing convention.
+    // Based on your feedback, including it is safer.
+    const finalPath = `/${targetLang}${cleanPath === '/' ? '' : cleanPath}`;
+    return finalPath.replace(/\/+/g, '/');
   };
 
   // 현재 활성화된 언어인지 확인하는 헬퍼 함수

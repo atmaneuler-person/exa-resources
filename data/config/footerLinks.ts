@@ -18,8 +18,8 @@ export const footerLinks: Array<{
   {
     columnName: 'Resources',
     links: [
-      { href: '/category/Documentation', title: 'Documentation' },
-      { href: '/all-articles', title: 'All Posts' },
+      { href: '/category/Docs', title: 'Docs' },
+      { href: '/all-articles', title: 'EXA BSL' },
     ],
   },
   {

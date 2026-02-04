@@ -43,9 +43,11 @@ export default async function TagPage(props: {
   // Capitalize first letter and convert space to dash
   const title = tag[0].toUpperCase() + tag.split(' ').join('-').slice(1);
   const filteredPosts = allCoreContent(
-    allBlogs.filter(
-      (post) => post.tags && post.tags.map((t) => slug(t)).includes(tag),
-    ),
+    allBlogs.filter((post) => {
+      const isDocs = post._raw.sourceFilePath.toLowerCase().split('/').includes('docs');
+      const hasTag = post.tags && post.tags.map((t) => slug(t)).includes(tag);
+      return hasTag && !isDocs;
+    }),
   );
   return (
     <div className="flex flex-col w-full items-center justify-between">

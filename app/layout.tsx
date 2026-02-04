@@ -9,6 +9,7 @@ import { colors } from '@/data/config/colors.js';
 import '@/css/globals.css';
 import { SearchProvider } from '@/components/shared/SearchProvider';
 import { AnalyticsWrapper } from '@/components/shared/Analytics';
+import { FloatingCTA } from '@/components/shared/FloatingCTA';
 import 'katex/dist/katex.min.css';
 
 export const viewport: Viewport = {
@@ -21,8 +22,6 @@ export const viewport: Viewport = {
     { media: '(prefers-color-scheme: dark)', color: '#000000' },
   ],
 };
-
-
 
 const globalColors = colors;
 const style: string[] = [];
@@ -47,7 +46,7 @@ export const metadata: Metadata = {
     url: './',
     siteName: siteConfig.title,
     images: [siteConfig.socialBanner],
-    locale: 'en_US',
+    locale: siteConfig.locale,
     type: 'website',
   },
   alternates: {
@@ -146,6 +145,8 @@ export default function RootLayout({
               </main>
             </SearchProvider>
           </div>
+
+          <FloatingCTA />
         </ThemeProviders>
         </SessionProviderWrapper>
       </body>

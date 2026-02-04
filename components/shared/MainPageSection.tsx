@@ -3,7 +3,8 @@ import Link from 'next/link';
 import Image from '@/components/shared/Image';
 import { formatDate } from '@shipixen/pliny/utils/formatDate';
 import { siteConfig } from '@/data/config/site.settings';
-import PostCard from '@/components/shared/PostCard'; // Import Grid Card
+import PostCard from '@/components/shared/PostCard'; 
+import { usePathname } from 'next/navigation';
 
 
 interface MainPageSectionProps {
@@ -15,7 +16,13 @@ interface MainPageSectionProps {
 }
 
 export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = 'grid' }: MainPageSectionProps) => {
+  const pathname = usePathname();
   const hasPosts = posts && posts.length > 0;
+  
+  const possibleLocale = pathname.split('/')[1];
+  const currentLocale = siteConfig.locales.includes(possibleLocale) 
+    ? possibleLocale 
+    : (siteConfig.defaultLocale || 'ko');
   
   if (!hasPosts) {
       return (
@@ -80,7 +87,7 @@ export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = '
                  </div>
 
                 <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-gray-900 dark:text-white leading-tight group-hover:text-orange-600 transition-colors">
-                  <Link href={`/${featuredPost.path}`}>
+                  <Link href={currentLocale ? `/${currentLocale}/${featuredPost.path.replace(/^\//, '')}`.replace(/\/+/g, '/') : `/${featuredPost.path.replace(/^\//, '')}`.replace(/\/+/g, '/')}>
                     {featuredPost.title}
                   </Link>
                 </h3>
@@ -101,66 +108,76 @@ export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = '
             </div>
 
             {/* 2. Image (Right, Wider ~50%, Full Height) */}
-            <Link href={`/${featuredPost.path}`} className="order-1 md:order-2 md:col-span-6 block relative overflow-hidden h-full min-h-[400px] shadow-2xl rounded-r-2xl">
-              {featuredPost.images && featuredPost.images.length > 0 ? (
-                  <div className="relative w-full h-full">
-                    <Image
-                      src={featuredPost.images[0]}
-                      alt={featuredPost.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-              ) : (
-                  <div className="w-full h-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-400 text-xs">
-                    No Image
-                  </div>
-              )}
-            </Link>
+            {(() => {
+                const fPath = `/${currentLocale}/${featuredPost.path.replace(/^\//, '')}`.replace(/\/+/g, '/');
+                return (
+                    <Link href={fPath} className="order-1 md:order-2 md:col-span-6 block relative overflow-hidden h-full min-h-[400px] shadow-2xl rounded-r-2xl">
+                    {featuredPost.images && featuredPost.images.length > 0 ? (
+                        <div className="relative w-full h-full">
+                            <Image
+                            src={featuredPost.images[0]}
+                            alt={featuredPost.title}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                        </div>
+                    ) : (
+                        <div className="w-full h-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-400 text-xs">
+                            No Image
+                        </div>
+                    )}
+                    </Link>
+                );
+            })()}
           </div>
 
           {/* Sidebar Posts (Clean UI) */}
-          <div className="flex flex-col gap-6">
-             {sidebarPosts.map((post) => (
-                <Link href={`/${post.path}`} key={post.path} className="group flex items-start gap-4 transition-all">
-                    <div className="flex-1 space-y-2">
-                      <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-bold uppercase text-orange-600 tracking-wider">
-                            {post.path.split('/').length > 2 ? post.path.split('/')[post.path.split('/').length - 2] : (categoryName || "BLOG")}
-                          </span>
-                          {post.tags?.[0] && (
-                             <>
-                               <span className="text-[10px] text-gray-300">|</span>
-                               <span className="text-[10px] font-bold uppercase text-gray-500 tracking-wider">
-                                 {post.tags[0]}
-                               </span>
-                             </>
-                          )}
-                      </div>
-                      
-                      <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 leading-snug group-hover:text-orange-600 transition-colors line-clamp-2 mt-2">
-                          {post.title}
-                      </h4>
-
-                      <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-gray-400">
-                        <span>{post.author?.name || 'EXA Team'}</span>
-                        <time>{formatDate(post.date, siteConfig.locale)}</time>
-                      </div>
-                    </div>
-
-                    {/* Thumbnail Image */}
-                    {post.images && post.images.length > 0 && (
-                      <div className="relative w-24 h-24 flex-shrink-0 overflow-hidden">
-                        <Image
-                          src={post.images[0]}
-                          alt={post.title}
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-110"
-                        />
-                      </div>
-                    )}
-                </Link>
-             ))}
+          <div className="flex flex-col justify-between py-2">
+              {sidebarPosts.map((post) => {
+                 const postPath = currentLocale 
+                    ? `/${currentLocale}/${post.path.replace(/^\//, '')}`.replace(/\/+/g, '/')
+                    : `/${post.path.replace(/^\//, '')}`.replace(/\/+/g, '/');
+                 return (
+                    <Link href={postPath} key={post.path} className="group flex items-start gap-4 transition-all">
+                        <div className="flex-1 space-y-2">
+                          <div className="flex items-center gap-2">
+                              <span className="text-[10px] font-bold uppercase text-orange-600 tracking-wider">
+                                {post.path.split('/').length > 2 ? post.path.split('/')[post.path.split('/').length - 2] : (categoryName || "BLOG")}
+                              </span>
+                              {post.tags?.[0] && (
+                                 <>
+                                   <span className="text-[10px] text-gray-300">|</span>
+                                   <span className="text-[10px] font-bold uppercase text-gray-500 tracking-wider">
+                                     {post.tags[0]}
+                                   </span>
+                                 </>
+                              )}
+                          </div>
+                          
+                          <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 leading-snug group-hover:text-orange-600 transition-colors line-clamp-2 mt-2">
+                              {post.title}
+                          </h4>
+    
+                          <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-gray-400">
+                            <span>{post.author?.name || 'EXA Team'}</span>
+                            <time>{formatDate(post.date, siteConfig.locale)}</time>
+                          </div>
+                        </div>
+    
+                        {/* Thumbnail Image */}
+                        {post.images && post.images.length > 0 && (
+                          <div className="relative w-24 h-24 flex-shrink-0 overflow-hidden">
+                            <Image
+                              src={post.images[0]}
+                              alt={post.title}
+                              fill
+                              className="object-cover transition-transform duration-300 group-hover:scale-110"
+                            />
+                          </div>
+                        )}
+                    </Link>
+                 );
+              })}
           </div>
         </div>
 
@@ -211,7 +228,10 @@ export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = '
             {title}
           </h2>
           {linkTo && (
-             <Link href={linkTo} className="ml-auto text-sm font-semibold text-gray-500 hover:text-orange-600 transition-colors">
+             <Link 
+               href={`/${currentLocale}${linkTo.startsWith('/') ? '' : '/'}${linkTo}`.replace(/\/+/g, '/')} 
+               className="ml-auto text-sm font-semibold text-gray-500 hover:text-orange-600 transition-colors"
+             >
                VIEW ALL &rarr;
              </Link>
            )}

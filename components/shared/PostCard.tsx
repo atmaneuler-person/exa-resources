@@ -1,3 +1,4 @@
+'use client';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Link from '@/components/shared/Link';
 import Image from '@/components/shared/Image';
@@ -9,9 +10,19 @@ interface PostCardProps {
   post: any; // 타입 단순화
 }
 
+import { usePathname } from 'next/navigation';
+
 const PostCard = ({ post }: PostCardProps) => {
+  const pathname = usePathname();
   const { path, date, title, summary, tags, images } = post;
   
+  const possibleLocale = pathname.split('/')[1];
+  const currentLocale = siteConfig.locales.includes(possibleLocale) 
+    ? possibleLocale 
+    : (siteConfig.defaultLocale || 'ko');
+
+  const localePath = `/${currentLocale}/${path.replace(/^\//, '')}`.replace(/\/+/g, '/');
+
   const displayImage = images && images.length > 0 ? images[0] : null;
 
   return (
@@ -20,7 +31,7 @@ const PostCard = ({ post }: PostCardProps) => {
       <div className="absolute top-0 left-0 w-1 h-full bg-orange-500/0 group-hover:bg-orange-500 transition-all duration-500 z-20" />
 
       {/* 1. Image Area with Enhanced Hover */}
-      <Link href={`/${path}`} aria-label={`Link to ${title}`} className="relative block aspect-video w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
+      <Link href={localePath} aria-label={`Link to ${title}`} className="relative block aspect-video w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
         {displayImage ? (
           <Image
             alt={title}
@@ -72,7 +83,7 @@ const PostCard = ({ post }: PostCardProps) => {
 
         <div className="space-y-2.5">
           <h2 className="text-base font-black leading-tight text-gray-900 dark:text-gray-300 group-hover:text-orange-600 transition-colors">
-            <Link href={`/${path}`}>
+            <Link href={localePath}>
               {title}
             </Link>
           </h2>

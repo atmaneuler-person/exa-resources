@@ -4,7 +4,10 @@ import { NextResponse } from 'next/server';
 export async function GET() {
   // Sort by Date Descending
   const posts = allBlogs
-    .filter((post) => !post.draft && post.title) // Exclude drafts
+    .filter((post) => {
+      const isDocs = post._raw.sourceFilePath.toLowerCase().split('/').includes('docs');
+      return !post.draft && post.title && !isDocs;
+    }) // Exclude drafts and Docs
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   // Simplify payload for external homepage

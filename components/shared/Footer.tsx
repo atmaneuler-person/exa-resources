@@ -1,3 +1,5 @@
+"use client";
+import { usePathname } from 'next/navigation';
 import Image from '@/components/shared/Image';
 import { cn } from '@/lib/utils';
 import {
@@ -21,6 +23,7 @@ import { TiktokIcon } from '@/components/icons/TiktokIcon';
 import { ThreadsIcon } from '@/components/icons/ThreadsIcon';
 
 export const Footer = ({ className }: { className?: string }) => {
+  const pathname = usePathname();
   const columnNumber = footerLinks.filter(({ links }) => links.length).length;
 
   return (
@@ -49,25 +52,17 @@ export const Footer = ({ className }: { className?: string }) => {
                   {/* Light Mode Logo */}
                   <Image
                     src="/static/images/logo-light.svg"
-                    alt="EXA Resources"
+                    alt="EXAEULER"
                     fill
                     className="object-contain object-left block dark:hidden"
                   />
                   {/* Dark Mode Logo */}
                   <Image
                     src="/static/images/logo-dark.svg"
-                    alt="EXA Resources"
+                    alt="EXAEULER"
                     fill
                     className="object-contain object-left hidden dark:block"
                   />
-                </div>
-                <div className="border-l border-gray-100 dark:border-white/10 pl-4">
-                    <h2 className="text-xl font-black tracking-tighter text-gray-900 dark:text-white uppercase leading-none">
-                        RESOURCES
-                    </h2>
-                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mt-1">
-                        Intelligence Infrastructure
-                    </p>
                 </div>
               </div>
             </Link>
@@ -103,18 +98,30 @@ export const Footer = ({ className }: { className?: string }) => {
                       {column.columnName}
                     </h3>
                     <ul className="space-y-4">
-                      {column.links.map((link, linkIdx) => (
-                        <li key={linkIdx}>
-                          <ActiveLink
-                            href={link.href || '#'}
-                            className="text-sm font-bold text-gray-500 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-500 transition-colors flex items-center gap-2 group"
-                            activeClassName="text-orange-600 dark:text-orange-500"
-                          >
-                            <span className="w-1 h-1 rounded-full bg-gray-200 dark:bg-gray-800 group-hover:bg-orange-600 transition-colors" />
-                            {link.title}
-                          </ActiveLink>
-                        </li>
-                      ))}
+                      {column.links.map((link, linkIdx) => {
+                        const possibleLocale = pathname.split('/')[1];
+                        const currentLocale = siteConfig.locales.includes(possibleLocale) 
+                          ? possibleLocale 
+                          : (siteConfig.defaultLocale || 'ko');
+                        
+                        let href = link.href || '#';
+                        if (href.startsWith('/')) {
+                          href = `/${currentLocale}${href === '/' ? '' : href}`.replace(/\/+/g, '/');
+                        }
+
+                        return (
+                          <li key={linkIdx}>
+                            <ActiveLink
+                              href={href}
+                              className="text-sm font-bold text-gray-500 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-500 transition-colors flex items-center gap-2 group"
+                              activeClassName="text-orange-600 dark:text-orange-500"
+                            >
+                              <span className="w-1 h-1 rounded-full bg-gray-200 dark:bg-gray-800 group-hover:bg-orange-600 transition-colors" />
+                              {link.title}
+                            </ActiveLink>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 ))}
@@ -152,7 +159,7 @@ export const Footer = ({ className }: { className?: string }) => {
         {/* Bottom Bar */}
         <div className="mt-20 pt-10 border-t border-gray-100 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
-            <span>&copy; {new Date().getFullYear()} {siteConfig.businessName}</span>
+            <span>&copy; {new Date().getFullYear()} EXAEULER</span>
             <span className="hidden md:inline text-gray-200 dark:text-gray-800">|</span>
             <span>All Rights Reserved</span>
             <span className="hidden md:inline text-gray-200 dark:text-gray-800">|</span>

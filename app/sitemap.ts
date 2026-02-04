@@ -7,7 +7,10 @@ export const dynamic = 'force-static';
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = siteConfig.siteUrl;
   const blogRoutes = allBlogs
-    .filter((post) => !post.draft)
+    .filter((post) => {
+      const isDocs = post._raw.sourceFilePath.toLowerCase().split('/').includes('docs');
+      return !post.draft && !isDocs;
+    })
     .map((post) => ({
       url: `${siteUrl}/${post.path}`,
       lastModified: post.lastmod || post.date,
