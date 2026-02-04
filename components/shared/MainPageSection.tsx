@@ -132,7 +132,7 @@ export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = '
           </div>
 
           {/* Sidebar Posts (Clean UI) */}
-          <div className="flex flex-col justify-between py-2">
+          <div className="flex flex-col gap-6 py-2">
               {sidebarPosts.map((post) => {
                  const postPath = currentLocale 
                     ? `/${currentLocale}/${post.path.replace(/^\//, '')}`.replace(/\/+/g, '/')

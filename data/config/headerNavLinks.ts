@@ -5,5 +5,5 @@ export const headerNavLinks = [
   { href: '/category/Business', title: 'Business' },
   { href: '/category/Science', title: 'Science' },
   { href: '/category/Solution', title: 'Solution' },
-  { href: '/category/Docs', title: 'Docs' },
+  { href: '/about', title: 'About Us' },
 ];

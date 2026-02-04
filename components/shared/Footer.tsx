@@ -87,7 +87,7 @@ export const Footer = ({ className }: { className?: string }) => {
           {/* Links Grid */}
           <div className="lg:col-span-8">
             <div className={cn(
-              "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12",
+              "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-12",
               columnNumber <= 2 ? "md:grid-cols-2" : "md:grid-cols-3"
             )}>
               {footerLinks
@@ -125,33 +125,6 @@ export const Footer = ({ className }: { className?: string }) => {
                     </ul>
                   </div>
                 ))}
-
-                {/* Newsletter or CTA column */}
-                <div className="space-y-6">
-                  <h3 className="text-xs font-black uppercase tracking-[0.3em] text-gray-900 dark:text-white pb-4 border-b border-gray-100 dark:border-white/5">
-                    Connect
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {siteConfig.email && (
-                      <a href={`mailto:${siteConfig.email}`} className="p-2.5 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 hover:border-orange-500/30 hover:bg-white dark:hover:bg-white/10 transition-all text-gray-500 dark:text-gray-400 hover:text-orange-600" aria-label="Email">
-                        <MailIcon className="w-5 h-5" />
-                      </a>
-                    )}
-                    {siteConfig.linkedin && (
-                      <a href={siteConfig.linkedin} className="p-2.5 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 hover:border-orange-500/30 hover:bg-white dark:hover:bg-white/10 transition-all text-gray-500 dark:text-gray-400 hover:text-orange-600" aria-label="LinkedIn">
-                        <LinkedinIcon className="w-5 h-5" />
-                      </a>
-                    )}
-                    {siteConfig.github && (
-                      <a href={siteConfig.github} className="p-2.5 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 hover:border-orange-500/30 hover:bg-white dark:hover:bg-white/10 transition-all text-gray-500 dark:text-gray-400 hover:text-orange-600" aria-label="GitHub">
-                        <GithubIcon className="w-5 h-5" />
-                      </a>
-                    )}
-                  </div>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-relaxed">
-                    Join the ecosystem of <br/> intelligent business.
-                  </p>
-                </div>
             </div>
           </div>
         </div>

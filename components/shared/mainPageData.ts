@@ -191,9 +191,9 @@ export const mainPageData: Record<string, any> = {
     },
     blogHero: {
       label: "Intelligence Stream",
-      title: "EXAリソース",
+      title: "EXA",
       subtitle: "プラットフォーム・ロジック & テクニカル・シンセシス",
-      desc: "ビジネスの物理学を解読する — 高次元の混沌を、低次元の意思決定環境における実行可能なインテ리ジェンスへと変換します。",
+      desc: "ビジネスの物理学を解読する — 高次元の混沌を、低次元の意思決定環境における実行可能なインテリジェンスへと変換します。",
       viewAll: "シンセシスを探索"
     },
     exawin: {
@@ -245,7 +245,7 @@ export const mainPageData: Record<string, any> = {
     },
     blogHero: {
       label: "情报流",
-      title: "EXA资源",
+      title: "EXA",
       subtitle: "企业平台逻辑与技术综合",
       desc: "我们的研究解码商业物理学——将高维混沌转化为低维决策环境中的可操作情报。",
       viewAll: "探索综合成果"

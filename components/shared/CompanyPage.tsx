@@ -38,7 +38,7 @@ export const CompanyPage = ({ locale, textData, contactData }: CompanyPageProps)
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl md:text-5xl lg:text-7xl font-black tracking-tight leading-[1.2] max-w-6xl break-keep text-gray-900 dark:text-white"
+            className="text-4xl md:text-5xl lg:text-7xl font-black tracking-tight leading-[1.2] max-w-6xl break-keep whitespace-pre-line text-gray-900 dark:text-white"
           >
             {textData.hero.identity}
           </motion.h1>
@@ -108,43 +108,106 @@ export const CompanyPage = ({ locale, textData, contactData }: CompanyPageProps)
             </motion.div>
 
             <div className="lg:col-span-6 relative">
-                 <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-orange-600/10 blur-[100px] opacity-30" />
-                 <div className="relative border border-gray-200 dark:border-white/10 rounded-[2rem] p-10 bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl shadow-2xl overflow-hidden group">
-                     {/* Schematic Watermark */}
-                     <div className="absolute top-4 right-6 text-[9px] font-mono text-gray-300 dark:text-gray-600 select-none tracking-widest">EXA_PROTOCOL_V4.0</div>
-                     
-                     <div className="flex flex-col space-y-12 relative z-10">
-                         {/* Process Engine Block */}
-                         <div className="relative p-6 rounded-2xl bg-white dark:bg-black/40 border border-gray-100 dark:border-white/5 flex items-center gap-6">
-                             <div className="min-w-[64px] h-16 rounded-xl bg-blue-600 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-blue-500/20">P</div>
-                             <div>
-                                 <h4 className="font-black text-sm uppercase tracking-widest text-blue-600 dark:text-blue-400">Process Engine</h4>
-                                 <p className="text-[10px] text-gray-500 font-mono mt-1">// SCM Optimization & Flow Dynamics</p>
-                             </div>
-                         </div>
+                 <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-orange-600/5 blur-[100px] opacity-30" />
+                 <div className="relative w-full aspect-[4/3] rounded-[2rem] p-1 bg-gradient-to-br from-gray-200 to-white dark:from-white/10 dark:to-white/5 shadow-2xl overflow-hidden group">
+                     {/* Inner Dark Container */}
+                     <div className="absolute inset-[1px] rounded-[1.9rem] bg-[#0A0A0A] overflow-hidden">
+                         {/* Grid Background */}
+                         <div className="absolute inset-0 opacity-20" 
+                              style={{ backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
+                         />
                          
-                         {/* The Core Synergy Indicator */}
-                         <div className="flex justify-center -my-8 relative z-20">
-                             <motion.div 
-                                animate={{ scale: [1, 1.05, 1] }}
-                                transition={{ duration: 4, repeat: Infinity }}
-                                className="px-6 py-2 rounded-full bg-gray-950 dark:bg-white text-white dark:text-gray-950 text-[10px] font-black tracking-[0.3em] uppercase shadow-2xl ring-8 ring-white dark:ring-gray-900"
-                             >
-                                 Unified Kernel
-                             </motion.div>
-                         </div>
+                         {/* Animated Orbs */}
+                         <motion.div 
+                            animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.2, 1] }} 
+                            transition={{ duration: 8, repeat: Infinity }}
+                            className="absolute -top-20 -left-20 w-64 h-64 bg-blue-600/20 blur-[80px]" 
+                         />
+                         <motion.div 
+                            animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.2, 1] }} 
+                            transition={{ duration: 8, repeat: Infinity, delay: 4 }}
+                            className="absolute -bottom-20 -right-20 w-64 h-64 bg-orange-600/20 blur-[80px]" 
+                         />
 
-                         {/* EXA Engine Block (Unified Kernel Internal) */}
-                         <div className="relative p-6 rounded-2xl bg-white dark:bg-black/40 border border-orange-500/30 flex items-center gap-6 shadow-xl shadow-orange-500/5">
-                             <div className="min-w-[64px] h-16 rounded-xl bg-orange-600 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-orange-500/20">E</div>
-                             <div>
-                                 <h4 className="font-black text-sm uppercase tracking-widest text-orange-600 dark:text-orange-400">EXA Engine</h4>
-                                 <p className="text-[10px] text-gray-500 font-mono mt-1 mb-2">// Intrinsic Risk Mgmt & Governance</p>
-                                 <div className="flex flex-wrap gap-1.5 mt-2">
-                                     <span className="text-[8px] px-1.5 py-0.5 rounded-sm border border-orange-500/20 text-orange-600 dark:text-orange-400 font-mono font-bold tracking-tighter uppercase leading-none">Risk Control</span>
-                                     <span className="text-[8px] px-1.5 py-0.5 rounded-sm border border-orange-500/20 text-orange-600 dark:text-orange-400 font-mono font-bold tracking-tighter uppercase leading-none">Decision Core</span>
+                         {/* Content Container */}
+                         <div className="relative h-full flex flex-col justify-between p-8 md:p-10 z-10">
+                             
+                             {/* Header Tech Spec */}
+                             <div className="flex justify-between items-start mb-4">
+                                 <div className="flex gap-2">
+                                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                     <span className="text-[10px] font-mono text-green-500 tracking-widest uppercase">System Online</span>
+                                 </div>
+                                 <div className="text-[9px] font-mono text-gray-600 select-none tracking-widest text-right">
+                                     EXA_KERNEL_V4.0<br/>
+                                     ARCH_TYPE: DUAL_CORE
                                  </div>
                              </div>
+
+                             {/* ENGINE 1: PROCESS (Physics) */}
+                             <div className="relative group/engine">
+                                 <div className="absolute inset-0 bg-blue-900/10 border border-blue-500/20 rounded-xl" />
+                                 <div className="relative p-5 flex items-center gap-5">
+                                     {/* Icon Core */}
+                                     <div className="relative justify-center items-center flex w-16 h-16">
+                                         <div className="absolute inset-0 bg-blue-500/20 rounded-xl blur-lg group-hover/engine:blur-xl transition-all" />
+                                         <div className="relative w-full h-full bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl border border-blue-400/30 flex items-center justify-center shadow-lg">
+                                             <span className="text-2xl font-black text-white">P</span>
+                                         </div>
+                                     </div>
+                                     {/* Text Info */}
+                                     <div className="flex-1">
+                                         <div className="flex items-center justify-between mb-1">
+                                             <h4 className="font-bold text-sm text-blue-400 tracking-wider">PROCESS ENGINE</h4>
+                                             <span className="text-[9px] font-mono text-blue-500/60 border border-blue-500/20 px-1 rounded">PHYSICS</span>
+                                         </div>
+                                         <p className="text-[11px] text-gray-400 font-mono leading-tight">
+                                             APS | DBR Scheduling<br/>
+                                             Throughput Optimization
+                                         </p>
+                                     </div>
+                                 </div>
+                             </div>
+
+                             {/* CONNECTION LINES (Animated) */}
+                             <div className="flex-1 relative flex justify-center items-center py-4">
+                                 <div className="absolute inset-y-0 w-[1px] bg-gradient-to-b from-blue-500/0 via-gray-700 to-orange-500/0" />
+                                 <motion.div 
+                                    className="relative z-10 px-6 py-2 bg-gray-950 border border-gray-700 rounded-full flex items-center gap-3 shadow-2xl"
+                                    animate={{ boxShadow: ["0 0 0px rgba(255,255,255,0)", "0 0 20px rgba(255,255,255,0.1)", "0 0 0px rgba(255,255,255,0)"] }}
+                                    transition={{ duration: 3, repeat: Infinity }}
+                                 >
+                                    <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                                    <span className="text-[10px] font-black text-white tracking-[0.2em]">UNIFIED KERNEL</span>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                                 </motion.div>
+                             </div>
+
+                             {/* ENGINE 2: EXA (Logic) */}
+                             <div className="relative group/engine">
+                                 <div className="absolute inset-0 bg-orange-900/10 border border-orange-500/20 rounded-xl" />
+                                 <div className="relative p-5 flex items-center gap-5">
+                                     {/* Icon Core */}
+                                     <div className="relative justify-center items-center flex w-16 h-16">
+                                         <div className="absolute inset-0 bg-orange-500/20 rounded-xl blur-lg group-hover/engine:blur-xl transition-all" />
+                                         <div className="relative w-full h-full bg-gradient-to-br from-orange-600 to-orange-800 rounded-xl border border-orange-400/30 flex items-center justify-center shadow-lg">
+                                             <span className="text-2xl font-black text-white">E</span>
+                                         </div>
+                                     </div>
+                                     {/* Text Info */}
+                                     <div className="flex-1">
+                                         <div className="flex items-center justify-between mb-1">
+                                             <h4 className="font-bold text-sm text-orange-400 tracking-wider">EXA ENGINE</h4>
+                                             <span className="text-[9px] font-mono text-orange-500/60 border border-orange-500/20 px-1 rounded">LOGIC</span>
+                                         </div>
+                                         <div className="flex gap-2 mt-1.5">
+                                             <span className="text-[9px] bg-orange-500/10 text-orange-400 px-1.5 py-0.5 rounded border border-orange-500/20">Risk Mgmt</span>
+                                             <span className="text-[9px] bg-orange-500/10 text-orange-400 px-1.5 py-0.5 rounded border border-orange-500/20">AI Core</span>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+
                          </div>
                      </div>
                  </div>
@@ -235,18 +298,32 @@ export const CompanyPage = ({ locale, textData, contactData }: CompanyPageProps)
                       viewport={{ once: true }}
                       className="bg-white/5 backdrop-blur-3xl border border-white/10 p-8 md:p-10 rounded-[2.5rem] shadow-2xl"
                    >
-                      <form className="space-y-5">
+                      <form 
+                        className="space-y-5"
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          const form = e.target as HTMLFormElement;
+                          const name = (form.elements.namedItem('name') as HTMLInputElement).value;
+                          const email = (form.elements.namedItem('email') as HTMLInputElement).value; // User's email
+                          const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value;
+                          
+                          const subject = `[Business Inquiry] from ${name}`;
+                          const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+                          
+                          window.location.href = `mailto:contact@atmaneuler.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                        }}
+                      >
                         <div className="space-y-2">
                           <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest">{contactData.form.name}</label>
-                          <input type="text" className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-3.5 outline-none focus:border-orange-500 transition-colors text-white text-sm" />
+                          <input name="name" type="text" required className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-3.5 outline-none focus:border-orange-500 transition-colors text-white text-sm" />
                         </div>
                         <div className="space-y-2">
                           <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest">{contactData.form.email}</label>
-                          <input type="email" className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-3.5 outline-none focus:border-orange-500 transition-colors text-white text-sm" />
+                          <input name="email" type="email" required className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-3.5 outline-none focus:border-orange-500 transition-colors text-white text-sm" />
                         </div>
                         <div className="space-y-2">
                           <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest">{contactData.form.message}</label>
-                          <textarea rows={3} className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-3.5 outline-none focus:border-orange-500 transition-colors text-white text-sm" />
+                          <textarea name="message" required rows={3} className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-3.5 outline-none focus:border-orange-500 transition-colors text-white text-sm" />
                         </div>
                         <button type="submit" className="w-full py-4 bg-orange-600 hover:bg-orange-500 text-white rounded-xl font-black text-xs uppercase tracking-[0.2em] transition-all transform active:scale-[0.98] shadow-lg shadow-orange-600/20">
                           {contactData.form.submit}

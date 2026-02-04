@@ -9,7 +9,9 @@ export function middleware(request: NextRequest) {
   if (
     pathname.startsWith('/static') ||
     pathname.startsWith('/api') ||
+    pathname.startsWith('/admin') ||
     pathname.startsWith('/_next') ||
+    pathname === '/login' ||
     pathname === '/favicon.ico' ||
     pathname === '/robots.txt' ||
     pathname === '/sitemap.xml'

@@ -235,10 +235,10 @@ export const EnterpriseERPSection = ({ textData }: { textData?: any }) => {
                     <span className="text-blue-600 dark:text-blue-400 font-bold tracking-[0.3em] text-xs uppercase mb-4 block">
                         {content.label}
                     </span>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.5] mb-12 break-keep bg-clip-text text-transparent bg-gradient-to-br from-gray-900 to-gray-500 dark:from-gray-100 dark:to-gray-400">
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.3] md:leading-[1.5] mb-8 md:mb-12 whitespace-normal break-all md:whitespace-pre-line md:break-keep bg-clip-text text-transparent bg-gradient-to-br from-gray-900 to-gray-500 dark:from-gray-100 dark:to-gray-400">
                         {renderTitle(content.title)}
                     </h2>
-                    <p className="text-xl text-gray-600 dark:text-gray-400 leading-[1.9] max-w-3xl font-medium break-keep opacity-90">
+                    <p className="text-xl text-gray-600 dark:text-gray-400 leading-[1.9] max-w-3xl font-medium whitespace-normal break-all md:whitespace-pre-line md:break-keep opacity-90">
                         {renderDesc(content.desc)}
                     </p>
                 </div>
@@ -275,7 +275,7 @@ export const EnterpriseERPSection = ({ textData }: { textData?: any }) => {
                 </div>
 
                 {/* Main Visual (Right Side) */}
-                <div className="w-full lg:w-3/5 min-h-[500px] flex items-center justify-center">
+                <div className="w-full lg:w-3/5 min-h-[350px] md:min-h-[500px] flex items-center justify-center">
                     <AnimatePresence mode="wait">
                         {activeTab === 0 && (
                             <motion.div key="dbr" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.5 }} className="w-full">

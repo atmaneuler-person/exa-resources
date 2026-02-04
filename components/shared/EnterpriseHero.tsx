@@ -10,6 +10,7 @@ interface HeroProps {
 export const EnterpriseHero = ({ textData }: HeroProps) => {
     const sectionRef = useRef(null);
     const isInView = useInView(sectionRef, { once: true });
+    
     // Default fallback content (English)
     const content = textData || {
         label: "Enterprise AI 2.0",
@@ -57,14 +58,14 @@ export const EnterpriseHero = ({ textData }: HeroProps) => {
     };
 
     return (
-        <section ref={sectionRef} className="relative w-full min-h-[90vh] flex items-center justify-center bg-white dark:bg-gray-950 overflow-hidden pt-20 transition-colors duration-500">
+        <section ref={sectionRef} className="relative w-full min-h-[90vh] flex items-start justify-center bg-white dark:bg-gray-950 overflow-hidden pt-32 transition-colors duration-500">
             {/* 1. Background Content (Hero components are z-10 or higher) */}
             <div className="absolute inset-0 z-0" />
 
-            <div className="relative z-10 w-full max-w-screen-2xl mx-auto px-6 h-full flex flex-col md:flex-row items-center gap-12">
+            <div className="relative z-10 w-full max-w-screen-2xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
                 
                 {/* 2. Text Content (Left Aligned) */}
-                <div className="flex-1 space-y-12 md:space-y-20 text-left pt-10 md:pt-0">
+                <div className="flex-1 space-y-8 md:space-y-20 text-left pt-6 md:pt-0">
                     <motion.div 
                         initial={{ opacity: 0, y: 20 }}
                         animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -81,7 +82,7 @@ export const EnterpriseHero = ({ textData }: HeroProps) => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={isInView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-5xl md:text-7xl lg:text-[5.2rem] font-extrabold tracking-tight leading-[1.35] whitespace-pre-line text-left break-keep bg-clip-text text-transparent bg-gradient-to-br from-gray-900 to-gray-500 dark:from-gray-100 dark:to-gray-400"
+                        className="text-4xl md:text-7xl lg:text-[5.2rem] font-extrabold tracking-tight leading-[1.2] md:leading-[1.35] whitespace-pre-line text-left break-words md:break-keep bg-clip-text text-transparent bg-gradient-to-br from-gray-900 to-gray-500 dark:from-gray-100 dark:to-gray-400"
                     >
                         {renderTitle(content.title)}
                     </motion.h1>
@@ -92,7 +93,7 @@ export const EnterpriseHero = ({ textData }: HeroProps) => {
                         transition={{ duration: 0.8, delay: 0.4 }}
                         className="max-w-2xl text-left"
                     >
-                        <p className="text-xl md:text-[20px] text-gray-600 dark:text-gray-400 leading-[1.7] font-medium whitespace-pre-line break-keep">
+                        <p className="text-lg md:text-[20px] text-gray-600 dark:text-gray-400 leading-[1.6] md:leading-[1.7] font-medium whitespace-pre-line break-words md:break-keep">
                             {renderDesc(content.desc)}
                         </p>
                     </motion.div>
@@ -103,13 +104,13 @@ export const EnterpriseHero = ({ textData }: HeroProps) => {
                         transition={{ duration: 0.5, delay: 0.6 }}
                         className="flex flex-col sm:flex-row items-center gap-4 justify-start"
                     >
-                        <button className="group relative px-8 py-4 bg-gray-950 dark:bg-white text-white dark:text-gray-900 rounded-full font-bold text-lg overflow-hidden transition-all hover:bg-gray-800 dark:hover:bg-gray-100 hover:scale-105 active:scale-95 shadow-xl">
-                            <span className="relative z-10 flex items-center gap-2">
+                        <button className="w-auto group relative px-8 py-4 bg-gray-950 dark:bg-white text-white dark:text-gray-900 rounded-full font-bold text-lg overflow-hidden transition-all hover:bg-gray-800 dark:hover:bg-gray-100 hover:scale-105 active:scale-95 shadow-xl">
+                            <span className="relative z-10 flex items-center justify-center gap-2">
                                 {content.cta}
                                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                             </span>
                         </button>
-                        <button className="px-8 py-4 bg-orange-50/30 dark:bg-orange-500/5 border-2 border-orange-200/50 dark:border-orange-500/20 text-gray-900 dark:text-white rounded-full font-bold text-lg backdrop-blur-md hover:bg-orange-100/50 dark:hover:bg-orange-500/10 transition-all shadow-md hover:shadow-xl hover:-translate-y-1 active:translate-y-0">
+                        <button className="w-auto px-8 py-4 bg-orange-50/30 dark:bg-orange-500/5 border-2 border-orange-200/50 dark:border-orange-500/20 text-gray-900 dark:text-white rounded-full font-bold text-lg backdrop-blur-md hover:bg-orange-100/50 dark:hover:bg-orange-500/10 transition-all shadow-md hover:shadow-xl hover:-translate-y-1 active:translate-y-0">
                            View Technical Whitepaper
                         </button>
                     </motion.div>

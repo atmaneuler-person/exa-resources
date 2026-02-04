@@ -19,6 +19,7 @@ import DocLayout from '@/layouts/DocLayout';
 import { siteConfig } from '@/data/config/site.settings';
 import { Metadata } from 'next';
 import { MainPage } from '@/components/shared/MainPage';
+import { CompanyPage } from '@/components/shared/CompanyPage';
 import { auth } from '@/lib/auth';
 
 const defaultLayout = 'PostLayout';
@@ -36,6 +37,14 @@ export async function generateMetadata(props: {
     return {
       title: `${categoryName} | ${siteConfig.title}`,
       description: `Articles in ${categoryName}`,
+    };
+  }
+
+  // Handle /ko/about metadata
+  if (slugArray.length > 1 && slugArray[1] === 'about') {
+    return {
+      title: 'About Us | EXA',
+      description: 'We are an Applied Science Company.',
     };
   }
 
@@ -66,6 +75,24 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
   // If it's just the locale (e.g. /en), render MainPage
   if (baseSlug.length === 0) {
     return <MainPage locale={currentLocale} />;
+  }
+
+  // =========================================================
+  // [NEW] About Page Handling (Intercept /ko/about, /ja/about, etc.)
+  // =========================================================
+  if (baseSlug[0] === 'about') {
+      const { companyData, contactData } = await import('@/components/shared/data/companyData');
+      
+      const t = companyData[currentLocale] || companyData['en'];
+      const c = contactData[currentLocale] || contactData['en'];
+
+      return (
+        <CompanyPage 
+          locale={currentLocale} 
+          textData={t}
+          contactData={c}
+        />
+      );
   }
 
   // =========================================================

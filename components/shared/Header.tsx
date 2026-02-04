@@ -40,7 +40,8 @@ const Header = () => {
           </div>
         </Link>
       </div>
-      <div className="flex items-center leading-5 space-x-4 sm:space-x-6">
+      <div className="flex items-center gap-10">
+        {/* 1. Main Navigation (Left/Center) */}
         <div className="hidden lg:flex space-x-6">
           {headerNavLinks.map((link) => {
             const possibleLocale = pathname.split('/')[1];
@@ -56,41 +57,53 @@ const Header = () => {
 
             const isActive = link.href === '/' 
               ? pathname === `/${currentLocale}`
-              : pathname.startsWith(href) || (link.title === 'Docs' && pathname.includes('/Docs/'));
-            const isRestricted = !isLoggedIn && link.title === 'Docs';
+              : pathname.startsWith(href);
 
             return (
               <Link
                 key={link.title}
                 href={href}
-                onClick={(e) => handleRestrictedClick(e, href)}
-                className={`font-medium transition-colors ${
+                className={`font-medium transition-colors whitespace-nowrap ${
                   isActive 
                     ? 'text-orange-500 font-bold' 
                     : 'text-gray-100 hover:text-orange-500'
-                } ${isRestricted ? 'opacity-90' : ''}`}
+                }`}
               >
                 {link.title}
-                {isRestricted && (
-                    <span className="ml-1 text-[10px] align-top text-gray-500">🔒</span>
-                )}
               </Link>
             );
           })}
-          
-        {/* Admin Stats Link - Only visible when logged in AS ADMIN */}
-        {isLoggedIn && (session?.user as any)?.isAdmin && (
-          <Link
-            href="/admin/stats"
-            className={`font-medium transition-colors ${
-              pathname === '/admin/stats' 
-                ? 'text-orange-500 font-bold' 
-                : 'text-gray-100 hover:text-orange-500'
-            }`}
-          >
-            Stats
-          </Link>
-        )}
+        </div>
+      </div>
+
+      {/* 2. Utility Navigation (Right) */}
+      <div className="flex items-center leading-5 space-x-4 sm:space-x-6">
+        <div className="hidden lg:flex items-center space-x-6 border-l border-white/10 pl-6">
+             {/* Docs Link (Manually added here) */}
+             <Link
+                href={pathname.split('/')[1] && siteConfig.locales.includes(pathname.split('/')[1]) ? `/${pathname.split('/')[1]}/category/Docs` : '/ko/category/Docs'}
+                className={`font-medium transition-colors ${
+                  pathname.includes('/category/Docs')
+                    ? 'text-orange-500 font-bold' 
+                    : 'text-gray-100 hover:text-orange-500'
+                }`}
+             >
+                Docs
+             </Link>
+
+             {/* Admin Stats Link */}
+             {isLoggedIn && (session?.user as any)?.isAdmin && (
+              <Link
+                href="/admin/stats"
+                className={`font-medium transition-colors ${
+                  pathname === '/admin/stats' 
+                    ? 'text-orange-500 font-bold' 
+                    : 'text-gray-100 hover:text-orange-500'
+                }`}
+              >
+                Stats
+              </Link>
+             )}
         </div>
         
         {/* 언어 선택 버튼 (Desktop only) */}
@@ -110,8 +123,8 @@ const Header = () => {
         <div className="flex items-center gap-4">
              {/* Primary CTA: Contact Sales */}
              <Link
-               href="mailto:sales@exa.ai"
-               className="hidden lg:inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-all shadow-lg shadow-orange-900/20 hover:scale-105 active:scale-95"
+               href="mailto:contact@atmaneuler.com"
+               className="hidden lg:inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-all shadow-lg shadow-orange-900/20 hover:scale-105 active:scale-95 whitespace-nowrap"
              >
                Contact Sales
              </Link>
@@ -121,14 +134,14 @@ const Header = () => {
              ) : isLoggedIn ? (
                 <button 
                   onClick={() => signOut()}
-                  className="hidden lg:inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-300 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 rounded-full transition-colors"
+                  className="hidden lg:inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-gray-200 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 rounded-full transition-all hover:scale-105 active:scale-95 whitespace-nowrap"
                 >
                   Sign Out
                 </button>
              ) : (
                 <Link
                   href="/login"
-                  className="hidden lg:inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-300 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 rounded-full transition-colors"
+                  className="hidden lg:inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-gray-200 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 rounded-full transition-all hover:scale-105 active:scale-95 whitespace-nowrap"
                 >
                   Sign In
                 </Link>

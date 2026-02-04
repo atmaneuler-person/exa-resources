@@ -107,7 +107,7 @@ export const EnterpriseShowcase = ({ textData }: ShowcaseProps) => {
                     className="space-y-6"
                 >
                     {/* Level 1: Main Title */}
-                    <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tighter leading-[1] whitespace-pre-line">
+                    <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tighter leading-[1] whitespace-pre-line break-keep">
                         {renderTitle(content.title)}
                     </h2>
                     

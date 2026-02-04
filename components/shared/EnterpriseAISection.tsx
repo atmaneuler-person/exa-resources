@@ -271,7 +271,7 @@ export const EnterpriseAISection = ({ textData }: AIProps) => {
                         <div className="absolute -inset-10 bg-gradient-to-tr from-blue-400/20 to-indigo-500/20 blur-3xl opacity-50 rounded-full pointer-events-none" />
                         
                         {/* The Console Card */}
-                        <div className="relative bg-gray-900/95 backdrop-blur-xl border border-gray-800 rounded-3xl shadow-2xl overflow-hidden ring-1 ring-white/10 h-[600px] flex flex-col">
+                        <div className="relative bg-gray-900/95 backdrop-blur-xl border border-gray-800 rounded-3xl shadow-2xl overflow-hidden ring-1 ring-white/10 h-[450px] md:h-[600px] flex flex-col">
                             
                             {/* Header */}
                             <div className="h-12 bg-gray-800/50 border-b border-white/5 flex items-center px-5 gap-2 flex-shrink-0">
@@ -382,15 +382,15 @@ export const EnterpriseAISection = ({ textData }: AIProps) => {
                         <span className="text-xs font-bold uppercase tracking-widest">{content.label}</span>
                     </div>
 
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.5] whitespace-pre-line break-keep mb-10 bg-clip-text text-transparent bg-gradient-to-br from-gray-900 to-gray-500 dark:from-gray-100 dark:to-gray-400">
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.3] md:leading-[1.5] whitespace-normal break-all md:whitespace-pre-line md:break-keep mb-8 md:mb-10 bg-clip-text text-transparent bg-gradient-to-br from-gray-900 to-gray-500 dark:from-gray-100 dark:to-gray-400">
                         {renderTitle(content.title)}
                     </h2>
 
-                    <p className="text-xl text-gray-600 dark:text-gray-400 leading-[1.9] max-w-xl font-medium break-keep opacity-90">
+                    <p className="text-xl text-gray-600 dark:text-gray-400 leading-[1.9] max-w-xl font-medium whitespace-normal break-all md:whitespace-pre-line md:break-keep opacity-90">
                         {renderDesc(content.desc)}
                     </p>
 
-                    <div className="grid grid-cols-2 gap-4 pt-4 w-full">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 w-full">
                         {[
                             { name: 'Generative AI', desc: 'Natural Language Insight' },
                             { name: 'Deep Learning', desc: 'Pattern Recognition' },
