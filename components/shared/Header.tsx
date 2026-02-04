@@ -3,6 +3,7 @@
 
 import { siteConfig } from '../../data/config/site.settings';
 import Image from 'next/image'; 
+import { Lock as LockIcon } from 'lucide-react';
 import Link from './Link';
 import MobileNav from './MobileNav';
 import ThemeSwitch from './ThemeSwitch';
@@ -82,25 +83,31 @@ const Header = () => {
              {/* Docs Link (Manually added here) */}
              <Link
                 href={pathname.split('/')[1] && siteConfig.locales.includes(pathname.split('/')[1]) ? `/${pathname.split('/')[1]}/category/Docs` : '/ko/category/Docs'}
-                className={`font-medium transition-colors ${
+                className={`flex items-center font-medium transition-colors ${
                   pathname.includes('/category/Docs')
                     ? 'text-orange-500 font-bold' 
                     : 'text-gray-100 hover:text-orange-500'
                 }`}
              >
                 Docs
+                {!isLoggedIn && (
+                  <span className="ml-1 flex items-center justify-center bg-yellow-500 w-[7px] h-[7px] rounded-[1px] flex-shrink-0">
+                    <LockIcon className="w-[5px] h-[5px] text-gray-950" strokeWidth={4} />
+                  </span>
+                )}
              </Link>
 
-             {/* Admin Stats Link */}
+        {/* Admin Stats Link */}
              {isLoggedIn && (session?.user as any)?.isAdmin && (
               <Link
                 href="/admin/stats"
-                className={`font-medium transition-colors ${
+                className={`flex items-center font-medium transition-colors ${
                   pathname === '/admin/stats' 
                     ? 'text-orange-500 font-bold' 
                     : 'text-gray-100 hover:text-orange-500'
                 }`}
               >
+                <LockIcon className="w-4 h-4 mr-1.5 text-yellow-500" />
                 Stats
               </Link>
              )}

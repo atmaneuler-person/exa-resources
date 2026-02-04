@@ -34,9 +34,12 @@ export default function RestrictedContentGate({ postTitle }: RestrictedContentGa
           Please log in to access the full documentation.
         </p>
         
-        <div className="p-8 border border-gray-200 dark:border-gray-800 rounded-2xl bg-gray-50 dark:bg-gray-900/50 max-w-md mx-auto">
+        <div className="p-8 border border-gray-200 dark:border-gray-800 rounded-2xl bg-gray-50 dark:bg-gray-900/50 max-w-md mx-auto space-y-4">
             <Button className="w-full h-12 text-lg" onClick={handleLogin}>
               Log In to Continue
+            </Button>
+            <Button variant="outline" className="w-full h-12 text-lg" onClick={() => router.back()}>
+              Cancel
             </Button>
             <p className="mt-4 text-sm text-gray-400">
               Don't have an account? Contact your administrator.
