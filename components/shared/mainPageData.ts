@@ -139,7 +139,7 @@ export const mainPageData: Record<string, MainPageData> = {
     },
     blogHero: {
       label: "Intelligence Stream",
-      title: "Tài nguyên EXA",
+      title: "EXA Enterprise",
       subtitle: "Logic Nền tảng Doanh nghiệp & Tổng hợp Kỹ thuật",
       desc: "Nghiên cứu của chúng tôi giải mã 'Vật lý trong Kinh doanh'—chuyển đổi sự hỗn loạn đa chiều thành trí tuệ có thể hành động cho bối cảnh quyết định tinh gọn.",
       viewAll: "Khám phá sự Tổng hợp"

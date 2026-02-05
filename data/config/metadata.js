@@ -1,9 +1,9 @@
 const metadata = {
-  title: 'EXA Resources',
+  title: 'EXA Enterprise',
   description: 'EXA Enterprise Plaform Logic & Documents',
   domain: 'resource.exaeuler.com',
   logoTitle: '',
-  businessName: 'EXA Resources',
+  businessName: 'EXA Enterprise',
   siteUrl: 'https://resource.exaeuler.com',
   siteRepo: '',
   socialBanner: '/api/og',
@@ -18,7 +18,7 @@ const metadata = {
   facebook: '',
   threads: '',
   mastodon: '',
-  author: 'EXA Resources',
+  author: 'EXA Enterprise',
   language: 'en-US',
   theme: 'system',
   locale: 'en-US'

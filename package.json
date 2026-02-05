@@ -1,6 +1,6 @@
 {
-  "name": "EXA Resources",
-  "description": "EXA Enterprise Plaform Logic & Documents",
+  "name": "exa-enterprise",
+  "description": "EXA Enterprise Platform Logic & Documents",
   "version": "1.0.0",
   "private": true,
   "scripts": {

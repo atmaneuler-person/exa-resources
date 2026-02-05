@@ -1,7 +1,7 @@
-EXA Resources
-==================
+# EXA Enterprise
 
-#### EXA Resources
+#### EXA Enterprise
+
 EXA Enterprise Plaform Logic & Documents
 
 > This website was generated with [shipixen.com](https://shipixen.com).
@@ -40,7 +40,6 @@ To build the site for production, run the following command:
 npm run build
 ```
 
-
 ## Deploy
 
 **Vercel**
@@ -55,11 +54,12 @@ Codebase generated with Shipixen can be deployed to [Netlify](https://www.netlif
 
 See [documentation](https://shipixen.com/boilerplate-documentation/other-deployment-options#main) for more information on deploying to other services.
 
-
 ## Extend / Customize
+
 See [configuration docs](https://shipixen.com/boilerplate-documentation/configuration#main).
 
 Also check out:
+
 - [Customizing the landing page](https://shipixen.com/boilerplate-documentation/customizing-landing-page#main) - how to customize the landing page
 - [Landing page component examples](https://shipixen.com/demo/landing-page-component-examples)
 - [Landing page templates](https://shipixen.com/demo/landing-page-templates)
@@ -78,12 +78,15 @@ Content is modelled using [Contentlayer](https://www.contentlayer.dev/), which a
 ## Frequently Asked Questions
 
 ### How can I add a custom MDX component?
+
 You need to include the component under `components/MDXComponents.tsx`.
 
 See [a full example here](https://shipixen.com/boilerplate-documentation/creating-a-blog-mdx-component#main).
 
 ### How can I add a blog layout?
+
 See [this tutorial on how to add a blog layout](https://shipixen.com/boilerplate-documentation/creating-a-layout#main).
 
 ### How to add meta tags?
+
 There's a utility function, `getPageMetadata` that makes it easy to add meta tags to your pages. See [this tutorial](https://shipixen.com/boilerplate-documentation/adding-metas-to-a-page#main) for more information.

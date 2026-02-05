@@ -102,7 +102,7 @@ export const MainPage = ({ locale = siteConfig.defaultLocale }: MainPageProps) =
         <EnterpriseBentoGrid locale={currentLocale} textData={t.bento} />
       </div>
 
-      {/* SECTION 5: BLOG HERO (EXA Resources) */}
+      {/* SECTION 5: BLOG HERO (EXA Enterprise) */}
       <div className={`w-full relative z-10 ${['ko', 'ja', 'zh'].includes(currentLocale) ? 'mt-24 md:mt-32' : 'mt-24 md:mt-32'}`}>
         <EnterpriseBlogHeroSection textData={t.blogHero}>
              <div className="space-y-8">

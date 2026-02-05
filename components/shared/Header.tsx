@@ -21,15 +21,18 @@ export const Header = ({ className }: { className?: string }) => {
   const { data: session, status } = useSession();
   const isLoggedIn = status === 'authenticated';
 
-  const handleRestrictedClick = (e: React.MouseEvent, href: string) => {
-    // Optional
-  };
+  // Extract locale for link maintenance
+  const possibleLocale = pathname.split('/')[1];
+  const currentLocale = (siteConfig.locales as readonly string[]).includes(possibleLocale) 
+    ? possibleLocale 
+    : (siteConfig.defaultLocale || 'ko');
 
   return (
     <header className={cn("fixed top-0 left-0 right-0 z-[100] w-full bg-gradient-to-r from-gray-950 via-gray-950 to-gray-900/90 backdrop-blur-xl border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.3)]", className)}>
       <div className="flex items-center justify-between py-4 px-4 w-full max-w-screen-2xl mx-auto h-16">
       <div>
-        <Link href="/" aria-label={siteConfig.title}>
+        {/* Logo: Returns to the root of the CURRENT locale */}
+        <Link href={`/${currentLocale}`} aria-label={siteConfig.title}>
           <div className="flex items-center">
             <div className="relative h-8 w-32">
               <Image
@@ -44,23 +47,21 @@ export const Header = ({ className }: { className?: string }) => {
         </Link>
       </div>
       <div className="flex items-center gap-10">
-        {/* 1. Main Navigation (Left/Center) */}
+        {/* 1. Main Navigation */}
         <div className="hidden lg:flex space-x-6">
           {headerNavLinks.map((link) => {
-            const possibleLocale = pathname.split('/')[1];
-            const currentLocale = siteConfig.locales.includes(possibleLocale) 
-              ? possibleLocale 
-              : (siteConfig.defaultLocale || 'ko');
-            
-            // Generate locale-aware href - ALWAYS include currentLocale
+            // Keep specialized logic for blog categories vs static pages
             let href = link.href;
-            if (href.startsWith('/')) {
-              href = `/${currentLocale}${href === '/' ? '' : href}`.replace(/\/+/g, '/');
+            const isCategory = href.includes('/category/');
+            
+            if (href === '/') {
+              href = `/${currentLocale}`;
+            } else if (isCategory) {
+              href = `/${currentLocale}${href}`;
             }
+            // Static pages like /about stay as /about OR follow their own principle
 
-            const isActive = link.href === '/' 
-              ? pathname === `/${currentLocale}`
-              : pathname.startsWith(href);
+            const isActive = pathname === href || pathname.startsWith(href + '/');
 
             return (
               <Link
@@ -79,12 +80,11 @@ export const Header = ({ className }: { className?: string }) => {
         </div>
       </div>
 
-      {/* 2. Utility Navigation (Right) */}
+      {/* 2. Utility Navigation */}
       <div className="flex items-center leading-5 space-x-4 sm:space-x-6">
         <div className="hidden lg:flex items-center space-x-6 border-l border-white/10 pl-6">
-             {/* Docs Link (Manually added here) */}
              <Link
-                href={pathname.split('/')[1] && siteConfig.locales.includes(pathname.split('/')[1]) ? `/${pathname.split('/')[1]}/category/Docs` : '/ko/category/Docs'}
+                href={`/${currentLocale}/category/Docs`}
                 className={`flex items-center font-medium transition-colors ${
                   pathname.includes('/category/Docs')
                     ? 'text-orange-500 font-bold' 
@@ -99,7 +99,6 @@ export const Header = ({ className }: { className?: string }) => {
                 )}
              </Link>
 
-        {/* Admin Stats Link */}
              {isLoggedIn && (session?.user as any)?.isAdmin && (
               <Link
                 href="/admin/stats"
@@ -115,7 +114,6 @@ export const Header = ({ className }: { className?: string }) => {
              )}
         </div>
         
-        {/* 언어 선택 버튼 (Desktop only) */}
         <div className="hidden lg:block">
            <LanguageSwitcher />
         </div>
@@ -128,11 +126,9 @@ export const Header = ({ className }: { className?: string }) => {
            <ThemeSwitch className="text-gray-100" />
         </div>
 
-        {/* Auth Buttons */}
         <div className="flex items-center gap-4">
-             {/* Primary CTA: Contact Us */}
              <Link
-               href={`/${pathname.split('/')[1] || 'ko'}/about#contact`}
+               href={`/${currentLocale}/about#contact`}
                className="hidden lg:inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-all shadow-lg shadow-orange-900/20 hover:scale-105 active:scale-95 whitespace-nowrap"
              >
                Contact Us
