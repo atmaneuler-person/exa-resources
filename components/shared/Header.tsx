@@ -50,18 +50,13 @@ export const Header = ({ className }: { className?: string }) => {
         {/* 1. Main Navigation */}
         <div className="hidden lg:flex space-x-6">
           {headerNavLinks.map((link) => {
-            // Keep specialized logic for blog categories vs static pages
+            // ALWAYS prefix internal links with currentLocale to maintain the principle
             let href = link.href;
-            const isCategory = href.includes('/category/');
-            
-            if (href === '/') {
-              href = `/${currentLocale}`;
-            } else if (isCategory) {
-              href = `/${currentLocale}${href}`;
+            if (href.startsWith('/')) {
+              href = `/${currentLocale}${href === '/' ? '' : href}`.replace(/\/+/g, '/');
             }
-            // Static pages like /about stay as /about OR follow their own principle
 
-            const isActive = pathname === href || pathname.startsWith(href + '/');
+            const isActive = pathname === href || (href !== `/${currentLocale}` && pathname.startsWith(href));
 
             return (
               <Link

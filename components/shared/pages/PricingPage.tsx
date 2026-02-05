@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-
 import { CheckIcon } from '@/components/icons/PricingCheckIcon';
 import { Button } from '@/components/shared/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/shared/ui/radio-group';
@@ -14,7 +13,7 @@ import {
   pricingTiers as tiers,
 } from '@/data/config/pricingData';
 
-export default function PricingPage() {
+export function PricingPage({ locale }: { locale: string }) {
   const [frequency, setFrequency] = useState(frequencies[0]);
 
   const tier = tiers[0];
@@ -32,14 +31,6 @@ export default function PricingPage() {
             </h1>
             <p className="mt-6 md:text-xl"></p>
           </div>
-
-          {bannerText ? (
-            <div className="flex justify-center my-4">
-              <p className="px-4 py-3 text-xs bg-primary-100 text-black dark:bg-primary-300/30 dark:text-white/80 rounded-xl">
-                {bannerText}
-              </p>
-            </div>
-          ) : null}
 
           {frequencies.length > 1 ? (
             <div className="mt-16 flex justify-center">

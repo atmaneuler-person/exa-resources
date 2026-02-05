@@ -5,12 +5,11 @@ import Header from '@/components/shared/Header';
 import { Footer } from '@/components/shared/Footer';
 import { BayesianVisual } from '@/components/shared/BayesianVisual';
 
-export default function ExaWinParamsPage() {
+export function ExaWinPage({ locale }: { locale: string }) {
     return (
         <div className="min-h-screen bg-black text-white selection:bg-orange-500 selection:text-white overflow-x-hidden">
             <Header />
             
-            {/* Background Effects */}
             <div className="fixed inset-0 z-0 pointer-events-none">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gray-800/20 via-black to-black" />
                 <div className="absolute inset-0 opacity-[0.1]" 
@@ -19,7 +18,6 @@ export default function ExaWinParamsPage() {
             </div>
 
             <main className="relative z-10 pt-32">
-                {/* 1. Hero Section: Physics of Sales */}
                 <section className="px-6 max-w-screen-xl mx-auto text-center mb-24">
                     <motion.div 
                         initial={{ opacity: 0, y: 30 }}
@@ -43,11 +41,8 @@ export default function ExaWinParamsPage() {
                     </motion.div>
                 </section>
 
-                {/* 2. The Equation (Interactive Visual Wrapper) */}
                 <section className="py-20 border-y border-white/10 bg-white/5 backdrop-blur-sm">
                     <div className="max-w-screen-2xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        
-                        {/* Text: The Logic */}
                         <div className="space-y-16 order-2 lg:order-1">
                             <div className="space-y-4">
                                 <h2 className="text-3xl font-bold flex items-center gap-4">
@@ -78,17 +73,11 @@ export default function ExaWinParamsPage() {
                             </div>
                         </div>
 
-                        {/* Visual: The Engine */}
                         <div className="order-1 lg:order-2 relative h-[600px] w-full rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10 bg-gray-900 group">
-                            {/* Inner Glow */}
                             <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent opacity-50 pointer-events-none" />
-                            
-                            {/* The Visual Component */}
                             <div className="absolute inset-0 scale-90 md:scale-100 origin-center">
                                 <BayesianVisual className="!bg-transparent !shadow-none !border-none" />
                             </div>
-
-                            {/* Overlay Context - Improved Visibility */}
                             <div className="absolute top-8 right-8 text-right z-20 mix-blend-difference">
                                 <div className="text-xs font-bold text-orange-400 uppercase tracking-widest mb-1">Live Simulation</div>
                                 <div className="text-3xl font-mono text-white font-bold tracking-tighter">P(Win | Signal)</div>
@@ -97,10 +86,8 @@ export default function ExaWinParamsPage() {
                     </div>
                 </section>
 
-                {/* 3. Deep Dive: The Mathematics */}
                 <section className="py-32 max-w-screen-xl mx-auto px-6">
                     <h2 className="text-5xl font-black mb-20 text-center tracking-tight">Inside the EXA Decision Kernel v5</h2>
-                    
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
                             { title: 'Log-Sigmoid Weights', desc: 'Non-linear weighting of stakeholder influence based on organizational hierarchy.', icon: '∑', color: 'text-pink-500', bg: 'bg-pink-500/10', border: 'border-pink-500/20' },
@@ -120,7 +107,6 @@ export default function ExaWinParamsPage() {
                     </div>
                 </section>
 
-                {/* 4. CTA */}
                 <section className="py-32 text-center border-t border-white/5 relative overflow-hidden">
                     <div className="absolute inset-0 bg-orange-600/5 blur-3xl pointer-events-none" />
                     <div className="relative z-10">
@@ -130,7 +116,6 @@ export default function ExaWinParamsPage() {
                         </button>
                     </div>
                 </section>
-
             </main>
             <Footer />
         </div>

@@ -69,8 +69,11 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
   const searchParams = await props.searchParams;
   const slugArray = params.slug;
 
-  const currentLocale = slugArray[0];
-  const baseSlug = slugArray.slice(1);
+  const segments = params.slug;
+  const isFirstSegmentLocale = (siteConfig.locales as readonly string[]).includes(segments[0]);
+  
+  const currentLocale = isFirstSegmentLocale ? segments[0] : (siteConfig.defaultLocale || 'ko');
+  const baseSlug = isFirstSegmentLocale ? segments.slice(1) : segments;
 
   // If it's just the locale (e.g. /en), render MainPage
   if (baseSlug.length === 0) {
@@ -78,21 +81,26 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
   }
 
   // =========================================================
-  // [NEW] About Page Handling (Intercept /ko/about, /ja/about, etc.)
+  // [NEW] Static Page Handling (About, Pricing, Solutions, etc.)
+  // Intercept locale-prefixed routes like /ko/about, /ja/pricing, etc.
   // =========================================================
-  if (baseSlug[0] === 'about') {
+  const subPath = baseSlug.join('/');
+  
+  if (subPath === 'about') {
       const { companyData, contactData } = await import('@/components/shared/data/companyData');
-      
       const t = companyData[currentLocale] || companyData['en'];
       const c = contactData[currentLocale] || contactData['en'];
+      return <CompanyPage locale={currentLocale} textData={t} contactData={c} />;
+  }
 
-      return (
-        <CompanyPage 
-          locale={currentLocale} 
-          textData={t}
-          contactData={c}
-        />
-      );
+  if (subPath === 'pricing') {
+      const { PricingPage } = await import('@/components/shared/pages/PricingPage');
+      return <PricingPage locale={currentLocale} />;
+  }
+
+  if (subPath === 'solutions/exawin') {
+      const { ExaWinPage } = await import('@/components/shared/pages/ExaWinPage');
+      return <ExaWinPage locale={currentLocale} />;
   }
 
   // =========================================================
