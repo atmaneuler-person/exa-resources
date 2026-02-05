@@ -292,6 +292,9 @@ importers:
         specifier: ^4.1.8
         version: 4.3.6
     devDependencies:
+      '@eslint/eslintrc':
+        specifier: ^3.3.3
+        version: 3.3.3
       '@next/bundle-analyzer':
         specifier: ^15.5.9
         version: 15.5.11
