@@ -1,6 +1,4 @@
-/**
- * NB: This template is not legal advice, and you are solely responsible for ensuring that you meet your obligations under applicable laws. As privacy laws are constantly evolving, you should regularly review your privacy notice to ensure that it is compliant with updated laws and regulation and that it accurately reflects current data handling practices. We recommend that you consult a lawyer as needed.
- */
+'use client';
 import Link from 'next/link';
 import { metadata } from '@/data/config/metadata';
 import Footer from '@/components/shared/Footer';
@@ -10,7 +8,7 @@ const policyConfig = {
   lastUpdated: 'March 1st, 2024',
 };
 
-export default function TermsPage() {
+export function TermsPage({ locale }: { locale: string }) {
   return (
     <div className="flex flex-col w-full items-center fancy-overlay">
       <Header />
@@ -196,18 +194,6 @@ export default function TermsPage() {
             quantities and are subject to return or exchange.
           </p>
 
-          {/* Alternatively, you can link to a return policy if you have one */}
-          {/* <p className="mb-4">
-            Certain products or services may be available exclusively online
-            through the website. These products or services may have limited
-            quantities and are subject to return or exchange only according to
-            our Return Policy. To view our Return Policy, please visit{' '}
-            <a href="[LINK TO RETURN POLICY]" className="text-blue-500">
-              Return Policy
-            </a>
-            .
-          </p> */}
-
           <p className="mb-4">
             We have made every effort to display as accurately as possible the
             colors and images of our products that appear. We cannot guarantee
@@ -259,15 +245,6 @@ export default function TermsPage() {
             your email address and credit card numbers and expiration dates, so
             that we can complete your transactions and contact you as needed.
           </p>
-
-          {/* Alternatively, you can link to a return policy if you have one */}
-          {/* <p className="mb-4">
-            For more detail, please review our{' '}
-            <a href="[LINK TO RETURNS POLICY]" className="text-blue-500">
-              Returns Policy
-            </a>
-            .
-          </p> */}
         </div>
 
         <div className="max-w-screen-md mx-auto bg-white dark:bg-black w-full rounded shadow-md p-6 mb-8">
@@ -510,13 +487,6 @@ export default function TermsPage() {
             (or product) posted, transmitted, or otherwise made available via
             the service, even if advised of their possibility.
           </p>
-
-          <p className="mb-4">
-            Because some states or jurisdictions do not allow the exclusion or
-            the limitation of liability for consequential or incidental damages,
-            in such states or jurisdictions, our liability shall be limited to
-            the maximum extent permitted by law.
-          </p>
         </div>
 
         <div className="max-w-screen-md mx-auto bg-white dark:bg-black w-full rounded shadow-md p-6 mb-8">
@@ -613,13 +583,6 @@ export default function TermsPage() {
             provide you services shall be governed by and construed in
             accordance with the laws of the country where we are registered.
           </p>
-
-          {/* Alternatively, you might want to specify the country */}
-          {/* <p className="mb-4">
-            These Terms of Service and any separate agreements whereby we
-            provide you services shall be governed by and construed in
-            accordance with the laws of the United States.
-          </p> */}
         </div>
 
         <div className="max-w-screen-md mx-auto bg-white dark:bg-black w-full rounded shadow-md p-6 mb-8">
@@ -654,24 +617,6 @@ export default function TermsPage() {
               {metadata.supportEmail}
             </a>
           </p>
-
-          {/* Alternatively, provide more contact information */}
-          {/* <p className="mb-4">
-            Our contact information is posted below:
-            <br />
-            [INSERT TRADING NAME]
-            <br />
-            [INSERT EMAIL ADDRESS]
-            <br />
-            [INSERT BUSINESS ADDRESS]
-            <br />
-            [INSERT BUSINESS PHONE NUMBER]
-            <br />
-            [INSERT BUSINESS REGISTRATION NUMBER]
-            <br />
-            [INSERT VAT NUMBER]
-            <br />
-          </p> */}
         </div>
       </div>
 

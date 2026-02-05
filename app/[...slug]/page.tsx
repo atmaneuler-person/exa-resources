@@ -32,19 +32,59 @@ export async function generateMetadata(props: {
   const params = await props.params;
   const slugArray = params.slug;
 
-  if (slugArray[0] === 'category') {
-    const categoryName = decodeURI(slugArray[1] || '');
+  const segments = slugArray;
+  const isFirstSegmentLocale = (siteConfig.locales as readonly string[]).includes(segments[0]);
+  const currentLocaleForMeta = isFirstSegmentLocale ? segments[0] : (siteConfig.defaultLocale || 'ko');
+  const baseSlugForMeta = isFirstSegmentLocale ? segments.slice(1) : segments;
+  const subPathForMeta = baseSlugForMeta.join('/');
+
+  if (baseSlugForMeta[0] === 'category') {
+    const categoryName = decodeURI(baseSlugForMeta[1] || '');
     return {
-      title: `${categoryName} | ${siteConfig.title}`,
+      title: categoryName,
       description: `Articles in ${categoryName}`,
     };
   }
 
-  // Handle /ko/about metadata
-  if (slugArray.length > 1 && slugArray[1] === 'about') {
+  if (subPathForMeta === 'about') {
     return {
-      title: 'About Us | EXA',
+      title: 'About Us',
       description: 'We are an Applied Science Company.',
+    };
+  }
+
+  if (subPathForMeta === 'pricing') {
+    return {
+      title: 'Pricing',
+      description: 'Flexible pricing plans for EXA services.',
+    };
+  }
+
+  if (subPathForMeta === 'solutions/exawin') {
+    return {
+      title: 'ExaWin',
+      description: 'The Physics of Global Sales with NSBI.',
+    };
+  }
+
+  if (subPathForMeta === 'privacy') {
+    return {
+      title: 'Privacy Policy',
+      description: 'Our privacy practices and policies.',
+    };
+  }
+
+  if (subPathForMeta === 'terms') {
+    return {
+      title: 'Terms of Service',
+      description: 'Terms and conditions for using EXA services.',
+    };
+  }
+
+  if (subPathForMeta === 'login') {
+    return {
+      title: 'Login',
+      description: 'Authorized Access Only',
     };
   }
 
@@ -101,6 +141,21 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
   if (subPath === 'solutions/exawin') {
       const { ExaWinPage } = await import('@/components/shared/pages/ExaWinPage');
       return <ExaWinPage locale={currentLocale} />;
+  }
+
+  if (subPath === 'privacy') {
+      const { PrivacyPage } = await import('@/components/shared/pages/PrivacyPage');
+      return <PrivacyPage locale={currentLocale} />;
+  }
+
+  if (subPath === 'terms') {
+      const { TermsPage } = await import('@/components/shared/pages/TermsPage');
+      return <TermsPage locale={currentLocale} />;
+  }
+
+  if (subPath === 'login') {
+      const { LoginPage } = await import('@/components/shared/pages/LoginPage');
+      return <LoginPage locale={currentLocale} />;
   }
 
   // =========================================================

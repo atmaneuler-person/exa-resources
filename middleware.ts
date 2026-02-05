@@ -11,7 +11,6 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/api') ||
     pathname.startsWith('/admin') ||
     pathname.startsWith('/_next') ||
-    pathname === '/login' ||
     pathname === '/favicon.ico' ||
     pathname === '/robots.txt' ||
     pathname === '/sitemap.xml'

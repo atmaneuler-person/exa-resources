@@ -1,6 +1,6 @@
 const metadata = {
   title: 'EXA Enterprise',
-  description: 'EXA Enterprise Plaform Logic & Documents',
+  description: 'EXA Enterprise Platform Logic & Documents',
   domain: 'resource.exaeuler.com',
   logoTitle: '',
   businessName: 'EXA Enterprise',

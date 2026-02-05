@@ -87,11 +87,9 @@ export const Header = ({ className }: { className?: string }) => {
                 }`}
              >
                 Docs
-                {!isLoggedIn && (
-                  <span className="ml-1 flex items-center justify-center bg-yellow-500 w-[7px] h-[7px] rounded-[1px] flex-shrink-0">
-                    <LockIcon className="w-[5px] h-[5px] text-gray-950" strokeWidth={4} />
-                  </span>
-                )}
+                <span className="ml-1 flex items-center justify-center bg-yellow-500 w-3 h-3 rounded-[2px] flex-shrink-0">
+                  <LockIcon className="w-2 h-2 text-black fill-black" strokeWidth={0} />
+                </span>
              </Link>
 
              {isLoggedIn && (session?.user as any)?.isAdmin && (
@@ -103,7 +101,6 @@ export const Header = ({ className }: { className?: string }) => {
                     : 'text-gray-100 hover:text-orange-500'
                 }`}
               >
-                <LockIcon className="w-4 h-4 mr-1.5 text-yellow-500" />
                 Stats
               </Link>
              )}
@@ -140,7 +137,7 @@ export const Header = ({ className }: { className?: string }) => {
                 </button>
              ) : (
                 <Link
-                  href="/login"
+                  href={`/${currentLocale}/login`}
                   className="hidden lg:inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-gray-200 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 rounded-full transition-all hover:scale-105 active:scale-95 whitespace-nowrap"
                 >
                   Sign In
