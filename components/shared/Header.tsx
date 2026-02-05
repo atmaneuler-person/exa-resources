@@ -135,13 +135,7 @@ export const Header = ({ className }: { className?: string }) => {
                href={`/${pathname.split('/')[1] || 'ko'}/about#contact`}
                className="hidden lg:inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-all shadow-lg shadow-orange-900/20 hover:scale-105 active:scale-95 whitespace-nowrap"
              >
-               {{
-                 ko: '문의하기',
-                 en: 'Contact Us',
-                 ja: 'お問い合わせ',
-                 zh: '联系我们',
-                 vi: 'Liên hệ',
-               }[pathname.split('/')[1] || 'ko'] || 'Contact Us'}
+               Contact Us
              </Link>
 
              {status === 'loading' ? (
