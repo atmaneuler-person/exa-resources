@@ -190,11 +190,13 @@ const PredictionVisual = () => {
     );
 };
 
-interface AIProps {
-  textData?: any;
+import { MainPageData } from './types';
+
+interface AISectionProps {
+  textData?: MainPageData['aiSection'];
 }
 
-export const EnterpriseAISection = ({ textData }: AIProps) => {
+export const EnterpriseAISection = ({ textData }: AISectionProps) => {
     const [step, setStep] = useState(0);
     const containerRef = useRef(null);
     const isInView = useInView(containerRef, { once: true, amount: 0.3 });

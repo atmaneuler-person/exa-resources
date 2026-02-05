@@ -52,7 +52,7 @@ export default function PostLayout({
 
   // 현재 포스트와 동일한 언어 및 카테고리의 글들만 필터링
   const categoryPosts = allPosts.filter((p) => {
-    const pParts = (p as any).filePath.split('/'); // CoreContent includes computed fields
+    const pParts = (p as Blog).filePath.split('/'); // CoreContent includes computed fields
     if (pParts.length < 3) return false;
     
     const pLocale = pParts[1];

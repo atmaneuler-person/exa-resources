@@ -3,8 +3,10 @@ import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Image from '@/components/shared/Image';
 
+import { MainPageData } from './types';
+
 interface ShowcaseProps {
-  textData?: any;
+    textData?: MainPageData['showcase'];
 }
 
 export const EnterpriseShowcase = ({ textData }: ShowcaseProps) => {

@@ -2,9 +2,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+import { MainPageData } from './types';
+
 interface Props {
   children?: React.ReactNode;
-  textData?: any;
+  textData?: MainPageData['blogHero'];
 }
 
 export const EnterpriseBlogHeroSection = ({ children, textData }: Props) => {

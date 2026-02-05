@@ -23,7 +23,7 @@ const AdaptiveRiskVisual = () => {
     // Generate Pillars matching the 3 zones (Green, Yellow, Red)
     // 15 pillars representing lead time segmentation
     const pillars = Array.from({ length: 15 }).map((_, i) => {
-        let zone = i < 7 ? 'green' : i < 11 ? 'yellow' : 'red';
+        const zone = i < 7 ? 'green' : i < 11 ? 'yellow' : 'red';
         // Bayesian Weight: Center of probability moves based on "prob" state
         const center = (100 - prob) / 5; // simplified logic to shift peak
         const dist = Math.abs(i - center);
@@ -159,7 +159,9 @@ const FCFVisual = () => {
     );
 };
 
-export const EnterpriseERPSection = ({ textData }: { textData?: any }) => {
+import { MainPageData } from './types';
+
+export const EnterpriseERPSection = ({ textData }: { textData?: MainPageData['erpSection'] }) => {
     const [activeTab, setActiveTab] = useState(0); 
     const [progress, setProgress] = useState(0);
     const cycleDuration = 10000; 
@@ -225,7 +227,7 @@ export const EnterpriseERPSection = ({ textData }: { textData?: any }) => {
             });
         }, interval);
         return () => clearInterval(timer);
-    }, [activeTab, isInView]);
+    }, [activeTab, isInView, modules.length]);
 
     return (
         <section ref={containerRef} className="py-24 md:py-32 bg-gray-50 dark:bg-gray-950 border-b border-gray-100 dark:border-white/5 relative overflow-hidden transition-colors duration-500">

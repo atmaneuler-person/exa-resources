@@ -4,8 +4,9 @@ import { isbot } from 'isbot';
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { postId: string } }
+  props: { params: Promise<{ postId: string }> }
 ) {
+  const params = await props.params;
   const { postId } = params;
   const userAgent = req.headers.get('user-agent') || '';
   const isABot = isbot(userAgent);
@@ -50,8 +51,9 @@ export async function GET(
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { postId: string } }
+  props: { params: Promise<{ postId: string }> }
 ) {
+  const params = await props.params;
   const { postId } = params;
   const { action } = await req.json();
 

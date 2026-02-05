@@ -3,9 +3,11 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { BayesianVisual } from './BayesianVisual';
 
+import { MainPageData } from './types';
+
 interface BentoProps {
   locale?: string;
-  textData?: any;
+  textData?: MainPageData['bento'];
 }
 
 export const EnterpriseBentoGrid = ({ locale = 'en', textData }: BentoProps) => {

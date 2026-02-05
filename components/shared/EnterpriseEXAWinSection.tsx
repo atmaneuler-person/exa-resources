@@ -4,8 +4,10 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ExaWinKernelVisual } from './ExaWinKernelVisual';
 
+import { MainPageData } from './types';
+
 interface EXAWinProps {
-  textData?: any;
+  textData?: MainPageData['exawin'];
 }
 
 export const EnterpriseEXAWinSection = ({ textData }: EXAWinProps) => {

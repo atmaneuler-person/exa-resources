@@ -3,8 +3,10 @@ import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { HeroDistributionVisual } from './HeroDistributionVisual';
 
+import { MainPageData } from './types';
+
 interface HeroProps {
-  textData?: any;
+  textData?: MainPageData['hero'];
 }
 
 export const EnterpriseHero = ({ textData }: HeroProps) => {

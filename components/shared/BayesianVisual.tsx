@@ -111,7 +111,7 @@ export const BayesianVisual = ({ className = "", hideGhostText = false, variant 
         if (!isInView) return;
 
         let animationFrameId: number;
-        let startTime = typeof performance !== 'undefined' ? performance.now() : Date.now();
+        const startTime = typeof performance !== 'undefined' ? performance.now() : Date.now();
 
         const animate = (now: number) => {
             const T = (now - startTime) / 1000; // Time in seconds

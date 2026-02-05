@@ -5,10 +5,12 @@ import Header from './Header';
 import Footer from './Footer';
 import { ScrollProgressBar } from './ScrollProgressBar';
 
+import { CompanyPageData, ContactData } from './types';
+
 interface CompanyPageProps {
   locale: string;
-  textData: any;
-  contactData?: any;
+  textData: CompanyPageData;
+  contactData?: ContactData;
 }
 
 export const CompanyPage = ({ locale, textData, contactData }: CompanyPageProps) => {

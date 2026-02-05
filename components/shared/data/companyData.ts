@@ -1,4 +1,6 @@
-export const companyData: Record<string, any> = {
+import { CompanyPageData, ContactData } from '../types';
+
+export const companyData: Record<string, CompanyPageData> = {
   en: {
     label: "Company",
     hero: {
@@ -106,7 +108,7 @@ export const companyData: Record<string, any> = {
   }
 };
 
-export const contactData: Record<string, any> = {
+export const contactData: Record<string, ContactData> = {
   en: {
     title: "Ready to transform?",
     subtitle: "Join the elite group of enterprises running on Sovereign Logic.",

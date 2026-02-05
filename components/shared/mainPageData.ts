@@ -1,4 +1,6 @@
-export const mainPageData: Record<string, any> = {
+import { MainPageData } from './types';
+
+export const mainPageData: Record<string, MainPageData> = {
   en: {
     hero: {
       label: "DEEP TECH ENTERPRISE OS",

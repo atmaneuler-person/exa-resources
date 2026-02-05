@@ -70,7 +70,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
   const slugArray = params.slug;
 
   const currentLocale = slugArray[0];
-  let baseSlug = slugArray.slice(1);
+  const baseSlug = slugArray.slice(1);
 
   // If it's just the locale (e.g. /en), render MainPage
   if (baseSlug.length === 0) {

@@ -14,7 +14,9 @@ import { useSession, signOut } from 'next-auth/react';
 
 import { headerNavLinks } from '../../data/config/headerNavLinks';
 
-const Header = () => {
+import { cn } from '@/lib/utils';
+
+export const Header = ({ className }: { className?: string }) => {
   const pathname = usePathname();
   const { data: session, status } = useSession();
   const isLoggedIn = status === 'authenticated';
@@ -24,7 +26,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[100] w-full bg-gradient-to-r from-gray-950 via-gray-950 to-gray-900/90 backdrop-blur-xl border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
+    <header className={cn("fixed top-0 left-0 right-0 z-[100] w-full bg-gradient-to-r from-gray-950 via-gray-950 to-gray-900/90 backdrop-blur-xl border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.3)]", className)}>
       <div className="flex items-center justify-between py-4 px-4 w-full max-w-screen-2xl mx-auto h-16">
       <div>
         <Link href="/" aria-label={siteConfig.title}>

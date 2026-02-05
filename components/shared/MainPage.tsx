@@ -85,7 +85,7 @@ export const MainPage = ({ locale = siteConfig.defaultLocale }: MainPageProps) =
       <Header />
       
       {/* SECTION 1: HERO */}
-      <EnterpriseHero textData={t.hero} locale={currentLocale} />
+      <EnterpriseHero textData={t.hero} />
 
       {/* SECTION 2: PROCESS ENGINE (Synchronized Execution) */}
       <div className={`w-full relative z-10 ${currentLocale !== 'en' ? 'mt-10 md:mt-16' : 'mt-24 md:mt-32'}`}>
@@ -115,7 +115,9 @@ export const MainPage = ({ locale = siteConfig.defaultLocale }: MainPageProps) =
                 />
                 ) : (
                 <div className="py-20 text-center text-gray-500">
-                    Intelligence stream loading... (Locale: {currentLocale})
+                    Intelligence stream loading... (Locale: {currentLocale}, AllBlogs: {allBlogs.length})
+                    <br />
+                    Debug path: {posts.length > 0 ? posts[0]._raw.sourceFilePath : 'No posts'}
                 </div>
                 )}
 
