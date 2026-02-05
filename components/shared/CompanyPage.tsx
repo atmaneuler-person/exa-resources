@@ -252,7 +252,7 @@ export const CompanyPage = ({ locale, textData, contactData }: CompanyPageProps)
 
       {/* 5. Contact Us: Integrated Call to Action */}
       {contactData && (
-        <section className="relative w-full py-32 px-6 bg-gray-950 dark:bg-black overflow-hidden">
+        <section id="contact" className="relative w-full py-32 px-6 bg-gray-950 dark:bg-black overflow-hidden">
           <div className="absolute inset-0 z-0 opacity-10">
               <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(234,88,12,0.2),transparent_70%)]" />
           </div>
