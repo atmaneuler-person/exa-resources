@@ -86,24 +86,24 @@ export const MainPage = ({ locale = siteConfig.defaultLocale }: MainPageProps) =
       
       {/* SECTION 1: HERO */}
       <EnterpriseHero textData={t.hero} />
-
+      
       {/* SECTION 2: PROCESS ENGINE (Synchronized Execution) */}
-      <div className={`w-full relative z-10 ${currentLocale !== 'en' ? 'mt-10 md:mt-16' : 'mt-24 md:mt-32'}`}>
+      <div className={`w-full relative z-10 ${['ko', 'ja', 'zh'].includes(currentLocale) ? 'mt-12 md:mt-16' : 'mt-24 md:mt-32'}`}>
          <EnterpriseERPSection textData={t.erpSection} />
       </div>
 
       {/* SECTION 3: EXA ENGINE (The Science) */}
-      <div className={`w-full relative z-10 ${currentLocale !== 'en' ? 'mt-20 md:mt-28' : 'mt-24 md:mt-32'}`}>
+      <div className={`w-full relative z-10 ${['ko', 'ja', 'zh'].includes(currentLocale) ? 'mt-24 md:mt-32' : 'mt-24 md:mt-32'}`}>
          <EnterpriseAISection textData={t.aiSection} />
       </div>
 
       {/* SECTION 4: INTEGRATION (Dual Engine Synergy) */}
-      <div className={`w-full bg-white dark:bg-gray-950/50 relative z-10 transition-colors ${currentLocale !== 'en' ? 'mt-20 md:mt-28' : 'mt-24 md:mt-32'}`}>
+      <div className={`w-full bg-white dark:bg-gray-950/50 relative z-10 transition-colors ${['ko', 'ja', 'zh'].includes(currentLocale) ? 'mt-24 md:mt-32' : 'mt-24 md:mt-32'}`}>
         <EnterpriseBentoGrid locale={currentLocale} textData={t.bento} />
       </div>
 
       {/* SECTION 5: BLOG HERO (EXA Resources) */}
-      <div className={`w-full relative z-10 ${currentLocale !== 'en' ? 'mt-20 md:mt-28' : 'mt-24 md:mt-32'}`}>
+      <div className={`w-full relative z-10 ${['ko', 'ja', 'zh'].includes(currentLocale) ? 'mt-24 md:mt-32' : 'mt-24 md:mt-32'}`}>
         <EnterpriseBlogHeroSection textData={t.blogHero}>
              <div className="space-y-8">
                 {latestPosts.length > 0 ? (
@@ -137,7 +137,7 @@ export const MainPage = ({ locale = siteConfig.defaultLocale }: MainPageProps) =
       </div>
 
       {/* SECTION 6: EXA WIN (First Product) */}
-      <div className={`w-full relative z-10 border-t border-gray-100 dark:border-white/5 ${currentLocale !== 'en' ? 'mt-20 md:mt-28' : 'mt-24 md:mt-32'}`}>
+      <div className={`w-full relative z-10 border-t border-gray-100 dark:border-white/5 ${['ko', 'ja', 'zh'].includes(currentLocale) ? 'mt-24 md:mt-32' : 'mt-24 md:mt-32'}`}>
          <EnterpriseEXAWinSection textData={t.exawin} />
       </div>
 

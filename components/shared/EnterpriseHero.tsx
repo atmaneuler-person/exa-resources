@@ -60,7 +60,7 @@ export const EnterpriseHero = ({ textData }: HeroProps) => {
     };
 
     return (
-        <section ref={sectionRef} className="relative w-full min-h-[90vh] flex items-start justify-center bg-white dark:bg-gray-950 overflow-hidden pt-32 transition-colors duration-500">
+        <section ref={sectionRef} className="relative w-full min-h-[90vh] flex items-start justify-center bg-white dark:bg-gray-950 overflow-hidden pt-32 pb-20 transition-colors duration-500">
             {/* 1. Background Content (Hero components are z-10 or higher) */}
             <div className="absolute inset-0 z-0" />
 
@@ -163,7 +163,7 @@ export const EnterpriseHero = ({ textData }: HeroProps) => {
                                 ease: "easeInOut"
                             }
                         }}
-                        className="absolute -bottom-16 -right-8 z-40 bg-black/70 backdrop-blur-2xl border border-white/10 p-4 rounded-2xl hidden md:block shadow-2xl"
+                        className="absolute -bottom-16 -right-8 z-[60] bg-black/70 backdrop-blur-2xl border border-white/10 p-4 rounded-2xl hidden md:block shadow-2xl"
                     >
                         <div className="flex items-center gap-3">
                             <div className="text-right">
