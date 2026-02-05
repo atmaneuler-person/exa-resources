@@ -9,7 +9,7 @@ const adapter = new PrismaBetterSqlite3({ url: dbPath });
 export const prisma =
   globalForPrisma.prisma ||
   new PrismaClient({
-    adapter,
+    adapter: adapter as any,
     log: ['query', 'error', 'warn'],
   })
 
