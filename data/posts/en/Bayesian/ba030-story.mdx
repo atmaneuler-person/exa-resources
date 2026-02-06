@@ -1,0 +1,547 @@
+---
+title: 'BA03. [On-Time Material Inbound: Bayesian MCMC] The Real Game in Business is the Fight Against Uncertainty'
+date: '2026-01-10'
+tags: ['Bayesian', 'Gibs Sampling', 'MCMC']
+draft: false
+summary: 'BA03. [On-Time Material Inbound: Bayesian MCMC] The Real Game in Business is the Fight Against Uncertainty'
+images: ["/static/images/BA030.png"]
+authors: ["default"]
+---
+
+ 
+
+This story is for everyone fighting uncertainty. It is a business narrative about a purchasing manager who manages supply chain uncertainty using the [Bayesian Inference Engine].
+
+The protagonist analyzes the supplier's behavior patterns based on the delivery delay probability and catastrophe regime signals presented by the Bayesian AI system. Moving beyond the simple method of urging delivery, it shows the process of moving toward a cooperative relationship sharing risks with suppliers by linking buffer management through data sharing.
+
+Through this, it emphasizes the importance of a modern purchasing strategy that quantifies uncertainty probabilistically and responds preemptively rather than completely removing it. Finally, it explains how data-based probabilistic thinking leads to practical practical skills that protect the company's stability and profit. As a result, it shows how to win the game against uncertainty by bringing uncertainty into a manageable range.
+
+---
+
+# 6 AM Batch and Material Deadline
+
+## Prologue: The Third Warning
+
+Tuesday, 7 AM. The purchasing team office was still quiet.
+
+The purchasing manager sat in front of the monitor even before taking off his coat. Checking the batch results of the 'Exa Intelligent Inference Engine' that ran overnight was his first routine. Coffee came next.
+
+When he turned on the screen, a red warning was floating at the top.
+
+
+PO#2024-0847 | Precision sensor module 1,200EA | On-time arrival probability: 57%
+
+He put strength into his hand holding the mouse. 57%. This was the third time.
+
+During the last 6 months, two of the major projects he was in charge of faced a crisis due to material delays. The first succeeded in alternative sourcing due to supplier bankruptcy, and the second barely managed to make up for the customs delay by cooperating with the logistics team. Both were successful in the end, but the process was chaotic and the company paid unnecessary costs.
+
+And this is the third time.
+
+In fact, he knew. That the company's eyes looking at him were changing little by little. An evaluation that "He has ability, but stability is low," in other words, risk management is unstable. It was no coincidence that his name was left out of the list of candidates for promotion.
+
+This case had to be different. It had to end cleanly, quietly, and without trouble.
+
+---
+
+## 1. Numbers in the Meeting Room
+
+### Monday, 10 AM
+
+When the production planning meeting ended, the manager slowly closed his laptop. The sound of people's footsteps leaving the conference room disappeared into the hallway, but he remained in his seat.
+
+The sales manager said, leaning against the table.
+
+"This client is not just picky this time. It seems they have their own situation. Even if the delivery date is pushed by one day, the penalty clause is activated. Purchasing manager, you know, right? Their person in charge said, 'If you make a mistake this time, it will be dangerous in the vendor list.'"
+
+The purchasing manager nodded briefly. "I am aware."
+
+The production manager added, writing numbers on the whiteboard.
+
+"We reorganized the first production into 20 days by squeezing the internal production lead time. Considering inspection, kitting, and setting, there must be a two-day buffer. The precision sensor module is a component put into the first stage of the line. If this is late, the whole thing is pushed. Other orders will also have serious problems."
+
+He walked in front of the whiteboard and wrote down the calculation.
+
+- Customer delivery date: May 30th First delivery 
+
+- production lead time: 20 days. 
+
+- Inspection/Preparation period: 2 days. 
+
+- Material inbound deadline: April 23rd. 
+
+- Required buffer: At least 2 days. 
+
+- Safety target inbound date: Before April 21st
+
+'April 21st. A two-day buffer. It's not enough, but it's the minimum safety device.'
+
+### Imported items
+
+The problem was that this precision sensor module was an imported item.
+
+The face of Marcus, the supplier manager, came to his mind. Since they first started trading 3 years ago, most transactions have been smooth. Marcus was diligent, and the product quality was excellent.
+
+But sometimes, very rarely, when a problem occurred, Marcus was silent.
+
+It was the same in August. Even when there was a 9-day delay due to raw material supply issues, he just threw an email 3 days before the delivery date. The feeling of humiliation at that time passed through his mind. At that time, production was delayed for a week due to raw material supply problems, and the related departments including him stayed up for two nights in a hurry to draw up an alternative schedule. As a result, inbound was successful, but the additional costs and confusion created in the process were reflected in the evaluation of the purchasing team as they were.
+
+He rubbed his face with his palms. 'This time must be different. Before Marcus falls silent, before the problem grows, I must respond. I must move first.'
+
+---
+
+## 2. On Time Risk 0.57: Bayesian Warning
+
+He returned to the office and sat in front of the monitor.
+
+He stared again at the number 57% floating on the screen. This number was not a simple number. It is a result value that the Bayesian engine coldly analyzed the supplier's 'skill' and 'pattern' from all transaction records with Marcus for the past 3 years.
+
+The system reads the supplier's 'habit'. The pattern of delivering on time, and the pattern when delays occur. And the most important thing was how often and how much it was delayed when a delay occurred.
+
+He clicked the mouse to enter the detailed analysis screen.
+
+### The two faces of Marcus seen by the engine
+
+### Delay vector $ D $: Record of habit
+
+The supplier's delivery record is a result from a complex system reflecting everything about the supply company, such as the supplier's work method, worker's behavior pattern, organization's efficiency and inefficiency, manager's management philosophy, and company's management method.
+
+To analyze this situation, the Bayesian engine applies the Mixture Distribution and MCMC Gibbs Sampling method. This is because the supply chain is not linear. Detailed mathematical modeling will be dealt with in a separate appendix series, and only the core logic will be covered here.
+
+The Bayesian engine converts Marcus's transaction data for the past 3 years into a delay day vector $ D $.
+
+$  $
+d_i = (\text&#123;Actual Inbound Date&#125;) - (\text&#123;Promised ETA&#125;)
+$  $
+
+If $ d_i = 0 $, the promise was kept. If $ d_i = +5 $, it is 5 days late from the plan.
+
+And the supply performance data has the shipping date. The actual number of working days excluding the transportation period is calculated.
+
+$  $
+d_j = (\text&#123;Actual Shipping Date&#125;) - (\text&#123;PO Issuance Date&#125;)
+$  $
+
+These $ d_i, d_j $ vectors are not just a list of numbers. It is an output result from a complex system that contains the total capability of the supply company, such as their work method, worker's behavior pattern, organization's efficiency and inefficiency, manager's management philosophy, and company's management method.
+
+This vector is the supplier's behavior pattern and the fingerprint of predictability.
+
+### MCMC Gibbs Sampling: Structuring uncertainty
+
+The engine discovers two regimes in this vector data.
+
+Regime 0 ($ S_t = 0 $): Normal state. $ d_i $ stays around 0. Marcus who keeps promises.
+
+Regime 1 ($ S_t = 1 $): Delay state. A state where delays explode as unknown complex problems inside the supplier are intertwined. Once a problem occurs, it is delayed by an average of 8 days. Marcus who is silent.
+
+Here, the regime represents the normal mode that turns like normal, and at other times, a disaster mode that turns into a state with large accidents/congestion/fluctuations. In other words, if it is a normal regime, it gathers near ETA, and if it is a disaster regime, the probability of a large delay increases significantly.
+
+In the end, the data vector consists of a mixture distribution of two different states: normal state and delay state, and if the delay exceeds a certain threshold, it becomes a disaster for the ordering customer company. So we call this state of the delay world the "catastrophe regime."
+
+The Bayesian engine attempts to analyze the data by separating it into these two worldviews at the same time. The engine does not label any delivery item as 'normal' or 'disaster'. It leaves them all as unknown values and simulates through sophisticated math and mobilizing powerful modern computing power which of the two worlds the individual delivery performance occurred from.
+
+He looked at the graph displayed on the screen. For the past 3 years, Marcus was in a normal regime 85% of the time. However, he fell into a catastrophe regime 15% of the time, and each time he was delayed by an average of 9 days.
+
+The delay last August was also accurately displayed on this graph. 9-day delay. The memory of that time was revived.
+
+---
+
+## 3. Heart of Exa Engine - Delay Vector and Regime Switching
+
+### How the Bayesian Engine Works
+
+Beyond the monitor screen that the purchasing manager was staring at, complex mathematical inference was in progress. To properly understand this scene, we must go inside the engine for a moment.
+
+### Call of delay vector $ D $
+
+The engine converted the inbound data delivered by the supplier named Marcus over several years into a delay day vector $ D $. The calculation is simple.
+
+$  $
+d_i = (\text&#123;Actual Inbound Date&#125;) - (\text&#123;Promised ETA&#125;)
+$  $
+
+If $ d_i = 0 $, the promise was accurately kept, and if $ d_i = +5 $, it means it was 5 days late.
+
+The engine discovers two different worlds, namely 'Regimes', in this vector.
+
+- Regime 0 ($ S_t = 0 $): Normal regime. $ d_i $ moves around 0. It is a state of keeping promises perfectly.
+
+- Regime 1 ($ S_t = 1 $): Delay regime. A state where a crack has occurred inside the supply chain, a swamp Marcus occasionally falls into. Once a delay occurs, inbound is pushed by an average of 8 days (
+
+$$
+\mu_{d1}
+$$
+
+).
+
+What's important here is that Marcus's delivery behavior changes completely depending on which regime he is in. There is a limit to looking inside the supplier. At this time, Bayesian update demonstrates its power.
+
+### Inference of Bayesian posterior probability
+
+On the screen, the judgment the engine made for this order was displayed as a formula.
+
+Bayesian update formula:
+
+$  $
+P(S_t = 1 \mid d_&#123;\text&#123;new&#125;&#125;) = \frac&#123;P(d_&#123;\text&#123;new&#125;&#125; \mid S_t = 1) \cdot P(S_t = 1)&#125;&#123;P(d_&#123;\text&#123;new&#125;&#125;)&#125;
+$  $
+
+Let's solve this formula.
+
+- $ P(S_t = 1) $: The frequency with which Marcus fell into the delay regime in the past (prior probability). It's about 15%.
+
+- 
+
+$$
+P(d_{\text{new}} \mid S_t = 1)
+$$
+
+: How much the currently observed logistics indicators resemble the characteristics of the delay regime (likelihood).
+
+(Since $ S_t $ is 0 if it is normal and 1 if it is a disaster state, 
+
+$$
+P(d_{\text{new}} \mid S_t = 1)
+$$
+
+ is nothing more than expressing the probability that the next delivery delay days will occur when the supplier is in a disaster state (worldview) as a formula. There is no need to be buried in symbols)
+
+The engine judges by synthesizing these signals. "There is a possibility that Marcus will enter the delay regime." The result was 57%.
+
+### MCMC Gibbs Sampling 1st iteration
+
+The engine simulates the future (configures the probability distribution of the future) with hundreds of thousands of simulation data to prove this value. He looked at the record of the first rotation (Iteration) among them.
+
+How Gibbs sampling works:
+
+Gibbs sampling is a method of drawing samples from a complex probability distribution. When multiple variables are intertwined, it explores the entire distribution by updating variables one at a time.
+
+Iteration 1:
+
+- State sampling: Based on current data, classify the delay regime ($ S_t = 1 $) in this PO
+
+- Extracting delay days: Reflecting the characteristics of regime 1, extract +9 days delay
+
+- Prediction result: Marcus's promised ETA + 9 days = April 28th
+
+After repeating this process hundreds of thousands of times (Iteration), the engine gave the final conclusion.
+
+
+[Simulation result: Based on PO revision.1]
+
+- On-time arrival probability based on current target (4/21): 56.2%
+
+- Probability of entering catastrophe regime (
+
+$$
+\pi
+$$
+
+): 16.5%
+
+- Minimum mitigation amount (
+
+$$
+\Delta^*
+$$
+
+) to achieve the target probability of 95%: +7 days
+
+"Far from the target of April 21st, it is a scenario where even the deadline of the 23rd is ruthlessly broken."
+
+He clenched his fist.
+
+"The risk exists. The possibility of a 9-day delay… this must be erased from the negotiation table."
+
+He took a deep breath. '9 days. This is the worst case. But it has already happened and is a scenario that can fully happen.'
+
+He recalled the delay last August. He was lucky at that time. The customer understood, and the production team made up for it by working overtime. But this time is different. This customer will not tolerate it.
+
+And above all, the company will not tolerate him. The third crisis. It is recognized as a pattern. The evaluation that "Manager Lee cannot manage risk" will solidify.
+
+Exa's Bayesian engine introduced this time is logical. Having understood the process, the result cannot be denied. He decided.
+
+'I trust the system. And cooperate properly with Marcus.'
+
+---
+
+## 4. Negotiation – Evolution of a 3-year Relationship
+
+### Video conference room, 11 AM
+
+Marcus appeared on the screen. He was still in a neat shirt, but fatigue was seen in his eyes.
+
+"Marcus, long time no see."
+
+He got straight to the point after a brief greeting.
+
+"Among the 1,200 precision sensors in the PO I sent, the goal is to have 600 in by April 21st."
+
+Marcus nodded.
+
+"Yes, I received the 1st PO. But to be honest… the schedule is tight. The current logistics situation is not good, and the internal process is saturated. Realistically, April 28th is a safe date. The 21st is hard. You know the shipping market these days. Finding space is like picking stars in the sky. To catch a ship going in, the 28th is the best."
+
+It was an expected answer. It matches the delay predicted by the engine. Is it a coincidence.. Marcus, the supplier manager, skillfully used the external variable called 'shipping space' as a shield. This is because if you use an area that the ordering company cannot control as an excuse, there is nothing to say. He skillfully used the external factor 'shipping space' as an excuse.
+
+But he was looking at the 16.5% catastrophe probability on the screen. He was silent for a moment. And he continued calmly.
+
+"Marcus, we've been trading for over 3 years. Most of the transactions have been successful. Your product quality is also excellent, and the cooperation has been good."
+
+"Thank you."
+
+"But do you remember last August?"
+
+Marcus's expression stiffened slightly.
+
+"…I remember. The case where it was a week late due to raw material problems.""
+
+### The real problem is silence
+
+He said gently.
+
+"That was really hard. What was harder than the problem itself was that we didn't know the situation. By the time you contacted us, a week had already passed, and I incurred unnecessary costs for the company while responding in a hurry."
+
+Marcus opened his mouth.
+
+"I'm sorry. At that time… I wanted to give you good news after solving it internally."
+
+"I understand. From the supplier's standpoint, you want to solve the problem first. But from the buyer's standpoint, not knowing the problem is a bigger risk. And I know very well that the 21st delivery date is not impossible when looking at past records. If only you managed it properly on your side, it is a task that can be produced within the period. If only management focus is well done. I am not making an impossible demand. Isn't it so?"
+
+The manager continued, sharing the screen.
+
+"So this time we should go differently. Not the 28th, but with the 21st as the goal, but in a way that we manage together, not you alone."
+
+### Proposal of the partner portal
+
+On the screen, 'Exa Partner Portal' was floating. The buffer management event checkpoints were displayed.
+
+- Raw material ordering
+
+- Material inbound completed
+
+- Production start 
+
+- Production 50% completed 
+
+- Production completed 
+
+- Packing completed, ready for shipment: Goal April 3rd 
+
+- Shipping: Goal April 5th
+
+"Please share just these seven events. Consult with the relevant departments, determine the dates of your internal events, and share them. If the system is burdensome, email is fine too. And you just need to send the status when an event occurs."
+
+Marcus looked closely at the screen.
+
+"What changes if I share this?"
+
+"We manage risk together." His voice was sincere.
+
+"For example, if a two-day delay signal comes from the raw material stage, we can find a logistics partner in advance to shorten the customs clearance time. Or if a problem occurs in the production stage, we can also adjust our internal schedule. The sooner we know the problem, the more time we gain to make up for it. There are many ways to respond."
+
+"But isn't this… monitoring us?"
+
+"No. It's cooperation." He said firmly.
+
+"Marcus, you must have had a hard time last August too. Trying to solve the problem alone and eventually failing and apologizing to the buyer is good for no one. Let's do it differently this time. Let's do it together, your side and ours."
+
+### Evolution of business
+
+Marcus was silent for a moment. He seemed to be writing something beyond the screen.
+
+And he slowly raised his head.
+
+"…Good. That makes sense. Let's do it. Each time each event occurs, I will send you the status by email then."
+
+"Thank you, Marcus." He smiled.
+
+Marcus also smiled slightly.
+
+"Okay. April 21st… I will do my best."
+
+---
+
+## 5. War with Information
+
+### The crisis of silence
+
+Monday morning.
+
+As soon as he went to work, he opened his mailbox. There was no mail from Marcus.
+
+The raw material inbound information, which is a management event item, was not uploaded.
+
+He checked his watch. 10:30 AM. He called, but there was no response.
+
+He entered 'Information not entered' in the engine. The probability on the screen shook and then dropped to 47%. A 10%p drop. The red warning light turned on.
+
+'The fact that there is no information is a signal itself.'
+
+He immediately sent a message to Marcus.
+
+
+"Marcus, the status was not shared today. I'm curious about the raw material inbound situation. Is there a problem?"
+
+20 minutes later, a reply came.
+
+"I'm sorry. The raw material was inbound last Friday. The person in charge reported late, so I didn't know. I just confirmed it now."
+
+The manager breathed a sigh of relief. It was a reporting delay, not a problem.
+
+He entered 'Raw material inbound completed' in the system. The probability rose again to 61%.
+
+But he sent one more message to Marcus.
+
+"That's a relief. But Marcus, if the information is late, I also become anxious. Please be accurate from the next event."
+
+### The wave of production delay
+
+Wednesday.
+
+his time the mail came accurately. But the content was not good.
+
+"Manager, 'production start' will be delayed by two days. Due to internal process scheduling problems, it was originally scheduled to start today, Wednesday, but it has been pushed to Friday. Production itself is not a problem, but it seems the entire schedule will be delayed by about two days."
+
+His fingers stopped. A two-day delay. It's a small delay, but it eats up the buffer.
+
+When 'Production start 2-day delay' was entered in the engine, the screen responded immediately.
+
+'Possibility of entering delay regime increases'
+
+ETA was pushed from April 21st to April 23rd. The probability dropped to 52%. The buffer completely disappeared, and even the deadline became endangered.
+
+He took a deep breath. 'It's real from now on.'
+
+#### Preemptive response
+
+He urgently requested and convened the production manager and the logistics manager.
+
+"Production manager, is it possible to adjust the internal schedule? There was a two-day buffer loss."
+
+The production manager shook his head.
+
+"It's difficult. Other lines are also full, so adjustment is impossible."
+
+"Then we'll have to make up for it on the logistics side."
+
+The manager looked at the logistics manager.
+
+"Is there a way to move up the customs clearance even by one day?"
+
+The logistics manager thought for a moment and said.
+
+"If you do a prior customs declaration, it can be shortened from half a day to a day. However, it costs additional money."
+
+He nodded.
+
+"I'll do it. And please also find a dedicated truck for inland transportation to the factory. A faster one than normal delivery."
+
+The logistics manager noted and replied.
+
+"Understood."
+
+He sent an email to Marcus.
+
+
+"Marcus, confirmed the two-day delay. We will optimize logistics on our side to shorten it by one day. Instead, if you can move up the packing and shipping even by one day on your side, please do so. Please prepare in advance so that shipping is possible immediately after production is completed."
+
+2 hours later, Marcus's reply came.
+
+"Okay. I will coordinate with the logistics team to ship immediately after production is completed."
+
+The manager entered these countermeasures into the engine.
+
+- Customs clearance shortened by 1 day 
+
+- Transportation shortened by half a day 
+
+- Shipping preparation time shortened
+
+The screen moved again. ETA was pulled up from April 24th to April 22nd. The probability rose to 74%.
+
+It is one day faster than the deadline of the 23rd. The buffer completely disappeared, but it was a scenario where at least the deadline could be kept.
+
+---
+
+## 6. April 21st
+
+### 2 PM
+
+2 PM. A massive truck backed into the warehouse dock. A call came from the inspection manager.
+
+"Manager, the 1st batch of 600 precision sensors has been inbound. Quantity and appearance are all good. It's two days faster than the 23rd deadline. Good job."
+
+The manager hung up the phone and leaned back deeply against the backrest. April 21st. It was the 'safe inbound date' originally targeted.
+
+The final probability on the screen was 74%. Someone might say there was a 26% chance of failure. But he knows. How fiercely he and the system exchanged data to control that 26% of uncertainty.
+
+He wrote a short email to Marcus.
+
+
+"Marcus, received the goods well. Thanks to you informing us of the two-day delay immediately, we were able to cope. This is true partnership."
+
+A reply came immediately.
+
+
+"Honestly, I also felt comfortable. I didn't know that not having to hide could increase work efficiency like this. Let's proceed with the next PO in this way."
+
+---
+
+## Epilogue: 3 Months Later, Changed Landscape
+
+Mid-July, Quarterly Performance Report Meeting (QBR).
+
+The atmosphere in the conference room was quite different from last time. The manager turned the presentation screen.
+
+"Last quarter, the On-Time Delivery rate for major materials recorded 98.5%. This is a 12% increase compared to the same period last year."
+
+The managing director of management support corrected his glasses and asked. "That's an amazing figure. Especially major suppliers are famous for being hard to handle, what's the secret? Did you spend more on freight costs?"
+
+"No. The 'express fee' has actually decreased." The manager put up the next slide. It was the dashboard of [Exa Partner Portal].
+
+"We did not demand 'delivery compliance' from suppliers. We demanded data sharing. Currently, top 5 major vendors including Marcus GmbH are participating in this process. Those who initially rebelled saying they were being monitored also changed their attitude when they saw us providing logistics solutions first and sharing risks."
+
+On the screen, a green light was on next to 'Marcus GmbH'. Below that, suppliers from Japan, Taiwan, and the US were connected in a row. Like one giant, living neural network.
+
+"Now suppliers don't hide when problems occur. They access the system and put up a red flag. We see that and put in a fire-fighter. It's not about putting out the fire after it has spread, but catching it when smoke comes out."
+
+The CEO nodded with a satisfied smile. "You are now proving that purchasing is not a simple 'cost reduction' but a 'profit protection' department."
+
+After the meeting, he returned to the office and sat in his seat. Outside the window was the same afternoon weather as usual, but the world in his monitor had changed.
+
+PO#2024-1105 | Next-generation battery module | Bayesian probability: 92% (Stable)
+
+The past him prayed in front of a 57% probability. But the current him makes 57% into 74%, and then 92%.
+
+The Bayesian engine is not a magic marble. It is a mirror that makes you face reality. Facing data honestly in front of that mirror and acting preemptively. That was the real skill of the purchasing manager living in an era of uncertainty.
+
+He took a sip of the cold coffee. The bitter taste disappeared, and only a pleasant scent remained.
+
+[The End]
+
+---
+
+## [Insight Note] Gibbs Sampling and Business Decision Making
+
+The MCMC Gibbs Sampling used by the purchasing manager in the novel is a valuable asset and a very powerful tool in modern data science. When it's difficult to solve complex math directly, it's a method of drawing a topographical map of probability by throwing dice hundreds of thousands or millions of times using a computer.
+
+$  $
+x_1^&#123;(t+1)&#125; \sim p(x_1 \mid x_2^&#123;(t)&#125;, x_3^&#123;(t)&#125;, \dots)
+$  $
+
+As in the formula above, when updating one variable, the current state of other variables is fixed and sampling is repeated.
+
+The implication this gives to business is clear. "The future does not exist as one fixed path, but as a distribution of multiple possibilities."
+
+The protagonist did not try to remove uncertainty. He quantified uncertainty, brought it into the management range, and chose the optimal action within it.
+
+This story is for everyone fighting uncertainty.
+
+Not only in the purchase field, the real game in all business fields is the fight against uncertainty.
+
+---
+
+## [Inside the Engine] Not a Miracle, but Sophisticated Math and Buffer Management
+
+"The miracle in the novel is not magic. it is an inevitability created by sophisticated Bayesian math and buffer management meeting."
+
+From the next post, in the form of an [Appendix Series], we will dissect the heart of 'Exa Intelligent Inference Engine', the core of this episode. We will look into the principle of Mixture Distribution that found Marcus's hidden pattern and the mathematical mechanism of MCMC Gibbs Sampling that simulates uncertainty.

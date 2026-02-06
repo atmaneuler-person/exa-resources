@@ -1,12 +1,14 @@
 ---
 title: 'BA01.[Bayesian Data Noir] Silent Factory, The Aesthetics of Bayes Sculpting the Truth'
-date: '2026-02-03'
-images: ['/static/images/ba01_cover.png']
+date: '2025-12-19'
+images: ["/static/images/ba01_cover.png"]
 summary: "Quantifying the realm of intuition: A case study of dynamic decision-making using Bayesian updates. How does data become a weapon for decision-making in a manufacturing site ruled by uncertainty? This article vividly shows a real-world application of Bayesian statistics through the process of resolving 'Short Shot' defects in an injection molding factory."
-authors: ['default']
+authors: ["default"]
 tags: ['MCMC', 'Inference', 'Math']
 draft: false
 ---
+
+
 
 # At the Borderline of Intuition and Data: The Short Shot Incident at the Injection Factory
 
@@ -14,11 +16,11 @@ draft: false
 
 The factory feels like the belly of a giant beast. Thump-hiss, thump-hiss. The rhythmic heartbeat of hundreds of tons of injection molding machines shakes the floor. This sound is the factory's pulse. But today, that rhythm was subtly off.
 
-The inspection chief ran over in sweat-soaked work clothes. In his hand was an imperfectly formed plastic case, a so-called '**Short Shot**' defect.
+The inspection chief ran over in sweat-soaked work clothes. In his hand was an imperfectly formed plastic case, a so-called 'Short Shot' defect.
 
 "It's been suspicious since morning. The ends aren't filling up. I don't know how many times it's happened already."
 
-'**Short Shot**'. A molding defect where molten plastic solidifies before reaching the ends of the mold. Field engineers call this defect a 'ghost' because its causes are so diverse.
+'Short Shot'. A molding defect where molten plastic solidifies before reaching the ends of the mold. Field engineers call this defect a 'ghost' because its causes are so diverse.
 
 The foreman takes off his oil-stained gloves and asks, "Is the barrel temperature too low, or is the injection pressure insufficient? Should we start by tearing down the heater?"
 
@@ -26,17 +28,17 @@ In the field, decisions are usually made by 'Gut Feeling'. "It's a cold day, so 
 
 I shook my head. "No, not yet. We're not sure yet. Let's check a bit more."
 
-I picked up an empty notebook. I took out my weapon: "**Bayesian Inference**." Bayesian math is the process of seeking the hot truth through cold data—a record of the "**Bayesian Update**."
+I picked up an empty notebook. I took out my weapon: "Bayesian Inference." Bayesian math is the process of seeking the hot truth through cold data—a record of the "Bayesian Update."
 
 I decide to become a detective for a moment, chasing suspects to find the culprit. The culprit is inside the factory. Two suspects immediately came to my mind.
 
 ### Suspects (Suspect)
 
-- **Suspect A: Temperature ($H_T$)**
+- Suspect A: Temperature ($H_T$)
   - Character: Fickle. If the barrel temperature is low or 'hunting' occurs, the resin solidifies and cannot flow to the end. It causes unstable filling and short shot defects.
   - Distinctive Feature: If this one is the culprit, the defect rate skyrockets to 8% ($p = 0.08$).
 
-- **Suspect B: Pressure ($H_P$)**
+- Suspect B: Pressure ($H_P$)
   - Character: Timid and lacks strength. This one has weak holding pressure, so it sometimes fails to push the material all the way to the end.
   - Distinctive Feature: If it's this one, it's relatively well-behaved, with a defect rate of about 4% ($p = 0.04$).
 
@@ -46,13 +48,13 @@ The culprit is one of the two. But we can't just stop the machine and tear down 
 
 "Looking at the past criminal record, there's a high probability it's 'Temperature' again."
 
-My **Prior Belief** is set. I began to record the data in my notebook.
+My Prior Belief is set. I began to record the data in my notebook.
 
-- **Prior Probability (Prior)**
+- Prior Probability (Prior)
   - Probability it's Temperature P($H_T$): 60% (Most likely suspect)
   - Probability it's Pressure P($H_P$): 40%
 
-Professionals prefer using **Odds** over probabilities.
+Professionals prefer using Odds over probabilities.
 
 $$
 \text{Prior Odds} = \frac{0.6}{0.4} = \mathbf{1.5}
@@ -70,9 +72,9 @@ At 10:00 AM, the first piece of evidence ($D1) was poured onto the desk. Out of 
 
 For a moment, a chill ran down my spine. If it were a pressure problem ($p = 0.04$), it would be normal to see at most 2 out of 50. This is too aggressive for its doing. 5 is too many. Rather, it's closer to the signature of the 'Violent Temperature' (8% defect rate).
 
-Here, the core weapon of Bayes, **Likelihood**, appears. "Who must be the culprit for this evidence (5/50) to make more sense?"
+Here, the core weapon of Bayes, Likelihood, appears. "Who must be the culprit for this evidence (5/50) to make more sense?"
 
-I quickly calculated the **Bayes Factor**, the 'weight of evidence'.
+I quickly calculated the Bayes Factor, the 'weight of evidence'.
 
 $$
 \text{Bayes Factor} = \frac{P(D|H_T)}{P(D|H_P)}
@@ -94,9 +96,9 @@ $$
 \approx \mathbf{4.7}
 $$
 
-**4.7 times**.
+4.7 times.
 
-This data (5 defects out of 50) is **4.7 times more strongly supporting the temperature hypothesis** than the pressure hypothesis.
+This data (5 defects out of 50) is 4.7 times more strongly supporting the temperature hypothesis than the pressure hypothesis.
 
 Now I must update my belief. Multiply [my original belief (1.5)] by [the power of evidence (4.7)].
 
@@ -120,19 +122,19 @@ New confidence: The probability of temperature being the culprit has skyrocketed
 
 ## Second Evidence: Bayes' Counterattack (Update 2).
 
-The highlight of this scenario starts now. Many people mistake Bayesian as 'calculating once and being done with it.' But the true power of Bayes lies in the **Accumulation (Update Loop)**.
+The highlight of this scenario starts now. Many people mistake Bayesian as 'calculating once and being done with it.' But the true power of Bayes lies in the Accumulation (Update Loop).
 
 2:00 PM. Just before the maintenance team arrived, the foreman came with a strange expression, holding the second sample (D2). "We picked another 50 units after lunch... and it's strange."
 
-**[Out of a total of 50 units, only 1 defect occurred]**
+[Out of a total of 50 units, only 1 defect occurred]
 
 "What? Only 1?" I heard the sound of my confidence cracking. If the real culprit were the 'Violent Temperature' (usually 8%), 1 out of 50 (2%) is too low. Rather, this is something the 'Timid Pressure' (usually 4%) would do.
 
 The data is shouting, "Temperature might not be the culprit!"
 
-Now, the magic of Bayesian inference begins. The **87.6% confidence (Posterior)** I had before? It doesn't just disappear. It becomes the **New Starting Point (New Prior)** for the afternoon inference.
+Now, the magic of Bayesian inference begins. The 87.6% confidence (Posterior) I had before? It doesn't just disappear. It becomes the New Starting Point (New Prior) for the afternoon inference.
 
-**[Morning's Conclusion = Afternoon's Start]** This is how artificial intelligence, and how we, learn about the world. I began to calculate again. I updated by using the morning's result (posterior probability) as the prior probability for this calculation to verify the evidential power of the data (D2).
+[Morning's Conclusion = Afternoon's Start] This is how artificial intelligence, and how we, learn about the world. I began to calculate again. I updated by using the morning's result (posterior probability) as the prior probability for this calculation to verify the evidential power of the data (D2).
 
 $$
 \text{Bayes Factor}_2 \approx \left(\frac{0.08}{0.04}\right)^1 \times \left(\frac{0.92}{0.96}\right)^{49}
@@ -176,17 +178,17 @@ I wiped off my sweat and leaned back in my chair. I was 87% confident in the mor
 
 As data accumulates, the fog clears and the truth is revealed. Truth converges as more data is gathered. That is the way Bayes has taught us.
 
-I listened again to the machine's heartbeat. We don't hastily shout, "You are the culprit!" We simply update to the '**Probability closest to the truth**' by looking at the continuously incoming data.
+I listened again to the machine's heartbeat. We don't hastily shout, "You are the culprit!" We simply update to the 'Probability closest to the truth' by looking at the continuously incoming data.
 
 ---
 
 ## Key Insights from This Scenario
 
-1. **Quantification of Intuition**: The moment you change the feeling of "It seems like a temperature problem?" into the number $P(H)=0.6$, it becomes manageable. Even if 0.6 isn't the truth at that moment, it's okay. As data accumulates and updates continue, the model learns on its own. Eventually, it will converge to the truth.
+1. Quantification of Intuition: The moment you change the feeling of "It seems like a temperature problem?" into the number $P(H)=0.6$, it becomes manageable. Even if 0.6 isn't the truth at that moment, it's okay. As data accumulates and updates continue, the model learns on its own. Eventually, it will converge to the truth.
 
-2. **Weight of Data (LLR)**: The 5/50 defect was strong evidence (+1.55), but the second 1/50 good result became an equally strong counter-evidence (-1.39), creating a balance.
+2. Weight of Data (LLR): The 5/50 defect was strong evidence (+1.55), but the second 1/50 good result became an equally strong counter-evidence (-1.39), creating a balance.
 
-3. **Dynamic Decision-Making**: The Bayesian perspective is not a fixed conclusion. A humble and flexible attitude of "This is what I know so far with the information given" saves engineers from making mistakes.
+3. Dynamic Decision-Making: The Bayesian perspective is not a fixed conclusion. A humble and flexible attitude of "This is what I know so far with the information given" saves engineers from making mistakes.
    <br />
 
 ---
@@ -195,18 +197,18 @@ I listened again to the machine's heartbeat. We don't hastily shout, "You are th
 
 In this tense investigative drama, we have already experienced the 4 key steps of Bayesian statistics.
 
-1. **Prior Probability (Prior)**: "Looking at the past, he seems like the culprit." (Initial belief)
+1. Prior Probability (Prior): "Looking at the past, he seems like the culprit." (Initial belief)
 
-2. **Likelihood (Likelihood)**: "The field evidence fits his style perfectly!" (Suitability of evidence)
+2. Likelihood (Likelihood): "The field evidence fits his style perfectly!" (Suitability of evidence)
 
-3. **Bayes Factor (Bayes Factor)**: "Does this evidence support A or B more, and by how many times?" (Weight of evidence)
+3. Bayes Factor (Bayes Factor): "Does this evidence support A or B more, and by how many times?" (Weight of evidence)
 
-4. **Posterior Probability (Posterior)**: "Adjust my belief by reflecting the evidence." (Final conclusion)
+4. Posterior Probability (Posterior): "Adjust my belief by reflecting the evidence." (Final conclusion)
 
-And the most important thing: **Today's posterior probability becomes tomorrow's prior probability**. This is the **Essence of Learning**.
+And the most important thing: Today's posterior probability becomes tomorrow's prior probability. This is the Essence of Learning.
 
-- **Math**: This story is not just a simple episode. It is a castle built on rigorous mathematical calculations. How the 'traditional Bayes' theorem' learned in textbooks is transformed into 'Odds and Bayes Factors' used in the field, we reveal that mathematical blueprint in a separate appendix post.
+- Math: This story is not just a simple episode. It is a castle built on rigorous mathematical calculations. How the 'traditional Bayes' theorem' learned in textbooks is transformed into 'Odds and Bayes Factors' used in the field, we reveal that mathematical blueprint in a separate appendix post.
 
-- **Python Code**: You can refer to another appendix post that turns the scenario in the main text into actual Python code.
+- Python Code: You can refer to another appendix post that turns the scenario in the main text into actual Python code.
   <br />
   <br />

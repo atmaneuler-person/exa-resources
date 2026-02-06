@@ -1,0 +1,189 @@
+---
+title: 'BA01.[The Short Shot] Giải thích toán học'
+date: '2025-12-20'
+tags: ['bayeaian', 'likelihood', 'Odds']
+draft: false
+summary: 'BA01.[The Short Shot] Giải thích toán học'
+images: ["/static/images/BA012.png"]
+authors: ["default"]
+---
+
+ 
+
+Trước đó, câu chuyện về [Short Shot] không chỉ đơn thuần là một cuốn tiểu thuyết. Nó giống như một lâu đài được xây dựng trên nền tảng tính toán toán học chặt chẽ. Tôi xin công bố bản thiết kế (Blueprint) toán học về cách 'Định lý Bayes truyền thống' trong sách giáo khoa được chuyển đổi thành 'Odds (Tỷ lệ cược) và Nhân tố Bayes' được sử dụng tại hiện trường như thế nào.
+
+## 1. Phương pháp trong sách giáo khoa (The Probability View)
+
+Phương trình dưới đây là nguyên mẫu của định lý Bayes mà chúng ta học ở trường. Điểm cốt lõi là việc Chuẩn hóa (Normalization) thông qua mẫu số để tổng xác suất luôn bằng 1 (100%).
+
+Lúc này, Likelihood P(D|H)—tức là xác suất dữ liệu đó được quan sát khi giả thuyết H là đúng—được quyết định bởi tính chất của dữ liệu. Trong kịch bản 'Short Shot' đã thấy trước đó, dưới hai giả thuyết là Nhiệt độ (HT) và Áp suất (HP), chỉ tồn tại kết quả là 'Lỗi' hoặc 'Hàng tốt'. Nếu thay thế chúng bằng 1 và 0, dữ liệu cá nhân sẽ tuân theo Phân phối Bernoulli (Bernoulli Distribution) điển hình.
+
+$  $
+P(H|D) = \frac&#123;P(D|H) P(H)&#125;&#123;P(D)&#125;
+$  $
+
+- P(H|D) : Xác suất hậu nghiệm (Niềm tin, độ tin cậy, xác suất sau khi xem dữ liệu)
+
+- P(D|H) : Likelihood (Khả năng dữ liệu xuất hiện khi giả thuyết đúng)
+
+- P(H) : Xác suất tiên nghiệm (Niềm tin ban đầu)
+
+- P(D) : Xác suất của bằng chứng (Xác suất phát sinh dữ liệu khi tổng hợp tất cả các giả thuyết)
+
+
+Vấn đề thực tế tính toán tại hiện trường
+
+Ở đây, việc tính toán mẫu số P(D) rất đau đầu. Bởi vì phải cộng tất cả xác suất của các giả thuyết lại.
+
+$  $
+P(D) = P(D|H_T)P(H_T) + P(D|H_P)P(H_P) \dots
+$  $
+
+(Khi giả thuyết tăng lên, việc tính toán không chỉ bùng nổ mà trong thực tế hầu hết là không biết được P(D)).
+
+.
+
+## 2. Phương pháp trong câu chuyện: The Odds View
+
+Phương pháp tính toán Odds là một cách tiếp cận mạnh mẽ khác để thực hiện suy luận Bayes dạng kiểm định giả thuyết. Cốt lõi của phương pháp này là tích cực sử dụng 'Xác suất chủ quan (Subjective Probability)'.
+
+Các nhà quản lý tại hiện trường kinh doanh đều có trực giác và niềm tin kinh nghiệm khác nhau. Khung Odds không loại bỏ sự chủ quan cá nhân này, mà chuyển đổi nó thành công cụ có thể quản lý một cách có hệ thống và nhất quán. Nhà quản lý số hóa niềm tin ban đầu của mình thành Odds, và liên tục cập nhật xác suất bằng cách phản ánh bằng chứng mới (dữ liệu) mỗi khi nó xuất hiện.
+
+Thông qua quá trình lặp đi lặp lại này, nhà quản lý có thể kiểm chứng xem trực giác của mình phù hợp với dữ liệu thực tế đến mức nào và nâng cao chất lượng ra quyết định. Trên hết, từ quan điểm kỹ thuật, việc không cần phải tính toán 'mẫu số P(D) đau đầu' (vốn phải xem xét tất cả các trường hợp dữ liệu có thể xảy ra) là một điểm mạnh lớn về mặt thực mụ.
+
+[Giá trị của khung Odds đối với nhà quản lý]
+
+- Hệ thống hóa sự chủ quan: Cung cấp khung quản lý trực giác và niềm tin khác nhau (xác suất chủ quan) của mỗi nhà quản lý thành các con số nhất quán.
+
+- Ra quyết định động: Kiểm chứng sự phù hợp của quyết định thông qua vòng lặp "Thiết lập niềm tin → Phản ánh dữ liệu → Cập nhật niềm tin".
+
+- Hiệu quả tính toán: Bằng cách sử dụng phương pháp Odds, loại bỏ phép tính mẫu số P(D) phức tạp (phải tính toán toàn bộ xác suất) để hỗ trợ ra quyết định nhanh chóng.
+
+$  $
+\text&#123;Posterior Odds&#125; = \text&#123;Prior Odds&#125; \times \text&#123;Bayes Factor&#125;
+$  $
+
+- Odds: Giả thuyết A có khả năng xảy ra gấp mấy lần giả thuyết B? (Tỷ lệ)
+
+- Bayes Factor (Nhân tố Bayes): Dữ liệu ủng hộ giả thuyết A gấp mấy lần giả thuyết B? (Tỷ lệ sức mạnh)
+
+.
+
+## 3. Ánh xạ một-một hoàn hảo (The Mapping)
+
+Nào, giờ hãy làm phép thuật. Làm thế nào 'công thức xác suất phức tạp' biến thành 'công thức Odds đơn giản'? Chúng ta có hai giả thuyết: Nhiệt độ (HT) và Áp suất (HP). Hãy thử sắp xếp từng công thức Bayes truyền thống dưới đây.
+
+Công thức A (Công thức về giả thuyết Nhiệt độ là thủ phạm):
+
+$  $
+P(H_T|D) = \frac&#123;P(D|H_T) P(H_T)&#125;&#123;P(D)&#125;
+$  $
+
+Công thức B (Công thức về giả thuyết Áp suất là thủ phạm):
+
+$  $
+P(H_P|D) = \frac&#123;P(D|H_P) P(H_P)&#125;&#123;P(D)&#125;
+$  $
+
+Bây giờ thử chia [Công thức A] cho [Công thức B]. Khi đó điều kỳ diệu sẽ xảy ra.
+
+$  $
+\frac&#123;P(H_T|D)&#125;&#123;P(H_P|D)&#125; = \frac&#123;\frac&#123;P(D|H_T) P(H_T)&#125;&#123;P(D)&#125;&#125;&#123;\frac&#123;P(D|H_P) P(H_P)&#125;&#123;P(D)&#125;&#125;
+$  $
+
+Kẻ gây rắc rối P(D) có mặt ở cả mẫu số và tử số sẽ bị triệt tiêu và biến mất! (Bùm!)
+
+Sắp xếp lại những gì còn lại, ta sẽ có ngay công thức mà chúng ta đã sử dụng trong câu chuyện.
+
+$  $
+\underbrace&#123;\frac&#123;P(H_T|D)&#125;&#123;P(H_P|D)&#125;&#125;_&#123;\text&#123;Posterior Odds&#125;&#125; = \underbrace&#123;\frac&#123;P(D|H_T)&#125;&#123;P(D|H_P)&#125;&#125;_&#123;\text&#123;Bayes Factor&#125;&#125; \times \underbrace&#123;\frac&#123;P(H_T)&#125;&#123;P(H_P)&#125;&#125;_&#123;\text&#123;Prior Odds&#125;&#125;
+$  $
+
+
+Điểm cốt lõi
+
+- Tỷ lệ xác suất hậu nghiệm theo cách truyền thống → Posterior Odds
+
+- Tỷ lệ Likelihood theo cách truyền thống → Bayes Factor
+
+- Tỷ lệ xác suất tiên nghiệm theo cách truyền thống → Prior Odds
+
+Kết cục, phương pháp Odds không phải là toán học mới, mà là phiên bản hiện trường của định lý Bayes đã được tối ưu hóa tính toán bằng cách loại bỏ hằng số chuẩn hóa phức tạp P(D).
+
+.
+
+## 4. Thay thế dữ liệu thực tế (Kiểm chứng)
+
+Hãy thử đưa 'dữ liệu buổi sáng (5 lỗi trong 50 mẫu)' trong câu chuyện vào cả hai phương pháp để xem liệu có ra kết quả giống nhau không.
+
+#### A. Phương pháp trong câu chuyện (Odds & Bayes Factor)
+
+- Prior Odds: 0.6 / 0.4 = 1.5
+
+- Bayes Factor: 
+
+$  $
+\approx \mathbf&#123;4.7&#125;
+$  $
+
+ (Giá trị tính toán)
+
+- Posterior Odds: 1.5 x 4.7 = 7.05
+
+- Xác suất cuối cùng: 
+
+$  $
+7.05 / (1+7.05) \approx \mathbf&#123;87.6\%&#125;
+$  $
+
+#### B. Phương pháp truyền thống (Probability)
+
+- Tính toán Likelihood (Phân phối Bernoulli, P=tỷ lệ lỗi, k=số lượng lỗi, n=số lượng mẫu): 
+
+$  $
+P^k * (1-P)^&#123;n-k&#125;
+$  $
+
+- Likelihood Nhiệt độ $ P(D|H_T) $: 
+
+$  $
+(0.08)^5(0.92)^&#123;45&#125; \approx \text&#123;Số rất nhỏ A&#125;
+$  $
+
+- Likelihood Áp suất $ P(D|H_P) $: 
+
+$  $
+(0.04)^5(0.96)^&#123;45&#125; \approx \text&#123;Số rất nhỏ B&#125;
+$  $
+
+- *(Ở đây A gấp khoảng 4.7 lần B. Hãy thử tự tính xem)*
+
+- Tính toán xác suất bằng chứng P(D): 
+
+$  $
+(A \times 0.6) + (B \times 0.4)
+$  $
+
+- Xác suất hậu nghiệm $ P(H_T|D) $: 
+
+$  $
+\frac&#123;A \times 0.6&#125;&#123;(A \times 0.6) + (B \times 0.4)&#125;
+$  $
+
+- Nếu gõ công thức phức tạp này vào máy tính? Thật ngạc nhiên, kết quả chính xác là 
+
+$  $
+\mathbf&#123;87.6\%&#125;
+$  $
+
+.
+
+### Kết luận (Writer's Conclusion)
+
+Tại sao chúng ta lại dùng phương pháp Odds?
+
+Phương pháp truyền thống mỗi lần đều phải tính tổng P(D), nên trong tình huống Streaming (Loop) khi dữ liệu liên tục đổ về, việc tính toán sẽ bị chậm lại.
+
+Ngược lại, phương pháp Odds chỉ cần tiếp tục thực hiện phép nhân đơn giản.
+
+Đây chính là lý do các kỹ sư hiện trường và AI yêu thích Bayes, và cũng là lý do phương pháp Odds được sử dụng trong câu chuyện.

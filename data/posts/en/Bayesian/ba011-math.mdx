@@ -1,0 +1,191 @@
+---
+title: 'BA01. [Mathematical Breakdown] The Short Shot'
+date: '2025-12-20'
+tags: ['Odds', '베이즈인자', '베이지안', '오즈(Odds)']
+draft: false
+summary: 'BA01. [Mathematical Breakdown] The Short Shot'
+images: ["/static/images/BA012.png"]
+authors: ["default"]
+---
+
+ 
+
+[The story you just read is not merely a novel](https://news.exavions.com/test-math-for-bayesian/). It is like a castle built upon rigorous mathematical calculations. Here, I reveal the mathematical blueprint of how the 'Traditional Bayes' Theorem' learned in textbooks transforms into the 'Odds and Bayes Factor' used in the field.
+
+## 1. The Textbook Method (The Probability View)
+
+The equation below is the archetype of Bayes' Theorem we learn in school. The key is that it uses the denominator to Normalize the sum of total probabilities so that it always equals 1 (100%).
+
+Here, the Likelihood P(D|H)—that is, the probability that the data is observed when Hypothesis H is true—is determined by the nature of the data. In the case of the 'Short Shot' scenario seen earlier, under the two hypotheses of Temperature (H
+T
+) and Pressure (H
+P
+), only results of 'Defect' or 'Good' exist. If we substitute these with 1 and 0, the individual data follows a typical Bernoulli Distribution.
+
+$  $
+P(H|D) = \frac&#123;P(D|H) P(H)&#125;&#123;P(D)&#125;
+$  $
+
+- P(H/D) : Posterior Probability (Belief, confidence, probability, or probability distribution after seeing the data)
+
+- P(D/H) : Likelihood (Probability of the data appearing when the hypothesis is correct)
+
+- P(H) : Prior Probability (Existing belief)
+
+- P(D) : Probability of Evidence (Probability of data occurrence integrating all hypotheses)
+
+
+Practical Calculation Problems in the Field
+
+ Here, calculating the denominator P(D) is a headache. This is because you have to sum up the probabilities of all hypotheses..
+$ P(D) = P(D|H_T)P(H_T) + P(D|H_P)P(H_P) $ … (As hypotheses increase, the calculation not only explodes, but in practice, $ P(D) $ is often unknown)
+
+.
+
+## 2. The Method in the Story: The Odds View
+
+The Odds calculation method is another powerful approach to performing hypothesis-testing Bayesian inference. The core of this method is the active utilization of 'Subjective Probability'.
+
+Managers in the business field each have different intuitions and empirical beliefs. The Odds framework does not exclude such personal subjectivity, but rather converts it into a tool that can be managed systematically and consistently. Managers quantify their initial beliefs into Odds, and continuously update that probability by reflecting new evidence (data) whenever it comes in.
+
+Through this iterative process, managers can verify how well their intuition aligns with actual data and improve the quality of their decision-making. Above all, from a technical perspective, the fact that there is no need to calculate the 'troublesome denominator P(D)', which requires considering all possible data scenarios, is a significant practical advantage.
+
+[Value of the Odds Framework for Executives]
+
+- Systematization of Subjectivity: Provides a framework to manage the differing intuitions and beliefs (subjective probabilities) of each manager as consistent numerical values.
+
+- Dynamic Decision Making: Verification of decision consistency through the iterative loop of "Set Belief → Reflect Data → Update Belief".
+
+- Calculation Efficiency: Supports rapid decision-making by eliminating the complex denominator P(D) operation, which requires calculating the total probability, through the use of the Odds method.
+
+$  $
+\text&#123;Posterior Odds&#125; = \text&#123;Prior Odds&#125; \times \text&#123;Bayes Factor&#125;
+$  $
+
+- Odds: How many times more likely is Hypothesis A than Hypothesis B? (Ratio)
+
+- Bayes Factor: How many times more does the data support Hypothesis A than Hypothesis B? (Ratio of strength)
+
+.
+
+## 3. Perfect One-to-One Mapping (The Mapping)
+
+Now, let's cast some magic. How does the 'complex probability formula' transform into the 'simple odds formula'? We have two hypotheses, Temperature (H
+T
+) and Pressure (H
+P
+). Let's write out each of the traditional Bayes equations below.
+
+Equation A (The equation for the Temperature Hypothesis, where Temperature is the culprit):
+
+$  $
+P(H_T|D) = \frac&#123;P(D|H_T) P(H_T)&#125;&#123;P(D)&#125;
+$  $
+
+Equation B (The equation for the Pressure Hypothesis, where Pressure is the culprit):
+
+$  $
+P(H_P|D) = \frac&#123;P(D|H_P) P(H_P)&#125;&#123;P(D)&#125;
+$  $
+
+Now, let's divide [Equation A] by [Equation B]. Then, something amazing happens.
+
+$  $
+\frac&#123;P(H_T|D)&#125;&#123;P(H_P|D)&#125; = \frac&#123;\frac&#123;P(D|H_T) P(H_T)&#125;&#123;P(D)&#125;&#125;&#123;\frac&#123;P(D|H_P) P(H_P)&#125;&#123;P(D)&#125;&#125;
+$  $
+
+The troublesome P(D), which is present in both the denominator and the numerator, cancels out and disappears! (Poof!)
+
+If we organize what remains, it becomes exactly the formula we used in the story.
+
+$  $
+\underbrace&#123;\frac&#123;P(H_T|D)&#125;&#123;P(H_P|D)&#125;&#125;_&#123;\text&#123;Posterior Odds&#125;&#125; = \underbrace&#123;\frac&#123;P(D|H_T)&#125;&#123;P(D|H_P)&#125;&#125;_&#123;\text&#123;Bayes Factor&#125;&#125; \times \underbrace&#123;\frac&#123;P(H_T)&#125;&#123;P(H_P)&#125;&#125;_&#123;\text&#123;Prior Odds&#125;&#125;
+$  $
+
+
+Key Points
+
+- Ratio of Traditional Posterior Probabilities → Posterior Odds
+
+- Ratio of Traditional Likelihoods → Bayes Factor
+
+- Ratio of Traditional Prior Probabilities → Prior Odds
+
+Ultimately, the Odds method is not new mathematics, but a field version of Bayes' theorem that streamlines calculation by removing the complex normalization constant P(D).
+
+.
+
+## 4. Substitution with Real Data (Verification)
+
+Let's plug the 'Morning Data (5 defects out of 50)' from the story into both methods to check if they yield the same result.
+
+#### A. A. The Story Method (Odds & Bayes Factor)
+
+- Prior Odds: 0.6 / 0.4 = 1.5
+
+- Bayes Factor: 
+
+$  $
+\approx \mathbf&#123;4.7&#125;
+$  $
+
+ (Calculated value)
+
+- Posterior Odds: 1.5 x 4.7 = 7.05
+
+- Final Probability: 
+
+$  $
+7.05 / (1+7.05) \approx \mathbf&#123;87.6\%&#125;
+$  $
+
+ 
+
+#### B. The Traditional Method (Probability)
+
+- Likelihood Calculation(Bernoulli distribution, $ P $=defect rate, $ k $=number of defects, $ n $=sample size): 
+
+$  $
+P^k (1-P)^&#123;n-k&#125;
+$  $
+
+- Temperature Likelihood 
+
+$  $
+P(D|H_T): (0.08)^5(0.92)^&#123;45&#125; \approx \text&#123;very small number A&#125;
+$  $
+
+ 
+
+- Pressure Likelihood 
+
+$  $
+P(D|H_P): (0.04)^5(0.96)^&#123;45&#125; \approx \text&#123;very small number B&#125;
+$  $
+
+ 
+
+- *(Here, A is about 4.7 times B. Try calculating it yourself)*
+
+- Calculation of Evidence Probability P(D): 
+
+$  $
+(A \times 0.6) + (B \times 0.4)
+$  $
+
+ 
+
+- Posterior Probability $ P(H_T|D) $: 
+
+$  $
+\frac&#123;A \times 0.6&#125;&#123;(A \times 0.6) + (B \times 0.4)&#125;
+$  $
+
+- If you punch this complex formula into a calculator? Surprisingly, it comes out to exactly 87.6%.
+
+### Conclusion (Writer's Conclusion)
+
+Why do we use the Odds method?
+The traditional method requires calculating the total sum P(D) every time, so the calculation slows down in streaming situations (Loop) where data keeps coming in.
+
+On the other hand, the Odds method only requires continuous simple multiplication. This is precisely why field engineers and AI love Bayes, and why the Odds method was used in the story.

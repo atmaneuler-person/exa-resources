@@ -1,0 +1,107 @@
+---
+title: 'RL2. Before the Math: How RL Really Began'
+date: '2025-07-08'
+tags: []
+draft: false
+summary: 'RL2. Before the Math: How RL Really Began'
+--- 
+
+Many learners who are new to Reinforcement Learning often struggle to clearly grasp the conceptual differences and relationships between the Markov Decision Process (MDP) and Reinforcement Learning (RL). This lack of understanding can create a significant barrier in the early stages of study. To reduce such confusion, it is important to first clarify how these two concepts are connected.
+
+-
+
+-
+
+# Before Math in Reinforcement Learning : Instinct, Experiment, and Conditioning
+
+Reinforcement Learning is often introduced and understood as a field grounded in mathematical modeling and algorithmic design. However, its theoretical roots lie not in mathematics, but in the intuitive and experimental traditions of psychology and neuroscience.
+
+In this second article of the series, we begin our exploration of Reinforcement Learning by examining a few early psychological experiments that laid the groundwork for its theoretical development. Through these studies, we aim to understand how the core concepts of RL were first formed.-
+
+-
+
+## [1. **Edward Thorndike – Puzzle Box and Trial-and-Error Learning **](https://en.wikipedia.org/wiki/Edward_Thorndike?utm_source=chatgpt.com)
+
+Thorndike conducted an experiment using a box where a cat was locked inside and had to pull a lever to escape. He measured the time it took for the cat to get out. Over time, the cat escaped faster, and this pattern formed an S-shaped learning curve. Based on these results, he proposed the **[Law of Effect](https://en.wikipedia.org/wiki/Law_of_effect)**, which states that behavior is strengthened by reward. This idea later became the foundation for the **reward** mechanism in Reinforcement Learning. At this point, there was no involvement of mathematical modeling.
+
+-
+
+*
+
+https://www.youtube.com/watch?v=fanm--WyQJo&t=84s
+
+-
+
+## **[2. Ivan Pavlov - Classical Conditioning](https://www.simplypsychology.org/pavlov.html?utm_source=chatgpt.com)**
+
+Pavlov observed a phenomenon in which a sound—originally a neutral stimulus—gradually began to trigger a reflexive response of salivation in a dog. This occurred because the bell was repeatedly paired with the presentation of food, an unconditioned stimulus that naturally caused the dog to salivate. Eventually, the dog began to salivate in response to the bell alone.
+
+This experiment demonstrated the connection between external stimuli and physiological responses. The structure of conditioned stimulus → conditioned response later provided important inspiration for modeling state and reward expectation in Reinforcement Learning. Once again, these insights emerged not from mathematics, but from careful observation of behavior.
+
+-
+
+*
+
+https://www.youtube.com/watch?v=hhqumfpxuzI
+
+-
+
+## [3. B. F. Skinner – **Operant Conditioning**](https://en.wikipedia.org/wiki/Operant_conditioning_chamber?utm_source=chatgpt.com)
+
+Skinner systematically investigated how the probability of a behavior could be manipulated through experiments in which rats or pigeons pressed a lever to receive food (as a reward), or were subjected to punishment to suppress certain actions. His seminal work, The Behavior of Organisms (1938), stands as a milestone in this field.
+
+His most well-known experimental apparatus, the Skinner Box, became a classic example of active learning. Unlike classical conditioning, Skinner’s experiments demonstrated that behavior could be initiated voluntarily by the subject, and that reinforcement significantly influences the frequency of such behavior. This experimental structure laid the groundwork for several core concepts in modern Reinforcement Learning, including action selection, policy, and feedback-based learning. At this stage as well, no mathematical formalism had yet been introduced.
+
+-
+
+*
+
+https://www.youtube.com/watch?v=cDM4E2c3gS8
+
+-
+
+## [4. James Olds & Peter Milner – **The Brain’s Reward Circuit**](https://en.wikipedia.org/wiki/Brain_stimulation_reward?utm_source=chatgpt.com) [**(Pleasure Center)**](https://en.wikipedia.org/wiki/Brain_stimulation_reward?utm_source=chatgpt.com)
+
+Olds and Milner conducted an experiment in which they implanted electrodes into the septal area of a rat’s brain. They discovered that when this specific brain region was electrically stimulated, the rat would repeatedly press a lever to self-administer the stimulation. This behavior provided clear neuroscientific evidence that the brain actively processes rewards. Remarkably, the response mirrored the motivational effects seen with natural rewards such as food or mating. This study, often referred to as research on the pleasure center, offered one of the first empirical demonstrations of how the brain recognizes and seeks out reward. Once again, no mathematics were involved—only careful experimentation and observation.
+
+In their 1954 paper, Olds and Milner reported that a “rat would continually press a lever in return for… a brief pulse of electrical stimulation in the septal area.” This was the first direct evidence of how the brain’s reward system functions, suggesting that rewards are processed through specific neural circuits. It marked the beginning of modern neuroscientific research into pleasure and motivation.
+
+-
+
+*
+
+https://www.youtube.com/watch?v=uofQPLuLV9A
+
+-
+
+## Three Insights from the Experiments
+
+Reinforcement Learning (RL) has now become a core area of artificial intelligence, especially when combined with deep learning. However, as we’ve seen through the early experiments explored so far, its origins are surprisingly not rooted in mathematics. Rather, they stem from psychological intuition and biological experimentation. Long before the advent of computer algorithms, researchers sought to explain how humans and animals learn and adapt their behavior. These foundational efforts laid the groundwork for what we now understand as RL theory.
+
+Across all four experiments, three key insights and questions consistently emerge:
+
+- **Reward strengthens behavior** (Thorndike, Skinner)
+
+- **Environmental stimuli can lead to predictable responses** (Pavlov)
+
+- **Learning is controlled by internal motivation and the brain’s reward circuits** (Olds & Milner)
+
+From these ideas, the following fundamental questions arise:
+
+- How does reward influence behavior?
+
+- How do living beings adjust their future actions based on past experiences?
+
+- How are stimuli, responses, actions, and outcomes connected?
+
+-
+
+# The Encounter with Math
+
+At the time, questions like those raised above were approached through experimental methods and psychological intuition. But eventually, a shift began—toward explaining these phenomena through formal mathematical models that offered structure, precision, and quantifiable insight. The turning point in this transition was the introduction of the Markov Decision Process (MDP).
+
+Now, we are ready to take the next step.
+
+When Reinforcement Learning meets mathematics, elements such as actions, states, rewards, and policies are organized into a formal framework. This allows us to describe how an agent can learn to make optimal decisions using the language of mathematics.
+
+In the next article, we will explore this conceptual shift in depth—focusing on the Markov Decision Process and examining how it became the mathematical foundation of modern Reinforcement Learning.

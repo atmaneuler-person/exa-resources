@@ -115,7 +115,6 @@ export const EnterpriseEXAWinSection = ({ textData }: EXAWinProps) => {
                                     </svg>
                                  </div>
                                  <span className="text-xl font-black text-gray-950 dark:text-white mb-2 tracking-tight">{content.feature2}</span>
-                                 <span className="text-sm font-medium text-orange-700/60 dark:text-orange-300/60">See how LG & Samsung use it</span>
                              </Link>
                         </div>
 

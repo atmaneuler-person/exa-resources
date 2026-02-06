@@ -1,0 +1,525 @@
+---
+title: 'BA03.[Nhập hàng vật tư đúng hạn: Bayesian MCMC] Trò chơi thực sự tại hiện trường kinh doanh là cuộc chiến với sự không chắc chắn'
+date: '2026-01-10'
+tags: ['bayeaian', 'Gibs Sampling', 'MCMC']
+draft: false
+summary: 'BA03.[Nhập hàng vật tư đúng hạn: Bayesian MCMC] Trò chơi thực sự tại hiện trường kinh doanh là cuộc chiến với sự không chắc chắn'
+images: ["/static/images/BA030.png"]
+authors: ["default"]
+---
+
+ 
+
+Câu chuyện này dành cho tất cả những ai đang chiến đấu với sự không chắc chắn. Đây là một câu chuyện kinh doanh về một trưởng nhóm thu mua, người quản lý sự không chắc chắn của chuỗi cung ứng bằng cách sử dụng [Công cụ suy luận Bayesian]. Nhân vật chính phân tích một cách tinh vi các mô hình hành vi của nhà cung cấp dựa trên xác suất chậm trễ giao hàng và các tín hiệu chế độ thảm họa do hệ thống trí tuệ nhân tạo Bayesian đưa ra. Vượt ra ngoài phương thức thúc giục giao hàng đơn thuần, câu chuyện cho thấy quá trình tiến tới mối quan hệ hợp tác chia sẻ rủi ro với nhà cung cấp bằng cách liên kết quản lý bộ đệm thông qua chia sẻ dữ liệu. Qua đó, câu chuyện nhấn mạnh tầm quan trọng của chiến lược thu mua hiện đại, thay vì loại bỏ hoàn toàn sự không chắc chắn, đã định lượng hóa nó theo xác suất và ứng phó tiên phong. Cuối cùng, câu chuyện giải thích cách tư duy xác suất dựa trên dữ liệu dẫn đến năng lực thực vụ thực tế nhằm bảo vệ sự ổn định và lợi nhuận của doanh nghiệp. Kết quả là, câu chuyện cho thấy cách giành chiến thắng trong trò chơi với sự không chắc chắn bằng cách đưa sự không chắc chắn vào phạm vi có thể quản lý được.
+
+---
+
+# Batch lúc 6 giờ sáng và thời hạn vật tư
+
+### Lời mở đầu: Cảnh báo thứ ba
+
+Thứ Ba, 7 giờ sáng. Văn phòng nhóm thu mua vẫn còn yên tĩnh.
+
+Trưởng nhóm thu mua ngồi xuống trước màn hình ngay cả trước khi cởi áo khoác. Việc kiểm tra kết quả Batch của 'Công cụ suy luận thông minh Exa' đã chạy suốt đêm là thói quen đầu tiên của anh. Cà phê tính sau.
+
+Khi bật màn hình, một cảnh báo đỏ hiện lên ở phía trên.
+
+PO#2024-0847 | Mô-đun cảm biến chính xác 1.200EA | Xác suất nhập hàng đúng hạn: 57%
+
+Anh siết chặt tay đang cầm chuột. 57%. Đây là lần thứ ba.
+
+Trong 6 tháng qua, hai trong số các dự án lớn mà anh phụ trách đã đối mặt với cuộc khủng hoảng do chậm trễ vật tư. Lần thứ nhất đã thành công trong việc tìm nguồn thay thế do nhà cung cấp phá sản, và lần thứ hai đã phối hợp với nhóm hậu cần để bù đắp sự chậm trễ thông quan. Cả hai lần đều dẫn đến kết quả thành công, nhưng quá trình này rất hỗn loạn và công ty đã phải chi trả những khoản chi phí không cần thiết.
+
+Và đây là lần thứ ba.
+
+Thực ra anh đã biết. Rằng ánh mắt công ty nhìn anh đang thay đổi từng chút một. Đánh giá rằng "Có năng lực, nhưng tính ổn định thấp", nói cách khác là quản lý rủi ro không ổn định. Việc tên anh bị loại khỏi danh sách ứng viên thăng tiến cũng không phải là ngẫu nhiên.
+
+Lần này phải khác. Phải kết thúc một cách gọn gàng, lặng lẽ và không có vấn đề gì.
+
+### 1. Những con số trong phòng họp
+
+Thứ Hai, 10 giờ sáng
+
+Khi cuộc họp kế hoạch sản xuất kết thúc, trưởng nhóm chậm rãi đóng máy tính xách tay. Tiếng bước chân của những người rời phòng họp biến mất vào hành lang, nhưng anh vẫn ở lại chỗ ngồi.
+
+Trưởng phòng kinh doanh nói khi đang tựa vào bàn.
+
+"Khách hàng này, lần này không chỉ dừng lại ở mức khó tính. Có vẻ bên đó cũng có hoàn cảnh riêng. Chỉ cần ngày giao hàng chậm một ngày là điều khoản phạt sẽ được kích hoạt. Trưởng nhóm thu mua biết mà, đúng không? Người phụ trách bên đó đã nói: 'Nếu lần này sai sót, vị trí trong danh sách nhà cung cấp sẽ trở nên nguy hiểm'."
+
+Trưởng nhóm thu mua gật đầu ngắn gọn. "Tôi đã nhận thức được."
+
+Trưởng nhóm sản xuất thêm vào khi đang viết các con số lên bảng trắng.
+
+"Chúng tôi đã siết chặt thời gian sản xuất nội bộ để tái cấu trúc đợt sản xuất thứ nhất thành 20 ngày. Nếu tính cả kiểm tra, kitting, cài đặt thì phải có dư hai ngày. Mô-đun cảm biến chính xác là linh kiện được đưa vào giai đoạn đầu tiên của dây chuyền. Nếu cái này chậm, toàn bộ sẽ bị đẩy lùi. Các đơn hàng khác cũng sẽ gặp vấn đề nghiêm trọng."
+
+Anh bước đến trước bảng trắng và viết ra các phép tính.
+
+- Ngày giao hàng của khách: 30 tháng 5
+
+- Thời gian sản xuất đợt 1: 20 ngày.
+
+- Thời gian kiểm tra/chuẩn bị: 2 ngày.
+
+- Thời hạn nhập hàng vật tư: 23 tháng 4.
+
+- Bộ đệm cần thiết: Tối thiểu 2 ngày.
+
+- Ngày nhập hàng mục tiêu an toàn: Trước ngày 21 tháng 4
+
+'Ngày 21 tháng 4. Hai ngày bộ đệm. Tuy không đủ, nhưng là thiết bị an toàn tối thiểu.'
+
+Hàng nhập khẩu
+
+Vấn đề là mô-đun cảm biến chính xác này là mặt hàng nhập khẩu.
+
+Gương mặt của Marcus, người phụ trách nhà cung cấp, hiện lên trong đầu anh. Kể từ khi bắt đầu giao dịch lần đầu tiên vào 3 năm trước, hầu hết các giao dịch đều suôn sẻ. Marcus rất tận tâm và chất lượng sản phẩm rất ưu việt.
+
+Nhưng thỉnh thoảng, rất thỉnh thoảng, khi có vấn đề phát sinh, Marcus lại im lặng.
+
+Tháng 8 cũng vậy. Ngay cả khi chậm trễ 9 ngày do vấn đề cung ứng nguyên liệu, anh ta cũng chỉ gửi một email 3 ngày trước ngày giao hàng. Cảm giác nhục nhã lúc đó lướt qua tâm trí anh. Vào thời điểm đó, sản xuất đã chậm một tuần do vấn đề cung ứng nguyên liệu và các bộ phận liên quan, bao gồm cả anh, đã phải thức trắng hai đêm để vội vàng lập lịch trình thay thế. Kết quả là đã nhập hàng thành công, nhưng chi phí bổ sung và sự hỗn loạn phát sinh trong quá trình đó đã được phản ánh nguyên vẹn vào đánh giá của nhóm thu mua.
+
+Anh xoa mặt bằng lòng bàn tay. 'Lần này phải khác. Trước khi Marcus im lặng, trước khi vấn đề trở nên lớn hơn, mình phải ứng phó. Mình phải hành động trước.'
+
+### 2. On Time Risk 0.57: Cảnh báo của Bayesian
+
+Anh trở lại văn phòng và ngồi xuống trước màn hình.
+
+Anh lại nhìn chằm chằm vào con số 57% đang hiện trên màn hình. Con số này không phải là một con số đơn thuần. Đó là kết quả mà công cụ Bayesian đã phân tích một cách lạnh lùng 'năng lực' và 'mô hình' của nhà cung cấp từ tất cả các hồ sơ giao dịch với Marcus trong 3 năm qua.
+
+Hệ thống đọc được 'thói quen' của nhà cung cấp. Mô hình giao hàng đúng hạn, mô hình khi xảy ra chậm trễ. Và điều quan trọng hơn cả là khi xảy ra chậm trễ thì chậm bao nhiêu và chậm bao lâu.
+
+Anh nhấp chuột để vào màn hình phân tích chi tiết.
+
+Hai gương mặt của Marcus mà công cụ đã thấy
+
+Vectơ chậm trễ $ D $: Hồ sơ về thói quen
+
+Hồ sơ giao hàng của nhà cung cấp là kết quả từ một hệ thống phức tạp phản ánh tất cả mọi thứ của công ty cung cấp, chẳng hạn như phương thức làm việc của nhà cung cấp, mô hình hành vi của người lao động, tính hiệu quả và không hiệu quả của tổ chức, triết lý quản lý của người quản lý, và phương thức điều hành của công ty.
+
+Để phân tích tình huống này, công cụ Bayesian áp dụng phương thức Phân phối hỗn hợp (Mixture Distribution) và Lấy mẫu MCMC Gibbs (Gibbs Sampling). Đó là vì chuỗi cung ứng không mang tính tuyến tính. Việc mô hình hóa toán học cụ thể sẽ được đề cập trong một loạt phụ lục riêng, và ở đây chỉ tập trung vào logic cốt lõi.
+
+Công cụ Bayesian chuyển đổi dữ liệu giao dịch trong 3 năm qua với Marcus thành vectơ ngày chậm trễ $ D $.
+
+$  $
+d_i = (\text&#123;Ngày nhập hàng thực tế&#125;) - (\text&#123;ETA đã hứa&#125;)
+$  $
+
+$ d_i = 0 $ nghĩa là đã giữ đúng lời hứa. Nếu $ d_i = +5 $ nghĩa là chậm 5 ngày so với kế hoạch.
+
+Và dữ liệu kết quả cung cấp có ngày xếp hàng. Tính toán số ngày làm việc thực tế không bao gồm thời gian vận chuyển.
+
+$  $
+d_j = (\text&#123;Ngày xếp hàng thực tế&#125;) - (\text&#123;Ngày phát hành PO&#125;)
+$  $
+
+Các vectơ $ d_i, d_j $ này không phải là một dãy số đơn thuần. Đó là kết quả đầu ra từ một hệ thống phức tạp chứa đựng tổng thể năng lực của công ty cung cấp, như phương thức làm việc của họ, mô hình hành vi của người lao động, tính hiệu quả và không hiệu quả của tổ chức, triết lý quản lý của người quản lý, và phương thức điều hành của công ty.
+
+Vectơ này là mô hình hành vi của nhà cung cấp, và là dấu vân tay của tính có thể dự đoán.
+
+Lấy mẫu MCMC Gibbs: Cấu trúc hóa sự không chắc chắn
+
+Công cụ phát hiện hai chế độ (Regime) trong dữ liệu vectơ này.
+
+- Chế độ 0 ($ S_t = 0 $): Trạng thái bình thường. $ d_i $ nằm gần 0. Marcus người luôn giữ lời hứa.
+
+- Chế độ 1 ($ S_t = 1 $): Trạng thái chậm trễ. Trạng thái mà các vấn đề phức tạp không xác định bên trong nhà cung cấp đan xen vào nhau khiến sự chậm trễ bùng nổ. Một khi vấn đề phát sinh, trung bình sẽ bị chậm khoảng 8 ngày. Marcus người luôn im lặng.
+
+Ở đây, chế độ (Regime) thể hiện chế độ bình thường vận hành như bình thường, và đôi khi là chế độ thảm họa vận hành trong trạng thái có sự cố/tắc nghẽn/biến động lớn. Nói cách khác, nếu là chế độ bình thường thì sẽ tập trung gần ETA, còn nếu là chế độ thảm họa thì xác suất xảy ra chậm trễ lớn sẽ tăng vọt.
+
+Cuối cùng, vectơ dữ liệu bao gồm phân phối hỗn hợp của hai trạng thái khác nhau là trạng thái bình thường và trạng thái chậm trễ, và nếu sự chậm trễ vượt quá một điểm tới hạn nào đó thì sẽ trở thành thảm họa đối với công ty khách hàng đã đặt hàng. Vì vậy, chúng tôi gọi trạng thái của thế giới chậm trễ này là "Chế độ thảm họa".
+
+Công cụ Bayesian cố gắng phân tích dữ liệu bằng cách tách chúng thành hai thế giới quan này đồng thời. Công cụ không dán nhãn bất kỳ hạng mục giao hàng nào là 'bình thường' hay 'thảm họa'. Tất cả đều được để dưới dạng các giá trị chưa biết và mô phỏng thông qua toán học tinh vi và huy động sức mạnh tính toán hiện đại mạnh mẽ để xem kết quả giao hàng cá biệt phát sinh từ thế giới nào trong hai thế giới đó.
+
+Anh nhìn vào biểu đồ hiển thị trên màn hình. Trong 3 năm qua, Marcus đã ở chế độ bình thường trong 85% thời gian. Tuy nhiên, anh ta đã rơi vào chế độ thảm họa trong 15% thời gian, và mỗi lần như vậy trung bình đều chậm 9 ngày.
+
+Sự chậm trễ vào tháng 8 năm ngoái cũng được hiển thị chính xác trên biểu đồ này. Chậm 9 ngày. Ký ức lúc đó lại ùa về.
+
+### 3. Trái tim của công cụ Exa - Vectơ chậm trễ và Chuyển đổi chế độ
+
+Cách thức hoạt động của công cụ Bayesian
+
+Phía sau màn hình máy tính mà trưởng nhóm thu mua đang nhìn chằm chằm, những suy luận toán학 phức tạp đang được tiến hành. Để hiểu đúng cảnh tượng này, chúng ta phải đi vào bên trong công cụ một lát.
+
+Gọi vectơ chậm trễ DD
+
+Công cụ đã chuyển đổi dữ liệu nhập hàng mà nhà cung cấp tên Marcus đã giao trong vài năm qua thành vectơ ngày chậm trễ DD. Việc tính toán rất đơn giản.
+
+$  $
+d_i = (\text&#123;Ngày nhập hàng thực tế&#125;) - (\text&#123;ETA đã hứa&#125;)
+$  $
+
+Nếu $ d_i = 0 $ nghĩa là đã giữ đúng lời hứa một cách chính xác, còn nếu $ d_i = +5 $ nghĩa là chậm 5 ngày.
+
+Công cụ phát hiện hai thế giới khác nhau, tức là 'Chế độ' (Regime), trong vectơ này.
+
+- Chế độ 0 ($ S_t = 0 $): Chế độ bình thường. $ d_i $ di chuyển quanh 0. Đó là trạng thái giữ lời hứa một cách tuyệt đối.
+
+- Chế độ 1 ($ S_t = 1 $): Chế độ chậm trễ. Trạng thái xuất hiện vết nứt bên trong chuỗi cung ứng, là vũng lầy mà Marcus thỉnh thoảng rơi vào. Một khi sự chậm trễ phát sinh, việc nhập hàng trung bình sẽ bị đẩy lùi khoảng 8 ngày (
+
+$$
+\mu_{d1}
+$$
+
+).
+
+Ở đây quan trọng là hành vi giao hàng của Marcus thay đổi hoàn toàn tùy thuộc vào việc anh ta đang ở chế độ nào. Việc chúng ta nhìn vào bên trong nhà cung cấp là có hạn chế. Lúc này, cập nhật Bayesian sẽ phát huy sức mạnh.
+
+Suy luận về xác suất hậu nghiệm Bayesian
+
+Trên màn hình, phán đoán mà công cụ đưa ra cho đợt đặt hàng lần này được hiển thị dưới dạng công thức.
+
+Công thức cập nhật Bayesian:
+
+$  $
+P(S_t = 1 \mid d_&#123;\text&#123;new&#125;&#125;) = \frac&#123;P(d_&#123;\text&#123;new&#125;&#125; \mid S_t = 1) \cdot P(S_t = 1)&#125;&#123;P(d_&#123;\text&#123;new&#125;&#125;)&#125;
+$  $
+
+Hãy giải công thức này.
+
+- $ P(S_t = 1) $: Tần suất Marcus rơi vào chế độ chậm trễ trong quá khứ (xác suất tiên nghiệm). Khoảng 15%.
+
+- 
+
+$$
+P(d_{\text{new}} \mid S_t = 1)
+$$
+
+: Các chỉ số hậu cần quan sát được hiện tại giống với đặc điểm của chế độ chậm trễ đến mức nào (khả năng, likelihood).($ S_t $ bằng 0 nếu là bình thường và 1 nếu là trạng thái thảm họa, nên 
+
+$$
+P(d_{\text{new}} \mid S_t = 1)
+$$
+
+ chẳng qua là việc thể hiện xác suất số ngày chậm trễ giao hàng tiếp theo sẽ phát sinh khi nhà cung cấp đang ở trạng thái thảm họa (thế giới quan) bằng một công thức. Không cần phải quá đắm chìm vào các ký hiệu)
+
+Công cụ phán đoán bằng cách tổng hợp các tín hiệu này. "Có khả năng Marcus sẽ đi vào chế độ chậm trễ." Kết quả là 57%.
+
+Vòng quay 1 của lấy mẫu MCMC Gibbs (Gibbs Sampling)
+
+Công cụ mô phỏng tương lai (cấu thành phân phối xác suất của tương lai) với hàng trăm ngàn dữ liệu mô phỏng để chứng minh con số này. Anh đã xem hồ sơ của vòng quay (Iteration) đầu tiên trong số đó.
+
+Nguyên lý hoạt động của lấy mẫu Gibbs:
+
+Lấy mẫu Gibbs là một phương pháp rút mẫu từ một phân phối xác suất phức tạp. Khi nhiều biến số đan xen với nhau, nó sẽ khám phá toàn bộ phân phối bằng cách cập nhật từng biến số một tại một thời điểm.
+
+Iteration 1:
+
+- Lấy mẫu trạng thái: Dựa trên dữ liệu hiện tại, phân loại chế độ chậm trễ ($ S_t = 1 $) trong PO lần này
+
+- Trích xuất số ngày chậm trễ: Phản ánh đặc điểm của chế độ 1 để trích xuất chậm trễ +9 ngày
+
+- Kết quả dự đoán: ETA mà Marcus đã hứa + 9 ngày = Ngày 28 tháng 4
+
+Sau khi lặp lại quá trình tính toán này hàng trăm ngàn lần (Iteration), công cụ đã đưa ra kết luận cuối cùng.
+
+[Kết quả mô phỏng: Dựa trên PO revision.1]
+
+- Xác suất nhập hàng đúng hạn dựa trên mục tiêu hiện tại (21/4): 56,2%
+
+- Xác suất đi vào chế độ thảm họa (
+
+$$
+\pi
+$$
+
+): 16,5% (Theo quy ước, xác suất xảy ra chế độ thảm họa được ký hiệu là 
+
+$$
+\pi
+$$
+
+)
+
+- Lượng nới lỏng tối thiểu (
+
+$$
+\Delta^*
+$$
+
+) để đạt được xác suất mục tiêu 95%: +7 ngày
+
+"Chưa nói đến mục tiêu ngày 21 tháng 4, đây là một kịch bản mà ngay cả hạn chót ngày 23 cũng bị phá vỡ một cách tàn nhẫn."
+
+Anh nắm chặt tay.
+
+"Rủi ro là có thật. Khả năng chậm trễ 9 ngày… phải xóa bỏ điều này khỏi bàn đàm phán."
+
+Anh hít một hơi thật sâu. '9 ngày. Đây là trường hợp xấu nhất. Nhưng nó đã từng xảy ra và là một kịch bản hoàn toàn có thể xảy ra.'
+
+Anh nhớ lại sự chậm trễ vào tháng 8 năm ngoái. Lúc đó anh đã gặp may. Khách hàng đã thấu hiểu, và nhóm sản xuất đã làm tăng ca để bù đắp. Nhưng lần này thì khác. Khách hàng lần này sẽ không dung thứ.
+
+Và trên hết, công ty sẽ không dung thứ cho anh. Cuộc khủng hoảng thứ ba. Nó sẽ được công nhận như một mô hình. Đánh giá rằng "Trưởng nhóm Lee không biết quản lý rủi ro" sẽ được củng cố.
+
+Công cụ Bayesian của Exa được đưa vào lần này mang tính logic. Một khi đã hiểu quá trình, không thể phủ nhận kết quả. Anh đã quyết định.
+
+'Mình tin tưởng hệ thống. Và hợp tác một cách đúng đắn với Marcus.'
+
+### 4. Đàm phán – Sự tiến hóa của mối quan hệ 3 năm
+
+Phòng họp video, 11 giờ sáng
+
+Marcus xuất hiện trên màn hình. Anh ta vẫn mặc chiếc áo sơ mi chỉnh tề, nhưng sự mệt mỏi hiện rõ nơi khóe mắt.
+
+"Marcus, lâu rồi không gặp."
+
+Anh bắt đầu vào vấn đề chính sau lời chào hỏi đơn giản.
+
+"Trong số 1.200 cảm biến chính xác của PO đã gửi đi, mục tiêu là 600 chiếc sẽ nhập hàng vào ngày 21 tháng 4."
+
+Marcus gật đầu.
+
+"Vâng, tôi đã nhận được PO đợt 1. Nhưng nói thật thì… lịch trình rất eo hẹp. Hiện tại tình hình hậu cần cũng không tốt, và quy trình nội bộ cũng đang quá tải. Thực tế thì ngày 28 tháng 4 mới là ngày an toàn. Ngày 21 là rất khó. Anh biết thị trường vận tải biển dạo này mà. Tìm được chỗ (Space) khó như hái sao trên trời vậy. Để bắt được tàu chạy vào thì ngày 28 là tốt nhất."
+
+Đó là câu trả lời đã dự đoán trước. Nó trùng khớp với sự chậm trễ mà công cụ đã dự báo. Có phải là ngẫu nhiên không.. Marcus, người phụ trách nhà cung cấp, đã sử dụng biến số bên ngoài là 'chỗ trên tàu' làm lá chắn một cách lão luyện. Bởi vì nếu lấy lý do là một lĩnh vực mà bên đặt hàng không thể kiểm soát được, thì sẽ không còn gì để nói. Anh ta đã lấy lý do là yếu tố bên ngoài 'chỗ trên tàu' một cách thành thạo.
+
+But anh đang nhìn vào xác suất thảm họa 16,5% trên màn hình. Anh im lặng một lát. Rồi tiếp tục nói một cách bình tĩnh.
+
+"Marcus, chúng ta đã giao dịch hơn 3 năm rồi. Hầu hết các giao dịch đều thành công. Chất lượng sản phẩm của bên anh cũng rất tuyệt vời, và sự hợp tác cũng rất tốt."
+
+"Cảm ơn anh."
+
+"Nhưng anh có nhớ tháng 8 năm ngoái không?"
+
+Vẻ mặt Marcus hơi cứng lại.
+
+"…Tôi nhớ. Vụ chậm một tuần do vấn đề nguyên liệu."
+
+Vấn đề thực sự là sự im lặng
+
+Anh nói một cách nhẹ nhàng.
+
+"Lúc đó thật sự rất vất vả. Điều còn vất vả hơn cả bản thân vấn đề là chúng tôi đã không biết tình hình. Khi anh liên lạc thì đã chậm một tuần rồi, và tôi đã phải gánh chịu những khoản chi phí không cần thiết cho công ty trong khi vội vàng ứng phó."
+
+Marcus lên tiếng.
+
+"Tôi xin lỗi. Lúc đó… tôi đã muốn đưa ra tin tốt sau khi giải quyết xong vấn đề nội bộ."
+
+"Tôi hiểu. Ở vị trí nhà cung cấp, anh muốn giải quyết vấn đề trước. Nhưng ở vị trí người mua, việc không biết vấn đề là một rủi ro lớn hơn. Và tôi biết rõ rằng ngày nhập hàng 21 không phải là không thể khi nhìn vào hồ sơ quá khứ. Nếu bên anh chỉ cần quản lý đúng cách, đó là việc có thể sản xuất trong thời gian đó. Nếu việc tập trung quản lý được thực hiện tốt. Tôi không đưa ra một yêu cầu bất khả thi. Chẳng phải vậy sao?"
+
+Trưởng nhóm tiếp tục trong khi chia sẻ màn hình.
+
+"Vì vậy lần này chúng ta phải đi theo cách khác. Không phải ngày 28 mà là mục tiêu ngày 21, nhưng theo cách mà chúng ta cùng quản lý chứ không phải một mình anh."
+
+Đề xuất Cổng thông tin đối tác
+
+Trên màn hình hiện lên 'Cổng thông tin đối tác Exa'. Các điểm kiểm tra sự kiện quản lý bộ đệm đã được hiển thị.
+
+- Đặt hàng nguyên liệu
+
+- Nhập hàng vật tư hoàn tất
+
+- Bắt đầu sản xuất
+
+- Sản xuất hoàn tất 50%
+
+- Sản xuất hoàn tất
+
+- Đóng gói hoàn tất, chuẩn bị xuất hàng: Mục tiêu ngày 3 tháng 4
+
+- Xếp hàng lên tàu: Mục tiêu ngày 5 tháng 4
+
+"Chỉ cần chia sẻ bảy sự kiện này thôi. Hãy thảo luận với các bộ phận liên quan để quyết định ngày xảy ra sự kiện nội bộ của bên anh và chia sẻ chúng. Nếu hệ thống thấy nặng nề thì qua email cũng được. Và anh chỉ cần gửi hiện trạng khi sự kiện phát sinh."
+
+Marcus chăm chú nhìn vào màn hình.
+
+"Chia sẻ cái này thì có gì khác biệt?"
+
+"Chúng ta cùng nhau quản lý rủi ro." Giọng anh chứa đựng sự chân thành.
+
+"Ví dụ, nếu có tín hiệu chậm trễ hai ngày ở giai đoạn nguyên liệu, chúng tôi có thể tìm kiếm đối tác hậu cần trước để rút ngắn thời gian thông quan. Hoặc nếu có vấn đề phát sinh ở giai đoạn sản xuất, chúng tôi cũng có thể điều chỉnh lịch trình nội bộ. Biết vấn đề càng sớm thì chúng ta càng có nhiều thời gian để bù đắp. Cách ứng phó cũng sẽ nhiều hơn."
+
+"But cái này… chẳng phải là đang giám sát chúng tôi sao?"
+
+"Không phải. Đó là sự hợp tác." Anh nói một cách kiên quyết.
+
+"Marcus, năm ngoái anh cũng đã vất vả rồi. Việc một mình ôm lấy vấn đề để rồi cuối cùng thất bại và phải xin lỗi người mua là điều không tốt cho bất kỳ ai. Lần này hãy thử làm khác đi. Hãy thử cùng nhau làm, bên anh và bên tôi."
+
+Sự tiến hóa của kinh doanh
+
+Marcus im lặng một lát. Có vẻ như anh ta đang viết gì đó phía sau màn hình.
+
+Rồi chậm rãi ngẩng đầu lên.
+
+"…Được rồi. Những lời anh nói rất có lý. Hãy làm thử xem. Mỗi khi mỗi sự kiện phát sinh, tôi sẽ gửi hiện trạng qua email vào lúc đó."
+
+"Cảm ơn anh, Marcus." Anh mỉm cười.
+
+Marcus cũng cười nhẹ.
+
+"Tôi hiểu rồi. Ngày 21 tháng 4… tôi sẽ cố gắng hết sức."
+
+### 5. Cuộc chiến với thông tin
+
+Khủng hoảng của sự im lặng
+
+Sáng thứ Hai.
+
+Ngay khi đi làm, anh đã mở hộp thư điện tử. Không có thư từ Marcus.
+
+Thông tin nhập hàng nguyên liệu, vốn là hạng mục sự kiện quản lý, đã không được đưa lên.
+
+Anh kiểm tra đồng hồ. 10 giờ 30 sáng. Anh gọi điện nhưng không có phản hồi.
+
+Anh nhập 'Thông tin chưa được nhập' vào công cụ. Xác suất trên màn hình rung chuyển rồi giảm xuống 47%. Giảm 10%p. Đèn cảnh báo đỏ bật sáng.
+
+'Việc không có thông tin tự thân nó đã là một tín hiệu.'
+
+Anh ngay lập tức gửi tin nhắn cho Marcus.
+
+"Marcus, hôm nay hiện trạng chưa được chia sẻ. Tôi tò mò về tình hình nhập hàng nguyên liệu. Có vấn đề gì không?"
+
+20 phút sau, có hồi âm.
+
+"Tôi xin lỗi. Nguyên liệu đã được nhập vào thứ Sáu tuần trước. Người phụ trách báo cáo chậm nên tôi đã không biết. Tôi vừa mới xác nhận xong."
+
+Trưởng nhóm thở phào nhẹ nhõm. Đó là sự chậm trễ báo cáo chứ không phải là vấn đề.
+
+Anh nhập 'Nhập hàng nguyên liệu hoàn tất' vào hệ thống. Xác suất lại tăng lên 61%.
+
+Nhưng anh đã gửi thêm một tin nhắn nữa cho Marcus.
+
+"Thật may mắn. Nhưng Marcus, nếu thông tin chậm trễ thì tôi cũng thấy bất an. Từ sự kiện tiếp theo, mong anh hãy chính xác cho."
+
+Làn sóng chậm trễ sản xuất
+
+Thứ Tư.
+
+Lần này thư đã đến một cách chính xác. Nhưng nội dung không tốt.
+
+"Trưởng nhóm, việc 'bắt đầu sản xuất' bị chậm hai ngày. Do vấn đề lập lịch trình công đoạn nội bộ, đáng lẽ bắt đầu vào hôm nay thứ Tư nhưng đã bị đẩy sang thứ Sáu. Bản thân việc sản xuất không có vấn đề gì, nhưng có vẻ như toàn bộ lịch trình sẽ chậm khoảng hai ngày."
+
+Ngón tay anh dừng lại. Chậm hai ngày / một sự chậm trễ nhỏ, nhưng nó bào mòn bộ đệm.
+
+Khi 'Chậm bắt đầu sản xuất 2 ngày' được nhập vào công cụ, màn hình phản ứng ngay lập tức.
+
+'Khả năng đi vào chế độ chậm trễ tăng lên'
+
+ETA bị đẩy từ ngày 21 sang ngày 23 tháng 4. Xác suất giảm xuống 52%. Bộ đệm hoàn toàn biến mất, và ngay cả hạn chót cũng trở nên nguy hiểm.
+
+Anh hít một hơi thật sâu. 'Từ giờ mới là thật.'
+
+Ứng phó tiên phong
+
+Anh đã yêu cầu và triệu tập gấp trưởng nhóm sản xuất và trưởng nhóm hậu cần.
+
+"Trưởng nhóm sản xuất, liệu có thể điều chỉnh lịch trình nội bộ không? Đã có sự mất mát bộ đệm hai ngày."
+
+Trưởng nhóm sản xuất lắc đầu.
+
+"Khó lắm. Các dây chuyền khác cũng đã kín chỗ, nên việc điều chỉnh là không thể."
+
+"Vậy thì phải bù đắp ở phía hậu cần rồi."
+
+Trưởng nhóm nhìn sang trưởng nhóm hậu cần.
+
+"Có cách nào để đẩy sớm việc thông quan dù chỉ một ngày không?"
+
+Trưởng nhóm hậu cần suy nghĩ một lát rồi nói.
+
+"Nếu khai báo thông quan trước thì có thể rút ngắn từ nửa ngày đến một ngày. Tuy nhiên, sẽ tốn thêm chi phí."
+
+Anh gật đầu.
+
+"Tôi sẽ làm. Và cũng hãy tìm thuê xe tải chuyên dụng để vận chuyển nội địa đến nhà máy. Loại nhanh hơn giao hàng thông thường ấy."
+
+Trưởng nhóm hậu cần vừa ghi chép vừa trả lời.
+
+"Tôi hiểu rồi."
+
+Anh gửi email cho Marcus.
+
+"Marcus, đã xác nhận việc chậm hai ngày / chúng tôi sẽ tối ưu hóa hậu cần ở phía chúng tôi để rút ngắn một ngày. Thay vào đó, nếu bên anh có thể đẩy sớm việc đóng gói và xuất hàng dù chỉ một ngày thì mong anh hãy làm như vậy. Hãy chuẩn bị trước để có thể xuất hàng ngay khi sản xuất hoàn tất."
+
+2 giờ sau, có hồi âm của Marcus.
+
+"Tôi hiểu rồi. Tôi sẽ điều phối với nhóm hậu cần để xuất hàng ngay khi sản xuất hoàn tất."
+
+Trưởng nhóm nhập các phương án ứng phó này vào công cụ.
+
+- Thông quan rút ngắn 1 ngày
+
+- Vận chuyển rút ngắn nửa ngày
+
+- Rút ngắn thời gian chuẩn bị xuất hàng
+
+Màn hình lại chuyển động. ETA được đẩy sớm từ ngày 24 sang ngày 22 tháng 4. Xác suất tăng lên 74%.
+
+Sớm hơn một ngày so với hạn chót ngày 23. Bộ đệm đã hoàn toàn biến mất, nhưng đó là một kịch bản ít nhất có thể giữ được hạn chót.
+
+### 6. Ngày 21 tháng 4
+
+2 giờ chiều
+
+2 giờ chiều. Một chiếc xe tải đồ sộ lùi vào sàn kho (Dock). Có điện thoại từ trưởng nhóm kiểm tra.
+
+"Trưởng nhóm, 600 chiếc cảm biến chính xác đợt 1 đã nhập hàng. Số lượng, ngoại quan đều tốt. Sớm hơn hai ngày so với hạn chót ngày 23. Anh đã vất vả rồi."
+
+Trưởng nhóm cúp điện thoại và tựa người sâu vào lưng ghế. Ngày 21 tháng 4. Đó chính là 'ngày nhập hàng an toàn' mà anh đã mục tiêu ngay từ đầu.
+
+Xác suất cuối cùng trên màn hình là 74%. Có ai đó có thể nói rằng đã có 26% khả năng thất bại. Nhưng anh biết. Rằng anh và hệ thống đã trao đổi dữ liệu quyết liệt đến mức nào để kiểm soát 26% sự không chắc chắn đó.
+
+Anh viết một email ngắn cho Marcus.
+
+"Marcus, hàng đã nhận tốt. Nhờ anh thông báo ngay việc chậm hai ngày mà chúng tôi đã có thể đối phó. Đây chính là mối quan hệ đối tác thực sự."
+
+Ngay lập tức có hồi âm.
+
+"Thật lòng tôi cũng thấy nhẹ lòng. Tôi đã không biết rằng việc không phải che giấu lại có thể nâng cao hiệu quả công việc như thế này. Đợt PO tới cũng hãy tiến hành theo cách này nhé."
+
+# Đoạn kết: 3 tháng sau, khung cảnh đã thay đổi
+
+Giữa tháng 7, cuộc họp báo cáo kết quả quý (QBR).
+
+Bầu không khí trong phòng họp khác hẳn lần trước. Trưởng nhóm lật màn hình thuyết trình.
+
+"Quý 2 vừa qua, tỷ lệ nhập hàng vật tư chính đúng hạn (On-Time Delivery) đã ghi nhận mức 98,5%. Đây là con số tăng 12% so với cùng kỳ năm ngoái."
+
+Trưởng ban hỗ trợ quản lý chỉnh lại kính và hỏi. "Con số thật đáng kinh ngạc. Đặc biệt là các nhà cung cấp lớn nổi tiếng là khó đối phó, bí quyết là gì vậy? Anh đã chi thêm chi phí vận chuyển à?"
+
+"Không ạ. 'Phí cấp tốc' thậm chí còn giảm đi." Trưởng nhóm hiện lên slide tiếp theo. Đó là bảng điều khiển của [Cổng thông tin đối tác Exa].
+
+"Chúng tôi đã không yêu cầu nhà cung cấp 'tuân thủ thời hạn'. Chúng tôi yêu cầu chia sẻ dữ liệu. Hiện tại, 5 nhà cung cấp chính hàng đầu bao gồm cả công ty Marcus đang tham gia vào quy trình này. Những nơi lúc đầu phản đối vì cho rằng bị giám sát, khi thấy chúng tôi cung cấp giải pháp hậu cần trước và chia sẻ rủi ro, thái độ của họ đã thay đổi."
+
+Trên màn hình, đèn tín hiệu xanh đang bật sáng bên cạnh 'Marcus GmbH'. Phía dưới đó, các nhà cung cấp từ Nhật Bản, Đài Loan, Mỹ đang được kết nối thành hàng. Giống như một mạng lưới thần kinh khổng lồ, đang sống.
+
+"Giờ đây các nhà cung cấp không còn che giấu khi có vấn đề phát sinh. Họ truy cập vào hệ thống và dựng lên lá cờ đỏ. Chúng tôi nhìn thấy điều đó và đưa lính cứu hỏa vào. Không phải là dập lửa sau khi lửa đã lan rộng, mà là bắt lấy nó khi có khói."
+
+CEO gật đầu với nụ cười hài lòng. "Cậu, giờ đây cậu đang chứng minh rằng thu mua không phải là bộ phận 'cắt giảm chi phí' đơn thuần mà là bộ phận bảo vệ lợi nhuận."
+
+Cuộc họp kết thúc, trở về văn phòng, anh ngồi xuống chỗ ngồi của mình. Bên ngoài cửa sổ là thời tiết buổi chiều không khác gì mọi khi, nhưng thế giới trong màn hình của anh đã thay đổi.
+
+PO#2024-1105 | Mô-đun pin thế hệ tiếp theo | Xác suất Bayesian: 92% (Ổn định)
+
+Anh của quá khứ đã cầu nguyện trước xác suất 57%. Nhưng anh của hiện tại biến 57% thành 74%, và rồi thành 92%.
+
+Công cụ Bayesian không phải là quả cầu ma thuật. Nó là một chiếc gương khiến ta phải nhìn thẳng vào hiện thực. Đối mặt với dữ liệu một cách trung thực trước chiếc gương đó và hành động tiên phong. Đó chính là năng lực thực sự của người trưởng nhóm thu mua đang sống trong thời đại của sự không chắc chắn.
+
+Anh nhấp một ngụm cà phê đã nguội. Vị đắng đã biến mất, chỉ còn lại hương thơm dễ chịu.
+
+### [Insight Note] Lấy mẫu Gibbs và việc ra quyết định kinh doanh
+
+Lấy mẫu MCMC Gibbs (Gibbs Sampling) mà trưởng nhóm thu mua đã vận dụng trong tiểu thuyết là một tài sản quý giá của khoa học dữ liệu hiện đại và là một công cụ cực kỳ mạnh mẽ. Khi khó giải trực tiếp các bài toán toán học phức tạp, đó là phương thức sử dụng máy tính để tung xúc xắc hàng chục, hàng trăm ngàn lần nhằm vẽ ra bản đồ địa hình của xác suất.
+
+$  $
+x_1^&#123;(t+1)&#125; \sim p(x_1 \mid x_2^&#123;(t)&#125;, x_3^&#123;(t)&#125;, \dots)
+$  $
+
+Như công thức trên, khi cập nhật một biến số, ta cố định trạng thái hiện tại của các biến số khác và lặp lại việc lấy mẫu.
+
+Thông điệp mà điều này mang lại cho kinh doanh là rất rõ ràng. "Tương lai không tồn tại như một con đường duy nhất đã định sẵn, mà tồn tại như một sự phân phối (Distribution) của nhiều khả năng."
+
+Nhân vật chính đã không cố gắng loại bỏ sự không chắc chắn. Anh đã định lượng hóa sự không chắc chắn, đưa nó vào phạm vi quản lý và chọn ra hành động (Action) tối ưu trong đó.
+
+Câu chuyện này dành cho tất cả những ai đang chiến đấu với sự không chắc chắn.
+
+Không chỉ ở hiện trường thu mua, trò chơi thực sự ở mọi hiện trường kinh doanh chính là cuộc chiến với sự không chắc chắn.
+
+---
+
+### 
+
+[Inside the Engine] Không phải là phép màu, mà là toán học tinh vi và quản lý bộ đệm
+
+"Phép màu trong tiểu thuyết không phải là ma thuật. Đó là sự tất yếu (inevitability) được tạo ra khi toán học Bayesian tinh vi gặp gỡ quản lý bộ đệm."
+
+Từ bài viết tiếp theo, dưới dạng [Loạt phụ lục], chúng tôi sẽ giải phẫu trung tâm của 'Công cụ suy luận thông minh Exa', cốt cốt lõi của tập phim này. Chúng tôi sẽ đi sâu tìm hiểu nguyên lý của Phân phối hỗn hợp (Mixture Distribution) đã tìm ra mô hình ẩn giấu của Marcus, và cơ chế toán học của Lấy mẫu MCMC Gibbs (Gibbs Sampling) dùng để mô phỏng sự không chắc chắn.

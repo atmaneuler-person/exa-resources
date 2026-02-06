@@ -87,7 +87,7 @@ export const mainPageData: Record<string, MainPageData> = {
       title: "EXA Business Science Lab",
       subtitle: "EXA Enterprise Platform Logic and Docs",
       desc: "우리는 비즈니스의 과학을 탐구합니다. 불확실성의 혼돈을 실행 가능한 명료한 의사결정으로 변환합니다.",
-      viewAll: "View All Resources"
+      viewAll: "Explore the Synthesis"
     },
     exawin: {
       label: "Deploy Evidence-Based Sales",
@@ -95,9 +95,9 @@ export const mainPageData: Record<string, MainPageData> = {
       subtitle: "Sales is now Science.",
       cardTitle: "EXA와 함께라면 영업은 이제 정교한 \n과학이 됩니다.",
       cardDesc: "NSBI, 베타분포, Log 가중치, 정보엔트로피, 의사결정 임피던스의 정교한 수학적 연금술의 지능형 추론엔진",
-      button: "Launch Beta",
+      button: "Initiate Beta",
       feature1: "Global Access",
-      feature2: "View Case Studies"
+      feature2: "Analyze Case Studies"
     },
     showcase: {
         label: "Unified Intelligence Ecosystem",
@@ -115,7 +115,7 @@ export const mainPageData: Record<string, MainPageData> = {
       label: "HỆ ĐIỀU HÀNH DOANH NGHIỆP DEEP TECH",
       title: "Kỷ nguyên ERP lấy \nbản ghi làm trung tâm \nđã khép lại.",
       desc: "Nền tảng Doanh nghiệp EXA điều phối toàn bộ trí tuệ thông qua kiến trúc động cơ kép.\n\nTrong khi Động cơ Quy trình APS | DBR đồng bộ hóa việc thực thi vật lý, Động cơ EXA (Bayesian & AI) giảm thiểu sự không chắc chắn và quản trị chiến lược. Từ Lập kế hoạch Chiến lược đến Quyết toán Tài chính, EXA tích hợp các hoạt động doanh nghiệp thành một khoa học được thiết kế chính xác.",
-      cta: "Khám phá HĐH",
+      cta: "Discover the OS",
       videoLabel: "Logic Kernel v2.4 đã được khởi tạo"
     },
     erpSection: {
@@ -142,7 +142,7 @@ export const mainPageData: Record<string, MainPageData> = {
       title: "EXA Enterprise",
       subtitle: "Logic Nền tảng Doanh nghiệp & Tổng hợp Kỹ thuật",
       desc: "Nghiên cứu của chúng tôi giải mã 'Vật lý trong Kinh doanh'—chuyển đổi sự hỗn loạn đa chiều thành trí tuệ có thể hành động cho bối cảnh quyết định tinh gọn.",
-      viewAll: "Khám phá sự Tổng hợp"
+      viewAll: "Explore the Synthesis"
     },
     exawin: {
       label: "Triển khai Trí tuệ Bán hàng dựa trên Bằng chứng",
@@ -150,15 +150,15 @@ export const mainPageData: Record<string, MainPageData> = {
       subtitle: "Bán hàng là một Khoa học Nghiêm ngặt.",
       cardTitle: "Biến sự mơ hồ trong bán hàng \nthành sự Chắc chắn tuyệt đối.",
       cardDesc: "EXAWin tận dụng Suy luận Bayesian Đệ quy để thay thế trực giác bằng một 'giả kim thuật' toán học của Entropy Thông tin và Trở kháng Quyết định.",
-      button: "Khởi chạy Beta",
+      button: "Initiate Beta",
       feature1: "Truy cập Chiến lược Toàn cầu",
-      feature2: "Phân tích Case Studies"
+      feature2: "Analyze Case Studies"
     },
     showcase: {
         label: "Hệ sinh thái Thông minh Thống nhất",
         title: "Làm chủ sự phức tạp thông qua \nKết luận không thể bác bỏ",
         desc: "Từ sự nghiêm ngặt nền tảng của Logic Bayesian đến biên giới đổi mới của AI Tạo sinh. EXA điều phối một kiến trúc đa chiều để chưng cất sự không chắc chắn thô thành các sự thật doanh nghiệp không thể phủ nhận.",
-        button: "Khám phá Hệ sinh thái"
+        button: "Explore the Ecosystem"
     },
     filter: {
         label: "Tổng hợp Trí tuệ theo Chủ đề"
@@ -169,7 +169,7 @@ export const mainPageData: Record<string, MainPageData> = {
       label: "DEEP TECH ENTERPRISE OS",
       title: "記録中心のERP\n時代は終わりました。",
       desc: "EXAエンタープライズプラットフォームは、デュアルエンジンアーキテクチャを通じて、全社のインテリジェンスを統合制御します。\n\nAPS | DBRプロセスエンジンが物理的実行を同期化し、EXAエンジン（Bayesian & AI）が不確実性を排除し戦略を統治します。戦略的計画から財務決算まで、EXAは企業のオペレーションを精密に設計された科学へと統合します。",
-      cta: "OSを探索する",
+      cta: "Discover the OS",
       videoLabel: "ロジックカーネル v2.4 初期化完了"
     },
     erpSection: {
@@ -196,7 +196,7 @@ export const mainPageData: Record<string, MainPageData> = {
       title: "EXA",
       subtitle: "プラットフォーム・ロジック & テクニカル・シンセシス",
       desc: "ビジネスの物理学を解読する — 高次元の混沌を、低次元の意思決定環境における実行可能なインテリジェンスへと変換します。",
-      viewAll: "シンセシスを探索"
+      viewAll: "Explore the Synthesis"
     },
     exawin: {
       label: "証拠ベースの営業インテリジェンスを展開",
@@ -204,15 +204,15 @@ export const mainPageData: Record<string, MainPageData> = {
       subtitle: "営業は厳密な科学へ。",
       cardTitle: "営業の曖昧さを\n純粋な確信へと変換。",
       cardDesc: "EXAWinは、再帰的ベイズ推論を活用し、直感を情報エントロピーと意思決定インピーダンスの数学的錬金術へと置き換えます。",
-      button: "ベータ版を開始",
+      button: "Initiate Beta",
       feature1: "グローバル戦略アクセス",
-      feature2: "ケーススタディを分析"
+      feature2: "Analyze Case Studies"
     },
     showcase: {
         label: "統合インテリジェンス・エコシステム",
         title: "反駁不可能な結論により\n複雑性を圧倒する",
         desc: "ベイズ論理の根源的な厳密さから、生成AIの革新的なフロンティアまで。EXAは多次元アーキテクチャを調整し、生の不確実性を否定できない企業の事実へと精製します。",
-        button: "エコシステムを探求"
+        button: "Explore the Ecosystem"
     },
     filter: {
         label: "トピック別に知能を統合"
@@ -223,7 +223,7 @@ export const mainPageData: Record<string, MainPageData> = {
       label: "深科技企业级操作系统 (DEEP TECH ENTERPRISE OS)",
       title: "以记录为中心的ERP\n时代已成过去。",
       desc: "EXA企业平台通过双引擎架构协同全社智慧。\n\n在APS | DBR流程引擎同步物理执行的同时，EXA引擎（贝叶斯 & AI）负责消除不确定性并治理策略。从战略规划到财务结算，EXA将企业运营整合为一门精密设计的科学。",
-      cta: "探索操作系统",
+      cta: "Discover the OS",
       videoLabel: "逻辑内核 v2.4 已初始化"
     },
     erpSection: {
@@ -250,7 +250,7 @@ export const mainPageData: Record<string, MainPageData> = {
       title: "EXA",
       subtitle: "企业平台逻辑与技术综合",
       desc: "我们的研究解码商业物理学——将高维混沌转化为低维决策环境中的可操作情报。",
-      viewAll: "探索综合成果"
+      viewAll: "Explore the Synthesis"
     },
     exawin: {
       label: "部署基于证据的销售智能",
@@ -258,15 +258,15 @@ export const mainPageData: Record<string, MainPageData> = {
       subtitle: "销售现已成为严谨科学。",
       cardTitle: "将销售模糊性\n转化为纯粹的确信。",
       cardDesc: "EXAWin利用递归贝叶斯推理，以信息熵和决策阻抗的数学炼金术取代直觉。",
-      button: "启动 Beta 测试",
+      button: "Initiate Beta",
       feature1: "全球战略访问",
-      feature2: "分析案例研究"
+      feature2: "Analyze Case Studies"
     },
     showcase: {
         label: "统一智能生态系统",
         title: "通过无可辩驳的结论\n掌控复杂性",
         desc: "从贝叶斯逻辑的基础严谨到生成式AI的创新前沿。EXA协调多维架构，将原始不确定性提炼为不可否认的企业事实。",
-        button: "探索生态系统"
+        button: "Explore the Ecosystem"
     },
     filter: {
         label: "按主题综合情报"

@@ -121,7 +121,7 @@ export const contactData: Record<string, ContactData> = {
        name: "Name",
        email: "Work Email",
        message: "Message",
-       submit: "Contact Us"
+       submit: "CONTACT US"
     }
   },
   ko: {
@@ -136,7 +136,7 @@ export const contactData: Record<string, ContactData> = {
        name: "이름",
        email: "업무용 이메일",
        message: "메시지",
-       submit: "문의하기"
+       submit: "CONTACT US"
     }
   },
   ja: {
@@ -151,7 +151,37 @@ export const contactData: Record<string, ContactData> = {
        name: "お名前",
        email: "会社のメールアドレス",
        message: "メッセージ",
-       submit: "お問い合わせ"
+       submit: "CONTACT US"
+    }
+  },
+  zh: {
+    title: "准备好转型了吗？",
+    subtitle: "加入以主权逻辑（Sovereign Logic）运营的精英企业集团。",
+    info: {
+       hq: "Headquarters",
+       address: "Ho Chi Minh City, Vietnam",
+       email: "Business Inquiries"
+    },
+    form: {
+       name: "姓名",
+       email: "工作邮箱",
+       message: "留言",
+       submit: "CONTACT US"
+    }
+  },
+  vi: {
+    title: "Sẵn sàng chuyển đổi?",
+    subtitle: "Tham gia nhóm doanh nghiệp tinh hoa vận hành trên Sovereign Logic.",
+    info: {
+       hq: "Headquarters",
+       address: "Ho Chi Minh City, Vietnam",
+       email: "Business Inquiries"
+    },
+    form: {
+       name: "Tên",
+       email: "Email công việc",
+       message: "Tin nhắn",
+       submit: "CONTACT US"
     }
   }
 };

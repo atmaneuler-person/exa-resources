@@ -126,6 +126,19 @@ export default function PostLayout({
                 </h1>
               </div>
 
+              {content.images && content.images.length > 0 && (
+                <div className="max-w-5xl mx-auto mt-12 px-4">
+                  <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl border border-gray-100 dark:border-white/5">
+                    <Image
+                      src={content.images[0]}
+                      alt={title}
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </header>
 

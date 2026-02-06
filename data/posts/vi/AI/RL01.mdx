@@ -1,0 +1,97 @@
+---
+title: 'RL1. The History of Reinforcement Learning'
+date: '2025-07-04'
+tags: []
+draft: false
+summary: 'RL1. The History of Reinforcement Learning'
+--- 
+
+**Lý do tôi chọn Reinforcement Learning (RL) làm chủ đề đầu tiên của blog này là vì sự quan tâm cá nhân của tôi đối với RL, lĩnh vực đã phát triển ổn định theo một hướng khác so với làn sóng bùng nổ gần đây về deep learning và các tác nhân AI dựa trên LLM.**
+
+Mặc dù các công nghệ kia đang thu hút rất nhiều sự chú ý, RL vẫn tiếp tục phát triển dựa trên các lý thuyết cổ điển và vẫn có tác động mạnh mẽ trong thế giới thực.
+Một lý do khác là vì RL đang được tích hợp vào Exa-Solution, một ứng dụng doanh nghiệp tích hợp AI được phát triển như một phần mở rộng của hệ thống ERP của Exavion.
+
+Mục tiêu của chuỗi blog RL này là bắt đầu từ lịch sử của Reinforcement Learning, phân tích và hệ thống hóa các lý thuyết và thuật toán chính của nó, và khám phá cách chúng có thể được áp dụng vào phần mềm trong thế giới thực.
+
+---
+
+### Lược sử Reinforcement Learning
+
+Máy tính lần đầu xuất hiện vào những năm 1940, và việc phổ biến máy tính cá nhân bắt đầu thực sự vào những năm 1970.
+Vào những năm 1950 và 1960, các nhà khoa học máy tính và kỹ sư phần mềm đầu tiên đã bắt đầu đặt câu hỏi liệu máy móc có khả năng tính toán có thể được thiết kế để suy nghĩ như con người hay không.
+
+Vào thời điểm đó, có hai hướng nghiên cứu chính: một nhóm tập trung vào các phương pháp dựa trên dữ liệu như phân loại và dự đoán, được gọi là machine learning, trong khi nhóm khác nghiên cứu cách mà các agent có thể học hành vi tối ưu thông qua thử và sai – đây là nền tảng của Reinforcement Learning.
+
+Nghiên cứu về RL bắt đầu từ những năm 1950, song song với machine learning.
+Đến những năm 2000, hầu hết các lý thuyết và thuật toán cốt lõi tạo nên khuôn khổ RL ngày nay đã được phát triển.
+Sau đó, RL lại một lần nữa có bước đột phá lớn nhờ sự kết hợp với deep learning.
+
+---
+
+### Reinforcement Learning cổ điển
+
+Hầu hết các thuật toán RL ngày nay vẫn dựa trên các lý thuyết và cấu trúc cổ điển được phát triển trước những năm 2000.
+Các thuật toán ban đầu này chủ yếu được thực hiện bằng phương pháp bảng (tabular methods), trong đó giá trị của trạng thái và hành động được lưu và cập nhật trong các bảng trong bộ nhớ.
+
+Do hạn chế về bộ nhớ và sức mạnh tính toán lúc bấy giờ, các thuật toán này chủ yếu bị giới hạn trong nghiên cứu lý thuyết hoặc các thí nghiệm trong phòng lab, và khó áp dụng trong các tình huống thực tế.
+
+Tuy nhiên, đề xuất về chính sách tối ưu (optimal policy), lựa chọn hành động tốt nhất thông qua thử và sai, đã giúp RL bắt đầu hình thành như một lý thuyết chính quy.
+
+Ý tưởng cốt lõi của RL rất giống với cách động vật và con người học thông qua tương tác với môi trường.
+Để định nghĩa và hệ thống hóa ý tưởng này một cách toán học, Richard Ernest Bellman đã giới thiệu khái niệm value function và đề xuất phương trình Bellman để tính toán nó.
+
+Ông cũng giới thiệu một phương pháp gọi là Dynamic Programming (DP) để giải phương trình đó, và điều này đã trở thành điểm khởi đầu cho lý thuyết reinforcement learning.
+
+Phương trình Bellman được xây dựng dựa trên mối quan hệ tuần tự giữa hành động, phần thưởng, chính sách và trạng thái.
+Điều này làm cho việc mô hình hóa các bài toán RL dưới dạng Markov Decision Process (MDP) trở nên khả thi và có thể giải quyết bằng dynamic programming.
+
+Khoảng 20 năm sau, vào cuối những năm 1970, một bước phát triển lớn khác diễn ra với sự xuất hiện của Temporal Difference (TD) Learning.
+TD Learning kết hợp điểm mạnh của phương pháp Monte Carlo và Dynamic Programming, và trở thành thành phần cốt lõi của RL hiện đại.
+Nó đặt nền móng cho nhiều thuật toán sau này.
+Hiểu được TD là điều thiết yếu để hiểu reinforcement learning.
+
+---
+
+### Sự trỗi dậy của RL cùng với Deep Learning
+
+Năm 1989, Chris Watkins đề xuất thuật toán Q-learning trong bài báo “Learning From Delayed Rewards.”
+Thuật toán này là một trong nhiều phương pháp thuộc khuôn khổ TD learning và là ví dụ tiêu biểu của thuật toán off-policy.
+Trong off-policy learning, chính sách dùng để chọn hành động và chính sách dùng để học từ hành động đó là khác nhau.
+Điều này có nghĩa là có thể sử dụng một chính sách để học ra hành động tốt hơn, trong khi một chính sách khác được dùng để ra quyết định thực tế.
+
+Sau năm 2000, deep learning bắt đầu đạt được thành công vượt bậc, và các mạng neuron được đưa vào RL truyền thống dựa trên bảng.
+Năm 2015, Google DeepMind mở rộng Q-learning bằng cách kết hợp nó với deep neural network để tạo ra Deep Q-Network (DQN).
+Họ áp dụng điều này vào một trò chơi Atari, cụ thể là game đập gạch, và cho thấy một agent AI có thể học chơi game mà không cần sự can thiệp của con người.
+Điều này khiến thế giới ngạc nhiên và đánh dấu một chương mới cho RL.
+Sau đó, Double DQN được phát triển để giải quyết vấn đề đánh giá quá cao trong Q-learning.
+
+Google DeepMind sau đó giới thiệu AlphaGo, một mô hình kết hợp thuật toán Reinforce với deep learning, và một lần nữa chứng minh sức mạnh của reinforcement learning cho thế giới.
+
+Deep learning đã giúp RL vượt qua các giới hạn về bộ nhớ trước đây, khiến RL có thể áp dụng vào các ứng dụng thực tế.
+Kể từ đó, RL đã được sử dụng thành công trong các lĩnh vực như lái xe tự động của Tesla, hệ thống điều khiển robot, agent trong game, và tự động hóa công nghiệp.
+
+Sau năm 2017, deep reinforcement learning đã trở thành tiêu chuẩn mới.
+
+---
+
+### Củng cố và phổ biến lý thuyết RL
+
+Nền tảng của reinforcement learning là phương trình Bellman, được phát triển để mô hình hóa toán học quá trình ra quyết định theo chuỗi.
+Bellman định nghĩa bài toán RL bằng cấu trúc của Markov Decision Process (MDP), bao gồm trạng thái, hành động, phần thưởng và trạng thái kế tiếp.
+Để giải bài toán này, ông đã giới thiệu Dynamic Programming (DP), về sau được ứng dụng rộng rãi trong nhiều lĩnh vực.
+
+DP hoạt động bằng cách chia một bài toán phức tạp thành các bài toán con nhỏ hơn và giải quyết chúng một cách đệ quy.
+Đối với các bài toán có cấu trúc đệ quy, DP trở thành một công cụ rất mạnh mẽ.
+Vì lý do này, DP đã trở thành một kỹ thuật cơ bản không chỉ trong RL mà còn trong nhiều lĩnh vực của khoa học máy tính và công nghiệp.
+
+Trước khi kết hợp với deep learning, RL được xem là một lĩnh vực lý thuyết thú vị, nhưng bị giới hạn trong thực tiễn do giới hạn về bộ nhớ và tính toán.
+Trong bối cảnh đó, Richard S. Sutton và Andrew G. Barto đã hệ thống hóa kiến thức phân mảnh về RL thành một cấu trúc có hệ thống và xuất bản cuốn sách “Reinforcement Learning: An Introduction” vào năm 1998.
+Cuốn sách này trở thành kinh thánh của reinforcement learning, và bất kỳ nhà nghiên cứu nào học RL đều phải đọc nó.
+Năm 2018, sau 20 năm, ấn bản thứ hai được xuất bản.
+Điều này đánh dấu sự khởi đầu của một kỷ nguyên mới, nơi RL được chuyển mình nhờ deep learning.
+Ấn bản thứ hai bao quát toàn bộ lĩnh vực RL và nổi tiếng với chiều sâu toán học và phạm vi rộng của các chủ đề.
+Nó vẫn là tài liệu tham khảo chính trong lĩnh vực này.
+
+Một trong những nhân vật nổi bật nhất trong RL hiện nay là David Silver, học trò của Sutton và Barto.
+Ông là người dẫn đầu dự án AlphaGo tại DeepMind và đóng vai trò lớn trong việc kết hợp Q-learning với deep learning để chinh phục các trò chơi Atari.
+Khóa học RL sau đại học của ông tại University College London (UCL) vẫn còn có sẵn trực tuyến, cùng với slide bài giảng, và vẫn được nhiều nhà nghiên cứu sử dụng như một tài nguyên học tập giá trị.

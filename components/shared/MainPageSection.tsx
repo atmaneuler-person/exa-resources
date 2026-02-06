@@ -66,11 +66,11 @@ export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = '
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Featured Post Card (Clean UI + Ribbon) */}
-          {/* Featured Post Card (Clean UI + Ribbon) */}
-          <div className="lg:col-span-2 group relative grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch transition-all min-h-[456px]"> 
+          {/* Featured Post Card (Synchronized Height with Sidebar) */}
+          <div className="lg:col-span-2 group relative grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch transition-all"> 
             
-            {/* 1. Text Content (Left, Narrower ~40%) */}
-            <div className="order-2 md:order-1 md:col-span-6 flex flex-col h-full justify-start py-10 px-10 gap-8 bg-white dark:bg-gray-900/50 rounded-l-2xl border-l-[6px] border-orange-500">
+            {/* 1. Text Content (Left, 50%) */}
+            <div className="order-2 md:order-1 flex flex-col h-full justify-start py-8 px-8 gap-5 bg-white dark:bg-gray-900/50 rounded-2xl border-l-[6px] border-orange-500 shadow-sm">
                  <div className="flex items-center gap-3">
                     <div className="bg-gray-900 dark:bg-white -skew-x-12 px-3 py-1">
                         <span className="skew-x-12 text-[10px] font-black uppercase text-white dark:text-gray-900 tracking-[0.2em]">
@@ -86,20 +86,20 @@ export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = '
                     )}
                  </div>
 
-                <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-gray-900 dark:text-white leading-tight group-hover:text-orange-600 transition-colors">
+                <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-gray-900 dark:text-white leading-tight group-hover:text-orange-600 transition-colors">
                   <Link href={currentLocale ? `/${currentLocale}/${featuredPost.path.replace(/^\//, '')}`.replace(/\/+/g, '/') : `/${featuredPost.path.replace(/^\//, '')}`.replace(/\/+/g, '/')}>
                     {featuredPost.title}
                   </Link>
                 </h3>
                 
-                <p className="text-gray-500 dark:text-gray-400 line-clamp-4 md:line-clamp-6 text-base leading-relaxed overflow-hidden opacity-90">
+                <p className="text-gray-500 dark:text-gray-400 line-clamp-3 md:line-clamp-5 text-sm md:text-base leading-relaxed opacity-90">
                   {featuredPost.summary}
                 </p>
 
-                <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-[0.2em] mt-auto pt-6 border-t border-gray-100 dark:border-white/5">
-                  <div className="flex items-center gap-3 text-gray-900 dark:text-white">
-                    <span className="w-2 h-2 rounded-full bg-orange-500" />
-                    <span>{featuredPost.author?.name || 'EXA Intel'}</span>
+                <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-[0.2em] mt-auto pt-4 border-t border-gray-100 dark:border-white/5">
+                  <div className="flex items-center gap-2 text-gray-900 dark:text-white">
+                    <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
+                    <span>{featuredPost.author?.name || 'EXA Team'}</span>
                   </div>
                   <div className="text-gray-400 font-mono">
                     {formatDate(featuredPost.date, siteConfig.locale)}
@@ -107,28 +107,29 @@ export const MainPageSection = ({ title, posts, linkTo, categoryName, layout = '
                 </div>
             </div>
 
-            {/* 2. Image (Right, Wider ~50%, Full Height) */}
-            {(() => {
-                const fPath = `/${currentLocale}/${featuredPost.path.replace(/^\//, '')}`.replace(/\/+/g, '/');
-                return (
-                    <Link href={fPath} className="order-1 md:order-2 md:col-span-6 block relative overflow-hidden h-full min-h-[400px] shadow-2xl rounded-r-2xl">
-                    {featuredPost.images && featuredPost.images.length > 0 ? (
-                        <div className="relative w-full h-full">
+            {/* 2. Image (Right, 50%) */}
+            <div className="order-1 md:order-2 h-full">
+                {(() => {
+                    const fPath = `/${currentLocale}/${featuredPost.path.replace(/^\//, '')}`.replace(/\/+/g, '/');
+                    return (
+                        <Link href={fPath} className="block relative overflow-hidden h-full w-full shadow-lg rounded-2xl">
+                        {featuredPost.images && featuredPost.images.length > 0 ? (
                             <Image
-                            src={featuredPost.images[0]}
-                            alt={featuredPost.title}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                src={featuredPost.images[0]}
+                                alt={featuredPost.title}
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                priority
                             />
-                        </div>
-                    ) : (
-                        <div className="w-full h-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-400 text-xs">
-                            No Image
-                        </div>
-                    )}
-                    </Link>
-                );
-            })()}
+                        ) : (
+                            <div className="w-full h-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-400 text-xs">
+                                No Image
+                            </div>
+                        )}
+                        </Link>
+                    );
+                })()}
+            </div>
           </div>
 
           {/* Sidebar Posts (Clean UI) */}
