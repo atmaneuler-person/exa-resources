@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { MessageSquare, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import Header from '@/components/shared/Header';
+import Footer from '@/components/shared/Footer';
 
 interface Comment {
   id: string;
@@ -102,13 +104,17 @@ export default function AdminCommentsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">댓글 관리</h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
-          전체 댓글 {pagination.total}개
-        </p>
-      </div>
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-[#020617]">
+      <Header />
+      
+      <main className="flex-grow pt-20 pb-12">
+        <div className="mx-auto max-w-7xl px-4 py-8">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold">댓글 관리</h1>
+            <p className="mt-2 text-gray-600 dark:text-gray-400">
+              전체 댓글 {pagination.total}개
+            </p>
+          </div>
 
       {/* Comments List */}
       <div className="space-y-4">
@@ -241,6 +247,10 @@ export default function AdminCommentsPage() {
           아직 댓글이 없습니다.
         </div>
       )}
+        </div>
+      </main>
+      
+      <Footer />
     </div>
   );
 }

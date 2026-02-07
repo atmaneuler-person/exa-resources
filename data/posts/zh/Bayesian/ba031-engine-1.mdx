@@ -18,25 +18,17 @@ authors: ['default']
 
 为了对小说中探讨的核心议题“On-Time (准时到达)”进行数学建模，我们首先必须定义数据。为此，生成如下以天 (Day) 为单位的样本观测数据：
 
-
-
 $$
 D = [d_{1}, d_{2}, \dots, d_{7}] = \{ -2, -1, 0, 1, 2, 0, 9 \}
 $$
-
-
 
 我们可以将这组观测到的延迟天数集合 $ D $ 视为一个向量 (Vector)，其中包含的每个延迟值 (-2, -1, 0 ...) 成为构成该向量的元素 (Element，或成分)。
 
 在这里，个别数据元素 $ d\_{i} $ 定义如下：
 
-
-
 $$
 d_{i} = (\text{实际日期}) - (\text{计划日期})
 $$
-
-
 
 这个公式的含义非常直观。
 
@@ -64,11 +56,23 @@ $$
 
 好了，现在让我们来可视化我们的 Toy Data (向量 $ D $)。确认一下 7 个元素在图表上是如何分布的。
 
--
+<div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
+  <img
+    src="/static/images/BA031_0.png"
+    alt="mixture distribution"
+    style={{ maxWidth: '100%', height: 'auto' }}
+  />
+</div>
 
 现实的数据如何呢？ 下面是用直方图表示的某企业 200 笔实际资材采购交易业绩（特定供应商的特定品目）。
 
--
+<div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
+  <img
+    src="/static/images/BA031.png"
+    alt="actual data"
+    style={{ maxWidth: '100%', height: 'auto' }}
+  />
+</div>
 
 发现了有趣的相似性。我们的 Toy Data 以正常状态 (0) 为中心分散，同时形成了名为延迟状态 (9) 的另一个峰值。实际企业数据也区分为以平均 23 天这一正常 Lead Time 为中心的一个峰值，和以延迟状态 33 天为中心的（虽然微弱）另一个峰值。
 

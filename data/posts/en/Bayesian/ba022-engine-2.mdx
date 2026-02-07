@@ -4,11 +4,9 @@ date: '2026-01-03'
 tags: []
 draft: false
 summary: 'BA02.[App. 2] The Paradox of Silence: Entropy and the Geometry of Logarithmic Weighting'
-images: ["/static/images/BA02_2.png"]
-authors: ["default"]
+images: ['/static/images/BA02_2.png']
+authors: ['default']
 ---
-
- 
 
 ---
 
@@ -40,7 +38,9 @@ In the field, if a record is not updated within a defined period, the engine sub
 
 This is defined by the following formula:
 
+$$
 βt+1=βt+(λ×Δt)
+$$
 
 Where λ(lambda) is the Risk Sensitivity (Decay Factor), and Δt  s the duration of silence.
 
@@ -48,7 +48,8 @@ Where λ(lambda) is the Risk Sensitivity (Decay Factor), and Δt  s the durat
 
 ---
 
-## 
+##
+
 2. The Geometry of Weight: The Weber-Fechner Law
 
 Does the exact same "positive signal"—for example, a decision-making executive attending a meeting—carry the same weight in all situations? Meeting a decision-maker at the first introduction (Stage 1) versus meeting them just before the final contract (Stage 5) are vastly different scenarios; the latter is far more decisive and carries greater impact.
@@ -61,15 +62,29 @@ To address this, we apply the 'Weber-Fechner Law' from cognitive psychology to o
 
 The formula for Stage Weight (W) reflecting this is as follows:
 
+$$
 W=1+ln⁡(Stage)
+$$
 
 Here, 'Stage' is a value defined according to the negotiation steps specific to the individual corporate environment.
 
-According to this formula, the weight for Stage 1 (Discovery) is 1.0(ln⁡1), while the weight for Stage 5 (Negotiation) becomes approximately 2.61(ln⁡5). In other words, a single signal at the final stage is processed as a 'decisive blow' that is 2.6 times more powerful than one at the beginning. This result mathematically implements the field tension of "It ain't over till it's over" within a framework of stability.
+According to this formula, the weight for Stage 1 (Discovery) is 
+
+$$
+1.0(ln⁡1)
+$$
+
+while the weight for Stage 5 (Negotiation) becomes approximately 
+
+$$
+2.61(ln⁡5)
+$$
+
+In other words, a single signal at the final stage is processed as a 'decisive blow' that is 2.6 times more powerful than one at the beginning. This result mathematically implements the field tension of "It ain't over till it's over" within a framework of stability.
 
 ---
 
-## 
+##
 
 ## 3. Paving a Way Where There is No Data: Heuristic Modeling
 
@@ -89,7 +104,7 @@ Our model inherits this philosophy, compressing tens of thousands of situations 
 
     - Game Changer Signal: Powerful events capable of flipping the entire probability with a single signal, such as verbal approval.
 
-Each Stage and Signal is assigned a unique score value. The table defining these is not the result of big data analysis, but rather the wisdom of the field—"If the decision-maker participates, it is twice as certain as when a working-level staffer does"—fixed as a constant (Sscore).
+Each Stage and Signal is assigned a unique score value. The table defining these is not the result of big data analysis, but rather the wisdom of the field—"If the decision-maker participates, it is twice as certain as when a working-level staffer does"—fixed as a constant ($S_{score}$).
 
 ---
 
@@ -110,7 +125,8 @@ This process corresponds to calculating the evidence data (Likelihood) examined 
 
 ---
 
-## 
+##
+
 Conclusion: Weight Hidden in Lightness
 
 Paradoxically, the core of Part 2 lies in the 'Lightness of the System.'
@@ -126,7 +142,6 @@ Without expensive GPU servers or multi-year data purification projects, we can c
 We do not build magic in a black box; we build our house on explainable, rigorous mathematical logic.
 
 ---
-
 
 [Next Up: Part 3]
 

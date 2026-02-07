@@ -19,7 +19,7 @@ draft: false
 
 ## Decision Impedance Matching
 
-Through Parts 1 and 2 of the [BA02. Exa Bayesian Inference: The Invisible Hand of Sales—A 60-Day Gamble](https://news.exavions.com/ko/ba02-exa-bayesian-sales-nsbi/) episode, we observed how the Bayesian engine sets 'prior beliefs' and tracks probability trajectories through 'signals' and 'silence.' We now possess the pure posterior probability $ P_{raw} $, calculated by the Bayesian parameters α and β.
+Through Parts 1 and 2 of the [BA02. Exa Bayesian Inference: The Invisible Hand of Sales—A 60-Day Gamble](https://news.exavions.com/ko/ba02-exa-bayesian-sales-nsbi/) episode, we observed how the Bayesian engine sets 'prior beliefs' and tracks probability trajectories through 'signals' and 'silence.' We now possess the pure posterior probability $ P\_{raw} $, calculated by the Bayesian parameters α and β.
 
 But the journey is not yet complete. The final decision-making process still remains. Even a 60% probability can carry entirely different weights depending on whether it was obtained from a single meeting or through dozens of negotiation rounds.
 
@@ -35,23 +35,15 @@ The most dangerous thing in a business environment is 'unfounded optimism.'
 
 - <b>Situation A:</b>
 
-
-
 $$
 \alpha=0.6, \beta=0.4 \implies P = 60\%
 $$
 
-
-
 - <b>Situation B:</b>
-
-
 
 $$
 \alpha=60, \beta=40 \implies P = 60\%
 $$
-
-
 
 The mathematical probability ($P$) is 60% in both cases. However, from a leader's perspective, Situation A is a 'gamble left to luck,' while Situation B is the result of extensive verification (where the magnitudes of α and β differ, meaning the 'strength of belief' is different). The former is an unstable state that could jump to 0% or 100% with a single gust of wind, whereas the latter possesses 'inertia' that remains unshaken even by minor setbacks.
 
@@ -71,9 +63,16 @@ The Exa engine applied in the BA02 episode uses the Bayesian posterior probabili
 
 The Bayesian parameters α and β represent the accumulated weight of 'evidence of success' and 'evidence of failure,' respectively. Their sum, $ n $, serves as an indicator of 'how much we know' about this deal.
 
-- <b>When $n$ is small (Energy Mismatch):</b> No matter how high the system's probability is, it does not translate into the leader's conviction. It is simply too risky. This is a state where energy is not transmitted because the circuit's impedance does not match. In this case, the engine sends a warning: "Not Enough Evidence," instead of a probability.
+- <b>When $n$ is small (Energy Mismatch):</b> No matter how high the system's
+  probability is, it does not translate into the leader's conviction. It is
+  simply too risky. This is a state where energy is not transmitted because the
+  circuit's impedance does not match. In this case, the engine sends a warning:
+  "Not Enough Evidence," instead of a probability.
 
-- <b>When $n$ is large (Impedance Matched):</b> The probability figures begin to resonate with the leader's decisiveness. Since sufficient evidence has accumulated, a 1% change in probability is now precisely transmitted as a 1% change in actual business risk.
+- <b>When $n$ is large (Impedance Matched):</b> The probability figures begin to
+  resonate with the leader's decisiveness. Since sufficient evidence has
+  accumulated, a 1% change in probability is now precisely transmitted as a 1%
+  change in actual business risk.
 
 Accordingly, the engine reassimilates the total accumulated knowledge of the organization and refines the numbers by passing them through a 'Sigmoid Function,' which mirrors human cognitive structures.
 
@@ -81,21 +80,23 @@ Accordingly, the engine reassimilates the total accumulated knowledge of the org
 
 We adjust the density of probability through the following non-linearity:
 
-
-
 $$
 P_{calibrated} = \frac{1}{1 + e^{-k(P_{raw} - P_{0})}}
 $$
 
+Here, $P_{raw}$ is the raw Bayesian posterior probability calculated by the engine, $ k $is the slope of conviction (the intensity of certainty), and$ P\_{0} $ is the decision-making threshold.
 
+- <b>The Gentle Slope (Uncertainty):</b> When the probability is between 30% and
+  50%, the calibrated value moves very conservatively. This is a signal saying,
+  "Do not believe yet."
 
-Here, $P_{raw}$ is the raw Bayesian posterior probability calculated by the engine, $ k $is the slope of conviction (the intensity of certainty), and$ P_{0} $ is the decision-making threshold.
+- <b>The Steep Slope (Decision):</b> The moment the probability exceeds 60%, the
+  sigmoid curve rises sharply. A single small positive signal can boost the
+  probability from 60% to 80%.
 
-- <b>The Gentle Slope (Uncertainty):</b> When the probability is between 30% and 50%, the calibrated value moves very conservatively. This is a signal saying, "Do not believe yet."
-
-- <b>The Steep Slope (Decision):</b> The moment the probability exceeds 60%, the sigmoid curve rises sharply. A single small positive signal can boost the probability from 60% to 80%.
-
-- <b>The Saturation Zone (Conviction):</b> Beyond 85%, the curve flattens again. This reflects that for a human, 90% or 95% is effectively the same state of 'Commit.'
+- <b>The Saturation Zone (Conviction):</b> Beyond 85%, the curve flattens again.
+  This reflects that for a human, 90% or 95% is effectively the same state of
+  'Commit.'
 
 Now, let's overview the core concept of <b>Log-odds</b> used in Decision Impedance Matching, dissect the engine's internal mathematics, and finally understand it through a business simulation.
 
@@ -105,13 +106,9 @@ Now, let's overview the core concept of <b>Log-odds</b> used in Decision Impedan
 
 Looking inside the engine where Exa's Bayesian updates occur, probability does not look like the 0–100% we know. The Bayesian parameters α and β operate in an infinite linear space mathematically called 'Log-odds.'
 
-
-
 $$
 logit(P) = \ln\left(\frac{P}{1-P}\right) = \ln\left(\frac{\alpha}{\beta}\right)
 $$
-
-
 
 Every time we gain a new signal during the sales meeting process, the system faithfully adds to this Log-odds value.
 
@@ -124,13 +121,9 @@ This process is akin to the accumulation of charge in an electrical circuit. How
 
 Why the Sigmoid function? Because Sigmoid is the Inverse Function of the Log-odds function mentioned above. It is the unique mathematical solution that returns the sum of evidence accumulated in an infinite range ($- \infty \sim + \infty$) back to the 0.0 – 1.0 probability world that we can understand.
 
-
-
 $$
 P = \frac{1}{1 + e^{-k(x - x_0)}}
 $$
-
-
 
 Here, $x$ is the Log-odds ($\ln \frac{\alpha}{\beta}$) we have accumulated. This formula is not just for making numbers look pretty; it is a device that compresses infinite information energy into a finite range of decision-making.
 
@@ -138,9 +131,14 @@ Here, $x$ is the Log-odds ($\ln \frac{\alpha}{\beta}$) we have accumulated. This
 
 While we communicate in the world of 'Probability,' the principle by which data accumulates is 'Information Accumulation.'
 
-- <b>The World of Probability ($0 \sim 1$):</b> This world is very narrow and restrictive. It is difficult to move from 0.9 to 0.99, and it is blocked by the wall of 1.0. Adding or subtracting numbers here quickly hits a wall. (e.g., $0.9 + 0.2 = 1.1 \to$ impossible)
+- <b>The World of Probability ($0 \sim 1$):</b> This world is very narrow and
+  restrictive. It is difficult to move from 0.9 to 0.99, and it is blocked by
+  the wall of 1.0. Adding or subtracting numbers here quickly hits a wall.
+  (e.g., $0.9 + 0.2 = 1.1 \to$ impossible)
 
-- <b>The World of Information ($- \infty \sim + \infty$):</b> This world is limitless. As evidence accumulates, the numbers can grow infinitely large, or infinitely small if counter-evidence appears.
+- <b>The World of Information ($- \infty \sim + \infty$):</b> This world is
+  limitless. As evidence accumulates, the numbers can grow infinitely large, or
+  infinitely small if counter-evidence appears.
 
 Log-odds is the map that unfolds this narrow world of probability into the vast world of information.
 
@@ -166,13 +164,9 @@ A situation with an 80% success probability and a situation with an 80% failure 
 
 Expressing Log-odds ($L$) using $\alpha$ and $\beta$ results in:
 
-
-
 $$
 L = \ln\left(\frac{\alpha}{\beta}\right)
 $$
-
-
 
 - As success evidence ($\alpha$) increases, $L$ grows as a positive (+) value.
 - As failure evidence ($\beta$) increases, $L$ decreases as a negative (-) value.
@@ -190,13 +184,9 @@ For readers who are more curious, I would like to show the step-by-step process 
 
 First, we define the pure probability $P$ calculated using the updated protagonists $\alpha$ and $\beta$ [Appendix 1, 2].
 
-
-
 $$
 P = \frac{\alpha}{\alpha + \beta}
 $$
-
-
 
 This $P$ value moves between 0 and 1 and is the (posterior) probability we intuitively understand—the win rate.
 
@@ -204,23 +194,15 @@ This $P$ value moves between 0 and 1 and is the (posterior) probability we intui
 
 Now, we expand this probability into the infinite information space, Log-odds ($x$). Developing the formula according to the definition of Log-odds yields a surprising result.
 
-
-
 $$
 x = \ln\left(\frac{P}{1-P}\right)
 $$
 
-
-
 Let's substitute the $P$ value defined above into this.
-
-
 
 $$
 x = \ln\left(\frac{\frac{\alpha}{\alpha + \beta}}{1 - \frac{\alpha}{\alpha + \beta}}\right) = \ln\left(\frac{\frac{\alpha}{\alpha + \beta}}{\frac{\beta}{\alpha + \beta}}\right) = \ln\left(\frac{\alpha}{\beta}\right)
 $$
-
-
 
 In other words, the Log-odds $x$ is simply the logarithm of the ratio between success evidence ($\alpha$) and failure evidence ($\beta$). This is the 'pure weight of evidence' we have accumulated in the world of information.
 
@@ -230,13 +212,9 @@ _Note on Odds: Refer to the mathematical commentary in BA01.[The Short Shot]._
 
 The decision-making threshold $ T $is also a unit of probability (e.g., 0.8). This is converted to$ x_0 $, the reference point in Log-odds space.
 
-
-
 $$
 x_0 = \ln\left(\frac{T}{1-T}\right)
 $$
-
-
 
 Now we are ready to compare all data on the same scale of 'Log-odds.'
 
@@ -244,35 +222,35 @@ Now we are ready to compare all data on the same scale of 'Log-odds.'
 
 Finally, we insert all these values into the exponential part of the Sigmoid function. The Sigmoid function accepts the 'difference between the current energy ($x$) and the reference energy ($x_0$)' into its exponential part.
 
-
-
 $$
 P_{out} = \frac{1}{1 + e^{-k(x - x_0)}}
 $$
 
-
-
 Substituting the $x$ and $x_0$ obtained above, let's simplify the exponential part ($- k(x - x_0)$).
 
-$- k \left( \ln \frac{\alpha}{\beta} - \ln \frac{T}{1-T} \right) = - k \ln \left( \frac{\alpha / \beta}{T / (1-T)} \right)$
+$$
+- k \left( \ln \frac{\alpha}{\beta} - \ln \frac{T}{1-T} \right) = - k \ln \left( \frac{\alpha / \beta}{T / (1-T)} \right)
+$$
 
 Thus, the final formula transforms as follows:
-
-
 
 $$
 P_{out} = \frac{1}{1 + \left( \frac{\beta \cdot T}{\alpha(1-T)} \right)^k}
 $$
 
-
-
 ### 4.5 Mathematical Conclusion and Business Meaning
 
 Let's summarize why this development proves 'critical mass' and 'persuasiveness.'
 
-- <b>The Magic of Exponents:</b> The complex $e$ and $\ln$ in the exponential part meet and cancel each other out, leaving only the relative magnitude of the success ratio ($\alpha/\beta$) and the target ratio ($T/1-T$).
-- <b>The Power of $ k $:</b> As $k$ is positioned in the exponent, it causes the probability to increase sharply even if the success evidence only slightly exceeds the target.
-- <b>Reflecting the Weight of Data:</b> It doesn't just look at the probability ($P$); the power of this ratio becomes more robust as the absolute amount of evidence, $\alpha$ and $ \beta $, increases.
+- <b>The Magic of Exponents:</b> The complex $e$ and $\ln$ in the exponential
+  part meet and cancel each other out, leaving only the relative magnitude of
+  the success ratio ($\alpha/\beta$) and the target ratio ($T/1-T$).
+- <b>The Power of $ k $:</b> As $k$ is positioned in the exponent, it causes the
+  probability to increase sharply even if the success evidence only slightly
+  exceeds the target.
+- <b>Reflecting the Weight of Data:</b> It doesn't just look at the probability
+  ($P$); the power of this ratio becomes more robust as the absolute amount of
+  evidence, $\alpha$ and $ \beta $, increases.
 
 ---
 
@@ -280,20 +258,16 @@ Let's summarize why this development proves 'critical mass' and 'persuasiveness.
 
 Let's prove how this mathematical model generates 'decision-making energy' through a real-world business scenario. Suppose we set the master reference values according to a certain organization's tendencies as follows:
 
-- <b>Decision-Making Threshold ($T$):</b> 0.7 (70%)
-  - _Interpretation: "There must be at least a 70% probabilistic basis to justify taking a gamble."_
-- <b>Decision Acceleration ($k$):</b> 10
-  - _Interpretation: "Act aggressively once the threshold is crossed."_
+- <b>Decision-Making Threshold ($T$):</b> 0.7 (70%) - _Interpretation: "There
+  must be at least a 70% probabilistic basis to justify taking a gamble."_
+- <b>Decision Acceleration ($k$):</b> 10 - _Interpretation: "Act aggressively
+  once the threshold is crossed."_
 
 Final Formula:
-
-
 
 $$
 P_{out} = \frac{1}{1 + \left( \frac{\beta \cdot T}{\alpha(1-T)} \right)^k}
 $$
-
-
 
 ### 5.1 Business Scenario Simulation
 
@@ -303,43 +277,73 @@ Now, consider a stage in a sales negotiation process where the initial belief (p
 
 - <b>Data:</b> $\alpha = 6.0, \beta = 4.0$ (Pure Probability $P_{raw} = 60\%$ )
 - <b>Calculation Process:</b>
-  - Ratio Calculation: $\frac{4.0 \cdot 0.7}{6.0 \cdot 0.3} = \frac{2.8}{1.8} \approx 1.55$
-  - Applying Power $ k $: $1.55^{10} \approx 81.3$
-- <b>Final:</b> $P_{out} = \frac{1}{1 + 81.3} \approx 1.2\%$
-- <b>Interpretation:</b> While the Bayesian probability is 60%, it falls short of the organizational threshold ($P_{out}$ of 70%). The system cuts off the decision-making energy, sending a restrictive signal to the decision-maker: "Do not trust this yet (Hold)."
+- Ratio Calculation: $\frac{4.0 \cdot 0.7}{6.0 \cdot 0.3} = \frac{2.8}{1.8} \approx 1.55$
+- Applying Power $ k $: $1.55^{10} \approx 81.3$
+- <b>Final:</b> $P_{out} = \frac{1}
+  {1 + 81.3} \approx 1.2\%$
+- <b>Interpretation:</b> While the Bayesian probability is 60%, it falls short
+  of the organizational threshold ($P_{out}$ of 70%). The system cuts off the
+  decision-making energy, sending a restrictive signal to the decision-maker:
+  "Do not trust this yet (Hold)."
 
 #### Situation 2: Threshold Breakthrough (Beginning of Decision)
 
 - <b>Data:</b> $\alpha = 7.2, \beta = 2.8$ (Pure Probability $P_{raw} = 72\%$ )
 - <b>Calculation Process:</b>
-  - Ratio Calculation: $\frac{2.8 \cdot 0.7}{7.2 \cdot 0.3} = \frac{1.96}{2.16} \approx 0.907$
-  - Applying Power $ k $: $0.907^{10} \approx 0.38$
-- <b>Final Probability:</b> $P_{out} = \frac{1}{1 + 0.38} \approx 72.4\%$
-- <b>Interpretation:</b> As the probability slightly exceeds the threshold (T=0.7), the suppressed energy is released, and the pure probability begins to reflect directly on the dashboard. This is a signal that "it is now worth watching with interest (Watch)."
+- Ratio Calculation: $\frac{2.8 \cdot 0.7}{7.2 \cdot 0.3} = \frac{1.96}{2.16} \approx 0.907$
+- Applying Power $ k $: $0.907^{10} \approx 0.38$
+- <b>Final Probability:</b> $P_{out} = \frac{1}
+  {1 + 0.38} \approx 72.4\%$
+- <b>Interpretation:</b> As the probability slightly exceeds the threshold
+  (T=0.7), the suppressed energy is released, and the pure probability begins to
+  reflect directly on the dashboard. This is a signal that "it is now worth
+  watching with interest (Watch)."
 
 #### Situation 3: Critical Mass Breakthrough (Conviction Stage)
 
 - <b>Data:</b> $\alpha = 8.5, \beta = 1.5$ (Pure Probability $P_{raw} = 85\%$ )
 - <b>Calculation Process:</b>
-  - Ratio Calculation: $\frac{1.5 \cdot 0.7}{8.5 \cdot 0.3} = \frac{1.05}{2.55} \approx 0.411$
-  - Applying Power $ k $: $0.411^{10} \approx 0.0001$
-- <b>Final Probability:</b> $P_{out} = \frac{1}{1 + 0.0001} \approx 99.9\%$
-- <b>Interpretation:</b> When the probability reaches 85%, the acceleration $k$ performs its magic. The system pushes the 85% figure into a 99.9% conviction (Commit) that "this project is a winning deal." The leader no longer has any reason to hesitate.
+- Ratio Calculation: $\frac{1.5 \cdot 0.7}{8.5 \cdot 0.3} = \frac{1.05}{2.55} \approx 0.411$
+- Applying Power $ k $: $0.411^{10} \approx 0.0001$
+- <b>Final Probability:</b> $P_{out} = \frac{1}
+  {1 + 0.0001} \approx 99.9\%$
+- <b>Interpretation:</b> When the probability reaches 85%, the acceleration $k$
+  performs its magic. The system pushes the 85% figure into a 99.9% conviction
+  (Commit) that "this project is a winning deal." The leader no longer has any
+  reason to hesitate.
 
 ---
 
 ### 5.2 Insight Table
 
-| Status           | Pure Probability ($P_{raw}$) | Calibrated Probability ($P_{out}$) | Decision Grade | Business Action                  |
-| :--------------- | :--------------------------- | :--------------------------------- | :------------- | :------------------------------- |
-| <b>Below</b>        | 60%                          | <b>1.2%</b>                           | Hold           | Strictly prohibit resource input |
-| <b>Breakthrough</b> | 72%                          | <b>72.4%</b>                          | Watch          | Begin strategic focus            |
-| <b>Explosion</b>    | 85%                          | <b>99.9%</b>                          | Commit         | All-out resource concentration   |
+| Status              | Pure Probability ($P_{raw}$) | Calibrated Probability ($P_{out}$) | Decision Grade | Business Action                  |
+| :------------------ | :--------------------------- | :--------------------------------- | :------------- | :------------------------------- |
+| <b>Below</b>        | 60%                          | <b>1.2%</b>                        | Hold           | Strictly prohibit resource input |
+| <b>Breakthrough</b> | 72%                          | <b>72.4%</b>                       | Watch          | Begin strategic focus            |
+| <b>Explosion</b>    | 85%                          | <b>99.9%</b>                       | Commit         | All-out resource concentration   |
+
+<div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
+  <img
+    src="/static/images/BA02_3.png"
+    alt="mixture distribution"
+    style={{ maxWidth: '100%', height: 'auto' }}
+  />
+</div>
 
 #### Insight: Why This Model Wins—The Systematization of Sales Decision-Making
 
-- <b>Elimination of False Hope:</b> By decisively relegating deals with a 60% probability to a 1% level, the system inherently blocks 'unfounded optimism,' a chronic ailment in sales environments. Nevertheless, the 60% posterior probability remains important. Therefore, the engine must display both the Bayesian probability and the decision-calibrated probability together on the dashboard.
-- <b>Concentration on Bottleneck Resources:</b> 72% and 85% are separated by only a 13% difference, but the system distinguishes them into entirely different dimensions of 'Interest' and 'Conviction.' Consequently, management instinctively knows which business to dedicate their time to.
-- <b>The Reality of Impedance Matching:</b> This non-linear leap is a mathematical replica of the psychological state where veteran leaders feel, "I've got a gut feeling!" on the ground.
+- <b>Elimination of False Hope:</b> By decisively relegating deals with a 60%
+  probability to a 1% level, the system inherently blocks 'unfounded optimism,'
+  a chronic ailment in sales environments. Nevertheless, the 60% posterior
+  probability remains important. Therefore, the engine must display both the
+  Bayesian probability and the decision-calibrated probability together on the
+  dashboard.
+- <b>Concentration on Bottleneck Resources:</b> 72% and 85% are separated by
+  only a 13% difference, but the system distinguishes them into entirely
+  different dimensions of 'Interest' and 'Conviction.' Consequently, management
+  instinctively knows which business to dedicate their time to.
+- <b>The Reality of Impedance Matching:</b> This non-linear leap is a
+  mathematical replica of the psychological state where veteran leaders feel,
+  "I've got a gut feeling!" on the ground.
 
 The power of the Bayesian engine lies not only in the logic itself but also in its flexibility to be tuned according to an organization's strategy and character.

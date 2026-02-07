@@ -19,7 +19,7 @@ draft: false
 
 ## Khớp trở kháng Quyết định (Decision Impedance Matching)
 
-Trong các phần trước của tập [BA02. Suy luận Bayesian Exa](https://news.exavions.com/ko/ba02-exa-bayesian-sales-nsbi/), chúng ta đã quan sát cách công cụ Bayesian theo dõi quỹ đạo xác suất. Giờ đây, chúng ta sở hữu xác suất hậu nghiệm thuần túy (Pure Posterior Probability) $ P_{raw} $, được tính toán bởi các tham số Bayesian α và β.
+Trong các phần trước của tập [BA02. Suy luận Bayesian Exa](https://news.exavions.com/ko/ba02-exa-bayesian-sales-nsbi/), chúng ta đã quan sát cách công cụ Bayesian theo dõi quỹ đạo xác suất. Giờ đây, chúng ta sở hữu xác suất hậu nghiệm thuần túy (Pure Posterior Probability) $ P\_{raw} $, được tính toán bởi các tham số Bayesian α và β.
 
 Nhưng hành trình vẫn chưa hoàn tất. Một xác suất 60% có thể mang trọng số hoàn toàn khác nhau tùy thuộc vào việc nó đến từ một cuộc họp duy nhất hay sau hàng chục vòng đàm phán.
 
@@ -35,23 +35,15 @@ Về mặt toán học, 51% có nghĩa là 'khả năng thành công cao hơn'. 
 
 - <b>Tình huống A:</b>
 
-
-
 $$
 \alpha=0.6, \beta=0.4 \implies P = 60\%
 $$
 
-
-
 - <b>Tình huống B:</b>
-
-
 
 $$
 \alpha=60, \beta=40 \implies P = 60\%
 $$
-
-
 
 Xác suất toán học ($P$) là 60% trong cả hai trường hợp. Tuy nhiên, từ góc độ của một nhà lãnh đạo, Tình huống A là một 'canh bạc dựa vào may mắn', trong khi Tình huống B là kết quả của sự xác minh sâu rộng (nơi các tham số α và β có độ lớn khác nhau, nghĩa là cường độ niềm tin khác nhau). Tình huống đầu tiên là một trạng thái không ổn định, trong khi tình huống sau sở hữu 'quán tính' (Inertia) không bị lung lay ngay cả bởi những trở ngại nhỏ.
 
@@ -71,9 +63,15 @@ Công cụ Exa sử dụng xác suất hậu nghiệm Bayesian (ở đây gọi 
 
 Các tham số α và β đại diện cho trọng lượng tích lũy của 'bằng chứng thành công' và 'bằng chứng thất bại'. Tổng của chúng $n$ đo lường việc chúng ta 'biết bao nhiêu' về thương vụ này.
 
-- <b>Khi n nhỏ (Lệch trở kháng):</b> Cho dù xác suất hệ thống cao đến đâu, nó cũng không chuyển thành niềm tin của người lãnh đạo vì rủi ro quá lớn. Điều này giống như lệch trở kháng mạch điện, năng lượng không thể truyền đi. Lúc này, công cụ sẽ cảnh báo: "Không đủ bằng chứng (Not Enough Evidence)".
+- <b>Khi n nhỏ (Lệch trở kháng):</b> Cho dù xác suất hệ thống cao đến đâu, nó
+  cũng không chuyển thành niềm tin của người lãnh đạo vì rủi ro quá lớn. Điều
+  này giống như lệch trở kháng mạch điện, năng lượng không thể truyền đi. Lúc
+  này, công cụ sẽ cảnh báo: "Không đủ bằng chứng (Not Enough Evidence)".
 
-- <b>Khi n lớn (Khớp trở kháng):</b> Các con số xác suất bắt đầu cộng hưởng với sự quyết đoán của nhà lãnh đạo. Khi bằng chứng đã tích lũy đủ, sự thay đổi 1% xác suất sẽ được truyền tải chính xác thành sự thay đổi 1% rủi ro kinh doanh thực tế.
+- <b>Khi n lớn (Khớp trở kháng):</b> Các con số xác suất bắt đầu cộng hưởng với
+  sự quyết đoán của nhà lãnh đạo. Khi bằng chứng đã tích lũy đủ, sự thay đổi 1%
+  xác suất sẽ được truyền tải chính xác thành sự thay đổi 1% rủi ro kinh doanh
+  thực tế.
 
 Do đó, công cụ xử lý kiến thức tích lũy của tổ chức thông qua 'Hàm Sigmoid' (Sigmoid Function) để tinh chỉnh các con số phù hợp với cấu trúc nhận thức của con người.
 
@@ -81,19 +79,19 @@ Do đó, công cụ xử lý kiến thức tích lũy của tổ chức thông q
 
 Chúng ta điều chỉnh mật độ xác suất thông qua tính phi tuyến tính sau:
 
-
-
 $$
 P_{calibrated} = \frac{1}{1 + e^{-k(P_{raw} - P_{0})}}
 $$
 
-
-
 Ở đây, $P_{raw}$ là xác suất hậu nghiệm Bayesian gốc, $k$ là độ dốc của niềm tin (cường độ tin tưởng), $P_{0}$ là ngưỡng ra quyết định.
 
-- <b>Vùng thoai thoải (Không chắc chắn):</b> Khi xác suất từ 30~50%, giá trị hiệu chuẩn biến động rất dè dặt. Đây là tín hiệu: "Đừng vội tin tưởng".
-- <b>Vùng dốc (Quyết định):</b> Khi xác suất vượt quá 60%, đường cong Sigmoid tăng vọt. Một tín hiệu tích cực nhỏ cũng có thể đẩy xác suất từ 60% lên 80%.
-- <b>Vùng bão hòa (Tin tưởng):</b> Vượt quá 85%, đường cong lại thoai thoải. Điều này phản ánh rằng với con người, 90% hay 95% thực chất là cùng một trạng thái 'Cam kết' (Commit).
+- <b>Vùng thoai thoải (Không chắc chắn):</b> Khi xác suất từ 30~50%, giá trị
+  hiệu chuẩn biến động rất dè dặt. Đây là tín hiệu: "Đừng vội tin tưởng".
+- <b>Vùng dốc (Quyết định):</b> Khi xác suất vượt quá 60%, đường cong Sigmoid
+  tăng vọt. Một tín hiệu tích cực nhỏ cũng có thể đẩy xác suất từ 60% lên 80%.
+- <b>Vùng bão hòa (Tin tưởng):</b> Vượt quá 85%, đường cong lại thoai thoải.
+  Điều này phản ánh rằng với con người, 90% hay 95% thực chất là cùng một trạng
+  thái 'Cam kết' (Commit).
 
 Tiếp theo, chúng ta sẽ khái quát khái niệm cốt lõi <b>Log-odds (Tỷ lệ cược logarit)</b>, mổ xẻ toán học bên trong công cụ và hiểu rõ hơn qua mô phỏng kinh doanh.
 
@@ -103,13 +101,9 @@ Tiếp theo, chúng ta sẽ khái quát khái niệm cốt lõi <b>Log-odds (T�
 
 Đi sâu vào bên trong công cụ nơi các bản cập nhật Bayesian của Exa diễn ra, xác suất không phải là 0~100% như chúng ta biết. Các tham số α, β hoạt động trong một không gian tuyến tính vô hạn gọi là <b>Log-odds</b>.
 
-
-
 $$
 logit(P) = \ln\left(\frac{P}{1-P}\right) = \ln\left(\frac{\alpha}{\beta}\right)
 $$
-
-
 
 Mỗi khi nhận được tín hiệu mới qua các cuộc họp bán hàng, hệ thống sẽ cộng dồn giá trị Log-odds này một cách trung thực.
 
@@ -122,13 +116,9 @@ Quá trình này giống như sự tích tụ điện tích trong mạch điện
 
 Tại sao lại là hàm Sigmoid? Vì nó chính là <b>Hàm ngược (Inverse Function)</b> của hàm Log-odds nêu trên. Nó là giải pháp toán học duy nhất đưa tổng bằng chứng tích lũy trong phạm vi vô hạn ($- \infty \sim + \infty$) trở lại thế giới xác suất 0.0 ~ 1.0 mà chúng ta có thể hiểu được.
 
-
-
 $$
 P = \frac{1}{1 + e^{-k(x - x_0)}}
 $$
-
-
 
 Ở đây, $x$ là Log-odds ($\ln \frac{\alpha}{\beta}$) chúng ta tích lũy. Công thức này không chỉ để làm đẹp con số, nó là một thiết bị nén năng lượng thông tin vô hạn vào phạm vi quyết định hữu hạn.
 
@@ -140,13 +130,9 @@ $$
 
 Công thức cuối cùng biến đổi thành:
 
-
-
 $$
 P_{out} = \frac{1}{1 + \left( \frac{\beta \cdot T}{\alpha(1-T)} \right)^k}
 $$
-
-
 
 ---
 
@@ -163,33 +149,49 @@ Giả sử thiết lập các giá trị tham chiếu gốc như sau:
 
 - <b>Dữ liệu:</b> $\alpha = 6.0, \beta = 4.0$ (Xác suất thuần $P_{raw} = 60\%$ )
 - <b>Kết quả cuối:</b> $P_{out} \approx 1.2\%$
-- <b>Giải thích:</b> Xác suất Bayesian là 60%, nhưng không đạt chuẩn tổ chức (70%). Hệ thống ngắt năng lượng quyết định, gửi tín hiệu ức chế "Tuyệt đối đừng tin (Hold)".
+- <b>Giải thích:</b> Xác suất Bayesian là 60%, nhưng không đạt chuẩn tổ chức
+  (70%). Hệ thống ngắt năng lượng quyết định, gửi tín hiệu ức chế "Tuyệt đối
+  đừng tin (Hold)".
 
 #### Tình huống 2: Vượt ngưỡng (Bắt đầu quyết định)
 
 - <b>Dữ liệu:</b> $\alpha = 7.2, \beta = 2.8$ (Xác suất thuần $P_{raw} = 72\%$ )
 - <b>Kết quả cuối:</b> $P_{out} \approx 72.4\%$
-- <b>Giải thích:</b> Xác suất vượt nhẹ ngưỡng, năng lượng bị ức chế được giải phóng, xác suất thuần phản ánh trực tiếp trên bảng điều khiển. Đây là tín hiệu "Đáng quan tâm (Watch)".
+- <b>Giải thích:</b> Xác suất vượt nhẹ ngưỡng, năng lượng bị ức chế được giải
+  phóng, xác suất thuần phản ánh trực tiếp trên bảng điều khiển. Đây là tín hiệu
+  "Đáng quan tâm (Watch)".
 
 #### Tình huống 3: Vượt khối lượng tới hạn (Giai đoạn tin tưởng)
 
 - <b>Dữ liệu:</b> $\alpha = 8.5, \beta = 1.5$ (Xác suất thuần $P_{raw} = 85\%$ )
 - <b>Kết quả cuối:</b> $P_{out} \approx 99.9\%$
-- <b>Giải thích:</b> Xác suất đạt 85%, gia tốc $k$ tạo ra phép màu, đẩy 85% lên mức tin tưởng 99.9% (Commit).
+- <b>Giải thích:</b> Xác suất đạt 85%, gia tốc $k$ tạo ra phép màu, đẩy 85% lên
+  mức tin tưởng 99.9% (Commit).
 
 ---
 
 ### 5.2 Bảng thông tin chuyên sâu (Insight Table)
 
-| Trạng thái   | Xác suất thuần ($P_{raw}$) | Xác suất hiệu chuẩn ($P_{out}$) | Cấp độ quyết định | Hành động kinh doanh         |
-| :----------- | :------------------------- | :------------------------------ | :---------------- | :--------------------------- |
-| <b>Dưới mức</b> | 60%                        | <b>1.2%</b>                        | Hold              | Nghiêm cấm đầu tư nguồn lực  |
-| <b>Đột phá</b>  | 72%                        | <b>72.4%</b>                       | Watch             | Bắt đầu tập trung chiến lược |
-| <b>Bùng nổ</b>  | 85%                        | <b>99.9%</b>                       | Commit            | Tập trung toàn bộ nguồn lực  |
+| Trạng thái      | Xác suất thuần ($P_{raw}$) | Xác suất hiệu chuẩn ($P_{out}$) | Cấp độ quyết định | Hành động kinh doanh         |
+| :-------------- | :------------------------- | :------------------------------ | :---------------- | :--------------------------- |
+| <b>Dưới mức</b> | 60%                        | <b>1.2%</b>                     | Hold              | Nghiêm cấm đầu tư nguồn lực  |
+| <b>Đột phá</b>  | 72%                        | <b>72.4%</b>                    | Watch             | Bắt đầu tập trung chiến lược |
+| <b>Bùng nổ</b>  | 85%                        | <b>99.9%</b>                    | Commit            | Tập trung toàn bộ nguồn lực  |
+
+<div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
+  <img
+    src="/static/images/BA02_3.png"
+    alt="mixture distribution"
+    style={{ maxWidth: '100%', height: 'auto' }}
+  />
+</div>
 
 #### Insight: Tại sao mô hình này chiến thắng—Hệ thống hóa quyết định bán hàng
 
-- <b>Loại bỏ hy vọng hão huyền:</b> Quyết liệt đưa các thương vụ có xác suất 60% xuống mức 1%, hệ thống chặn đứng 'sự lạc quan vô căn cứ' từ gốc rễ.
-- <b>Tập trung nguồn lực then chốt:</b> 72% và 85% chỉ cách nhau 13%, nhưng hệ thống phân tách chúng thành các chiều kích hoàn toàn khác biệt là 'Quan tâm' và 'Tin tưởng'. Nhà quản lý biết rõ mình nên dành thời gian vào đâu.
+- <b>Loại bỏ hy vọng hão huyền:</b> Quyết liệt đưa các thương vụ có xác suất 60%
+  xuống mức 1%, hệ thống chặn đứng 'sự lạc quan vô căn cứ' từ gốc rễ.
+- <b>Tập trung nguồn lực then chốt:</b> 72% và 85% chỉ cách nhau 13%, nhưng hệ
+  thống phân tách chúng thành các chiều kích hoàn toàn khác biệt là 'Quan tâm'
+  và 'Tin tưởng'. Nhà quản lý biết rõ mình nên dành thời gian vào đâu.
 
 Sức mạnh của công cụ Bayesian không chỉ nằm ở bản thân logic, mà còn ở khả năng điều chỉnh linh hoạt (Flexibility) theo chiến lược và đặc thù của tổ chức.

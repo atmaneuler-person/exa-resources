@@ -1,138 +1,125 @@
 ---
-title: 'BA02.[Appendix 3] Sales Success Probability Decision Support System'
-date: '2026-01-05'
-images: ['/static/images/BA02_imp.png']
-summary: "Through Parts 1 and 2 of the [BA02. Bayesian Inference] episode, we looked at how the Bayesian engine sets 'prior beliefs' and tracks the trajectory of probability through 'signals' and 'silence'. Now we have the pure posterior probability P_raw calculated by the Bayesian parameters alpha and beta."
+title: '[BA03. On-Time Risk: Appendix 1] Anatomy of the EXA Bayesian Engine: Mixture Distributions and Observational Deviation'
+date: '2026-01-29'
+images: ['/static/images/BA03_1.png']
+tags:
+  [
+    'Gibbs Sampling',
+    'likelihood',
+    'MCMC',
+    'Bayesian',
+    'Likelihood',
+    'Mixture Distribution',
+  ]
 authors: ['default']
-tags: ['likelihood', 'bayesian', 'odds', 'impedance']
 draft: false
+summary: 'This is the first article in a technical explanation series identifying the operating principles of the EXA engine, which played a major role in the novel-style series [BA03 On-Time Material Inbound: Bayesian MCMC]. Since this series covers Mixture Distributions and MCMC (Markov Chain Monte Carlo) Gibbs Sampling—which are advanced techniques in Bayesian inference—the content may be deep and the calculation process somewhat complex. Therefore, we intend to approach this in a detailed, step-by-step manner to make it as digestible as possible, and it is expected to be a fairly long journey. We recommend reading the original novel first to understand the overall context. Furthermore, as Bayesian theory expands its concepts incrementally, reviewing the episodes and mathematical explanations of BA01 and BA02 beforehand will be much more helpful in grasping this content. The preceding mathematical concepts and logic are being carried forward.'
 ---
 
-## Decision Impedance Matching
+This is the first article in a technical explanation series identifying the operating principles of the EXA engine, which played a major role in the novel-style series '[BA03 On-Time Material Inbound: Bayesian MCMC](https://news.exavions.com/ko/ba030-on-time-ko/)'.
 
-Through the previous installments of [BA02. Bayesian Inference](https://news.exavions.com/en/ba02-exa-bayesian-sales-nsbi/), we explored how the Bayesian engine tracks probability trajectories. Now, we hold in our hands the pure posterior probability $P_{raw}$ calculated by parameters $\alpha$ and $\beta$.
+Since this series covers Mixture Distributions and MCMC (Markov Chain Monte Carlo) Gibbs Sampling—which are advanced techniques in Bayesian inference—the content may be deep and the calculation process somewhat complex. Therefore, we intend to approach this in a detailed, step-by-step manner to make it as digestible as possible, and it is expected to be a fairly long journey.
 
----
-
-## 1. The Pitfall of Numbers: Why 51% is Not Enough
-
-Mathematically, 51% means 'success is more likely.' However, in the life-or-death arena of business, 51% is practically a gamble.
-
-- <b>Situation A:</b>
-
-
-
-$$
-\alpha=0.6, \beta=0.4 \implies P = 60\%
-$$
-
-
-
-- <b>Situation B:</b>
-
-
-
-$$
-\alpha=60, \beta=40 \implies P = 60\%
-$$
-
-
+We recommend reading the original novel first to understand the overall context. Furthermore, as Bayesian theory expands its concepts incrementally, reviewing the episodes and mathematical explanations of BA01 and BA02 beforehand will be much more helpful in grasping this content. The preceding mathematical concepts and logic are being carried forward.
 
 ---
 
-## 2. Total Amount of Evidence ( n ): The Critical Mass
+## 1. Definition of Data: Observation Deviation
 
-The Exa engine uses the Bayesian posterior probability ( $P_{raw}$ ) and the total amount of evidence ( $n = \alpha + \beta$ ) as a decision-making filter.
+To mathematically model the core issue addressed in the novel, 'On-Time (punctual arrival),' we must first define the data. To this end, we generate sample observation data on a daily basis as follows.
+
+$$
+
+
+D = [d_1, d_2, \dots, d_7] = \{ -2, -1, 0, 1, 2, 0, 9 \}
+
+
+$$
+
+We can view this set of observed delay days, $D$, as a single Vector, and each delay value within it (-2, -1, 0 ...) becomes an Element (or component) constituting this vector.
+
+Here, each individual data element $d_i$ is defined as follows:
+
+$$
+
+
+d_i = (\text{Actual Date}) - (\text{Planned Date})
+
+
+$$
+
+The meaning of this formula is very intuitive:
+
+- $d_i = 0$: The case where the promise was kept exactly (On-Time)
+
+- $d_i > 0$: Cases delayed beyond the plan (e.g., +5 means a 5-day delay)
+
+- $d_i < 0$: Cases arriving earlier than planned (Early Delivery)
+
+This model of Delay Days can be applied to measure various bottlenecks in the business field:
+
+- Material inbound and supplier work delays (Lead Time Delay)
+
+- Transportation and logistics delays (Transportation Delay)
+
+- Production line process delays (Production Delay)
+
+The size (dimension) of the vector data is determined by the scale of the business. If there are 100 observed transaction records, it will be a vector consisting of 100 elements; if there are 300 records, it will be 300 elements.
+
+In this series, to clearly anatomize the operating principles of the EXA engine, we use the seven 'Toy Data' points defined earlier as an example. While hundreds or thousands of data points are realistic, they have limitations in intuitively demonstrating complex calculation processes.
+
+Of course, when applied to actual fields, data must be managed with granularity according to decision-making purposes, such as "Supplier + Item + Transport Mode + Destination" or production's "Line + Product," allowing for accurate capture of overall SCM risks.
 
 ---
 
-Inside the engine, probability does not look like the 0–100% we know. Parameters $\alpha$ and $\beta$ operate in a linear space called <b>Log-odds</b>.
+## 2. Visualization of Data: Two Peaks
 
+Now, let's visualize our toy data (Vector $D$). Let's check how the seven elements are arranged on the graph.
 
+<div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
+   {' '}
+  <img
+    src="/static/images/BA031_0.png"
+    alt="mixture distribution"
+    style={{ maxWidth: '100%', height: 'auto' }}
+  />
+</div>
 
-$$
-logit(P) = \ln\left(\frac{P}{1-P}\right) = \ln\left(\frac{\alpha}{\beta}\right)
-$$
+What does real-world data look like? Below is a histogram showing 200 material purchase transaction records (for a specific item from a specific supplier) of an actual company.
 
+<div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
+   {' '}
+  <img
+    src="/static/images/BA031.png"
+    alt="actual data"
+    style={{ maxWidth: '100%', height: 'auto' }}
+  />
+</div>
 
+Interesting similarities are discovered. Our toy data is scattered around the normal state (0) while simultaneously forming a separate peak representing a delayed state (9). Actual corporate data is also divided into a peak centered around the normal lead time average of 23 days and another, albeit weaker, peak centered around the delayed state of 33 days.
 
-Every negotiation signal adds to this value:
+Most delay day data takes the form of having two peaks like this. In actual data, three or more peaks may occasionally appear. However, rather than modeling every peak in the data individually, we compress it into a 2-regime (Normal/Delayed) model to match the structure where decision-making is actually executed (Normal Operations vs. Abnormal Response).
 
-- Success signals push the value up via $\Delta \alpha$.
-- Failure signals and time decay ($\lambda$) pull it down via $\Delta \beta$.
-
----
-
-## 5. Business Simulation
-
-Final Formula:
-
-
-
-$$
-P_{out} = \frac{1}{1 + \left( \frac{\beta \cdot T}{\alpha(1-T)} \right)^k}
-$$
-
-
-
-### 5.1 Business Scenario Simulation
-
-#### Situation 1: Below Threshold (Uncertain State)
-
-- <b>Data:</b> $\alpha = 6.0, \beta = 4.0$ (Pure Probability
-  $P_{raw} = 60\%$)
-
-#### Calculation Process:
-
-#### Ratio Calculation:
-
-
-
-$$
-\frac{4.0 \cdot 0.7}{6.0 \cdot 0.3} = \frac{2.8}{1.8} \approx 1.55
-$$
-
-
-
-#### Applying power of k:
-
-
-
-$$
-1.55^{10} \approx 81.3
-$$
-
-
-
-- <b>Final:</b> $P_{out} = \frac{1}{1 + 81.3} \approx$ <b>1.2%</b>
-
-#### Situation 2: Breakthrough (Start of Decisiveness)
-
-- <b>Data:</b> $\alpha = 7.2, \beta = 2.8$ (Pure Probability
-  $P_{raw} = 72\%$)
-- <b>Final Probability:</b> $P_{out} = \frac{1}{1 + 0.38} \approx$ <b>72.4%</b>
-
-#### Situation 3: Critical Mass (Commitment Phase)
-
-- <b>Data:</b> $\alpha = 8.5, \beta = 1.5$ (Pure Probability
-  $P_{raw} = 85\%$)
-- <b>Final Probability:</b> $P_{out} = \frac{1}{1 + 0.0001} \approx$ <b>99.9%</b>
+This is not a simple reduction of reality. It is an aspect of Operational Design that reduces uncertainty, stabilizes judgment, and makes execution consistent. Detailed patterns (such as minor delays) can be expanded when necessary, but the basic engine is most robust when defined by two states (Regimes): 'Normal' and 'Delayed.'
 
 ---
 
-### 5.2 Insight
+## 3. Statistical Assumption: Validity of the Normal Distribution
 
-| State               | Pure Probability | Calibrated Probability | Decision Grade | Business Action                |
-| :------------------ | :--------------- | :--------------------- | :------------- | :----------------------------- |
-| <b>Below</b>        | 60%              | <b>1.2%</b>            | Hold           | Strict ban on resource input   |
-| <b>Breakthrough</b> | 72%              | <b>72.4%</b>           | Push           | Start strategic focus          |
-| <b>Explosion</b>    | 85%              | <b>99.9%</b>           | Commit         | All-out resource concentration |
+Here, we establish an important statistical assumption: "Delay day data follows a Normal Distribution scattered in a bell shape around the mean."
 
+Why the Normal Distribution?
 
+Some might ask, "Does reality really follow a normal distribution like a textbook?" However, according to the Central Limit Theorem of statistics, the resulting values produced by the combination of various independent variables (worker's condition, weather, traffic situations, minute mechanical errors, etc.) converge to a normal distribution if the sample size is sufficient. In other words, modeling the uncertainty of processes and logistics as a normal distribution is the most mathematically valid and rational approach.
 
-$$
+---
 
-$$
+## 4. Conclusion and Next Steps
 
+Ultimately, the graph we are looking at is a combination of a 'Normal State Normal Distribution' and a 'Delayed State Normal Distribution.' This is the reality of the Mixture Distribution that the EXA engine in the novel intends to interpret.
 
+[Conclusion of Part 1] The data we observed, namely the Likelihood function, is a mixture distribution composed of two individual normal distributions.
 
+The primary goal is to find the On-Time Risk, that is, the probability that a delay may occur, from this observation data composed of mixture distributions using Bayesian inference.
+
+To this end, the next article [Appendix 2] will design a specific mathematical model to solve the likelihood function composed of mixture distributions through a Bayesian approach.

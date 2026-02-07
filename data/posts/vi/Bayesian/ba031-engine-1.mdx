@@ -1,95 +1,123 @@
 ---
-title: 'BA02.[On Time Risk: Phụ lục 1] Giải phẫu động cơ EXA: Phân phối hỗn hợp và Độ lệch quan sát'
+title: '[BA03. Rủi ro đúng hạn: Phụ lục 1] Giải phẫu động cơ EXA Bayesian: Phân phối hỗn hợp và Sai lệch quan sát'
 date: '2026-01-29'
-tags: ['bayeaian', 'Gibs Sampling', 'likelihood', 'MCMC']
-draft: false
-summary: 'BA02.[On Time Risk: Phụ lục 1] Giải phẫu động cơ EXA: Phân phối hỗn hợp và Độ lệch quan sát'
 images: ['/static/images/BA03_1.png']
+tags:
+  [
+    'Lấy mẫu Gibbs',
+    'khả năng',
+    'MCMC',
+    'Bayesian',
+    'Khả năng',
+    'Phân phối hỗn hợp',
+  ]
 authors: ['default']
+draft: false
+summary: 'Bài viết này là phần đầu tiên trong chuỗi giải thích kỹ thuật nhằm làm rõ nguyên lý hoạt động của động cơ EXA, vốn đóng vai trò quan trọng trong loạt bài viết dạng tiểu thuyết [BA03 Vật tư về đúng hạn: Bayesian MCMC]. Vì loạt bài này đề cập đến Phân phối hỗn hợp (Mixture Distribution) và MCMC (Markov Chain Monte Carlo) Gibbs Sampling — những kỹ thuật cao cấp trong suy luận Bayesian — nên nội dung có thể sâu sắc và quá trình tính toán có phần phức tạp. Do đó, chúng tôi dự định tiếp cận vấn đề này theo từng bước chi tiết để người đọc dễ tiếp nhận nhất có thể. Để hiểu rõ bối cảnh chung, chúng tôi khuyên bạn nên đọc nguyên tác tiểu thuyết trước. Ngoài ra, vì lý thuyết Bayesian mở rộng khái niệm theo từng giai đoạn, việc xem xét các tập phim và giải thích toán học của BA01 và BA02 trước sẽ giúp ích rất nhiều trong việc nắm bắt nội dung này.'
 ---
 
-Bài viết này là bài đầu tiên trong loạt bài giải thích kỹ thuật nhằm làm sáng tỏ nguyên lý hoạt động của động cơ EXA, vốn đóng vai trò quan trọng trong tập truyện dài kỳ định dạng tiểu thuyết '[BA03 On-Time Nhập kho vật tư: Bayesian MCMC](https://news.exavions.com/vi/ba03-bayesian-mcmc-vn/)'.
+Bài viết này là phần đầu tiên trong chuỗi giải thích kỹ thuật nhằm làm rõ nguyên lý hoạt động của động cơ EXA, vốn đóng vai trò quan trọng trong loạt bài viết dạng tiểu thuyết '[BA03 Vật tư về đúng hạn: Bayesian MCMC](https://news.exavions.com/ko/ba030-on-time-ko/)'.
 
-Vì loạt bài này đề cập đến Phân phối hỗn hợp (Mixture Distribution) và MCMC (Markov Chain Monte Carlo) Gibbs Sampling, thuộc các kỹ thuật cao cấp trong suy luận Bayesian, nên nội dung có thể sâu và quy trình tính toán hơi phức tạp. Do đó, để có thể tiếp thu điều này dễ dàng nhất có thể, chúng tôi dự định tiếp cận chi tiết bằng cách chia thành từng giai đoạn, và dự kiến đây sẽ là một hành trình khá dài.
+Vì loạt bài này đề cập đến Phân phối hỗn hợp (Mixture Distribution) và MCMC (Markov Chain Monte Carlo) Gibbs Sampling — những kỹ thuật cao cấp trong suy luận Bayesian — nên nội dung có thể sâu sắc và quá trình tính toán có phần phức tạp. Do đó, chúng tôi dự định tiếp cận vấn đề này theo từng bước chi tiết để người đọc dễ tiếp nhận nhất có thể, và dự kiến đây sẽ là một hành trình khá dài.
 
-Để hiểu bối cảnh tổng thể, chúng tôi khuyên bạn nên đọc tiểu thuyết gốc trước. Ngoài ra, vì lý thuyết Bayesian mở rộng khái niệm theo từng giai đoạn, nên nếu bạn xem trước các tập và giải thích toán học của BA01 và BA02, điều đó sẽ giúp ích rất nhiều cho việc tiếp nhận nội dung lần này. Bởi vì các khái niệm toán học và logic trước đó sẽ được tiếp nối.
+Để hiểu rõ bối cảnh chung, chúng tôi khuyên bạn nên đọc nguyên tác tiểu thuyết trước. Ngoài ra, vì lý thuyết Bayesian mở rộng khái niệm theo từng giai đoạn, việc xem xét các tập phim và giải thích toán học của BA01 và BA02 trước sẽ giúp ích rất nhiều trong việc nắm bắt nội dung này. Các khái niệm và logic toán học trước đó đang được tiếp nối.
 
-### 1. Định nghĩa dữ liệu: Độ lệch quan sát (Observation Deviation)
+---
 
-Để mô hình hóa về mặt toán học vấn đề cốt lõi được đề cập trong tiểu thuyết là 'On-Time (Đúng giờ)', trước tiên chúng ta phải định nghĩa dữ liệu. Để làm điều này, chúng ta tạo dữ liệu quan sát mẫu theo đơn vị Ngày (Day) như sau:
+## 1. Định nghĩa dữ liệu: Sai lệch quan sát (Observation Deviation)
 
+Để mô hình hóa về mặt toán học vấn đề cốt lõi được đề cập trong tiểu thuyết là 'Đúng hạn (On-Time)', trước hết chúng ta phải định nghĩa dữ liệu. Để làm được điều này, chúng ta tạo dữ liệu quan sát mẫu theo đơn vị ngày như sau.
+
+$$
+
+
+D = [d_1, d_2, \dots, d_7] = \{ -2, -1, 0, 1, 2, 0, 9 \}
 
 
 $$
-D = [d_{1}, d_{2}, \dots, d_{7}] = \{ -2, -1, 0, 1, 2, 0, 9 \}
-$$
 
+Chúng ta có thể xem tập hợp các ngày chậm trễ quan sát được $D$ này là một Vector, và mỗi giá trị chậm trễ (-2, -1, 0 ...) bên trong nó trở thành một Phần tử (Element hoặc thành phần) cấu thành nên vector này.
 
-
-Chúng ta có thể xem tập hợp các ngày trễ hạn được quan sát $ D $ này là một Vectơ (Vector), và mỗi giá trị trễ hạn (−2,−1,0…) bao gồm trong đó trở thành một Phần tử (Element, hoặc thành phần) cấu thành nên vectơ này.
-
-Ở đây, phần tử dữ liệu riêng lẻ $ d\_{i} $ được định nghĩa như sau:
-
-
+Tại đây, mỗi phần tử dữ liệu cá nhân $d_i$ được định nghĩa như sau:
 
 $$
-d_{i} = (\text{Ngày thực tế}) - (\text{Ngày kế hoạch})
+
+
+d_i = (\text{Ngày thực tế}) - (\text{Ngày kế hoạch})
+
+
 $$
 
+Ý nghĩa của công thức này rất trực quan:
 
+- $d_i = 0$: Trường hợp giữ đúng lời hứa (Đúng hạn - On-Time)
 
-Ý nghĩa của công thức này rất trực quan.
+- $d_i > 0$: Trường hợp bị chậm so với kế hoạch (Ví dụ: +5 là chậm 5 ngày)
 
-- $ d\_{i} = 0 $: Trường hợp giữ đúng hẹn chính xác (On-Time)
+- $d_i < 0$: Trường hợp đến sớm hơn so với kế hoạch (Nhập hàng sớm)
 
-- $ d\_{i} > 0 $: Trường hợp trễ hơn kế hoạch (Ví dụ: +5 là trễ 5 ngày)
+Mô hình Ngày chậm trễ (Delay Days) này có thể được áp dụng để đo lường các nút thắt cổ chai (Bottleneck) khác nhau tại hiện trường kinh doanh:
 
-- $ d\_{i} < 0 $: Trường hợp đến sớm hơn kế hoạch (Nhập kho sớm)
+- Chậm trễ nhập vật tư và công việc của nhà cung cấp (Lead Time Delay)
 
-Mô hình Số ngày trễ hạn (Delay Days) này có thể được áp dụng để đo lường các Nút thắt cổ chai (Bottleneck) đa dạng tại hiện trường kinh doanh.
+- Chậm trễ vận chuyển và logistics (Transportation Delay)
 
-- Nhập kho vật tư và sự chậm trễ trong công việc của nhà cung cấp (Lead Time Delay)
+- Chậm trễ quy trình của dây chuyền sản xuất (Production Delay)
 
-- Sự chậm trễ trong vận tải và logistics (Transportation Delay)
+Kích thước (số chiều) của dữ liệu vector được quyết định bởi quy mô kinh doanh. Nếu có 100 giao dịch quan sát được, nó sẽ là một vector gồm 100 phần tử; nếu có 300 giao dịch, nó sẽ là 300 phần tử.
 
-- Sự chậm trễ quy trình trong dây chuyền sản xuất (Production Delay)
+Trong loạt bài này, để giải phẫu rõ ràng nguyên lý hoạt động của động cơ EXA, chúng ta sử dụng 7 'Dữ liệu đồ chơi (Toy Data)' đã định nghĩa trước đó làm ví dụ. Mặc dù hàng trăm, hàng nghìn dữ liệu là thực tế, nhưng chúng có giới hạn trong việc thể hiện trực quan các quá trình tính toán phức tạp.
 
-Kích thước (chiều) của dữ liệu vectơ được quyết định theo quy mô kinh doanh. Nếu thành tích giao dịch được quan sát là 100 vụ, nó sẽ là một vectơ bao gồm 100 phần tử, nếu là 300 vụ, nó sẽ là vectơ bao gồm 300 phần tử.
+Tất nhiên, khi áp dụng vào thực tế, dữ liệu phải được quản lý chi tiết (Granularity) theo mục đích ra quyết định như "Nhà cung cấp + Mặt hàng + Phương thức vận chuyển + Điểm đến" hoặc "Dây chuyền + Sản phẩm" của sản xuất, từ đó có thể nắm bắt chính xác rủi ro trên toàn bộ SCM.
 
-Trong loạt bài này, để giải phẫu rõ ràng nguyên lý hoạt động của động cơ EXA, chúng tôi sử dụng 7 'Dữ liệu đồ chơi (Toy Data)' đã định nghĩa ở trên làm ví dụ. Hàng trăm, hàng nghìn dữ liệu là thực tế, nhưng có giới hạn trong việc hiển thị trực quan các quy trình tính toán phức tạp.
+---
 
-Tất nhiên, khi áp dụng vào hiện trường thực tế, dữ liệu phải được quản lý bằng cách phân chia nhỏ (Granularity) tùy theo mục đích ra quyết định như "Nhà cung cấp + Mặt hàng + Phương tiện vận tải + Nơi đến" hoặc "Dây chuyền + Sản phẩm" trong sản xuất, và thông qua đó có thể nắm bắt chính xác rủi ro của toàn bộ SCM.
+## 2. Trực quan hóa dữ liệu: Hai đỉnh núi
 
-### 2. Trực quan hóa dữ liệu: Hai đỉnh
+Bây giờ, hãy trực quan hóa dữ liệu đồ chơi (Vector $D$) của chúng ta. Hãy kiểm tra xem 7 phần tử được sắp xếp như thế nào trên biểu đồ.
 
-Nào, bây giờ hãy thử trực quan hóa Toy Data (Vectơ D) của chúng ta. Chúng ta hãy kiểm tra xem 7 phần tử được bố trí như thế nào trên biểu đồ.
+<div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
+  <img
+    src="/static/images/BA031_0.png"
+    alt="mixture distribution"
+    style={{ maxWidth: '100%', height: 'auto' }}
+  />
+</div>
 
--
+Dữ liệu thực tế thì sao? Dưới đây là biểu đồ tần suất (histogram) thể hiện 200 giao dịch mua vật tư thực tế (một mặt hàng cụ thể từ một nhà cung cấp cụ thể) của một doanh nghiệp.
 
-Dữ liệu thực tế thì sao? Dưới đây là biểu đồ tần suất (histogram) thể hiện 200 thành tích giao dịch mua vật tư thực tế (mặt hàng cụ thể của nhà cung cấp cụ thể) của một doanh nghiệp nào đó.
+<div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
+  <img
+    src="/static/images/BA031.png"
+    alt="actual data"
+    style={{ maxWidth: '100%', height: 'auto' }}
+  />
+</div>
 
--
+Một sự tương đồng thú vị được phát hiện. Dữ liệu đồ chơi của chúng ta phân tán xung quanh trạng thái bình thường (0), đồng thời hình thành một đỉnh núi riêng biệt là trạng thái chậm trễ (9). Dữ liệu doanh nghiệp thực tế cũng được chia thành một đỉnh núi tập trung quanh thời gian chờ (lead time) bình thường trung bình 23 ngày và một đỉnh núi khác, tuy yếu hơn, tập trung quanh trạng thái chậm trễ 33 ngày.
 
-Một sự tương đồng thú vị được phát hiện. Toy Data của chúng ta nằm rải rác xung quanh trạng thái bình thường (0), đồng thời hình thành một đỉnh riêng biệt gọi là trạng thái trễ hạn (9). Dữ liệu doanh nghiệp thực tế cũng được phân chia thành một đỉnh lấy trung tâm là trung bình 23 ngày là Lead Time bình thường, và một đỉnh khác (tuy yếu hơn) lấy trung tâm là trạng thái trễ hạn 33 ngày.
+Hầu hết dữ liệu về ngày chậm trễ đều có dạng hai đỉnh núi như thế này. Trong dữ liệu thực tế, đôi khi có thể xuất hiện từ 3 đỉnh núi trở lên. Tuy nhiên, thay vì mô hình hóa từng đỉnh núi riêng lẻ, chúng tôi nén nó thành mô hình 2-chế độ (Bình thường/Chậm trễ) để phù hợp với cấu trúc nơi các quyết định thực sự được thực hiện (Vận hành bình thường vs Đối ứng bất thường).
 
-Phần lớn dữ liệu Số ngày trễ hạn (Delay Days) sẽ mang hình thái có hai đỉnh như thế này. Trong dữ liệu thực tế, đôi khi có thể xuất hiện 3 đỉnh trở lên. Tuy nhiên, thay vì mô hình hóa từng đỉnh của dữ liệu, chúng tôi nén nó thành 2-Regime (Bình thường/Trễ hạn) để phù hợp với cấu trúc mà việc ra quyết định thực sự được thực hiện (Vận hành bình thường vs Ứng phó bất thường).
+Đây không đơn thuần là việc thu nhỏ thực tế. Đó là khía cạnh của Thiết kế vận hành (Operational Design) nhằm giảm thiểu sự không chắc chắn, ổn định phán đoán và làm cho việc thực thi trở nên nhất quán. Các mô hình chi tiết (như chậm trễ nhẹ) có thể được mở rộng khi cần thiết, nhưng động cơ cơ bản sẽ bền vững nhất khi được định nghĩa bởi hai trạng thái (Regime): 'Bình thường' và 'Chậm trễ'.
 
-Điều này không đơn thuần là thu nhỏ thực tế. Đây là khía cạnh của Operational Design nhằm giảm thiểu sự không chắc chắn, ổn định phán đoán và làm cho việc thực thi trở nên nhất quán. Các mẫu chi tiết (như trễ hạn nhẹ, v.v.) có thể được mở rộng khi cần thiết, nhưng động cơ cơ bản vững chắc nhất khi được định nghĩa bằng hai trạng thái (Regime) là 'Bình thường' và 'Trễ hạn'.
+---
 
-### 3. Giả định thống kê: Tính hợp lý của phân phối chuẩn
+## 3. Giả định thống kê: Tính hợp lý của phân phối chuẩn
 
-Tại đây, chúng tôi thiết lập một giả định thống kê quan trọng. "Dữ liệu số ngày trễ hạn tuân theo Phân phối chuẩn (Normal Distribution) nằm rải rác theo hình quả chuông xung quanh giá trị trung bình."
+Tại đây, chúng ta thiết lập một giả định thống kê quan trọng: "Dữ liệu ngày chậm trễ tuân theo Phân phối chuẩn (Normal Distribution) phân tán hình chuông quanh giá trị trung bình."
 
-Tại sao nhất định phải là Phân phối chuẩn?
+Tại sao lại là phân phối chuẩn?
 
-Có người có thể hỏi ngược lại rằng "Thực tế có thực sự tuân theo phân phối chuẩn như sách giáo khoa không?" Tuy nhiên, theo Định lý giới hạn trung tâm (Central Limit Theorem) trong thống kê, giá trị kết quả xuất hiện khi nhiều biến số độc lập (tình trạng của công nhân, thời tiết, tình hình giao thông, sai số vi mô của máy móc, v.v.) hợp lại sẽ hội tụ về phân phối chuẩn nếu mẫu đủ lớn. Tức là, việc mô hình hóa sự không chắc chắn của quy trình và logistics bằng phân phối chuẩn trở thành cách tiếp cận hợp lý và thỏa đáng nhất về mặt toán học.
+Có người sẽ hỏi: "Liệu thực tế có thực sự tuân theo phân phối chuẩn như trong sách giáo khoa không?". Tuy nhiên, theo Định lý giới hạn trung tâm (Central Limit Theorem) của thống kê, giá trị kết quả được tạo ra bởi sự kết hợp của nhiều biến số độc lập (tình trạng của công nhân, thời tiết, tình hình giao thông, lỗi cơ khí nhỏ, v.v.) sẽ hội tụ về phân phối chuẩn nếu kích thước mẫu đủ lớn. Nói cách khác, việc mô hình hóa sự không chắc chắn của quy trình và logistics bằng phân phối chuẩn là cách tiếp cận hợp lý và có giá trị về mặt toán học nhất.
 
-### 4. Kết luận và các bước tiếp theo
+---
 
-Cuối cùng, biểu đồ mà chúng ta đang xem này là hình dáng kết hợp của 'Phân phối chuẩn của trạng thái bình thường' và 'Phân phối chuẩn của trạng thái trễ hạn'. Đây chính là thực thể của Phân phối hỗn hợp (Mixture Distribution) mà động cơ EXA trong tiểu thuyết muốn giải thích.
+## 4. Kết luận và các bước tiếp theo
 
-[Kết luận của Part 1] Dữ liệu chúng ta quan sát được, tức là hàm Thích hợp (Likelihood), là Phân phối hỗn hợp được trộn lẫn bởi hai phân phối chuẩn riêng biệt.
+Cuối cùng, biểu đồ mà chúng ta đang thấy là sự kết hợp của 'Phân phối chuẩn trạng thái bình thường' và 'Phân phối chuẩn trạng thái chậm trễ'. Đây chính là thực thể của Phân phối hỗn hợp (Mixture Distribution) mà động cơ EXA trong tiểu thuyết muốn giải thích.
 
-Mục tiêu giai đoạn 1 là tìm ra On-Time Risk, tức là xác suất có thể xảy ra trễ hạn, từ dữ liệu quan sát được cấu thành bởi phân phối hỗn hợp này bằng Suy luận Bayesian (Bayesian Inference).
+[Kết luận phần 1] Dữ liệu chúng ta quan sát được, tức là hàm Khả năng (Likelihood), là một phân phối hỗn hợp được cấu thành từ hai phân phối chuẩn riêng lẻ.
 
-Để làm điều này, trong bài viết tiếp theo [Phụ lục 2], chúng tôi sẽ thiết kế mô hình toán học cụ thể để giải quyết hàm Thích hợp được cấu thành bởi phân phối hỗn hợp bằng phương pháp Bayesian.
+Mục tiêu hàng đầu là tìm ra Rủi ro đúng hạn (On-Time Risk), tức là xác suất có thể xảy ra chậm trễ, từ dữ liệu quan sát cấu thành từ các phân phối hỗn hợp này bằng suy luận Bayesian.
+
+Để làm được điều này, trong bài viết tiếp theo [Phụ lục 2], chúng tôi sẽ thiết kế một mô hình toán học cụ thể để giải quyết hàm khả năng cấu thành từ phân phối hỗn hợp bằng phương pháp Bayesian.
