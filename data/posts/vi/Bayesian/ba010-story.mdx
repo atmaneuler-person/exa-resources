@@ -1,20 +1,18 @@
 ---
 title: 'BA01. [Bayesian Data Noir] Công xưởng tĩnh lặng, Mỹ học Bayes khắc họa sự thật'
 date: '2025-12-19'
-tags: []
+tags: ['MCMC', 'Bayesian', 'Data Noir']
 draft: false
 summary: 'BA01. [Bayesian Data Noir] Công xưởng tĩnh lặng, Mỹ học Bayes khắc họa sự thật'
-images: ["/static/images/ba01_cover.png"]
-authors: ["default"]
+images: ['/static/images/ba01_cover.png']
+authors: ['default']
 ---
-
- 
 
 ## Ranh giới giữa Trực giác và Dữ liệu: Sự cố Short Shot tại nhà máy ép phun
 
 Máy móc không nói dối. Chúng chỉ im lặng mà thôi.
 
-Nhà máy giống như bụng của một con quái vật khổng lồ. *Thump-hiss, thump-hiss.* Tiếng nhịp tim đều đặn của những chiếc máy ép phun hàng trăm tấn làm rung chuyển mặt sàn. Âm thanh này chính là nhịp đập của nhà máy. Nhưng hôm nay, nhịp điệu đó có chút gì đó không ổn.
+Nhà máy giống như bụng của một con quái vật khổng lồ. _Thump-hiss, thump-hiss._ Tiếng nhịp tim đều đặn của những chiếc máy ép phun hàng trăm tấn làm rung chuyển mặt sàn. Âm thanh này chính là nhịp đập của nhà máy. Nhưng hôm nay, nhịp điệu đó có chút gì đó không ổn.
 
 Trưởng ban kiểm tra chạy đến với bộ quần áo bảo hộ sũng mồ hôi. Trên tay ông là một chiếc vỏ nhựa định hình không hoàn chỉnh, hay còn gọi là lỗi ‘Short Shot’ (lỗi thiếu liệu).
 
@@ -34,17 +32,17 @@ Tôi quyết định trở thành một thám tử (Detective) đuổi theo kẻ
 
 Nghi phạm (Suspect)
 
-- Nghi phạm A: Nhiệt độ (*H
-T
-*)
+- Nghi phạm A: Nhiệt độ (_H
+  T
+  _)
 
 - Tính cách: Thất thường. Nếu nhiệt độ trục vít thấp hoặc xảy ra hiện tượng dao động (hunting), nhựa sẽ bị đông cứng và không thể chảy đến tận cùng. Gây ra lỗi short shot không ổn định.
 
 - Đặc điểm: Nếu tên này là thủ phạm, tỷ lệ lỗi sẽ vọt lên tới 8% (p = 0.08).
 
-- Nghi phạm B: Áp suất (*H
-P
-*)
+- Nghi phạm B: Áp suất (_H
+  P
+  _)
 
 - Tính cách: Nhút nhát và thiếu lực. Tên này có áp suất giữ (holding pressure) yếu nên thỉnh thoảng không thể đẩy nhựa vào đến tận cùng.
 
@@ -62,19 +60,15 @@ Niềm tin tiên nghiệm (Prior Belief) trong đầu tôi đã được thiết
 
 - Xác suất tiên nghiệm (Prior)
 
-- Xác suất do Nhiệt độ P(H
-T
-) : 60% (Nghi phạm chính)
+- Xác suất do Nhiệt độ $P(H_T)$ : 60% (Nghi phạm chính)
 
-- Xác suất do Áp suất P(H
-P
-) : 40%
+- Xác suất do Áp suất $P(H_P)$ : 40%
 
 Các chuyên gia thường thích dùng Odds (Tỷ lệ cược/Số thắng thua) hơn là xác suất.
 
-$  $
-\text&#123;Prior Odds&#125; = \frac&#123;0.6&#125;&#123;0.4&#125; = \mathbf&#123;1.5&#125;
-$  $
+$$
+\text{Prior Odds} = \frac{0.6}{0.4} = \mathbf{1.5}
+$$
 
 (Giải thích: Hiện tại, tôi đang đặt cược vào việc Nhiệt độ là thủ phạm cao gấp 1.5 lần so với Áp suất.)
 
@@ -84,9 +78,7 @@ $  $
 
 "Quản đốc, chúng ta hãy kiểm tra ngẫu nhiên 50 mẫu vừa mới sản xuất xong."
 
-10 giờ sáng, những bằng chứng đầu tiên (D
-1
-) được đổ lên bàn. Trong số 50 mẫu, có 5 mẫu bị lỗi short shot. (n = 50, k = 5)
+10 giờ sáng, những bằng chứng đầu tiên ($D_1$) được đổ lên bàn. Trong số 50 mẫu, có 5 mẫu bị lỗi short shot. (n = 50, k = 5)
 
 "5 trên 50... Tỷ lệ lỗi 10%?"
 
@@ -96,25 +88,25 @@ Tại đây, vũ khí cốt lõi của Bayes là Likelihood (Khả năng xảy r
 
 Tôi nhanh chóng tính toán Nhân tố Bayes (Bayes Factor), tức là 'Trọng lượng của bằng chứng'.
 
-$  $
-\text&#123;Bayes Factor&#125; = \frac&#123;P(D|H_T)&#125;&#123;P(D|H_P)&#125;
-$  $
+$$
+\text{Bayes Factor} = \frac{P(D|H_T)}{P(D|H_P)}
+$$
 
-$  $
-\approx \left(\frac&#123;0.08&#125;&#123;0.04&#125;\right)^5 \times \left(\frac&#123;0.92&#125;&#123;0.96&#125;\right)^&#123;45&#125;
-$  $
+$$
+\approx \left(\frac{0.08}{0.04}\right)^5 \times \left(\frac{0.92}{0.96}\right)^{45}
+$$
 
-$  $
-= 2^5 \times (0.9583)^&#123;45&#125;
-$  $
+$$
+= 2^5 \times (0.9583)^{45}
+$$
 
-$  $
+$$
 = 32 \times 0.147
-$  $
+$$
 
-$  $
-\approx \mathbf&#123;4.7&#125;
-$  $
+$$
+\approx \mathbf{4.7}
+$$
 
 4.7 lần.
 
@@ -128,15 +120,15 @@ Bây giờ tôi phải cập nhật (Update) niềm tin của mình. Lấy [Ni�
 
 Odds cũ (1.5) được kết hợp với bằng chứng (4.7).
 
-$  $
-\text&#123;New Odds&#125; = 1.5 \times 4.7 = \mathbf&#123;7.05&#125;
-$  $
+$$
+\text{New Odds} = 1.5 \times 4.7 = \mathbf{7.05}
+$$
 
 Quy đổi sang xác suất:
 
-$  $
-P(H_T|D_1) = \frac&#123;7.05&#125;&#123;1+7.05&#125; \approx \mathbf&#123;87.6\%&#125;
-$  $
+$$
+P(H_T|D_1) = \frac{7.05}{1+7.05} \approx \mathbf{87.6\%}
+$$
 
 Niềm tin mới: Xác suất Nhiệt độ là thủ phạm đã vọt từ 60% lên 87.6%. Dữ liệu đang gào thét rằng: "Thủ phạm chính là Nhiệt độ!"
 
@@ -164,17 +156,17 @@ Và thế là, phép màu của suy luận Bayes bắt đầu. Sự tự tin 87.
 2
 ).
 
-$  $
-\text&#123;Bayes Factor&#125;_2 \approx \left(\frac&#123;0.08&#125;&#123;0.04&#125;\right)^1 \times \left(\frac&#123;0.92&#125;&#123;0.96&#125;\right)^&#123;49&#125;
-$  $
+$$
+\text{Bayes Factor}_2 \approx \left(\frac{0.08}{0.04}\right)^1 \times \left(\frac{0.92}{0.96}\right)^{49}
+$$
 
-$  $
+$$
 = 2 \times 0.122
-$  $
+$$
 
-$  $
-\approx \mathbf&#123;0.244&#125;
-$  $
+$$
+\approx \mathbf{0.244}
+$$
 
 Giá trị nhỏ hơn 1 rất nhiều. Điều này có nghĩa là "Bằng chứng bất lợi cho giả thuyết Nhiệt độ". Chính xác mà nói, bằng chứng thứ hai ủng hộ giả thuyết áp suất gấp khoảng 4 lần. Một sự phản chứng mạnh mẽ. Tôi nghe thấy sự tự tin buổi sáng của mình đang sụp đổ.
 
@@ -184,15 +176,15 @@ Giá trị nhỏ hơn 1 rất nhiều. Điều này có nghĩa là "Bằng chứ
 
 Bây giờ, nhân 'Niềm tin buổi sáng (Odds 7.05)' với 'Cú xoay chuyển buổi chiều (0.244)'.
 
-$  $
-\text&#123;Final Odds&#125; = 7.05 \times 0.244 \approx \mathbf&#123;1.72&#125;
-$  $
+$$
+\text{Final Odds} = 7.05 \times 0.244 \approx \mathbf{1.72}
+$$
 
 Quy đổi sang xác suất:
 
-$  $
-P(H_T | D_1, D_2) = \frac&#123;1.72&#125;&#123;1+1.72&#125; \approx \mathbf&#123;63.2\%&#125;
-$  $
+$$
+P(H_T | D_1, D_2) = \frac{1.72}{1+1.72} \approx \mathbf{63.2\%}
+$$
 
 .
 
@@ -228,13 +220,13 @@ Tôi lại lắng nghe nhịp đập của máy móc. Chúng tôi không vội v
 
 Trong vở kịch điều tra kịch tính này, chúng ta đã trải nghiệm 4 bước cốt lõi của thống kê Bayesian.
 
-- Xác suất tiên nghiệm (Prior): *"Nhìn vào quá khứ, có vẻ hắn là thủ phạm?"* (Niềm tin ban đầu)
+- Xác suất tiên nghiệm (Prior): _"Nhìn vào quá khứ, có vẻ hắn là thủ phạm?"_ (Niềm tin ban đầu)
 
-- Likelihood (Khả năng xảy ra): *"Bằng chứng hiện trường hoàn toàn khớp với phong cách của hắn!"* (Sự phù hợp của bằng chứng)
+- Likelihood (Khả năng xảy ra): _"Bằng chứng hiện trường hoàn toàn khớp với phong cách của hắn!"_ (Sự phù hợp của bằng chứng)
 
-- Nhân tố Bayes (Bayes Factor): *"Bằng chứng này ủng hộ A gấp bao nhiêu lần so với B?"* (Trọng lượng của bằng chứng)
+- Nhân tố Bayes (Bayes Factor): _"Bằng chứng này ủng hộ A gấp bao nhiêu lần so với B?"_ (Trọng lượng của bằng chứng)
 
-- Xác suất hậu nghiệm (Posterior): *"Hãy sửa đổi niềm tin của mình dựa trên bằng chứng."* (Kết luận cuối cùng)
+- Xác suất hậu nghiệm (Posterior): _"Hãy sửa đổi niềm tin của mình dựa trên bằng chứng."_ (Kết luận cuối cùng)
 
 Và điều quan trọng nhất: Xác suất hậu nghiệm của hôm nay sẽ trở thành xác suất tiên nghiệm của ngày mai. Đây chính là bản chất của việc học (Learning).
 

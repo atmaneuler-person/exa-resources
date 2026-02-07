@@ -68,7 +68,10 @@ export default function PostLayout({
     .slice(0, 3);
 
   // ----------------------------------------------------------------
-  // [수정된 로직] 제1 태그 규칙 적용 (서브카테고리 추출)
+  // [GRAND PRINCIPLE: FIRST TAG AS SUBCATEGORY]
+  // ----------------------------------------------------------------
+  // RULE: The first tag in the MDX 'tags' array acts as a sub-category.
+  //       These are extracted from the current category posts and shown in the sidebar.
   // ----------------------------------------------------------------
   const subCategoriesSet = new Set<string>();
   

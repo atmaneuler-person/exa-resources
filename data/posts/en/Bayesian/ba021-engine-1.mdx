@@ -36,43 +36,43 @@ All Bayesian inference starts from the subjectivity, intuition, belief of the pe
 
 The Beta distribution is a probability density function optimized for handling probability values between 0 and 1. The function is defined by the formula below. (Details of the Beta distribution are explained in another article dissecting the Beta distribution.)
 
-$  $
-f(x; \alpha, \beta) = \frac&#123;x^&#123;\alpha-1&#125;(1-x)^&#123;\beta-1&#125;&#125;&#123;B(\alpha, \beta)&#125;
-$  $
+$$
+f(x; \alpha, \beta) = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha, \beta)}
+$$
 
 Here, the denominator 
 
-$  $
+$$
 B(\alpha, \beta)
-$  $
+$$
 
  is the Beta function, a normalization constant that makes the sum of total probabilities 1, and the core drivers are the two parameters 
 
-$  $
+$$
 \alpha
-$  $
+$$
 
  and 
 
-$  $
+$$
 \beta
-$  $
+$$
 
 .
 
 - 
 
-$  $
+$$
 \alpha
-$  $
+$$
 
  (Alpha): Strength of accumulated evidence for success
 
 - 
 
-$  $
+$$
 \beta
-$  $
+$$
 
  (Beta): Strength of accumulated evidence for risk or failure
 
@@ -80,49 +80,49 @@ $  $
 
 Let's look at the structure of the numerator 
 
-$  $
-x^&#123;\alpha-1&#125;(1-x)^&#123;\beta-1&#125;
-$  $
+$$
+x^{\alpha-1}(1-x)^{\beta-1}
+$$
 
  in the formula. As 
 
-$  $
+$$
 \alpha
-$  $
+$$
 
  increases, the center of the distribution moves toward 1 (success), and as 
 
-$  $
+$$
 \beta
-$  $
+$$
 
  increases, it moves toward 0 (failure).
 
 At the beginning of a business, based on market statistics, we can assign values like 
 
-$  $
+$$
 \alpha=2, \beta=8
-$  $
+$$
 
 . This shapes the 'prior empirical knowledge' that "so far, 2 out of 10 times were successful" into a mathematical curve.
 
 The probability is calculated as 
 
-$  $
+$$
 \alpha/(\alpha+\beta)
-$  $
+$$
 
 . This allows us to model prior experience, knowledge, or domain intuition into numbers like "Success rate, defect rate, response rate... is 20%". Here, 2 and 8 represent the strength of belief; the larger the numbers, the stronger the belief. For example, 20 and 80 have the same 20% success rate as 2 and 8, but the strength of belief is much greater.
 
-$  $
+$$
 \alpha
-$  $
+$$
 
  and 
 
-$  $
+$$
 \beta
-$  $
+$$
 
  are hyperparameters that we assign ourselves (or measure from past performance data) so that we can model prior knowledge. These values are adjusted by the Bayesian Engine to actual values as data (evidence) accumulates. This is the starting point of the process of tracking how well subjective probability matches actual data.
 
@@ -138,15 +138,15 @@ Events occurring in the sales field (meetings, quote requests, etc.) eventually 
 
 The probability of succeeding $ k $ times when an event with a success probability of $ p $ is performed $ n $ times is as follows:
 
-$  $
-P(X=k) = &#123;n \choose k&#125; p^k (1-p)^&#123;n-k&#125;
-$  $
+$$
+P(X=k) = {n \choose k} p^k (1-p)^{n-k}
+$$
 
 This formula quantifies (Likelihood) the 'fact (Evidence)' heard from the field. 
 
-$  $
-p^k(1-p)^&#123;n-k&#125;
-$  $
+$$
+p^k(1-p)^{n-k}
+$$
 
  measures how much the probability $ p $ we assumed matches the actual result $ k $. The system regards the results of every step entered by the salesperson as this binomial trial, substituting rough interactions with refined mathematical signals.
 
@@ -164,9 +164,9 @@ The use of log-scale weights is the result of mathematically reflecting this 'de
 
 This formula quantifies the 'fact (Evidence)' from the field by reflecting WoE. 
 
-$  $
-p^k(1-p)^&#123;n-k&#125;
-$  $
+$$
+p^k(1-p)^{n-k}
+$$
 
  measures how much the probability $ p $ we assumed matches the actual result $ k $. The system regards the results of every step entered by the salesperson as this binomial trial, substituting rough interactions with refined mathematical signals.
 
@@ -180,27 +180,27 @@ The pinnacle of the Bayesian Engine lies in the update process that creates 'tom
 
 By Bayes' theorem, the Posterior probability is calculated as follows:
 
-$  $
+$$
 P(p|Data) \propto P(Data|p) \times P(p)
-$  $
+$$
 
 At this time, when the Beta Distribution (Prior: prior knowledge, subjective belief) and the Binomial Distribution (Likelihood: evidence data) are combined, an amazing mathematical harmony occurs. The mathematical process of this combination will be explained in a separate article dissecting the Beta distribution, but the resulting formula below can be verified through various mathematical textbooks.
 
-$  $
-P(p|k) = \frac&#123;p^&#123;(\alpha+k)-1&#125;(1-p)^&#123;(\beta+n-k)-1&#125;&#125;&#123;B(\alpha+k, \beta+n-k)&#125;
-$  $
+$$
+P(p|k) = \frac{p^{(\alpha+k)-1}(1-p)^{(\beta+n-k)-1}}{B(\alpha+k, \beta+n-k)}
+$$
 
 Looking at the result, the posterior distribution also becomes a Beta distribution with parameters 
 
-$  $
+$$
 \alpha' = \alpha + k
-$  $
+$$
 
  and 
 
-$  $
+$$
 \beta' = \beta + (n-k)
-$  $
+$$
 
 , taking the form of the prior Beta distribution.
 
@@ -222,9 +222,9 @@ Ultimately, the flexibility to select and apply the optimal model according to t
 
 MCMC is excellent for approximating high-dimensional probability distributions where thousands of variables are intertwined. Deep Learning-based Bayesian is essential for extracting complex patterns from unstructured data (images, voice, etc.). These are powerful solutions that find the answer through numerous simulations and sampling.
 
-$  $
-A(x^*, x_t) = \min \left( 1, \frac&#123;P(x^*)g(x_t|x^*)&#125;&#123;P(x_t)g(x^*|x_t)&#125; \right)
-$  $
+$$
+A(x^*, x_t) = \min \left( 1, \frac{P(x^*)g(x_t|x^*)}{P(x_t)g(x^*|x_t)} \right)
+$$
 
 (MCMC sample acceptance probability formula: Requires tens of thousands of iterations)
 
@@ -236,15 +236,15 @@ On the other hand, in domains with clear targets of 'success and failure' like s
 
 - Explainability: It can clearly explain why the probability changed through the increase or decrease of 
 
-$  $
+$$
 \alpha
-$  $
+$$
 
  and 
 
-$  $
+$$
 \beta
-$  $
+$$
 
 .
 
@@ -260,15 +260,15 @@ This is the deepest root of this model:
 
 All past meeting logs are already perfectly compressed into just two numbers, 
 
-$  $
+$$
 \alpha
-$  $
+$$
 
  and 
 
-$  $
+$$
 \beta
-$  $
+$$
 
 , of the current state (posterior distribution updated by the combination of prior knowledge and data evidence). When a new signal comes in, the system simply adds the signal to the current state instead of rummaging through past logs.
 

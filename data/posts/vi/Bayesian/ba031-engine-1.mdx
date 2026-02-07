@@ -18,17 +18,25 @@ Vì loạt bài này đề cập đến Phân phối hỗn hợp (Mixture Distri
 
 Để mô hình hóa về mặt toán học vấn đề cốt lõi được đề cập trong tiểu thuyết là 'On-Time (Đúng giờ)', trước tiên chúng ta phải định nghĩa dữ liệu. Để làm điều này, chúng ta tạo dữ liệu quan sát mẫu theo đơn vị Ngày (Day) như sau:
 
+
+
 $$
 D = [d_{1}, d_{2}, \dots, d_{7}] = \{ -2, -1, 0, 1, 2, 0, 9 \}
 $$
+
+
 
 Chúng ta có thể xem tập hợp các ngày trễ hạn được quan sát $ D $ này là một Vectơ (Vector), và mỗi giá trị trễ hạn (−2,−1,0…) bao gồm trong đó trở thành một Phần tử (Element, hoặc thành phần) cấu thành nên vectơ này.
 
 Ở đây, phần tử dữ liệu riêng lẻ $ d\_{i} $ được định nghĩa như sau:
 
+
+
 $$
 d_{i} = (\text{Ngày thực tế}) - (\text{Ngày kế hoạch})
 $$
+
+
 
 Ý nghĩa của công thức này rất trực quan.
 

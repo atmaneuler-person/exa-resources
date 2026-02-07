@@ -13,7 +13,8 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/_next') ||
     pathname === '/favicon.ico' ||
     pathname === '/robots.txt' ||
-    pathname === '/sitemap.xml'
+    pathname === '/sitemap.xml' ||
+    pathname === '/search.json'
   ) {
     return NextResponse.next();
   }

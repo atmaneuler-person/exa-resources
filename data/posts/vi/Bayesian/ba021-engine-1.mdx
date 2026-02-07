@@ -34,43 +34,43 @@ Mọi suy luận Bayesian đều bắt đầu từ chủ quan, trực giác, ni�
 
 Phân phối Beta là hàm mật độ xác suất được tối ưu hóa để xử lý các giá trị xác suất từ 0 đến 1. Hàm được định nghĩa bằng công thức dưới đây. (Chi tiết về phân phối Beta được giải thích trong một bài viết khác giải phẫu phân phối Beta.)
 
-$  $
-f(x; \alpha, \beta) = \frac&#123;x^&#123;\alpha-1&#125;(1-x)^&#123;\beta-1&#125;&#125;&#123;B(\alpha, \beta)&#125;
-$  $
+$$
+f(x; \alpha, \beta) = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha, \beta)}
+$$
 
 Ở đây, mẫu số 
 
-$  $
+$$
 B(\alpha, \beta)
-$  $
+$$
 
  là hàm Beta, một hằng số chuẩn hóa làm cho tổng xác suất bằng 1, và động lực cốt lõi là hai tham số 
 
-$  $
+$$
 \alpha
-$  $
+$$
 
  và 
 
-$  $
+$$
 \beta
-$  $
+$$
 
 .
 
 - 
 
-$  $
+$$
 \alpha
-$  $
+$$
 
  (Alpha): Cường độ của bằng chứng tích lũy về thành công
 
 - 
 
-$  $
+$$
 \beta
-$  $
+$$
 
  (Beta): Cường độ của bằng chứng tích lũy về rủi ro hoặc thất bại
 
@@ -78,49 +78,49 @@ $  $
 
 Hãy nhìn vào cấu trúc của tử số 
 
-$  $
-x^&#123;\alpha-1&#125;(1-x)^&#123;\beta-1&#125;
-$  $
+$$
+x^{\alpha-1}(1-x)^{\beta-1}
+$$
 
  trong công thức. Khi 
 
-$  $
+$$
 \alpha
-$  $
+$$
 
  càng lớn, tâm của phân phối di chuyển về phía 1 (thành công), và khi 
 
-$  $
+$$
 \beta
-$  $
+$$
 
  càng lớn, nó di chuyển về phía 0 (thất bại).
 
 Ở giai đoạn đầu kinh doanh, dựa trên thống kê thị trường, chúng ta có thể gán các giá trị như 
 
-$  $
+$$
 \alpha=2, \beta=8
-$  $
+$$
 
 . Điều này định hình 'kiến thức kinh nghiệm tiên nghiệm' rằng "cho đến nay, 2 trong số 10 lần đã thành công" thành một đường cong toán học.
 
 Xác suất được tính bằng 
 
-$  $
+$$
 \alpha/(\alpha+\beta)
-$  $
+$$
 
 . Điều này cho phép chúng ta mô hình hóa kinh nghiệm, kiến thức tiên nghiệm hoặc trực giác về lĩnh vực thành các con số như "Tỷ lệ thành công, tỷ lệ lỗi, tỷ lệ phản hồi... là 20%". Ở đây, 2 và 8 đại diện cho cường độ của niềm tin; con số càng lớn thì niềm tin càng mạnh. Ví dụ, 20 và 80 có cùng tỷ lệ thành công 20% như 2 và 8, nhưng cường độ niềm tin lớn hơn nhiều.
 
-$  $
+$$
 \alpha
-$  $
+$$
 
  và 
 
-$  $
+$$
 \beta
-$  $
+$$
 
  là các siêu tham số (hyperparameters) mà chúng ta tự gán (hoặc đo lường từ dữ liệu hiệu suất trong quá khứ) để có thể mô hình hóa kiến thức tiên nghiệm. Các giá trị này được Động cơ Bayesian điều chỉnh thành giá trị thực tế khi dữ liệu (bằng chứng) tích lũy. Đây chính là điểm bắt đầu của quá trình theo dõi xem xác suất chủ quan phù hợp với dữ liệu thực tế đến mức nào.
 
@@ -136,15 +136,15 @@ Các sự kiện xảy ra tại hiện trường bán hàng (cuộc họp, yêu 
 
 Xác suất thành công $ k $ lần khi một sự kiện có xác suất thành công $ p $ được thực hiện $ n $ lần như sau:
 
-$  $
-P(X=k) = &#123;n \choose k&#125; p^k (1-p)^&#123;n-k&#125;
-$  $
+$$
+P(X=k) = {n \choose k} p^k (1-p)^{n-k}
+$$
 
 Công thức này số hóa (Likelihood) 'sự thật (Evidence, bằng chứng)' nghe được từ hiện trường. 
 
-$  $
-p^k(1-p)^&#123;n-k&#125;
-$  $
+$$
+p^k(1-p)^{n-k}
+$$
 
  đo lường mức độ khớp của xác suất p mà chúng ta giả định với kết quả thực tế $ k $. Hệ thống coi kết quả của mỗi bước do nhân viên kinh doanh nhập vào là phép thử nhị thức này, thay thế các tương tác thô bằng các tín hiệu toán học tinh chỉnh.
 
@@ -162,9 +162,9 @@ Việc sử dụng trọng số thang log là kết quả của việc phản á
 
 Công thức này số hóa 'sự thật (Evidence)' từ hiện trường bằng cách phản ánh WoE. 
 
-$  $
-p^k(1-p)^&#123;n-k&#125;
-$  $
+$$
+p^k(1-p)^{n-k}
+$$
 
  đo lường mức độ khớp của xác suất $ p $ mà chúng ta giả định với kết quả thực tế $ n $. Hệ thống coi kết quả của mỗi bước do nhân viên kinh doanh nhập vào là phép thử nhị thức này, thay thế các tương tác thô bằng các tín hiệu toán học tinh chỉnh.
 
@@ -178,21 +178,21 @@ $  $
 
 Theo định lý Bayes, xác suất Hậu nghiệm (Posterior) được tính như sau:
 
-$  $
+$$
 P(p|Data) \propto P(Data|p) \times P(p)
-$  $
+$$
 
 Lúc này, khi Phân phối Beta (Prior: kiến thức tiên nghiệm, niềm tin chủ quan) và Phân phối Nhị thức (Likelihood: dữ liệu bằng chứng) được kết hợp, một sự hài hòa toán học đáng kinh ngạc xảy ra. Quá trình toán học của sự kết hợp này sẽ được giải thích trong một bài viết riêng biệt giải phẫu phân phối Beta, nhưng công thức kết quả dưới đây có thể được xác nhận qua nhiều sách toán học.
 
-$  $
-P(p|k) = \frac&#123;p^&#123;(\alpha+k)-1&#125;(1-p)^&#123;(\beta+n-k)-1&#125;&#125;&#123;B(\alpha+k, \beta+n-k)&#125;
-$  $
+$$
+P(p|k) = \frac{p^{(\alpha+k)-1}(1-p)^{(\beta+n-k)-1}}{B(\alpha+k, \beta+n-k)}
+$$
 
 Nhìn vào kết quả, phân phối hậu nghiệm cũng trở thành một phân phối Beta với các tham số  và 
 
-$  $
+$$
 \beta' = \beta + (n-k)
-$  $
+$$
 
 , mang hình thức của phân phối Beta tiên nghiệm.
 
@@ -214,9 +214,9 @@ Cuối cùng, sự linh hoạt trong việc lựa chọn và áp dụng mô hìn
 
 MCMC xuất sắc trong việc xấp xỉ các phân phối xác suất nhiều chiều nơi hàng nghìn biến số đan xen. Bayesian dựa trên Deep Learning là cần thiết để trích xuất các mẫu phức tạp từ dữ liệu phi cấu trúc (hình ảnh, giọng nói, v.v.). Đây là những giải pháp mạnh mẽ tìm ra câu trả lời thông qua vô số mô phỏng và lấy mẫu.
 
-$  $
-A(x^*, x_t) = \min \left( 1, \frac&#123;P(x^*)g(x_t|x^*)&#125;&#123;P(x_t)g(x^*|x_t)&#125; \right)
-$  $
+$$
+A(x^*, x_t) = \min \left( 1, \frac{P(x^*)g(x_t|x^*)}{P(x_t)g(x^*|x_t)} \right)
+$$
 
 (Công thức xác suất chấp nhận mẫu MCMC: Yêu cầu hàng chục nghìn lần lặp lại)
 
@@ -228,15 +228,15 @@ Ngược lại, trong các lĩnh vực có mục tiêu rõ ràng là 'thành cô
 
 - Khả năng giải thích: Có thể giải thích rõ ràng lý do tại sao xác suất thay đổi thông qua việc tăng hoặc giảm 
 
-$  $
+$$
 \alpha
-$  $
+$$
 
  và 
 
-$  $
+$$
 \beta
-$  $
+$$
 
 .
 
@@ -252,15 +252,15 @@ Trong kỷ nguyên bùng nổ dữ liệu, việc tải lại 'tất cả dữ l
 
 Tất cả nhật ký cuộc họp trong quá khứ đã được nén hoàn hảo (Compression) thành chỉ hai con số, 
 
-$  $
+$$
 \alpha
-$  $
+$$
 
  và 
 
-$  $
+$$
 \beta
-$  $
+$$
 
 , của trạng thái hiện tại (phân phối hậu nghiệm được cập nhật bởi sự kết hợp của kiến thức tiên nghiệm và bằng chứng dữ liệu). Khi một tín hiệu mới xuất hiện, hệ thống chỉ cần cộng tín hiệu vào trạng thái hiện tại thay vì lục lọi các nhật ký trong quá khứ.
 

@@ -36,9 +36,9 @@ authors: ["default"]
 
 用公式定义如下：
 
-$  $
-\beta_&#123;t+1&#125; = \beta_t + (\lambda \times \Delta t)
-$  $
+$$
+\beta_{t+1} = \beta_t + (\lambda \times \Delta t)
+$$
 
 这里 λ (Lambda) 是风险敏感度 (Decay Factor)，Δt 是沉默的时间。
 
@@ -56,9 +56,9 @@ $  $
 
 反映这一点的各阶段权重 (W) 公式如下：
 
-$  $
+$$
 W = 1 + \ln(Stage)
-$  $
+$$
 
 这里 Stage 是反映个别企业现场情况而定义的谈判 (Meeting) 阶段定义值。
 
@@ -92,15 +92,15 @@ score
 
 在销售现场的系统（Mobile, Tablet, Laptop 等）中输入会议阶段 (Stage) 和作为会议结果捕捉到的信号 (Signal) 的瞬间，系统启动更新公式。
 
-$  $
-\text&#123;Update Value&#125; = S_&#123;score&#125; \times W_&#123;stage&#125;
-$  $
+$$
+\text{Update Value} = S_{score} \times W_{stage}
+$$
 
 将其扩展为整体冲击力公式，系统计算的最终冲击量如下得出：
 
-$  $
-\text&#123;Impact&#125; = S_&#123;signal&#125; \times (1 + \ln(Stage))
-$  $
+$$
+\text{Impact} = S_{signal} \times (1 + \ln(Stage))
+$$
 
 这就是我们在上一篇第一部中看到的计算证据数据（似然，Likelihood）的过程，这与先验分布结合，更新后验分布的概率。
 

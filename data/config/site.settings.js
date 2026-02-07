@@ -36,9 +36,9 @@ const siteConfig = {
     // provider: 'emailoctopus',
   },
   search: true, // Enable or disable search
-  theme: 'dark', // Default theme
+  theme: 'dark', // [GRAND PRINCIPLE] ALWAYS DARK. NEVER CHANGE TO LIGHT.
   locales: ['ko', 'en', 'vi', 'ja', 'zh'], // Supported locales
-  defaultLocale: 'en', // Set default locale to English for global visitors
+  defaultLocale: 'en', // [GRAND PRINCIPLE] EXTERNAL VISITORS DEFAULT TO ENGLISH.
 };
 
 module.exports = { siteConfig };

@@ -36,9 +36,9 @@ authors: ["default"]
 
 これを数式で定義すると次の通りだ。
 
-$  $
-\beta_&#123;t+1&#125; = \beta_t + (\lambda \times \Delta t)
-$  $
+$$
+\beta_{t+1} = \beta_t + (\lambda \times \Delta t)
+$$
 
 ここで λ（ラムダ）はリスク感度（Decay Factor）であり、Δt は沈黙した時間である。
 
@@ -56,9 +56,9 @@ $  $
 
 これを反映した段階別重み（W）の数式は次の通りだ。
 
-$  $
+$$
 W = 1 + \ln(Stage)
-$  $
+$$
 
 ここで Stage は個別企業の現場状況を反映して定義した交渉（Meeting）段階の定義値だ。
 
@@ -92,15 +92,15 @@ score
 
 営業現場のシステム（Mobile, Tablet, Laptopなど）でミーティング段階（Stage）とミーティング結果として捕捉した信号（Signal）を入力する瞬間、システムはアップデート数式を稼動する。
 
-$  $
-\text&#123;Update Value&#125; = S_&#123;score&#125; \times W_&#123;stage&#125;
-$  $
+$$
+\text{Update Value} = S_{score} \times W_{stage}
+$$
 
 これを全体的なインパクト公式に拡張すれば、システムが計算する最終衝撃量は次のように導出される。
 
-$  $
-\text&#123;Impact&#125; = S_&#123;signal&#125; \times (1 + \ln(Stage))
-$  $
+$$
+\text{Impact} = S_{signal} \times (1 + \ln(Stage))
+$$
 
 これは前回の第1部で見てきた証拠データ（尤度、Likelihood）を計算する過程であり、これが事前分布と結合して事後分布の確率をアップデートすることになる。
 

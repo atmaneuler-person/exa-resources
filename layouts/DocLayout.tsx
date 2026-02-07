@@ -11,11 +11,18 @@ interface DocLayoutProps {
 }
 
 export default function DocLayout({ content, allDocPosts, toc, children }: DocLayoutProps) {
-  // Sort posts by 'order' field (ascending).
+  // ==========================================================================================
+  // [GRAND PRINCIPLE: DOCUMENTATION ORDERING]
+  // ==========================================================================================
+  // RULE: Documentation library MUST be sorted by the 'order' field in metadata (ascending).
+  //       This ensures a logical flow (e.g., Intro -> Setup -> Advanced) similar to 
+  //       official technical docs (Python, Rails, etc.).
+  // ==========================================================================================
   const sortedPosts = [...allDocPosts].sort((a, b) => {
     const orderA = a.order ?? 999;
     const orderB = b.order ?? 999;
     if (orderA !== orderB) return orderA - orderB;
+    // Secondary fallback: Date (Newest first)
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
 

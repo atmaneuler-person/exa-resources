@@ -227,33 +227,46 @@ export default function ListLayoutWithTags({
                 {/* Vertical Divider in desktop */}
                 <div className="hidden md:block w-px h-6 bg-white/10" />
 
-                {/* Tags as secondary filters */}
+                {/* [GRAND PRINCIPLE: FIRST TAG AS SUBCATEGORY] */}
+                {/* RULE: The first tag in the MDX 'tags' array acts as a sub-category. */}
+                {/*       These unique first tags are displayed as sub-filters at the top. */}
+                {/* ---------------------------------------------------------------------- */}
                 <div className="flex flex-wrap justify-center gap-2 max-w-2xl overflow-x-auto no-scrollbar">
-                    {sortedTags.slice(0, 10).map((t) => {
-                        const tagSlug = slug(t);
-                        const isActive = pathname.includes(`/tags/${tagSlug}`);
+                    {(() => {
+                        const subCategoriesSet = new Set<string>();
+                        posts.forEach(post => {
+                            if (post.tags && post.tags.length > 0) {
+                                subCategoriesSet.add(post.tags[0]);
+                            }
+                        });
+                        const subCategories = Array.from(subCategoriesSet).sort();
                         
-                        const possibleLocale = pathname.split('/')[1];
-                        const currentLocale = siteConfig.locales.includes(possibleLocale) 
-                            ? possibleLocale 
-                            : (siteConfig.defaultLocale || 'ko');
-                        const href = `/${currentLocale}/tags/${tagSlug}`.replace(/\/+/g, '/');
+                        return subCategories.map((t) => {
+                            const tagSlug = slug(t);
+                            const isActive = pathname.includes(`/tags/${tagSlug}`);
+                            
+                            const possibleLocale = pathname.split('/')[1];
+                            const currentLocale = siteConfig.locales.includes(possibleLocale) 
+                                ? possibleLocale 
+                                : (siteConfig.defaultLocale || 'ko');
+                            const href = `/${currentLocale}/tags/${tagSlug}`.replace(/\/+/g, '/');
 
-                        return (
-                            <Link
-                                key={t}
-                                href={href}
-                                className={cn(
-                                    "whitespace-nowrap px-3 py-1 rounded-lg text-[9px] font-bold uppercase tracking-wider transition-all",
-                                    isActive 
-                                        ? "bg-orange-600/20 text-orange-500 border border-orange-500/30" 
-                                        : "bg-white/5 text-gray-500 hover:bg-white/10 hover:text-gray-300 border border-transparent"
-                                )}
-                            >
-                                {t}
-                            </Link>
-                        );
-                    })}
+                            return (
+                                <Link
+                                    key={t}
+                                    href={href}
+                                    className={cn(
+                                        "whitespace-nowrap px-3 py-1 rounded-lg text-[9px] font-bold uppercase tracking-wider transition-all",
+                                        isActive 
+                                            ? "bg-orange-600/20 text-orange-500 border border-orange-500/30" 
+                                            : "bg-white/5 text-gray-500 hover:bg-white/10 hover:text-gray-300 border border-transparent"
+                                    )}
+                                >
+                                    {t}
+                                </Link>
+                            );
+                        });
+                    })()}
                 </div>
 
                 {/* All Posts Button for specific categories */}

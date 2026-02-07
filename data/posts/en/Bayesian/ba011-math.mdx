@@ -22,9 +22,9 @@ T
 P
 ), only results of 'Defect' or 'Good' exist. If we substitute these with 1 and 0, the individual data follows a typical Bernoulli Distribution.
 
-$  $
-P(H|D) = \frac&#123;P(D|H) P(H)&#125;&#123;P(D)&#125;
-$  $
+$$
+P(H|D) = \frac{P(D|H) P(H)}{P(D)}
+$$
 
 - P(H/D) : Posterior Probability (Belief, confidence, probability, or probability distribution after seeing the data)
 
@@ -58,9 +58,9 @@ Through this iterative process, managers can verify how well their intuition ali
 
 - Calculation Efficiency: Supports rapid decision-making by eliminating the complex denominator P(D) operation, which requires calculating the total probability, through the use of the Odds method.
 
-$  $
-\text&#123;Posterior Odds&#125; = \text&#123;Prior Odds&#125; \times \text&#123;Bayes Factor&#125;
-$  $
+$$
+\text{Posterior Odds} = \text{Prior Odds} \times \text{Bayes Factor}
+$$
 
 - Odds: How many times more likely is Hypothesis A than Hypothesis B? (Ratio)
 
@@ -78,29 +78,29 @@ P
 
 Equation A (The equation for the Temperature Hypothesis, where Temperature is the culprit):
 
-$  $
-P(H_T|D) = \frac&#123;P(D|H_T) P(H_T)&#125;&#123;P(D)&#125;
-$  $
+$$
+P(H_T|D) = \frac{P(D|H_T) P(H_T)}{P(D)}
+$$
 
 Equation B (The equation for the Pressure Hypothesis, where Pressure is the culprit):
 
-$  $
-P(H_P|D) = \frac&#123;P(D|H_P) P(H_P)&#125;&#123;P(D)&#125;
-$  $
+$$
+P(H_P|D) = \frac{P(D|H_P) P(H_P)}{P(D)}
+$$
 
 Now, let's divide [Equation A] by [Equation B]. Then, something amazing happens.
 
-$  $
-\frac&#123;P(H_T|D)&#125;&#123;P(H_P|D)&#125; = \frac&#123;\frac&#123;P(D|H_T) P(H_T)&#125;&#123;P(D)&#125;&#125;&#123;\frac&#123;P(D|H_P) P(H_P)&#125;&#123;P(D)&#125;&#125;
-$  $
+$$
+\frac{P(H_T|D)}{P(H_P|D)} = \frac{\frac{P(D|H_T) P(H_T)}{P(D)}}{\frac{P(D|H_P) P(H_P)}{P(D)}}
+$$
 
 The troublesome P(D), which is present in both the denominator and the numerator, cancels out and disappears! (Poof!)
 
 If we organize what remains, it becomes exactly the formula we used in the story.
 
-$  $
-\underbrace&#123;\frac&#123;P(H_T|D)&#125;&#123;P(H_P|D)&#125;&#125;_&#123;\text&#123;Posterior Odds&#125;&#125; = \underbrace&#123;\frac&#123;P(D|H_T)&#125;&#123;P(D|H_P)&#125;&#125;_&#123;\text&#123;Bayes Factor&#125;&#125; \times \underbrace&#123;\frac&#123;P(H_T)&#125;&#123;P(H_P)&#125;&#125;_&#123;\text&#123;Prior Odds&#125;&#125;
-$  $
+$$
+\underbrace{\frac{P(H_T|D)}{P(H_P|D)}}_{\text{Posterior Odds}} = \underbrace{\frac{P(D|H_T)}{P(D|H_P)}}_{\text{Bayes Factor}} \times \underbrace{\frac{P(H_T)}{P(H_P)}}_{\text{Prior Odds}}
+$$
 
 
 Key Points
@@ -125,9 +125,9 @@ Let's plug the 'Morning Data (5 defects out of 50)' from the story into both met
 
 - Bayes Factor: 
 
-$  $
-\approx \mathbf&#123;4.7&#125;
-$  $
+$$
+\approx \mathbf{4.7}
+$$
 
  (Calculated value)
 
@@ -135,9 +135,9 @@ $  $
 
 - Final Probability: 
 
-$  $
-7.05 / (1+7.05) \approx \mathbf&#123;87.6\%&#125;
-$  $
+$$
+7.05 / (1+7.05) \approx \mathbf{87.6\%}
+$$
 
  
 
@@ -145,23 +145,23 @@ $  $
 
 - Likelihood Calculation(Bernoulli distribution, $ P $=defect rate, $ k $=number of defects, $ n $=sample size): 
 
-$  $
-P^k (1-P)^&#123;n-k&#125;
-$  $
+$$
+P^k (1-P)^{n-k}
+$$
 
 - Temperature Likelihood 
 
-$  $
-P(D|H_T): (0.08)^5(0.92)^&#123;45&#125; \approx \text&#123;very small number A&#125;
-$  $
+$$
+P(D|H_T): (0.08)^5(0.92)^{45} \approx \text{very small number A}
+$$
 
  
 
 - Pressure Likelihood 
 
-$  $
-P(D|H_P): (0.04)^5(0.96)^&#123;45&#125; \approx \text&#123;very small number B&#125;
-$  $
+$$
+P(D|H_P): (0.04)^5(0.96)^{45} \approx \text{very small number B}
+$$
 
  
 
@@ -169,17 +169,17 @@ $  $
 
 - Calculation of Evidence Probability P(D): 
 
-$  $
+$$
 (A \times 0.6) + (B \times 0.4)
-$  $
+$$
 
  
 
 - Posterior Probability $ P(H_T|D) $: 
 
-$  $
-\frac&#123;A \times 0.6&#125;&#123;(A \times 0.6) + (B \times 0.4)&#125;
-$  $
+$$
+\frac{A \times 0.6}{(A \times 0.6) + (B \times 0.4)}
+$$
 
 - If you punch this complex formula into a calculator? Surprisingly, it comes out to exactly 87.6%.
 

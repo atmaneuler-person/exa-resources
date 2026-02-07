@@ -10,7 +10,7 @@ draft: false
 
 ## Decision Impedance Matching
 
-Through the previous installments of [BA02. Bayesian Inference](https://news.exavions.com/en/ba02-exa-bayesian-sales-nsbi/), we explored how the Bayesian engine tracks probability trajectories. Now, we hold in our hands the pure posterior probability [latex]P\_{raw}[/latex] calculated by parameters [latex]\alpha[/latex] and [latex]\beta[/latex].
+Through the previous installments of [BA02. Bayesian Inference](https://news.exavions.com/en/ba02-exa-bayesian-sales-nsbi/), we explored how the Bayesian engine tracks probability trajectories. Now, we hold in our hands the pure posterior probability $P_{raw}$ calculated by parameters $\alpha$ and $\beta$.
 
 ---
 
@@ -18,115 +18,121 @@ Through the previous installments of [BA02. Bayesian Inference](https://news.exa
 
 Mathematically, 51% means 'success is more likely.' However, in the life-or-death arena of business, 51% is practically a gamble.
 
-- **Situation A:** $$
+- <b>Situation A:</b>
 
+
+
+$$
 \alpha=0.6, \beta=0.4 \implies P = 60\%
-
 $$
 
 
-- **Situation B:**
-$$
 
+- <b>Situation B:</b>
+
+
+
+$$
 \alpha=60, \beta=40 \implies P = 60\%
-
 $$
+
 
 
 ---
-
 
 ## 2. Total Amount of Evidence ( n ): The Critical Mass
 
-The Exa engine uses the Bayesian posterior probability ( [latex]P_{raw}[/latex] ) and the total amount of evidence ( [latex]n = \alpha + \beta[/latex] ) as a decision-making filter.
-
+The Exa engine uses the Bayesian posterior probability ( $P_{raw}$ ) and the total amount of evidence ( $n = \alpha + \beta$ ) as a decision-making filter.
 
 ---
 
+Inside the engine, probability does not look like the 0–100% we know. Parameters $\alpha$ and $\beta$ operate in a linear space called <b>Log-odds</b>.
 
-## 3. The Hidden World: Accumulation of Log-odds
-
-Inside the engine, probability does not look like the 0–100% we know. Parameters [latex]\alpha[/latex] and [latex]\beta[/latex] operate in a linear space called **Log-odds**.
 
 
 $$
-
 logit(P) = \ln\left(\frac{P}{1-P}\right) = \ln\left(\frac{\alpha}{\beta}\right)
-
 $$
+
 
 
 Every negotiation signal adds to this value:
-- Success signals push the value up via [latex]\Delta \alpha[/latex].
-- Failure signals and time decay ([latex]\lambda[/latex]) pull it down via [latex]\Delta \beta[/latex].
 
+- Success signals push the value up via $\Delta \alpha$.
+- Failure signals and time decay ($\lambda$) pull it down via $\Delta \beta$.
 
 ---
-
 
 ## 5. Business Simulation
 
 Final Formula:
 
 
-$$
-
-P\_{out} = \frac{1}{1 + \left( \frac{\beta \cdot T}{\alpha(1-T)} \right)^k}
 
 $$
+P_{out} = \frac{1}{1 + \left( \frac{\beta \cdot T}{\alpha(1-T)} \right)^k}
+$$
+
 
 
 ### 5.1 Business Scenario Simulation
 
 #### Situation 1: Below Threshold (Uncertain State)
 
-- **Data:** [latex]\alpha = 6.0, \beta = 4.0[/latex] (Pure Probability [latex]P_{raw} = 60\%[/latex])
+- <b>Data:</b> $\alpha = 6.0, \beta = 4.0$ (Pure Probability
+  $P_{raw} = 60\%$)
 
 #### Calculation Process:
 
 #### Ratio Calculation:
 
 
-$$
 
+$$
 \frac{4.0 \cdot 0.7}{6.0 \cdot 0.3} = \frac{2.8}{1.8} \approx 1.55
-
 $$
+
 
 
 #### Applying power of k:
 
 
-$$
 
+$$
 1.55^{10} \approx 81.3
-
 $$
 
 
-- **Final:** [latex]P_{out} = \frac{1}{1 + 81.3} \approx[/latex] **1.2%**
 
+- <b>Final:</b> $P_{out} = \frac{1}{1 + 81.3} \approx$ <b>1.2%</b>
 
 #### Situation 2: Breakthrough (Start of Decisiveness)
 
-- **Data:** [latex]\alpha = 7.2, \beta = 2.8[/latex] (Pure Probability [latex]P_{raw} = 72\%[/latex])
-- **Final Probability:** [latex]P_{out} = \frac{1}{1 + 0.38} \approx[/latex] **72.4%**
-
+- <b>Data:</b> $\alpha = 7.2, \beta = 2.8$ (Pure Probability
+  $P_{raw} = 72\%$)
+- <b>Final Probability:</b> $P_{out} = \frac{1}{1 + 0.38} \approx$ <b>72.4%</b>
 
 #### Situation 3: Critical Mass (Commitment Phase)
 
-- **Data:** [latex]\alpha = 8.5, \beta = 1.5[/latex] (Pure Probability [latex]P_{raw} = 85\%[/latex])
-- **Final Probability:** [latex]P_{out} = \frac{1}{1 + 0.0001} \approx[/latex] **99.9%**
-
+- <b>Data:</b> $\alpha = 8.5, \beta = 1.5$ (Pure Probability
+  $P_{raw} = 85\%$)
+- <b>Final Probability:</b> $P_{out} = \frac{1}{1 + 0.0001} \approx$ <b>99.9%</b>
 
 ---
 
-
 ### 5.2 Insight
 
-| State | Pure Probability | Calibrated Probability | Decision Grade | Business Action |
-| :--- | :--- | :--- | :--- | :--- |
-| **Below** | 60% | **1.2%** | Hold | Strict ban on resource input |
-| **Breakthrough** | 72% | **72.4%** | Push | Start strategic focus |
-| **Explosion** | 85% | **99.9%** | Commit | All-out resource concentration |
+| State               | Pure Probability | Calibrated Probability | Decision Grade | Business Action                |
+| :------------------ | :--------------- | :--------------------- | :------------- | :----------------------------- |
+| <b>Below</b>        | 60%              | <b>1.2%</b>            | Hold           | Strict ban on resource input   |
+| <b>Breakthrough</b> | 72%              | <b>72.4%</b>           | Push           | Start strategic focus          |
+| <b>Explosion</b>    | 85%              | <b>99.9%</b>           | Commit         | All-out resource concentration |
+
+
+
 $$
+
+$$
+
+
+

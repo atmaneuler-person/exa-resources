@@ -20,9 +20,13 @@ T
 P
 )이라는 두 가지 가설 하에 '불량' 또는 '양품'이라는 결과만 존재한다. 이를 1과 0으로 치환하면, 개별 데이터는 전형적인 베르누이 확률분포(Bernoulli Distribution)를 따르게 된다.
 
+
+
 $$
 P(H|D) = \frac{P(D|H) P(H)}{P(D)}
 $$
+
+
 
 - P(H/D) : 사후확률(데이터를 본 뒤의 믿음, 신뢰도, 확률, 확률분포)
 
@@ -55,9 +59,13 @@ $ P(D) = P(D|H_T)P(H_T) + P(D|H_P)P(H_P) $ … (가설이 많아지면 계산이
 
 - 계산의 효율성: 오즈 방식을 사용함으로써, 전체 확률을 계산해야 하는 복잡한 분모 P(D) 연산을 제거하여 신속한 의사결정 지원.
 
+
+
 $$
 \text{Posterior Odds} = \text{Prior Odds} \times \text{Bayes Factor}
 $$
+
+
 
 - Odds(오즈): 가설 A가 가설 B보다 몇 배 유력한가? (비율)
 
@@ -74,29 +82,45 @@ P
 
 식 A (온도가 범인이라는 온도가설에 대한 식):
 
+
+
 $$
 P(H_T|D) = \frac{P(D|H_T) P(H_T)}{P(D)}
 $$
 
+
+
 식 B (압력이 법인이라는 압력가설에 대한 식):
+
+
 
 $$
 P(H_P|D) = \frac{P(D|H_P) P(H_P)}{P(D)}
 $$
 
+
+
 이제 [식 A]를 [식 B]로 나누어 본다. 그러면 놀라운 일이 벌어진다.
+
+
 
 $$
 \frac{P(H_T|D)}{P(H_P|D)} = \frac{\frac{P(D|H_T) P(H_T)}{P(D)}}{\frac{P(D|H_P) P(H_P)}{P(D)}}
 $$
 
+
+
 분모와 분자에 똑같이 있는 골칫덩어리 P(D)가 약분되어 사라진다! (펑!)
 
 남은 것들을 정리하면 바로 우리가 이야기에서 썼던 그 공식이 된다.
 
+
+
 $$
 \underbrace{\frac{P(H_T|D)}{P(H_P|D)}}_{\text{Posterior Odds}} = \underbrace{\frac{P(D|H_T)}{P(D|H_P)}}_{\text{Bayes Factor}} \times \underbrace{\frac{P(H_T)}{P(H_P)}}_{\text{Prior Odds}}
 $$
+
+
 
 \*\*
 핵심 포인트
@@ -120,9 +144,13 @@ $$
 
 - Bayes Factor:
 
+
+
 $$
 \approx \mathbf{4.7}
 $$
+
+
 
 (계산값)
 
@@ -130,9 +158,13 @@ $$
 
 - 최종 확률:
 
+
+
 $$
 7.05 / (1+7.05) \approx \mathbf{87.6\%}
 $$
+
+
 
 #### B. 전통적 방식 (Probability)
 
@@ -144,37 +176,57 @@ $$
 
 - 온도 우도
 
+
+
 $$
 P(D|H_T): (0.08)^5(0.92)^{45} \approx \text{아주 작은 수 A}
 $$
 
+
+
 - 압력 우도
+
+
 
 $$
 P(D|H_P): (0.04)^5(0.96)^{45} \approx \text{아주 작은 수 B}
 $$
 
+
+
 - _(여기서 A는 B의 약 4.7배이다. 직접 계산해 보라)_
 
 - 증거 확률 P(D) 계산:
+
+
 
 $$
 (A \times 0.6) + (B \times 0.4)
 $$
 
+
+
 - 사후 확률 P(H
   T|D
   ):
+
+
 
 $$
 \frac{A \times 0.6}{(A \times 0.6) + (B \times 0.4)}
 $$
 
+
+
 - 이 복잡한 식을 계산기로 두드리면? 놀랍게도 정확히
+
+
 
 $$
 \mathbf{87.6\%}
 $$
+
+
 
 가 나온다.
 

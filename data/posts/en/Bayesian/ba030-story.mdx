@@ -106,17 +106,25 @@ To analyze this situation, the Bayesian engine applies the Mixture Distribution 
 
 The Bayesian engine converts Marcus's transaction data for the past 3 years into a delay day vector $ D $.
 
+
+
 $$
 d_i = (\text{Actual Inbound Date}) - (\text{Promised ETA})
 $$
+
+
 
 If $ d_i = 0 $, the promise was kept. If $ d_i = +5 $, it is 5 days late from the plan.
 
 And the supply performance data has the shipping date. The actual number of working days excluding the transportation period is calculated.
 
+
+
 $$
 d_j = (\text{Actual Shipping Date}) - (\text{PO Issuance Date})
 $$
+
+
 
 These $ d_i, d_j $ vectors are not just a list of numbers. It is an output result from a complex system that contains the total capability of the supply company, such as their work method, worker's behavior pattern, organization's efficiency and inefficiency, manager's management philosophy, and company's management method.
 
@@ -152,9 +160,13 @@ Beyond the monitor screen that the purchasing manager was staring at, complex ma
 
 The engine converted the inbound data delivered by the supplier named Marcus over several years into a delay day vector $ D $. The calculation is simple.
 
+
+
 $$
 d_i = (\text{Actual Inbound Date}) - (\text{Promised ETA})
 $$
+
+
 
 If $ d_i = 0 $, the promise was accurately kept, and if $ d_i = +5 $, it means it was 5 days late.
 
@@ -172,9 +184,13 @@ On the screen, the judgment the engine made for this order was displayed as a fo
 
 Bayesian update formula:
 
+
+
 $$
 P(S_t = 1 \mid d_{\text{new}}) = \frac{P(d_{\text{new}} \mid S_t = 1) \cdot P(S_t = 1)}{P(d_{\text{new}})}
 $$
+
+
 
 Let's solve this formula.
 
@@ -486,9 +502,13 @@ He took a sip of the cold coffee. The bitter taste disappeared, and only a pleas
 
 The MCMC Gibbs Sampling used by the purchasing manager in the novel is a valuable asset and a very powerful tool in modern data science. When it's difficult to solve complex math directly, it's a method of drawing a topographical map of probability by throwing dice hundreds of thousands or millions of times using a computer.
 
+
+
 $$
 x_1^{(t+1)} \sim p(x_1 \mid x_2^{(t)}, x_3^{(t)}, \dots)
 $$
+
+
 
 As in the formula above, when updating one variable, the current state of other variables is fixed and sampling is repeated.
 

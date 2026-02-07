@@ -100,17 +100,25 @@ Hồ sơ giao hàng của nhà cung cấp là kết quả từ một hệ thốn
 
 Công cụ Bayesian chuyển đổi dữ liệu giao dịch trong 3 năm qua với Marcus thành vectơ ngày chậm trễ $ D $.
 
-$  $
-d_i = (\text&#123;Ngày nhập hàng thực tế&#125;) - (\text&#123;ETA đã hứa&#125;)
-$  $
+
+
+$$
+d_i = (\text{Ngày nhập hàng thực tế}) - (\text{ETA đã hứa})
+$$
+
+
 
 $ d_i = 0 $ nghĩa là đã giữ đúng lời hứa. Nếu $ d_i = +5 $ nghĩa là chậm 5 ngày so với kế hoạch.
 
 Và dữ liệu kết quả cung cấp có ngày xếp hàng. Tính toán số ngày làm việc thực tế không bao gồm thời gian vận chuyển.
 
-$  $
-d_j = (\text&#123;Ngày xếp hàng thực tế&#125;) - (\text&#123;Ngày phát hành PO&#125;)
-$  $
+
+
+$$
+d_j = (\text{Ngày xếp hàng thực tế}) - (\text{Ngày phát hành PO})
+$$
+
+
 
 Các vectơ $ d_i, d_j $ này không phải là một dãy số đơn thuần. Đó là kết quả đầu ra từ một hệ thống phức tạp chứa đựng tổng thể năng lực của công ty cung cấp, như phương thức làm việc của họ, mô hình hành vi của người lao động, tính hiệu quả và không hiệu quả của tổ chức, triết lý quản lý của người quản lý, và phương thức điều hành của công ty.
 
@@ -144,9 +152,13 @@ Gọi vectơ chậm trễ DD
 
 Công cụ đã chuyển đổi dữ liệu nhập hàng mà nhà cung cấp tên Marcus đã giao trong vài năm qua thành vectơ ngày chậm trễ DD. Việc tính toán rất đơn giản.
 
-$  $
-d_i = (\text&#123;Ngày nhập hàng thực tế&#125;) - (\text&#123;ETA đã hứa&#125;)
-$  $
+
+
+$$
+d_i = (\text{Ngày nhập hàng thực tế}) - (\text{ETA đã hứa})
+$$
+
+
 
 Nếu $ d_i = 0 $ nghĩa là đã giữ đúng lời hứa một cách chính xác, còn nếu $ d_i = +5 $ nghĩa là chậm 5 ngày.
 
@@ -156,9 +168,13 @@ Công cụ phát hiện hai thế giới khác nhau, tức là 'Chế độ' (Re
 
 - Chế độ 1 ($ S_t = 1 $): Chế độ chậm trễ. Trạng thái xuất hiện vết nứt bên trong chuỗi cung ứng, là vũng lầy mà Marcus thỉnh thoảng rơi vào. Một khi sự chậm trễ phát sinh, việc nhập hàng trung bình sẽ bị đẩy lùi khoảng 8 ngày (
 
+
+
 $$
 \mu_{d1}
 $$
+
+
 
 ).
 
@@ -170,9 +186,13 @@ Trên màn hình, phán đoán mà công cụ đưa ra cho đợt đặt hàng l
 
 Công thức cập nhật Bayesian:
 
-$  $
-P(S_t = 1 \mid d_&#123;\text&#123;new&#125;&#125;) = \frac&#123;P(d_&#123;\text&#123;new&#125;&#125; \mid S_t = 1) \cdot P(S_t = 1)&#125;&#123;P(d_&#123;\text&#123;new&#125;&#125;)&#125;
-$  $
+
+
+$$
+P(S_t = 1 \mid d_{\text{new}}) = \frac{P(d_{\text{new}} \mid S_t = 1) \cdot P(S_t = 1)}{P(d_{\text{new}})}
+$$
+
+
 
 Hãy giải công thức này.
 
@@ -180,15 +200,23 @@ Hãy giải công thức này.
 
 - 
 
+
+
 $$
 P(d_{\text{new}} \mid S_t = 1)
 $$
+
+
 
 : Các chỉ số hậu cần quan sát được hiện tại giống với đặc điểm của chế độ chậm trễ đến mức nào (khả năng, likelihood).($ S_t $ bằng 0 nếu là bình thường và 1 nếu là trạng thái thảm họa, nên 
 
+
+
 $$
 P(d_{\text{new}} \mid S_t = 1)
 $$
+
+
 
  chẳng qua là việc thể hiện xác suất số ngày chậm trễ giao hàng tiếp theo sẽ phát sinh khi nhà cung cấp đang ở trạng thái thảm họa (thế giới quan) bằng một công thức. Không cần phải quá đắm chìm vào các ký hiệu)
 
@@ -218,23 +246,35 @@ Sau khi lặp lại quá trình tính toán này hàng trăm ngàn lần (Iterat
 
 - Xác suất đi vào chế độ thảm họa (
 
+
+
 $$
 \pi
 $$
+
+
 
 ): 16,5% (Theo quy ước, xác suất xảy ra chế độ thảm họa được ký hiệu là 
 
+
+
 $$
 \pi
 $$
+
+
 
 )
 
 - Lượng nới lỏng tối thiểu (
 
+
+
 $$
 \Delta^*
 $$
+
+
 
 ) để đạt được xác suất mục tiêu 95%: +7 ngày
 
@@ -500,9 +540,13 @@ Anh nhấp một ngụm cà phê đã nguội. Vị đắng đã biến mất, c
 
 Lấy mẫu MCMC Gibbs (Gibbs Sampling) mà trưởng nhóm thu mua đã vận dụng trong tiểu thuyết là một tài sản quý giá của khoa học dữ liệu hiện đại và là một công cụ cực kỳ mạnh mẽ. Khi khó giải trực tiếp các bài toán toán học phức tạp, đó là phương thức sử dụng máy tính để tung xúc xắc hàng chục, hàng trăm ngàn lần nhằm vẽ ra bản đồ địa hình của xác suất.
 
-$  $
-x_1^&#123;(t+1)&#125; \sim p(x_1 \mid x_2^&#123;(t)&#125;, x_3^&#123;(t)&#125;, \dots)
-$  $
+
+
+$$
+x_1^{(t+1)} \sim p(x_1 \mid x_2^{(t)}, x_3^{(t)}, \dots)
+$$
+
+
 
 Như công thức trên, khi cập nhật một biến số, ta cố định trạng thái hiện tại của các biến số khác và lặp lại việc lấy mẫu.
 

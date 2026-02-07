@@ -1,3 +1,10 @@
+/**
+ * [CHECKED: LOGIN LOGIC - Environment Variable Based]
+ * [GRAND PRINCIPLE] 1. ADMIN_EMAIL + ADMIN_PASSWORD for full admin access.
+ * [GRAND PRINCIPLE] 2. OUTSIDER_PASSWORD for Docs access (Email is ignored).
+ * This logic is based solely on ENV variables for maximum security and simplicity.
+ * DO NOT MODIFY this logic without explicit approval.
+ */
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 

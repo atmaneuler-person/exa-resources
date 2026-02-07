@@ -56,9 +56,13 @@ My Prior Belief is set. I began to record the data in my notebook.
 
 Professionals prefer using Odds over probabilities.
 
+
+
 $$
 \text{Prior Odds} = \frac{0.6}{0.4} = \mathbf{1.5}
 $$
+
+
 
 (Interpretation: Currently, I am betting 1.5 times more on 'Temperature' being the culprit than 'Pressure'.)
 
@@ -76,25 +80,37 @@ Here, the core weapon of Bayes, Likelihood, appears. "Who must be the culprit fo
 
 I quickly calculated the Bayes Factor, the 'weight of evidence'.
 
+
+
 $$
 \text{Bayes Factor} = \frac{P(D|H_T)}{P(D|H_P)}
 $$
+
+
 
 $$
 \approx \left(\frac{0.08}{0.04}\right)^5 \times \left(\frac{0.92}{0.96}\right)^{45}
 $$
 
+
+
 $$
 = 2^5 \times (0.9583)^{45}
 $$
+
+
 
 $$
 = 32 \times 0.147
 $$
 
+
+
 $$
 \approx \mathbf{4.7}
 $$
+
+
 
 4.7 times.
 
@@ -106,15 +122,23 @@ Bayesian Update (Posterior 1): A Dramatic Rise in Confidence.
 
 Confidence (1.5) is combined with evidence (4.7).
 
+
+
 $$
 \text{New Odds} = 1.5 \times 4.7 = \mathbf{7.05}
 $$
 
+
+
 Converting this back to probability:
+
+
 
 $$
 P(H_T|D_1) = \frac{7.05}{1+7.05} \approx \mathbf{87.6\%}
 $$
+
+
 
 New confidence: The probability of temperature being the culprit has skyrocketed from 60% → 87.6%. The data is screaming, "The culprit is temperature!"
 
@@ -136,17 +160,25 @@ Now, the magic of Bayesian inference begins. The 87.6% confidence (Posterior) I 
 
 [Morning's Conclusion = Afternoon's Start] This is how artificial intelligence, and how we, learn about the world. I began to calculate again. I updated by using the morning's result (posterior probability) as the prior probability for this calculation to verify the evidential power of the data (D2).
 
+
+
 $$
 \text{Bayes Factor}_2 \approx \left(\frac{0.08}{0.04}\right)^1 \times \left(\frac{0.92}{0.96}\right)^{49}
 $$
+
+
 
 $$
 = 2 \times 0.122
 $$
 
+
+
 $$
 \approx \mathbf{0.244}
 $$
+
+
 
 The value is much smaller than 1. This means it is "unfavorable evidence for the temperature hypothesis." To be precise, the second evidence supports the pressure hypothesis about 4 times more. It's a massive counter-evidence. I heard the morning's confidence crumbling.
 
@@ -154,15 +186,23 @@ The value is much smaller than 1. This means it is "unfavorable evidence for the
 
 Now, multiply 'Morning's Confidence (Odds 7.05)' by 'Afternoon's Twist (0.244)'.
 
+
+
 $$
 \text{Final Odds} = 7.05 \times 0.244 \approx \mathbf{1.72}
 $$
 
+
+
 Converting back to probability:
+
+
 
 $$
 P(H_T | D_1, D_2) = \frac{1.72}{1+1.72} \approx \mathbf{63.2\%}
 $$
+
+
 
 ---
 

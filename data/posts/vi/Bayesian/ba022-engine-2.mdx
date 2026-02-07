@@ -36,9 +36,9 @@ Nếu hồ sơ không được nhập trong thời gian quy định tại hiện
 
 Điều này được định nghĩa bằng công thức sau:
 
-$  $
-\beta_&#123;t+1&#125; = \beta_t + (\lambda \times \Delta t)
-$  $
+$$
+\beta_{t+1} = \beta_t + (\lambda \times \Delta t)
+$$
 
 Ở đây, λ (Lambda) là độ nhạy rủi ro (Decay Factor), và Δt là thời gian im lặng.
 
@@ -56,9 +56,9 @@ Làm thế nào chúng ta có thể kiểm soát 'ngữ cảnh (Context) tình h
 
 Công thức trọng số (W) theo giai đoạn phản ánh điều này như sau:
 
-$  $
+$$
 W = 1 + \ln(Stage)
-$  $
+$$
 
 Ở đây, Stage là giá trị định nghĩa giai đoạn đàm phán (Meeting) được xác định bằng cách phản ánh tình hình hiện trường của từng doanh nghiệp.
 
@@ -92,15 +92,15 @@ Bây giờ hãy xem các yếu tố này khớp với nhau như thế nào trong
 
 Khoảnh khắc nhập giai đoạn cuộc họp (Stage) và tín hiệu (Signal) thu được từ kết quả cuộc họp trên hệ thống hiện trường kinh doanh (Mobile, Tablet, Laptop, v.v.), hệ thống sẽ khởi động công thức cập nhật.
 
-$  $
-\text&#123;Update Value&#125; = S_&#123;score&#125; \times W_&#123;stage&#125;
-$  $
+$$
+\text{Update Value} = S_{score} \times W_{stage}
+$$
 
 Mở rộng điều này thành công thức tác động tổng thể, lượng xung kích cuối cùng mà hệ thống tính toán được rút ra như sau:
 
-$  $
-\text&#123;Impact&#125; = S_&#123;signal&#125; \times (1 + \ln(Stage))
-$  $
+$$
+\text{Impact} = S_{signal} \times (1 + \ln(Stage))
+$$
 
 Đây là quá trình tính toán dữ liệu bằng chứng (Likelihood) mà chúng ta đã xem xét ở phần 1, và nó kết hợp với phân phối tiên nghiệm để cập nhật xác suất phân phối hậu nghiệm.
 

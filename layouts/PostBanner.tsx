@@ -10,6 +10,7 @@ import Footer from '@/components/shared/Footer';
 import Header from '@/components/shared/Header';
 import SectionContainer from '@/components/shared/SectionContainer';
 import ScrollTop from '@/components/shared/ScrollTop';
+import Comments from '@/components/blog/Comments'; 
 
 interface LayoutProps {
   className?: string;
@@ -26,7 +27,7 @@ export default function PostMinimal({
   prev,
   children,
 }: LayoutProps) {
-  const { slug, title, images } = content;
+  const { path, slug, title, images } = content;
   const displayImage =
     images && images.length > 0 ? images[0] : '/static/images/backdrop-3.webp';
 
@@ -59,7 +60,11 @@ export default function PostMinimal({
               {children}
             </div>
 
-            <footer>
+            <div className="mt-16 pt-12 border-t border-gray-100 dark:border-gray-700/50">
+              <Comments postId={path} />
+            </div>
+
+            <footer className="mt-16 pt-8 border-t border-gray-100 dark:border-gray-700/50">
               <div className="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-base">
                 {prev && prev.path && (
                   <div className="pt-4 xl:pt-8">

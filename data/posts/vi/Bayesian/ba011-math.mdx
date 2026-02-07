@@ -4,11 +4,9 @@ date: '2025-12-20'
 tags: ['bayeaian', 'likelihood', 'Odds']
 draft: false
 summary: 'BA01.[The Short Shot] Giải thích toán học'
-images: ["/static/images/BA012.png"]
-authors: ["default"]
+images: ['/static/images/BA012.png']
+authors: ['default']
 ---
-
- 
 
 Trước đó, câu chuyện về [Short Shot] không chỉ đơn thuần là một cuốn tiểu thuyết. Nó giống như một lâu đài được xây dựng trên nền tảng tính toán toán học chặt chẽ. Tôi xin công bố bản thiết kế (Blueprint) toán học về cách 'Định lý Bayes truyền thống' trong sách giáo khoa được chuyển đổi thành 'Odds (Tỷ lệ cược) và Nhân tố Bayes' được sử dụng tại hiện trường như thế nào.
 
@@ -18,9 +16,9 @@ Phương trình dưới đây là nguyên mẫu của định lý Bayes mà chú
 
 Lúc này, Likelihood P(D|H)—tức là xác suất dữ liệu đó được quan sát khi giả thuyết H là đúng—được quyết định bởi tính chất của dữ liệu. Trong kịch bản 'Short Shot' đã thấy trước đó, dưới hai giả thuyết là Nhiệt độ (HT) và Áp suất (HP), chỉ tồn tại kết quả là 'Lỗi' hoặc 'Hàng tốt'. Nếu thay thế chúng bằng 1 và 0, dữ liệu cá nhân sẽ tuân theo Phân phối Bernoulli (Bernoulli Distribution) điển hình.
 
-$  $
-P(H|D) = \frac&#123;P(D|H) P(H)&#125;&#123;P(D)&#125;
-$  $
+$$
+P(H|D) = \frac{P(D|H) P(H)}{P(D)}
+$$
 
 - P(H|D) : Xác suất hậu nghiệm (Niềm tin, độ tin cậy, xác suất sau khi xem dữ liệu)
 
@@ -30,14 +28,13 @@ $  $
 
 - P(D) : Xác suất của bằng chứng (Xác suất phát sinh dữ liệu khi tổng hợp tất cả các giả thuyết)
 
-
 Vấn đề thực tế tính toán tại hiện trường
 
 Ở đây, việc tính toán mẫu số P(D) rất đau đầu. Bởi vì phải cộng tất cả xác suất của các giả thuyết lại.
 
-$  $
+$$
 P(D) = P(D|H_T)P(H_T) + P(D|H_P)P(H_P) \dots
-$  $
+$$
 
 (Khi giả thuyết tăng lên, việc tính toán không chỉ bùng nổ mà trong thực tế hầu hết là không biết được P(D)).
 
@@ -59,9 +56,9 @@ Thông qua quá trình lặp đi lặp lại này, nhà quản lý có thể ki�
 
 - Hiệu quả tính toán: Bằng cách sử dụng phương pháp Odds, loại bỏ phép tính mẫu số P(D) phức tạp (phải tính toán toàn bộ xác suất) để hỗ trợ ra quyết định nhanh chóng.
 
-$  $
-\text&#123;Posterior Odds&#125; = \text&#123;Prior Odds&#125; \times \text&#123;Bayes Factor&#125;
-$  $
+$$
+\text{Posterior Odds} = \text{Prior Odds} \times \text{Bayes Factor}
+$$
 
 - Odds: Giả thuyết A có khả năng xảy ra gấp mấy lần giả thuyết B? (Tỷ lệ)
 
@@ -75,30 +72,29 @@ Nào, giờ hãy làm phép thuật. Làm thế nào 'công thức xác suất p
 
 Công thức A (Công thức về giả thuyết Nhiệt độ là thủ phạm):
 
-$  $
-P(H_T|D) = \frac&#123;P(D|H_T) P(H_T)&#125;&#123;P(D)&#125;
-$  $
+$$
+P(H_T|D) = \frac{P(D|H_T) P(H_T)}{P(D)}
+$$
 
 Công thức B (Công thức về giả thuyết Áp suất là thủ phạm):
 
-$  $
-P(H_P|D) = \frac&#123;P(D|H_P) P(H_P)&#125;&#123;P(D)&#125;
-$  $
+$$
+P(H_P|D) = \frac{P(D|H_P) P(H_P)}{P(D)}
+$$
 
 Bây giờ thử chia [Công thức A] cho [Công thức B]. Khi đó điều kỳ diệu sẽ xảy ra.
 
-$  $
-\frac&#123;P(H_T|D)&#125;&#123;P(H_P|D)&#125; = \frac&#123;\frac&#123;P(D|H_T) P(H_T)&#125;&#123;P(D)&#125;&#125;&#123;\frac&#123;P(D|H_P) P(H_P)&#125;&#123;P(D)&#125;&#125;
-$  $
+$$
+\frac{P(H_T|D)}{P(H_P|D)} = \frac{\frac{P(D|H_T) P(H_T)}{P(D)}}{\frac{P(D|H_P) P(H_P)}{P(D)}}
+$$
 
 Kẻ gây rắc rối P(D) có mặt ở cả mẫu số và tử số sẽ bị triệt tiêu và biến mất! (Bùm!)
 
 Sắp xếp lại những gì còn lại, ta sẽ có ngay công thức mà chúng ta đã sử dụng trong câu chuyện.
 
-$  $
-\underbrace&#123;\frac&#123;P(H_T|D)&#125;&#123;P(H_P|D)&#125;&#125;_&#123;\text&#123;Posterior Odds&#125;&#125; = \underbrace&#123;\frac&#123;P(D|H_T)&#125;&#123;P(D|H_P)&#125;&#125;_&#123;\text&#123;Bayes Factor&#125;&#125; \times \underbrace&#123;\frac&#123;P(H_T)&#125;&#123;P(H_P)&#125;&#125;_&#123;\text&#123;Prior Odds&#125;&#125;
-$  $
-
+$$
+\underbrace{\frac{P(H_T|D)}{P(H_P|D)}}_{\text{Posterior Odds}} = \underbrace{\frac{P(D|H_T)}{P(D|H_P)}}_{\text{Bayes Factor}} \times \underbrace{\frac{P(H_T)}{P(H_P)}}_{\text{Prior Odds}}
+$$
 
 Điểm cốt lõi
 
@@ -120,61 +116,65 @@ Hãy thử đưa 'dữ liệu buổi sáng (5 lỗi trong 50 mẫu)' trong câu 
 
 - Prior Odds: 0.6 / 0.4 = 1.5
 
-- Bayes Factor: 
+- Bayes Factor:
 
-$  $
-\approx \mathbf&#123;4.7&#125;
-$  $
+$$
+\approx \mathbf{4.7}
+$$
 
- (Giá trị tính toán)
+(Giá trị tính toán)
 
 - Posterior Odds: 1.5 x 4.7 = 7.05
 
-- Xác suất cuối cùng: 
+- Xác suất cuối cùng:
 
-$  $
-7.05 / (1+7.05) \approx \mathbf&#123;87.6\%&#125;
-$  $
+$$
+7.05 / (1+7.05) \approx \mathbf{87.6\%}
+$$
 
 #### B. Phương pháp truyền thống (Probability)
 
-- Tính toán Likelihood (Phân phối Bernoulli, P=tỷ lệ lỗi, k=số lượng lỗi, n=số lượng mẫu): 
+- Tính toán Likelihood (Phân phối Bernoulli, P=tỷ lệ lỗi, k=số lượng lỗi, n=số lượng mẫu):
 
-$  $
-P^k * (1-P)^&#123;n-k&#125;
-$  $
+$$
+P^k * (1-P)^{n-k}
+$$
 
-- Likelihood Nhiệt độ $ P(D|H_T) $: 
+- Likelihood Nhiệt độ $ P(D|H_T) $:
 
-$  $
-(0.08)^5(0.92)^&#123;45&#125; \approx \text&#123;Số rất nhỏ A&#125;
-$  $
+$$
+(0.08)^5(0.92)^{45} \approx \text{A (Small number)}
+$$
 
-- Likelihood Áp suất $ P(D|H_P) $: 
+(Số rất nhỏ A)
 
-$  $
-(0.04)^5(0.96)^&#123;45&#125; \approx \text&#123;Số rất nhỏ B&#125;
-$  $
+- Likelihood Áp suất $ P(D|H_P) $:
 
-- *(Ở đây A gấp khoảng 4.7 lần B. Hãy thử tự tính xem)*
+$$
+(0.04)^5(0.96)^{45} \approx \text{B (Small number)}
+$$
 
-- Tính toán xác suất bằng chứng P(D): 
+(Số rất nhỏ B)
 
-$  $
+- _(Ở đây A gấp khoảng 4.7 lần B. Hãy thử tự tính xem)_
+
+- Tính toán xác suất bằng chứng P(D):
+
+$$
 (A \times 0.6) + (B \times 0.4)
-$  $
+$$
 
-- Xác suất hậu nghiệm $ P(H_T|D) $: 
+- Xác suất hậu nghiệm $ P(H_T|D) $:
 
-$  $
-\frac&#123;A \times 0.6&#125;&#123;(A \times 0.6) + (B \times 0.4)&#125;
-$  $
+$$
+\frac{A \times 0.6}{(A \times 0.6) + (B \times 0.4)}
+$$
 
-- Nếu gõ công thức phức tạp này vào máy tính? Thật ngạc nhiên, kết quả chính xác là 
+- Nếu gõ công thức phức tạp này vào máy tính? Thật ngạc nhiên, kết quả chính xác là
 
-$  $
-\mathbf&#123;87.6\%&#125;
-$  $
+$$
+\mathbf{87.6\%}
+$$
 
 .
 
