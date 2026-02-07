@@ -338,7 +338,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
     return (
       <div className="flex flex-col w-full">
          <Header />
-         <DocLayout content={mainContent as any} allDocPosts={allDocPosts} toc={post.toc}>
+         <DocLayout content={mainContent} allDocPosts={allDocPosts} toc={post.toc}>
             <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
          </DocLayout>
          <Footer />
@@ -349,7 +349,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
   // [RULE] Standard Blog Layout: For the 5 designate categories.
   const Layout = layouts[post.layout || defaultLayout as keyof typeof layouts];
   return (
-    <Layout content={mainContent as any} authorDetails={authorDetails} next={undefined} prev={undefined}>
+    <Layout content={mainContent} authorDetails={authorDetails} next={undefined} prev={undefined}>
       <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
     </Layout>
   );
