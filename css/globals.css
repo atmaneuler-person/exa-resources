@@ -437,21 +437,23 @@ input:-webkit-autofill:focus {
 }
 
 /**
- * KaTeX centering fix - Robust version
+ * KaTeX centering fix - Robust version (Flexbox)
  */
 .prose .katex-display,
 .katex-display {
-  display: block !important;
-  margin: 1.5em 0 !important;
-  text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin: 2em 0 !important;
+  overflow-x: auto !important;
 }
 
-.prose .katex-display \u003e .katex,
-.katex-display \u003e .katex {
-  display: inline-block !important;
+.prose .katex-display > .katex,
+.katex-display > .katex {
+  display: block !important;
   text-align: center !important;
-  margin: 0 auto !important;
-  width: auto !important;
+  max-width: 100% !important;
 }
 
 .text-center {

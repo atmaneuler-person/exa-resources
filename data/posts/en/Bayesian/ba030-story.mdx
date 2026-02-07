@@ -4,11 +4,9 @@ date: '2026-01-10'
 tags: ['Bayesian', 'Gibs Sampling', 'MCMC']
 draft: false
 summary: 'BA03. [On-Time Material Inbound: Bayesian MCMC] The Real Game in Business is the Fight Against Uncertainty'
-images: ["/static/images/BA030.png"]
-authors: ["default"]
+images: ['/static/images/BA030.png']
+authors: ['default']
 ---
-
- 
 
 This story is for everyone fighting uncertainty. It is a business narrative about a purchasing manager who manages supply chain uncertainty using the [Bayesian Inference Engine].
 
@@ -27,7 +25,6 @@ Tuesday, 7 AM. The purchasing team office was still quiet.
 The purchasing manager sat in front of the monitor even before taking off his coat. Checking the batch results of the 'Exa Intelligent Inference Engine' that ran overnight was his first routine. Coffee came next.
 
 When he turned on the screen, a red warning was floating at the top.
-
 
 PO#2024-0847 | Precision sensor module 1,200EA | On-time arrival probability: 57%
 
@@ -61,15 +58,15 @@ The production manager added, writing numbers on the whiteboard.
 
 He walked in front of the whiteboard and wrote down the calculation.
 
-- Customer delivery date: May 30th First delivery 
+- Customer delivery date: May 30th First delivery
 
-- production lead time: 20 days. 
+- production lead time: 20 days.
 
-- Inspection/Preparation period: 2 days. 
+- Inspection/Preparation period: 2 days.
 
-- Material inbound deadline: April 23rd. 
+- Material inbound deadline: April 23rd.
 
-- Required buffer: At least 2 days. 
+- Required buffer: At least 2 days.
 
 - Safety target inbound date: Before April 21st
 
@@ -109,17 +106,17 @@ To analyze this situation, the Bayesian engine applies the Mixture Distribution 
 
 The Bayesian engine converts Marcus's transaction data for the past 3 years into a delay day vector $ D $.
 
-$  $
-d_i = (\text&#123;Actual Inbound Date&#125;) - (\text&#123;Promised ETA&#125;)
-$  $
+$$
+d_i = (\text{Actual Inbound Date}) - (\text{Promised ETA})
+$$
 
 If $ d_i = 0 $, the promise was kept. If $ d_i = +5 $, it is 5 days late from the plan.
 
 And the supply performance data has the shipping date. The actual number of working days excluding the transportation period is calculated.
 
-$  $
-d_j = (\text&#123;Actual Shipping Date&#125;) - (\text&#123;PO Issuance Date&#125;)
-$  $
+$$
+d_j = (\text{Actual Shipping Date}) - (\text{PO Issuance Date})
+$$
 
 These $ d_i, d_j $ vectors are not just a list of numbers. It is an output result from a complex system that contains the total capability of the supply company, such as their work method, worker's behavior pattern, organization's efficiency and inefficiency, manager's management philosophy, and company's management method.
 
@@ -155,9 +152,9 @@ Beyond the monitor screen that the purchasing manager was staring at, complex ma
 
 The engine converted the inbound data delivered by the supplier named Marcus over several years into a delay day vector $ D $. The calculation is simple.
 
-$  $
-d_i = (\text&#123;Actual Inbound Date&#125;) - (\text&#123;Promised ETA&#125;)
-$  $
+$$
+d_i = (\text{Actual Inbound Date}) - (\text{Promised ETA})
+$$
 
 If $ d_i = 0 $, the promise was accurately kept, and if $ d_i = +5 $, it means it was 5 days late.
 
@@ -165,13 +162,7 @@ The engine discovers two different worlds, namely 'Regimes', in this vector.
 
 - Regime 0 ($ S_t = 0 $): Normal regime. $ d_i $ moves around 0. It is a state of keeping promises perfectly.
 
-- Regime 1 ($ S_t = 1 $): Delay regime. A state where a crack has occurred inside the supply chain, a swamp Marcus occasionally falls into. Once a delay occurs, inbound is pushed by an average of 8 days (
-
-$$
-\mu_{d1}
-$$
-
-).
+- Regime 1 ($ S*t = 1 $): Delay regime. A state where a crack has occurred inside the supply chain, a swamp Marcus occasionally falls into. Once a delay occurs, inbound is pushed by an average of 8 days ($ \mu*{d1} $).
 
 What's important here is that Marcus's delivery behavior changes completely depending on which regime he is in. There is a limit to looking inside the supplier. At this time, Bayesian update demonstrates its power.
 
@@ -181,29 +172,17 @@ On the screen, the judgment the engine made for this order was displayed as a fo
 
 Bayesian update formula:
 
-$  $
-P(S_t = 1 \mid d_&#123;\text&#123;new&#125;&#125;) = \frac&#123;P(d_&#123;\text&#123;new&#125;&#125; \mid S_t = 1) \cdot P(S_t = 1)&#125;&#123;P(d_&#123;\text&#123;new&#125;&#125;)&#125;
-$  $
+$$
+P(S_t = 1 \mid d_{\text{new}}) = \frac{P(d_{\text{new}} \mid S_t = 1) \cdot P(S_t = 1)}{P(d_{\text{new}})}
+$$
 
 Let's solve this formula.
 
 - $ P(S_t = 1) $: The frequency with which Marcus fell into the delay regime in the past (prior probability). It's about 15%.
 
-- 
+- $ P(d\_{\text{new}} \mid S_t = 1) $: How much the currently observed logistics indicators resemble the characteristics of the delay regime (likelihood).
 
-$$
-P(d_{\text{new}} \mid S_t = 1)
-$$
-
-: How much the currently observed logistics indicators resemble the characteristics of the delay regime (likelihood).
-
-(Since $ S_t $ is 0 if it is normal and 1 if it is a disaster state, 
-
-$$
-P(d_{\text{new}} \mid S_t = 1)
-$$
-
- is nothing more than expressing the probability that the next delivery delay days will occur when the supplier is in a disaster state (worldview) as a formula. There is no need to be buried in symbols)
+(Since $ S*t $ is 0 if it is normal and 1 if it is a disaster state, $ P(d*{\text{new}} \mid S_t = 1) $ is nothing more than expressing the probability that the next delivery delay days will occur when the supplier is in a disaster state (worldview) as a formula. There is no need to be buried in symbols)
 
 The engine judges by synthesizing these signals. "There is a possibility that Marcus will enter the delay regime." The result was 57%.
 
@@ -225,26 +204,13 @@ Iteration 1:
 
 After repeating this process hundreds of thousands of times (Iteration), the engine gave the final conclusion.
 
-
 [Simulation result: Based on PO revision.1]
 
 - On-time arrival probability based on current target (4/21): 56.2%
 
-- Probability of entering catastrophe regime (
+- Probability of entering catastrophe regime ($ \pi $): 16.5%
 
-$$
-\pi
-$$
-
-): 16.5%
-
-- Minimum mitigation amount (
-
-$$
-\Delta^*
-$$
-
-) to achieve the target probability of 95%: +7 days
+- Minimum mitigation amount ($ \Delta^\* $) to achieve the target probability of 95%: +7 days
 
 "Far from the target of April 21st, it is a scenario where even the deadline of the 23rd is ruthlessly broken."
 
@@ -292,7 +258,7 @@ But he was looking at the 16.5% catastrophe probability on the screen. He was si
 
 Marcus's expression stiffened slightly.
 
-"…I remember. The case where it was a week late due to raw material problems.""
+"…I remember. The case where it was a week late due to raw material problems."
 
 ### The real problem is silence
 
@@ -318,13 +284,13 @@ On the screen, 'Exa Partner Portal' was floating. The buffer management event ch
 
 - Material inbound completed
 
-- Production start 
+- Production start
 
-- Production 50% completed 
+- Production 50% completed
 
-- Production completed 
+- Production completed
 
-- Packing completed, ready for shipment: Goal April 3rd 
+- Packing completed, ready for shipment: Goal April 3rd
 
 - Shipping: Goal April 5th
 
@@ -378,7 +344,6 @@ He entered 'Information not entered' in the engine. The probability on the scree
 
 He immediately sent a message to Marcus.
 
-
 "Marcus, the status was not shared today. I'm curious about the raw material inbound situation. Is there a problem?"
 
 20 minutes later, a reply came.
@@ -397,7 +362,7 @@ But he sent one more message to Marcus.
 
 Wednesday.
 
-his time the mail came accurately. But the content was not good.
+This time the mail came accurately. But the content was not good.
 
 "Manager, 'production start' will be delayed by two days. Due to internal process scheduling problems, it was originally scheduled to start today, Wednesday, but it has been pushed to Friday. Production itself is not a problem, but it seems the entire schedule will be delayed by about two days."
 
@@ -441,8 +406,7 @@ The logistics manager noted and replied.
 
 He sent an email to Marcus.
 
-
-"Marcus, confirmed the two-day delay. We will optimize logistics on our side to shorten it by one day. Instead, if you can move up the packing and shipping even by one day on your side, please do so. Please prepare in advance so that shipping is possible immediately after production is completed."
+"Marcus, I confirmed the two-day delay. We will optimize logistics on our side to shorten it by a day. Instead, if you can advance packing and shipment by even a day on your side, please do so. Please prepare in advance so that shipment is possible immediately upon completion of production."
 
 2 hours later, Marcus's reply came.
 
@@ -450,9 +414,9 @@ He sent an email to Marcus.
 
 The manager entered these countermeasures into the engine.
 
-- Customs clearance shortened by 1 day 
+- Customs clearance shortened by 1 day
 
-- Transportation shortened by half a day 
+- Transportation shortened by half a day
 
 - Shipping preparation time shortened
 
@@ -476,13 +440,11 @@ The final probability on the screen was 74%. Someone might say there was a 26% c
 
 He wrote a short email to Marcus.
 
-
 "Marcus, received the goods well. Thanks to you informing us of the two-day delay immediately, we were able to cope. This is true partnership."
 
 A reply came immediately.
 
-
-"Honestly, I also felt comfortable. I didn't know that not having to hide could increase work efficiency like this. Let's proceed with the next PO in this way."
+"Honestly, I felt at ease too. I didn't know that not having to hide would increase work efficiency like this. Let's proceed like this for the next PO too."
 
 ---
 
@@ -524,9 +486,9 @@ He took a sip of the cold coffee. The bitter taste disappeared, and only a pleas
 
 The MCMC Gibbs Sampling used by the purchasing manager in the novel is a valuable asset and a very powerful tool in modern data science. When it's difficult to solve complex math directly, it's a method of drawing a topographical map of probability by throwing dice hundreds of thousands or millions of times using a computer.
 
-$  $
-x_1^&#123;(t+1)&#125; \sim p(x_1 \mid x_2^&#123;(t)&#125;, x_3^&#123;(t)&#125;, \dots)
-$  $
+$$
+x_1^{(t+1)} \sim p(x_1 \mid x_2^{(t)}, x_3^{(t)}, \dots)
+$$
 
 As in the formula above, when updating one variable, the current state of other variables is fixed and sampling is repeated.
 

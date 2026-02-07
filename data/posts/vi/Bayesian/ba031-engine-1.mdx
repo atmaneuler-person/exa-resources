@@ -4,11 +4,9 @@ date: '2026-01-29'
 tags: ['bayeaian', 'Gibs Sampling', 'likelihood', 'MCMC']
 draft: false
 summary: 'BA02.[On Time Risk: Phụ lục 1] Giải phẫu động cơ EXA: Phân phối hỗn hợp và Độ lệch quan sát'
-images: ["/static/images/BA03_1.png"]
-authors: ["default"]
+images: ['/static/images/BA03_1.png']
+authors: ['default']
 ---
-
- 
 
 Bài viết này là bài đầu tiên trong loạt bài giải thích kỹ thuật nhằm làm sáng tỏ nguyên lý hoạt động của động cơ EXA, vốn đóng vai trò quan trọng trong tập truyện dài kỳ định dạng tiểu thuyết '[BA03 On-Time Nhập kho vật tư: Bayesian MCMC](https://news.exavions.com/vi/ba03-bayesian-mcmc-vn/)'.
 
@@ -20,23 +18,25 @@ Vì loạt bài này đề cập đến Phân phối hỗn hợp (Mixture Distri
 
 Để mô hình hóa về mặt toán học vấn đề cốt lõi được đề cập trong tiểu thuyết là 'On-Time (Đúng giờ)', trước tiên chúng ta phải định nghĩa dữ liệu. Để làm điều này, chúng ta tạo dữ liệu quan sát mẫu theo đơn vị Ngày (Day) như sau:
 
-$  $
-D=[d1,d2,…,d7]=&#123;−2,−1,0,1,2,0,9&#125;
-$  $
+$$
+D = [d_{1}, d_{2}, \dots, d_{7}] = \{ -2, -1, 0, 1, 2, 0, 9 \}
+$$
 
-Chúng ta có thể xem tập hợp các ngày trễ hạn được quan sát D này là một Vectơ (Vector), và mỗi giá trị trễ hạn (−2,−1,0…) bao gồm trong đó trở thành một Phần tử (Element, hoặc thành phần) cấu thành nên vectơ này.
+Chúng ta có thể xem tập hợp các ngày trễ hạn được quan sát $ D $ này là một Vectơ (Vector), và mỗi giá trị trễ hạn (−2,−1,0…) bao gồm trong đó trở thành một Phần tử (Element, hoặc thành phần) cấu thành nên vectơ này.
 
-Ở đây, phần tử dữ liệu riêng lẻ di được định nghĩa như sau:
+Ở đây, phần tử dữ liệu riêng lẻ $ d\_{i} $ được định nghĩa như sau:
 
-$ di=(Ngaˋy thực teˆˊ)−(Ngaˋy keˆˊ hoạch) $
+$$
+d_{i} = (\text{Ngày thực tế}) - (\text{Ngày kế hoạch})
+$$
 
 Ý nghĩa của công thức này rất trực quan.
 
-- di=0: Trường hợp giữ đúng hẹn chính xác (On-Time)
+- $ d\_{i} = 0 $: Trường hợp giữ đúng hẹn chính xác (On-Time)
 
-- di>0: Trường hợp trễ hơn kế hoạch (Ví dụ: +5 là trễ 5 ngày)
+- $ d\_{i} > 0 $: Trường hợp trễ hơn kế hoạch (Ví dụ: +5 là trễ 5 ngày)
 
-- di&lt;0: Trường hợp đến sớm hơn kế hoạch (Nhập kho sớm)
+- $ d\_{i} < 0 $: Trường hợp đến sớm hơn kế hoạch (Nhập kho sớm)
 
 Mô hình Số ngày trễ hạn (Delay Days) này có thể được áp dụng để đo lường các Nút thắt cổ chai (Bottleneck) đa dạng tại hiện trường kinh doanh.
 
@@ -56,11 +56,11 @@ Tất nhiên, khi áp dụng vào hiện trường thực tế, dữ liệu ph�
 
 Nào, bây giờ hãy thử trực quan hóa Toy Data (Vectơ D) của chúng ta. Chúng ta hãy kiểm tra xem 7 phần tử được bố trí như thế nào trên biểu đồ.
 
-*
+-
 
 Dữ liệu thực tế thì sao? Dưới đây là biểu đồ tần suất (histogram) thể hiện 200 thành tích giao dịch mua vật tư thực tế (mặt hàng cụ thể của nhà cung cấp cụ thể) của một doanh nghiệp nào đó.
 
-*
+-
 
 Một sự tương đồng thú vị được phát hiện. Toy Data của chúng ta nằm rải rác xung quanh trạng thái bình thường (0), đồng thời hình thành một đỉnh riêng biệt gọi là trạng thái trễ hạn (9). Dữ liệu doanh nghiệp thực tế cũng được phân chia thành một đỉnh lấy trung tâm là trung bình 23 ngày là Lead Time bình thường, và một đỉnh khác (tuy yếu hơn) lấy trung tâm là trạng thái trễ hạn 33 ngày.
 

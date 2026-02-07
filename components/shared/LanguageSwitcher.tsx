@@ -38,19 +38,27 @@ export default function LanguageSwitcher() {
 
   // 현재 활성화된 언어인지 확인하는 헬퍼 함수
   const isActive = (langCode: string) => {
-    // 1. 블로그 포스트 경로 확인
-    const postPathRegex = /^\/posts\/(ko|en|ja|zh|vi)\//;
-    const postMatch = pathname.match(postPathRegex);
-    if (postMatch) {
-      return postMatch[1] === langCode;
+    // [Antigravity Rules] 경로 기반 언어 판별 로직 강화
+    // pathname: /ko/..., /en/..., /posts/ko/..., / (default ko)
+    
+    // 1. 경로를 '/'로 분리하여 분석
+    const pathParts = pathname.split('/');
+    // pathParts[0]은 빈 문자열, pathParts[1]이 첫 번째 세그먼트 (언어 코드 또는 posts 등)
+    const firstSegment = pathParts[1] || '';
+
+    // 2. /posts/ko/... 형태 처리
+    if (firstSegment === 'posts' && pathParts.length > 2) {
+      return pathParts[2] === langCode;
     }
 
-    if (langCode === 'ko') {
-      // ko는 경로에 (en|ja|zh|vi)가 없으면 활성
-      return !pathname.match(/^\/(en|ja|zh|vi)(\/|$)/);
+    // 3. /ko, /en 등 언어 코드로 시작하는 경우
+    if (['ko', 'en', 'ja', 'zh', 'vi'].includes(firstSegment)) {
+      return firstSegment === langCode;
     }
-    // 그 외 언어는 경로 시작이 해당 언어여야 함
-    return pathname.startsWith(`/${langCode}/`) || pathname === `/${langCode}`;
+
+    // 4. 언어 코드가 없는 경우 (기본 언어: ko)
+    // 예: /, /about, /tags (기본 언어 ko로 가정)
+    return langCode === 'ko';
   };
 
   return (

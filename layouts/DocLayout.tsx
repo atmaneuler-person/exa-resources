@@ -23,7 +23,7 @@ export default function DocLayout({ content, allDocPosts, toc, children }: DocLa
     <div className="flex flex-col md:flex-row max-w-screen-2xl mx-auto w-full min-h-screen pt-32">
       <ScrollTop />
       {/* LEFT SIDEBAR: Navigation */}
-      <aside className="hidden md:block w-64 lg:w-72 flex-shrink-0 border-r border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/20 p-8 pt-16 md:h-[calc(100vh-64px)] md:sticky md:top-32 overflow-y-auto">
+      <aside className="hidden md:block w-64 lg:w-72 flex-shrink-0 border-r border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/20 p-8 pt-8 h-[calc(100vh-64px)] sticky top-24 self-start overflow-y-auto">
         <h3 className="font-bold text-[10px] mb-6 uppercase tracking-[0.2em] text-gray-400 flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-orange-600"></span>
           RESOURCES
@@ -32,10 +32,11 @@ export default function DocLayout({ content, allDocPosts, toc, children }: DocLa
         <nav className="space-y-1">
           {sortedPosts.map((post) => {
             const isActive = content?.path === post.path;
+            const fullPath = post.path.startsWith('/') ? post.path : `/${post.path}`;
             return (
               <Link 
                 key={post.path} 
-                href={`/${post.path}`}
+                href={fullPath}
                 className={`block px-4 py-2 text-sm font-bold transition-all rounded-lg ${
                   isActive 
                     ? 'bg-orange-600 text-white shadow-lg shadow-orange-900/20 translate-x-1' 
@@ -50,7 +51,7 @@ export default function DocLayout({ content, allDocPosts, toc, children }: DocLa
       </aside>
 
       {/* MAIN CONTENT AREA */}
-      <main className="flex-1 p-8 md:p-12 lg:p-16 bg-white dark:bg-gray-950">
+      <main className="flex-1 p-8 md:p-12 lg:p-16 bg-white dark:bg-gray-950 min-h-screen">
         <div className="max-w-4xl mx-auto xl:mr-auto xl:ml-0">
           {content && (
              <header className="mb-12 pb-8 border-b border-gray-100 dark:border-white/5">
@@ -81,7 +82,7 @@ export default function DocLayout({ content, allDocPosts, toc, children }: DocLa
 
       {/* RIGHT SIDEBAR: Table of Contents */}
       {toc && toc.length > 0 && (
-        <aside className="hidden xl:block w-64 flex-shrink-0 p-8 pt-16 md:h-[calc(100vh-64px)] md:sticky md:top-32 overflow-y-auto">
+        <aside className="hidden xl:block w-64 flex-shrink-0 p-8 pt-8 h-[calc(100vh-64px)] sticky top-24 self-start overflow-y-auto">
           <h3 className="font-bold text-[10px] mb-6 uppercase tracking-[0.2em] text-gray-400">
             JUMP TO SECTION
           </h3>
