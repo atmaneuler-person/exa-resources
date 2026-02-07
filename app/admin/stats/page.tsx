@@ -101,21 +101,31 @@ export default function AdminStatsPage() {
             <p className="text-xs text-gray-500 mt-0.5 font-medium">Insights and analytics for the last {period === 'all' ? 'total' : period}</p>
           </div>
           
-          <div className="flex items-center gap-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-1 rounded-lg">
-             {['all', 'today', 'week', 'month'].map((p) => (
-               <button
-                 key={p}
-                 onClick={() => setPeriod(p)}
-                 className={clsx(
-                   "px-3 py-1 text-[10px] font-bold uppercase rounded-md transition-all",
-                   period === p 
-                    ? "bg-orange-600 text-white shadow-sm" 
-                    : "text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800"
-                 )}
-               >
-                 {p}
-               </button>
-             ))}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => router.push('/admin/comments')}
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-colors"
+            >
+              <MessageSquare size={14} />
+              댓글 관리
+            </button>
+            
+            <div className="flex items-center gap-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-1 rounded-lg">
+               {['all', 'today', 'week', 'month'].map((p) => (
+                 <button
+                   key={p}
+                   onClick={() => setPeriod(p)}
+                   className={clsx(
+                     "px-3 py-1 text-[10px] font-bold uppercase rounded-md transition-all",
+                     period === p 
+                      ? "bg-orange-600 text-white shadow-sm" 
+                      : "text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800"
+                   )}
+                 >
+                   {p}
+                 </button>
+               ))}
+            </div>
           </div>
         </div>
 
