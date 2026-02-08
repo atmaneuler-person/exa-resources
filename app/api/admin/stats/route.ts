@@ -100,7 +100,6 @@ export async function GET(req: NextRequest) {
       _count: { _all: true },
       orderBy: { _count: { country: 'desc' } },
       where: {
-        country: { not: null },
         // @ts-ignore
         createdAt: startDate ? { gte: startDate } : undefined
       },
@@ -118,7 +117,6 @@ export async function GET(req: NextRequest) {
       _count: { _all: true },
       orderBy: { _count: { referrer: 'desc' } },
       where: {
-        referrer: { not: null },
         // @ts-ignore
         createdAt: startDate ? { gte: startDate } : undefined
       },
@@ -136,7 +134,6 @@ export async function GET(req: NextRequest) {
       by: ['device'],
       _count: { _all: true },
       where: {
-        device: { not: null },
         // @ts-ignore
         createdAt: startDate ? { gte: startDate } : undefined
       },
