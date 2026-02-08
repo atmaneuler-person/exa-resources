@@ -590,19 +590,22 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
                     initial={{ y: 100, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     transition={{ duration: 1, delay: 0.3 }}
-                    animate={{ y: [0, -20, 0] }}
-                    // @ts-ignore
-                    transition={{ 
-                        y: { repeat: Infinity, duration: 6, ease: "easeInOut" }
-                    }}
                     className="relative z-10 w-[90%] md:w-[70%] aspect-[4/3] max-w-5xl"
                 >
-                    <Image 
-                        src="/static/images/iso_dashboard.png" 
-                        alt="Isometric Dashboard Interface" 
-                        fill
-                        className="object-contain drop-shadow-[0_20px_50px_rgba(59,130,246,0.5)]"
-                    />
+                    <motion.div
+                        animate={{ y: [0, -20, 0] }}
+                        transition={{ 
+                            y: { repeat: Infinity, duration: 6, ease: "easeInOut" }
+                        }}
+                        className="w-full h-full relative"
+                    >
+                        <Image 
+                            src="/static/images/iso_dashboard.png" 
+                            alt="Isometric Dashboard Interface" 
+                            fill
+                            className="object-contain drop-shadow-[0_20px_50px_rgba(59,130,246,0.5)]"
+                        />
+
                     
                     {/* Floating Hotspots on Iso Dashboard */}
                     <div className="absolute top-[30%] left-[20%] z-20">
@@ -631,6 +634,7 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
                         </div>
                     </div>
 
+                </motion.div>
                 </motion.div>
 
                 {/* Layer 3: Holographic Atmosphere (Overlay) */}
