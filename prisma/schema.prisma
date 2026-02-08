@@ -56,4 +56,9 @@ model AnalyticsEvent {
   isBot       Boolean  @default(false)
   anonymousId String?  // Hashed IP or session ID for uniqueness
   createdAt   DateTime @default(now())
+  
+  // Enhanced Tracking
+  country     String?
+  referrer    String?
+  device      String? // desktop, mobile, tablet
 }

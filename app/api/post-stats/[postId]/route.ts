@@ -34,12 +34,23 @@ export async function GET(
       });
     }
 
-    // NEW: Log granular event for time-period tracking
+    // Device Detection
+    let device = 'desktop';
+    if (/mobile/i.test(userAgent)) device = 'mobile';
+    if (/tablet|ipad/i.test(userAgent)) device = 'tablet';
+
+    const referrer = req.headers.get('referer') || null;
+    const country = req.headers.get('x-vercel-ip-country') || null;
+
+    // NEW: Log granular event for time-period tracking with enhanced metadata
     await prisma.analyticsEvent.create({
       data: {
         type: 'VIEW',
         postId,
-        isBot: isABot
+        isBot: isABot,
+        device,
+        referrer,
+        country
       }
     });
 
@@ -65,12 +76,24 @@ export async function POST(
         update: { likes: { increment: 1 } },
       });
 
+      // Device Detection for Likes
+      const userAgent = req.headers.get('user-agent') || '';
+      let device = 'desktop';
+      if (/mobile/i.test(userAgent)) device = 'mobile';
+      if (/tablet|ipad/i.test(userAgent)) device = 'tablet';
+
+      const referrer = req.headers.get('referer') || null;
+      const country = req.headers.get('x-vercel-ip-country') || null;
+
       // Log granular event
       await prisma.analyticsEvent.create({
         data: {
           type: 'LIKE',
           postId,
-          isBot: false // Likes are assumed human here
+          isBot: false, // Likes are assumed human here
+          device,
+          referrer,
+          country
         }
       });
 
