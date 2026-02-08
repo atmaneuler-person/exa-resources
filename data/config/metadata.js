@@ -6,7 +6,7 @@ const metadata = {
   businessName: 'EXA Enterprise',
   siteUrl: 'https://www.atmaneuler.com',
   siteRepo: '',
-  socialBanner: '/static/images/home-banner.png',
+  socialBanner: '/static/images/exa-dashboard.png',
   supportEmail: '',
   email: '',
   twitter: '',
