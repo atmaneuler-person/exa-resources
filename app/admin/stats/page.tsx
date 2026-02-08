@@ -223,24 +223,26 @@ export default function AdminStatsPage() {
               <Globe size={14} className="mr-2 opacity-70"/> Top Countries
             </h2>
             <div className="space-y-4">
-              {dbStats?.topCountries?.map((item: any, i: number) => {
-                const max = dbStats?.topCountries?.[0]?.count || 1;
-                const percent = Math.round((item.count / max) * 100);
-                return (
-                  <div key={i} className="relative">
-                    <div className="flex justify-between text-xs mb-1 font-medium">
-                      <span className="flex items-center gap-2">
-                        <span className="text-gray-400 font-mono text-[10px]">#{i+1}</span>
-                        {item.country === 'Unknown' ? '🏳️ Unknown' : item.country}
-                      </span>
-                      <span className="text-gray-600 dark:text-gray-400">{item.count}</span>
+              {dbStats?.topCountries?.length > 0 ? (
+                dbStats.topCountries.map((item: any, i: number) => {
+                  const max = dbStats.topCountries[0]?.count || 1;
+                  const percent = Math.round((item.count / max) * 100);
+                  return (
+                    <div key={i} className="relative">
+                      <div className="flex justify-between text-xs mb-1 font-medium">
+                        <span className="flex items-center gap-2">
+                          <span className="text-gray-400 font-mono text-[10px]">#{i+1}</span>
+                          {item.country === 'Unknown' ? '🏳️ Unknown' : item.country}
+                        </span>
+                        <span className="text-gray-600 dark:text-gray-400">{item.count}</span>
+                      </div>
+                      <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-1.5 overflow-hidden">
+                        <div className="bg-blue-500 h-1.5 rounded-full" style={{ width: `${percent}%` }}></div>
+                      </div>
                     </div>
-                    <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-1.5 overflow-hidden">
-                      <div className="bg-blue-500 h-1.5 rounded-full" style={{ width: `${percent}%` }}></div>
-                    </div>
-                  </div>
-                );
-              }) || (
+                  );
+                })
+              ) : (
                 <div className="text-[10px] text-gray-400 italic py-4 text-center">No country data yet.</div>
               )}
             </div>
@@ -252,23 +254,25 @@ export default function AdminStatsPage() {
               <ArrowUpRight size={14} className="mr-2 opacity-70"/> Top Referrers
             </h2>
             <div className="space-y-4">
-              {dbStats?.topReferrers?.map((item: any, i: number) => {
-                const max = dbStats?.topReferrers?.[0]?.count || 1;
-                const percent = Math.round((item.count / max) * 100);
-                return (
-                  <div key={i} className="relative">
-                    <div className="flex justify-between text-xs mb-1 font-medium">
-                      <span className="truncate max-w-[200px]" title={item.referrer}>
-                         {item.referrer.replace('https://', '').replace('http://', '').split('/')[0] || 'Direct'}
-                      </span>
-                      <span className="text-gray-600 dark:text-gray-400">{item.count}</span>
+              {dbStats?.topReferrers?.length > 0 ? (
+                dbStats.topReferrers.map((item: any, i: number) => {
+                  const max = dbStats.topReferrers[0]?.count || 1;
+                  const percent = Math.round((item.count / max) * 100);
+                  return (
+                    <div key={i} className="relative">
+                      <div className="flex justify-between text-xs mb-1 font-medium">
+                        <span className="truncate max-w-[200px]" title={item.referrer}>
+                           {item.referrer.replace('https://', '').replace('http://', '').split('/')[0] || 'Direct'}
+                        </span>
+                        <span className="text-gray-600 dark:text-gray-400">{item.count}</span>
+                      </div>
+                      <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-1.5 overflow-hidden">
+                        <div className="bg-green-500 h-1.5 rounded-full" style={{ width: `${percent}%` }}></div>
+                      </div>
                     </div>
-                    <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-1.5 overflow-hidden">
-                      <div className="bg-green-500 h-1.5 rounded-full" style={{ width: `${percent}%` }}></div>
-                    </div>
-                  </div>
-                );
-              }) || (
+                  );
+                })
+              ) : (
                 <div className="text-[10px] text-gray-400 italic py-4 text-center">No referrer data yet.</div>
               )}
             </div>
@@ -280,23 +284,25 @@ export default function AdminStatsPage() {
           <div className="bg-white dark:bg-gray-900 p-5 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm">
             <h2 className="text-sm font-bold mb-4 flex items-center opacity-70"><Bookmark size={14} className="mr-2"/> Popular Content</h2>
             <div className="space-y-3">
-              {dbStats?.topPosts?.map((stat: any, i: number) => {
-                const post = allBlogs.find(b => b.path === stat.postId || b._raw.flattenedPath === stat.postId);
-                return (
-                  <div key={i} className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                    <div className="flex items-center gap-3">
-                      <span className="text-xs font-bold text-gray-300">#0{i+1}</span>
-                      <p className="text-xs font-semibold text-gray-600 dark:text-gray-300 truncate max-w-[200px]">
-                        {post?.title || stat.postId}
-                      </p>
+              {dbStats?.topPosts?.length > 0 ? (
+                dbStats.topPosts.map((stat: any, i: number) => {
+                  const post = allBlogs.find(b => b.path === stat.postId || b._raw.flattenedPath === stat.postId);
+                  return (
+                    <div key={i} className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs font-bold text-gray-300">#0{i+1}</span>
+                        <p className="text-xs font-semibold text-gray-600 dark:text-gray-300 truncate max-w-[200px]">
+                          {post?.title || stat.postId}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-[10px] font-bold">{stat.views.toLocaleString()}</p>
+                        <p className="text-[8px] uppercase text-gray-400 font-bold">{stat.likes || 0} likes</p>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-[10px] font-bold">{stat.views.toLocaleString()}</p>
-                      <p className="text-[8px] uppercase text-gray-400 font-bold">{stat.likes || 0} likes</p>
-                    </div>
-                  </div>
-                );
-              }) || (
+                  );
+                })
+              ) : (
                 <div className="text-[10px] text-gray-400 italic py-4 text-center">No popular content data yet.</div>
               )}
             </div>
@@ -305,23 +311,25 @@ export default function AdminStatsPage() {
           <div className="bg-white dark:bg-gray-900 p-5 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm">
             <h2 className="text-sm font-bold mb-4 flex items-center opacity-70"><MessageSquare size={14} className="mr-2"/> Recent Activity</h2>
             <div className="space-y-4">
-              {dbStats?.recentComments?.map((com: any, i: number) => (
-                <div key={i} className="flex gap-3">
-                  <div className="w-7 h-7 bg-orange-100 dark:bg-orange-900/40 rounded-full flex items-center justify-center text-orange-600 flex-shrink-0">
-                    <Users size={14} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex justify-between">
-                      <p className="text-[10px] font-bold text-gray-900 dark:text-gray-100 truncate">{com.author}</p>
-                      <span className="text-[9px] text-gray-400 font-medium">
-                        {new Date(com.createdAt).toLocaleDateString()}
-                      </span>
+              {dbStats?.recentComments?.length > 0 ? (
+                dbStats.recentComments.map((com: any, i: number) => (
+                  <div key={i} className="flex gap-3">
+                    <div className="w-7 h-7 bg-orange-100 dark:bg-orange-900/40 rounded-full flex items-center justify-center text-orange-600 flex-shrink-0">
+                      <Users size={14} />
                     </div>
-                    <p className="text-[10px] text-gray-500 italic truncate mt-0.5">"{com.content}"</p>
-                    <p className="text-[8px] font-bold text-blue-500 uppercase mt-1 truncate">on {com.postId}</p>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex justify-between">
+                        <p className="text-[10px] font-bold text-gray-900 dark:text-gray-100 truncate">{com.author}</p>
+                        <span className="text-[9px] text-gray-400 font-medium">
+                          {new Date(com.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <p className="text-[10px] text-gray-500 italic truncate mt-0.5">"{com.content}"</p>
+                      <p className="text-[8px] font-bold text-blue-500 uppercase mt-1 truncate">on {com.postId}</p>
+                    </div>
                   </div>
-                </div>
-              )) || (
+                ))
+              ) : (
                 <div className="text-[10px] text-gray-400 italic py-4 text-center">No recent comments</div>
               )}
             </div>
