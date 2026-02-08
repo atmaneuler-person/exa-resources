@@ -4,7 +4,7 @@ const metadata = {
   domain: 'resource.exaeuler.com',
   logoTitle: '',
   businessName: 'EXA Enterprise',
-  siteUrl: 'https://resource.exaeuler.com',
+  siteUrl: 'https://www.atmaneuler.com',
   siteRepo: '',
   socialBanner: '/static/images/home-banner.png',
   supportEmail: '',
