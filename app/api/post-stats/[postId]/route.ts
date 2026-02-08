@@ -43,6 +43,7 @@ export async function GET(
     const country = req.headers.get('x-vercel-ip-country') || null;
 
     // NEW: Log granular event for time-period tracking with enhanced metadata
+    // @ts-ignore
     await prisma.analyticsEvent.create({
       data: {
         type: 'VIEW',
@@ -86,6 +87,7 @@ export async function POST(
       const country = req.headers.get('x-vercel-ip-country') || null;
 
       // Log granular event
+      // @ts-ignore
       await prisma.analyticsEvent.create({
         data: {
           type: 'LIKE',

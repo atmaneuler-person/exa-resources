@@ -43,8 +43,8 @@ export async function GET(req: NextRequest) {
       where: startDate ? { createdAt: { gte: startDate } } : undefined
     });
 
-    // 2. Real-time Visitors (Active in last 5 minutes)
-    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+    // 2. Real-time Visitors (Active in last 30 minutes)
+    const fiveMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
     const liveVisitors = await prisma.analyticsEvent.count({
       where: {
         type: 'VIEW',
