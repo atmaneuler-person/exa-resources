@@ -6,7 +6,7 @@ const metadata = {
   businessName: 'EXA Enterprise',
   siteUrl: 'https://resource.exaeuler.com',
   siteRepo: '',
-  socialBanner: '/api/og',
+  socialBanner: '/static/images/home-banner.png',
   supportEmail: '',
   email: '',
   twitter: '',
