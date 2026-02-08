@@ -200,6 +200,66 @@ export default function AdminStatsPage() {
           </div>
         </div>
 
+        {/* Top Countries & Referrers Row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          {/* Top Countries */}
+          <div className="bg-white dark:bg-gray-900 p-5 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm">
+            <h2 className="text-sm font-bold mb-4 flex items-center text-gray-700 dark:text-gray-300">
+              <Globe size={14} className="mr-2 opacity-70"/> Top Countries
+            </h2>
+            <div className="space-y-4">
+              {dbStats?.topCountries?.map((item: any, i: number) => {
+                const max = dbStats?.topCountries?.[0]?.count || 1;
+                const percent = Math.round((item.count / max) * 100);
+                return (
+                  <div key={i} className="relative">
+                    <div className="flex justify-between text-xs mb-1 font-medium">
+                      <span className="flex items-center gap-2">
+                        <span className="text-gray-400 font-mono text-[10px]">#{i+1}</span>
+                        {item.country === 'Unknown' ? '🏳️ Unknown' : item.country}
+                      </span>
+                      <span className="text-gray-600 dark:text-gray-400">{item.count}</span>
+                    </div>
+                    <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-1.5 overflow-hidden">
+                      <div className="bg-blue-500 h-1.5 rounded-full" style={{ width: `${percent}%` }}></div>
+                    </div>
+                  </div>
+                );
+              }) || (
+                <div className="text-[10px] text-gray-400 italic py-4 text-center">No country data yet.</div>
+              )}
+            </div>
+          </div>
+
+          {/* Top Referrers */}
+          <div className="bg-white dark:bg-gray-900 p-5 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm">
+            <h2 className="text-sm font-bold mb-4 flex items-center text-gray-700 dark:text-gray-300">
+              <ArrowUpRight size={14} className="mr-2 opacity-70"/> Top Referrers
+            </h2>
+            <div className="space-y-4">
+              {dbStats?.topReferrers?.map((item: any, i: number) => {
+                const max = dbStats?.topReferrers?.[0]?.count || 1;
+                const percent = Math.round((item.count / max) * 100);
+                return (
+                  <div key={i} className="relative">
+                    <div className="flex justify-between text-xs mb-1 font-medium">
+                      <span className="truncate max-w-[200px]" title={item.referrer}>
+                         {item.referrer.replace('https://', '').replace('http://', '').split('/')[0] || 'Direct'}
+                      </span>
+                      <span className="text-gray-600 dark:text-gray-400">{item.count}</span>
+                    </div>
+                    <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-1.5 overflow-hidden">
+                      <div className="bg-green-500 h-1.5 rounded-full" style={{ width: `${percent}%` }}></div>
+                    </div>
+                  </div>
+                );
+              }) || (
+                <div className="text-[10px] text-gray-400 italic py-4 text-center">No referrer data yet.</div>
+              )}
+            </div>
+          </div>
+        </div>
+
         {/* Contents & Comments Row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white dark:bg-gray-900 p-5 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm">

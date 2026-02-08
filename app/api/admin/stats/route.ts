@@ -93,6 +93,43 @@ export async function GET(req: NextRequest) {
       }
     });
 
+    // 6. Top Countries & Referrers
+    // @ts-ignore
+    const topCountriesGroup = await prisma.analyticsEvent.groupBy({
+      by: ['country'],
+      _count: { _all: true },
+      orderBy: { _count: { country: 'desc' } },
+      where: {
+        country: { not: null },
+        // @ts-ignore
+        createdAt: startDate ? { gte: startDate } : undefined
+      },
+      take: 5,
+    });
+    // @ts-ignore
+    const topCountries = topCountriesGroup.map((g: any) => ({ 
+      country: g.country || 'Unknown', 
+      count: g._count._all 
+    }));
+
+    // @ts-ignore
+    const topReferrersGroup = await prisma.analyticsEvent.groupBy({
+      by: ['referrer'],
+      _count: { _all: true },
+      orderBy: { _count: { referrer: 'desc' } },
+      where: {
+        referrer: { not: null },
+        // @ts-ignore
+        createdAt: startDate ? { gte: startDate } : undefined
+      },
+      take: 5,
+    });
+    // @ts-ignore
+    const topReferrers = topReferrersGroup.map((g: any) => ({
+      referrer: g.referrer || 'Direct',
+      count: g._count._all
+    }));
+
     return NextResponse.json({
       totalComments,
       totalLikes,
@@ -102,6 +139,8 @@ export async function GET(req: NextRequest) {
       recentComments,
       topPosts,
       dailyViews,
+      topCountries,
+      topReferrers,
       period
     });
   } catch (error: any) {
