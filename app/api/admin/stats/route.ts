@@ -130,6 +130,24 @@ export async function GET(req: NextRequest) {
       count: g._count._all
     }));
 
+    // 8. Top Devices
+    // @ts-ignore
+    const topDevicesGroup = await prisma.analyticsEvent.groupBy({
+      by: ['device'],
+      _count: { _all: true },
+      where: {
+        device: { not: null },
+        // @ts-ignore
+        createdAt: startDate ? { gte: startDate } : undefined
+      },
+    });
+
+    // @ts-ignore
+    const topDevices = topDevicesGroup.map((g: any) => ({
+      name: (g.device || 'desktop').charAt(0).toUpperCase() + (g.device || 'desktop').slice(1),
+      value: g._count._all
+    }));
+
     return NextResponse.json({
       totalComments,
       totalLikes,
@@ -141,6 +159,7 @@ export async function GET(req: NextRequest) {
       dailyViews,
       topCountries,
       topReferrers,
+      topDevices,
       period
     });
   } catch (error: any) {

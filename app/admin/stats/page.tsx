@@ -147,6 +147,8 @@ export default function AdminStatsPage() {
           <StatCard title="Likes" value={dbStats?.totalLikes?.toLocaleString() || "0"} icon={Heart} />
         </div>
 
+
+
         {/* Main Charts Row */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           <div className="lg:col-span-2 bg-white dark:bg-gray-900 p-5 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm relative">
@@ -180,22 +182,35 @@ export default function AdminStatsPage() {
           <div className="bg-white dark:bg-gray-900 p-5 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm">
             <h2 className="text-sm font-bold mb-4 text-gray-700 dark:text-gray-300">Device Source</h2>
             <div className="h-[140px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie data={deviceData} cx="50%" cy="50%" innerRadius={40} outerRadius={55} paddingAngle={8} dataKey="value">
-                    {deviceData.map((e, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="space-y-2 mt-4">
-              {deviceData.map((d, i) => (
-                <div key={i} className="flex justify-between items-center text-[10px] font-semibold">
-                  <div className="flex items-center"><div className="w-2 h-2 rounded-full mr-2" style={{backgroundColor: COLORS[i]}} /> {d.name}</div>
-                  <span>{d.value}%</span>
-                </div>
-              ))}
+              {(() => {
+                 const currentDeviceData = dbStats?.topDevices && dbStats.topDevices.length > 0
+                    ? dbStats.topDevices
+                    : [{ name: 'Collecting...', value: 1 }];
+                 
+                 const total = currentDeviceData.reduce((acc: number, curr: any) => acc + curr.value, 0);
+
+                 return (
+                  <>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                        <Pie data={currentDeviceData} cx="50%" cy="50%" innerRadius={40} outerRadius={55} paddingAngle={2} dataKey="value">
+                            {currentDeviceData.map((e: any, i: number) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                        </Pie>
+                        <Tooltip />
+                        </PieChart>
+                    </ResponsiveContainer>
+                    
+                    <div className="space-y-2 mt-4">
+                        {dbStats?.topDevices?.map((d: any, i: number) => (
+                            <div key={i} className="flex justify-between items-center text-[10px] font-semibold">
+                            <div className="flex items-center"><div className="w-2 h-2 rounded-full mr-2" style={{backgroundColor: COLORS[i % COLORS.length]}} /> {d.name}</div>
+                            <span>{Math.round((d.value / total) * 100)}%</span>
+                            </div>
+                        )) || <div className="text-[10px] text-gray-400 text-center py-2">Collecting device data...</div>}
+                    </div>
+                  </>
+                 );
+              })()}
             </div>
           </div>
         </div>
