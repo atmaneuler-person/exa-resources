@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/shared/ui/button';
@@ -70,7 +70,11 @@ const translations = {
   }
 };
 
-export default function LoginPage() {
+
+
+// ... (translations object remains the same)
+
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const lang = searchParams.get('lang') || 'en';
@@ -175,5 +179,13 @@ export default function LoginPage() {
       </main>
       <Footer />
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }
