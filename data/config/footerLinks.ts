@@ -29,6 +29,7 @@ export const footerLinks: Array<{
       { href: '/pricing', title: 'Pricing' },
       { href: '/terms', title: 'Terms' },
       { href: '/privacy', title: 'Privacy' },
+      { href: '/refund', title: 'Refund' },
     ],
   },
 ];

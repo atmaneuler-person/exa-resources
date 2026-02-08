@@ -41,7 +41,7 @@ export const mainPageData: Record<string, MainPageData> = {
       subtitle: "Sales as a Rigorous Science.",
       cardTitle: "Convert Sales Ambiguity \ninto Pure Certainty.",
       cardDesc: "EXAWin leverages Recursive Bayesian Inference to replace intuition with a mathematical alchemy of Information Entropy and Decision Impedance.",
-      button: "Initiate Beta",
+      button: "Get Started",
       feature1: "Global Strategic Access",
       feature2: "Analyze Case Studies"
     },
@@ -95,7 +95,7 @@ export const mainPageData: Record<string, MainPageData> = {
       subtitle: "Sales is now Science.",
       cardTitle: "EXA와 함께라면 영업은 이제 정교한 \n과학이 됩니다.",
       cardDesc: "NSBI, 베타분포, Log 가중치, 정보엔트로피, 의사결정 임피던스의 정교한 수학적 연금술의 지능형 추론엔진",
-      button: "Initiate Beta",
+      button: "Get Started",
       feature1: "Global Access",
       feature2: "Analyze Case Studies"
     },
@@ -150,7 +150,7 @@ export const mainPageData: Record<string, MainPageData> = {
       subtitle: "Bán hàng là một Khoa học Nghiêm ngặt.",
       cardTitle: "Biến sự mơ hồ trong bán hàng \nthành sự Chắc chắn tuyệt đối.",
       cardDesc: "EXAWin tận dụng Suy luận Bayesian Đệ quy để thay thế trực giác bằng một 'giả kim thuật' toán học của Entropy Thông tin và Trở kháng Quyết định.",
-      button: "Initiate Beta",
+      button: "Get Started",
       feature1: "Truy cập Chiến lược Toàn cầu",
       feature2: "Analyze Case Studies"
     },
@@ -204,7 +204,7 @@ export const mainPageData: Record<string, MainPageData> = {
       subtitle: "営業は厳密な科学へ。",
       cardTitle: "営業の曖昧さを\n純粋な確信へと変換。",
       cardDesc: "EXAWinは、再帰的ベイズ推論を活用し、直感を情報エントロピーと意思決定インピーダンスの数学的錬金術へと置き換えます。",
-      button: "Initiate Beta",
+      button: "Get Started",
       feature1: "グローバル戦略アクセス",
       feature2: "Analyze Case Studies"
     },
@@ -258,7 +258,7 @@ export const mainPageData: Record<string, MainPageData> = {
       subtitle: "销售现已成为严谨科学。",
       cardTitle: "将销售模糊性\n转化为纯粹的确信。",
       cardDesc: "EXAWin利用递归贝叶斯推理，以信息熵和决策阻抗的数学炼金术取代直觉。",
-      button: "Initiate Beta",
+      button: "Get Started",
       feature1: "全球战略访问",
       feature2: "Analyze Case Studies"
     },

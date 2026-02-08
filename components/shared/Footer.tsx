@@ -136,7 +136,11 @@ export const Footer = ({ className }: { className?: string }) => {
             <span className="hidden md:inline text-gray-200 dark:text-gray-800">|</span>
             <span>All Rights Reserved</span>
             <span className="hidden md:inline text-gray-200 dark:text-gray-800">|</span>
-            <Link href="/privacy" className="hover:text-gray-900 dark:hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-gray-900 dark:hover:text-white transition-colors">Terms</Link>
+            <span className="text-gray-200 dark:text-gray-800">|</span>
+            <Link href="/privacy" className="hover:text-gray-900 dark:hover:text-white transition-colors">Privacy</Link>
+            <span className="text-gray-200 dark:text-gray-800">|</span>
+            <Link href="/refund" className="hover:text-gray-900 dark:hover:text-white transition-colors">Refund</Link>
           </div>
           
           <div className="flex items-center gap-6">

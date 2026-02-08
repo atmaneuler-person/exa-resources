@@ -57,6 +57,41 @@ export const Header = ({ className }: { className?: string }) => {
             }
 
             const isActive = pathname === href || (href !== `/${currentLocale}` && pathname.startsWith(href));
+            
+            // Special Case: Insert "Product" Dropdown after Home
+            if (link.title === 'Home') {
+                return (
+                    <div className="flex items-center space-x-6" key="home-group">
+                        <Link
+                            href={href}
+                            className={`font-medium transition-colors whitespace-nowrap ${
+                            isActive 
+                                ? 'text-orange-500 font-bold' 
+                                : 'text-gray-100 hover:text-orange-500'
+                            }`}
+                        >
+                            {link.title}
+                        </Link>
+                        
+                        {/* Product Dropdown */}
+                        <div className="relative group">
+                            <button className={`flex items-center font-medium transition-colors whitespace-nowrap text-gray-100 group-hover:text-orange-500 ${pathname.includes('/products') ? 'text-orange-500 font-bold' : ''}`}>
+                                Product
+                                <svg className="w-4 h-4 ml-1 transform group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                            </button>
+                            <div className="absolute left-0 mt-2 w-48 bg-gray-900 border border-gray-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-2 z-50 overflow-hidden">
+                                <Link 
+                                    href={`/${currentLocale}/products/exawin`}
+                                    className="block px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors border-l-2 border-transparent hover:border-orange-500"
+                                >
+                                    <div className="font-bold">EXAWin</div>
+                                    <div className="text-xs text-gray-500 mt-0.5">Sales Intelligence Engine</div>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
 
             return (
               <Link
@@ -137,10 +172,10 @@ export const Header = ({ className }: { className?: string }) => {
                 </button>
              ) : (
                 <Link
-                  href={`/${currentLocale}/login`}
+                  href={`/${currentLocale}/pricing`}
                   className="hidden lg:inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-gray-200 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 rounded-full transition-all hover:scale-105 active:scale-95 whitespace-nowrap"
                 >
-                  Sign In
+                  Pricing
                 </Link>
              )}
         </div>

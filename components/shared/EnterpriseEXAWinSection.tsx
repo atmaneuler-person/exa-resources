@@ -6,11 +6,17 @@ import { ExaWinKernelVisual } from './ExaWinKernelVisual';
 
 import { MainPageData } from './types';
 
+import { usePathname } from 'next/navigation';
+import { siteConfig } from '@/data/config/site.settings';
+
 interface EXAWinProps {
   textData?: MainPageData['exawin'];
 }
 
 export const EnterpriseEXAWinSection = ({ textData }: EXAWinProps) => {
+    const pathname = usePathname();
+    const currentLocale = pathname.split('/')[1] || siteConfig.defaultLocale;
+    
     // Default fallback content (English)
     const content = textData || {
         label: "Deploy Evidence-Based Sales",
@@ -18,7 +24,7 @@ export const EnterpriseEXAWinSection = ({ textData }: EXAWinProps) => {
         subtitle: "Sales is now Science.",
         cardTitle: "Transform Ambiguity \ninto Certainty.",
         cardDesc: "EXAWin replaces gut-feeling sales forecasts with Recursive Bayesian Inference.",
-        button: "Launch Beta",
+        button: "Get Started",
         feature1: "Global Access",
         feature2: "View Case Studies"
     };
@@ -68,12 +74,12 @@ export const EnterpriseEXAWinSection = ({ textData }: EXAWinProps) => {
                             
                             {/* Launch Button */}
                             <div className="mt-10 pointer-events-auto">
-                                <button className="group flex items-center gap-3 px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full font-bold text-sm tracking-wide shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                                <Link href={`/${currentLocale}/products/exawin`} className="group inline-flex items-center gap-3 px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full font-bold text-sm tracking-wide shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                                     {content.button}
                                     <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                     </svg>
-                                </button>
+                                </Link>
                             </div>
                          </div>
 

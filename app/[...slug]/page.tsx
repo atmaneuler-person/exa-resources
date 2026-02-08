@@ -105,9 +105,19 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
       return <TermsPage locale={currentLocale} />;
   }
 
+  if (subPath === 'refund') {
+      const { RefundPage } = await import('@/components/shared/pages/RefundPage');
+      return <RefundPage locale={currentLocale} />;
+  }
+
   if (subPath === 'login') {
       const { LoginPage } = await import('@/components/shared/pages/LoginPage');
       return <LoginPage locale={currentLocale} />;
+  }
+
+  if (subPath === 'products/exawin') {
+      const { ExaWinProductPage } = await import('@/components/shared/pages/ExaWinProductPage');
+      return <ExaWinProductPage params={{ locale: currentLocale }} />;
   }
 
   let isCategoryPage = false;
