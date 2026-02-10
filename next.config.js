@@ -13,6 +13,7 @@ const ContentSecurityPolicy = `
   media-src *.s3.amazonaws.com *.shipixen.com;
   connect-src *;
   font-src 'self';
+  frame-src https://www.youtube.com https://youtube.com;
 `;
 
 const securityHeaders = [
