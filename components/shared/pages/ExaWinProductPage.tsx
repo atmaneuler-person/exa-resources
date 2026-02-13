@@ -143,6 +143,33 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         hubDesc: "EXAWin's social feed is just the beginning. Integrate with EXA ERP Workspace Hub for a unified sales-operations-communication ecosystem.",
         hubModules: ["Team Chat", "Video Calls", "File Sharing", "Announcements"]
       },
+      screens: {
+        sectionLabel: "Product Screens",
+        sectionTitle: "See It",
+        sectionTitleAccent: "In Action",
+        sectionSubtitle: "Manage every sales touchpoint with Bayesian precision — and turn uncertainty into winning strategies.",
+        warRoom: {
+          label: "Activity War Room",
+          title: "Every Meeting Feeds the Engine",
+          desc: "Each sales activity — discovery calls, demos, negotiations — is recorded with full context. The Bayesian engine analyzes signals in real time, updating P(Win), Momentum, and Impedance after every interaction.",
+          checks: ["Real-time P(Win) calculation per activity", "Signal-based impact scoring", "AI-powered strategy insights"],
+          badge: "LIVE DATA"
+        },
+        editor: {
+          label: "Smart Activity Editor",
+          title: "Capture Signals, Not Just Notes",
+          desc: "The rich activity editor captures meeting context with structured data — signals observed, stage progression, and strategic action items. Every detail becomes evidence for the Bayesian engine.",
+          checks: ["Signal tagging with impact weights", "Rich text meeting notes", "Automatic stage value calculation"],
+          badge: "SIGNAL DETECTION"
+        },
+        config: {
+          label: "Project Configuration",
+          title: "Fine-Tune Your Bayesian Priors",
+          desc: "Each project gets its own Bayesian configuration — custom priors (α, β), silence penalties, and stage weights. Tune the engine to match your industry and deal complexity.",
+          checks: ["Per-project Bayesian prior tuning", "Silence penalty configuration", "Stage & signal impact customization"],
+          badge: "CONFIGURABLE"
+        }
+      },
       insight: {
         label: "EXA Insight",
         title: "Help That Understands Context",
@@ -278,6 +305,33 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         hubBadge: "Coming Soon",
         hubDesc: "EXAWin의 소셜 피드는 시작일 뿐입니다. EXA Workspace Hub와 통합되어 영업-운영-커뮤니케이션이 하나의 생태계로 연결됩니다.",
         hubModules: ["팀 채팅", "영상 통화", "파일 공유", "공지사항"]
+      },
+      screens: {
+        sectionLabel: "Product Screens",
+        sectionTitle: "See It",
+        sectionTitleAccent: "In Action",
+        sectionSubtitle: "베이지안 분석으로 모든 영업 터치포인트를 정밀하게 관리하고, 불확실성을 승리 전략으로 전환합니다.",
+        warRoom: {
+          label: "Activity War Room",
+          title: "모든 미팅이 엔진을 움직입니다",
+          desc: "모든 영업 활동 — 발굴 콜, 데모, 협상 — 이 전체 맥락과 함께 기록됩니다. 베이지안 엔진이 실시간으로 시그널을 분석하여 매 상호작용 후 P(Win), 모멘텀, 임피던스를 업데이트합니다.",
+          checks: ["활동별 실시간 P(Win) 계산", "시그널 기반 임팩트 스코어링", "AI 전략 인사이트"],
+          badge: "실시간 데이터"
+        },
+        editor: {
+          label: "스마트 액티비티 에디터",
+          title: "메모가 아닌, 시그널을 포착하세요",
+          desc: "리치 액티비티 에디터가 구조화된 데이터로 미팅 맥락을 포착합니다 — 관찰된 시그널, 단계 진행, 전략적 액션 아이템. 모든 디테일이 베이지안 엔진의 증거가 됩니다.",
+          checks: ["임팩트 가중치 기반 시그널 태깅", "리치 텍스트 미팅 노트", "자동 단계 가치 계산"],
+          badge: "시그널 감지"
+        },
+        config: {
+          label: "프로젝트 설정",
+          title: "베이지안 사전확률을 미세 조정하세요",
+          desc: "각 프로젝트는 고유한 베이지안 설정을 가집니다 — 커스텀 사전확률(α, β), 침묵 페널티, 단계 가중치. 업종과 딜 복잡도에 맞게 엔진을 조율하세요.",
+          checks: ["프로젝트별 베이지안 사전확률 튜닝", "침묵 페널티 설정", "단계 및 시그널 임팩트 커스터마이징"],
+          badge: "설정 가능"
+        }
       },
       insight: {
         label: "EXA Insight",
@@ -415,6 +469,33 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         hubDesc: "EXAWinのソーシャルフィードは始まりに過ぎません。EXA Workspace Hubと統合し、営業・運営・コミュニケーションが一つのエコシステムに。",
         hubModules: ["チームチャット", "ビデオ通話", "ファイル共有", "お知らせ"]
       },
+      screens: {
+        sectionLabel: "Product Screens",
+        sectionTitle: "See It",
+        sectionTitleAccent: "In Action",
+        sectionSubtitle: "ベイジアン分析ですべての営業タッチポイントを精密に管理し、不確実性を勝利戦略に変えます。",
+        warRoom: {
+          label: "Activity War Room",
+          title: "すべてのミーティングがエンジンを動かす",
+          desc: "すべての営業活動 — 発掘コール、デモ、交渉 — が完全なコンテキストとともに記録されます。ベイジアンエンジンがリアルタイムでシグナルを分析し、各インタラクション後にP(Win)、モメンタム、インピーダンスを更新します。",
+          checks: ["活動ごとのリアルタイムP(Win)計算", "シグナルベースのインパクトスコアリング", "AI戦略インサイト"],
+          badge: "ライブデータ"
+        },
+        editor: {
+          label: "スマートアクティビティエディタ",
+          title: "メモではなく、シグナルをキャプチャ",
+          desc: "リッチアクティビティエディタが構造化データでミーティングコンテキストをキャプチャ — 観察されたシグナル、ステージ進行、戦略的アクションアイテム。すべてのディテールがベイジアンエンジンの証拠になります。",
+          checks: ["インパクト加重シグナルタギング", "リッチテキストミーティングノート", "自動ステージ価値計算"],
+          badge: "シグナル検出"
+        },
+        config: {
+          label: "プロジェクト設定",
+          title: "ベイジアン事前確率を微調整",
+          desc: "各プロジェクトは独自のベイジアン設定を持ちます — カスタム事前確率(α, β)、サイレンスペナルティ、ステージウェイト。業界やディールの複雑さに合わせてエンジンを調整。",
+          checks: ["プロジェクトごとのベイジアン事前確率チューニング", "サイレンスペナルティ設定", "ステージ＆シグナルインパクトカスタマイズ"],
+          badge: "設定可能"
+        }
+      },
       insight: {
         label: "EXA Insight",
         title: "コンテキストを理解するヘルプ",
@@ -551,6 +632,33 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         hubDesc: "EXAWin的社交信息流只是开始。与EXA Workspace Hub整合，实现销售-运营-沟通的统一生态系统。",
         hubModules: ["团队聊天", "视频通话", "文件共享", "公告"]
       },
+      screens: {
+        sectionLabel: "Product Screens",
+        sectionTitle: "See It",
+        sectionTitleAccent: "In Action",
+        sectionSubtitle: "用贝叶斯分析精准管理每个销售触点，将不确定性转化为制胜策略。",
+        warRoom: {
+          label: "Activity War Room",
+          title: "每次会议都驱动引擎",
+          desc: "每项销售活动 — 发掘电话、演示、谈判 — 都附带完整上下文记录。贝叶斯引擎实时分析信号，在每次互动后更新P(Win)、动量和阻力。",
+          checks: ["每活动实时P(Win)计算", "基于信号的影响力评分", "AI驱动的策略洞察"],
+          badge: "实时数据"
+        },
+        editor: {
+          label: "智能活动编辑器",
+          title: "捕获信号，而非仅仅是笔记",
+          desc: "丰富的活动编辑器以结构化数据捕获会议上下文 — 观察到的信号、阶段进展和战略行动项。每个细节都成为贝叶斯引擎的证据。",
+          checks: ["带影响权重的信号标记", "富文本会议记录", "自动阶段价值计算"],
+          badge: "信号检测"
+        },
+        config: {
+          label: "项目配置",
+          title: "微调您的贝叶斯先验",
+          desc: "每个项目拥有独立的贝叶斯配置 — 自定义先验(α, β)、沉默惩罚和阶段权重。根据行业和交易复杂度调优引擎。",
+          checks: ["项目级贝叶斯先验调优", "沉默惩罚配置", "阶段和信号影响力自定义"],
+          badge: "可配置"
+        }
+      },
       insight: {
         label: "EXA Insight",
         title: "理解上下文的智能帮助",
@@ -686,6 +794,33 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         hubBadge: "Coming Soon",
         hubDesc: "Social feed của EXAWin chỉ là khởi đầu. Tích hợp với EXA Workspace Hub để thống nhất bán hàng-vận hành-giao tiếp.",
         hubModules: ["Nhắn tin nhóm", "Gọi video", "Chia sẻ tệp", "Thông báo"]
+      },
+      screens: {
+        sectionLabel: "Product Screens",
+        sectionTitle: "See It",
+        sectionTitleAccent: "In Action",
+        sectionSubtitle: "Quản lý mọi điểm tiếp xúc bán hàng với độ chính xác Bayesian — biến sự không chắc chắn thành chiến lược chiến thắng.",
+        warRoom: {
+          label: "Activity War Room",
+          title: "Mỗi cuộc họp đều nuôi dưỡng Engine",
+          desc: "Mỗi hoạt động bán hàng — cuộc gọi khám phá, demo, đàm phán — được ghi lại với đầy đủ ngữ cảnh. Engine Bayesian phân tích tín hiệu theo thời gian thực, cập nhật P(Win), Momentum và Impedance sau mỗi tương tác.",
+          checks: ["Tính P(Win) thời gian thực theo hoạt động", "Chấm điểm tác động dựa trên tín hiệu", "Phân tích chiến lược AI"],
+          badge: "Dữ liệu trực tiếp"
+        },
+        editor: {
+          label: "Trình soạn thảo hoạt động thông minh",
+          title: "Nắm bắt Tín hiệu, Không chỉ Ghi chú",
+          desc: "Trình soạn thảo hoạt động nắm bắt bối cảnh cuộc họp với dữ liệu có cấu trúc — tín hiệu quan sát được, tiến trình giai đoạn và hành động chiến lược. Mọi chi tiết đều trở thành bằng chứng cho engine Bayesian.",
+          checks: ["Gắn thẻ tín hiệu với trọng số tác động", "Ghi chú cuộc họp rich text", "Tính giá trị giai đoạn tự động"],
+          badge: "Phát hiện tín hiệu"
+        },
+        config: {
+          label: "Cấu hình Dự án",
+          title: "Tinh chỉnh Prior Bayesian của bạn",
+          desc: "Mỗi dự án có cấu hình Bayesian riêng — prior tùy chỉnh (α, β), hình phạt im lặng và trọng số giai đoạn. Điều chỉnh engine phù hợp với ngành và độ phức tạp giao dịch.",
+          checks: ["Tinh chỉnh prior Bayesian theo dự án", "Cấu hình hình phạt im lặng", "Tùy chỉnh tác động giai đoạn & tín hiệu"],
+          badge: "Có thể cấu hình"
+        }
       },
       insight: {
         label: "EXA Insight",
@@ -989,12 +1124,12 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
             viewport={{ once: true }}
             className="text-center mb-20 space-y-4"
           >
-            <span className="text-orange-600 font-bold tracking-widest text-sm uppercase">Product Screens</span>
+            <span className="text-orange-600 font-bold tracking-widest text-sm uppercase">{(t as any).screens?.sectionLabel || "Product Screens"}</span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white tracking-tight">
-              See It <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-700">In Action</span>
+              {(t as any).screens?.sectionTitle || "See It"} <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-700">{(t as any).screens?.sectionTitleAccent || "In Action"}</span>
             </h2>
             <p className="text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-              Real screenshots from the EXAWin platform — every feature designed for enterprise sales teams.
+              {(t as any).screens?.sectionSubtitle || "Real screenshots from the EXAWin platform — every feature designed for enterprise sales teams."}
             </p>
           </motion.div>
 
@@ -1011,18 +1146,18 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
               <div className="lg:col-span-2 space-y-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-xl">⚔️</span>
-                  <span className="text-orange-600 font-bold text-sm uppercase tracking-wider">Activity War Room</span>
+                  <span className="text-orange-600 font-bold text-sm uppercase tracking-wider">{(t as any).screens?.warRoom?.label || "Activity War Room"}</span>
                 </div>
                 <h3 className="text-2xl lg:text-3xl font-black text-gray-900 dark:text-white">
-                  Every Meeting Feeds the Engine
+                  {(t as any).screens?.warRoom?.title || "Every Meeting Feeds the Engine"}
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
-                  Each sales activity — discovery calls, demos, negotiations — is recorded with full context. The Bayesian engine analyzes signals in real time, updating P(Win), Momentum, and Impedance after every interaction.
+                  {(t as any).screens?.warRoom?.desc || "Each sales activity — discovery calls, demos, negotiations — is recorded with full context. The Bayesian engine analyzes signals in real time, updating P(Win), Momentum, and Impedance after every interaction."}
                 </p>
                 <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                  <li className="flex items-center gap-2"><span className="text-orange-500">✓</span> Real-time P(Win) calculation per activity</li>
-                  <li className="flex items-center gap-2"><span className="text-orange-500">✓</span> Signal-based impact scoring</li>
-                  <li className="flex items-center gap-2"><span className="text-orange-500">✓</span> AI-powered strategy insights</li>
+                  {((t as any).screens?.warRoom?.checks || ["Real-time P(Win) calculation per activity", "Signal-based impact scoring", "AI-powered strategy insights"]).map((check: string, i: number) => (
+                    <li key={i} className="flex items-center gap-2"><span className="text-orange-500">✓</span> {check}</li>
+                  ))}
                 </ul>
               </div>
               {/* Image */}
@@ -1043,7 +1178,7 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
                 </div>
                 {/* Floating badge */}
                 <div className="absolute -top-3 -right-3 bg-orange-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
-                  LIVE DATA
+                  {(t as any).screens?.warRoom?.badge || "LIVE DATA"}
                 </div>
               </motion.div>
             </motion.div>
@@ -1077,25 +1212,25 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
                 {/* Floating badge */}
                 <div className="absolute -bottom-3 -left-3 bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                  SIGNAL DETECTION
+                  {(t as any).screens?.editor?.badge || "SIGNAL DETECTION"}
                 </div>
               </motion.div>
               {/* Text */}
               <div className="lg:col-span-2 space-y-4 order-1 lg:order-2">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-xl">🎯</span>
-                  <span className="text-blue-600 font-bold text-sm uppercase tracking-wider">Smart Activity Editor</span>
+                  <span className="text-blue-600 font-bold text-sm uppercase tracking-wider">{(t as any).screens?.editor?.label || "Smart Activity Editor"}</span>
                 </div>
                 <h3 className="text-2xl lg:text-3xl font-black text-gray-900 dark:text-white">
-                  Capture Signals, Not Just Notes
+                  {(t as any).screens?.editor?.title || "Capture Signals, Not Just Notes"}
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
-                  The rich activity editor captures meeting context with structured data — signals observed, stage progression, and strategic action items. Every detail becomes evidence for the Bayesian engine.
+                  {(t as any).screens?.editor?.desc || "The rich activity editor captures meeting context with structured data — signals observed, stage progression, and strategic action items. Every detail becomes evidence for the Bayesian engine."}
                 </p>
                 <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                  <li className="flex items-center gap-2"><span className="text-blue-500">✓</span> Signal tagging with impact weights</li>
-                  <li className="flex items-center gap-2"><span className="text-blue-500">✓</span> Rich text meeting notes</li>
-                  <li className="flex items-center gap-2"><span className="text-blue-500">✓</span> Automatic stage value calculation</li>
+                  {((t as any).screens?.editor?.checks || ["Signal tagging with impact weights", "Rich text meeting notes", "Automatic stage value calculation"]).map((check: string, i: number) => (
+                    <li key={i} className="flex items-center gap-2"><span className="text-blue-500">✓</span> {check}</li>
+                  ))}
                 </ul>
               </div>
             </motion.div>
@@ -1167,18 +1302,18 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
               <div className="lg:col-span-2 space-y-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-xl">⚙️</span>
-                  <span className="text-emerald-600 font-bold text-sm uppercase tracking-wider">Project Configuration</span>
+                  <span className="text-emerald-600 font-bold text-sm uppercase tracking-wider">{(t as any).screens?.config?.label || "Project Configuration"}</span>
                 </div>
                 <h3 className="text-2xl lg:text-3xl font-black text-gray-900 dark:text-white">
-                  Fine-Tune Your Bayesian Priors
+                  {(t as any).screens?.config?.title || "Fine-Tune Your Bayesian Priors"}
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
-                  Each project gets its own Bayesian configuration — custom priors (α, β), silence penalties, and stage weights. Tune the engine to match your industry and deal complexity.
+                  {(t as any).screens?.config?.desc || "Each project gets its own Bayesian configuration — custom priors (α, β), silence penalties, and stage weights. Tune the engine to match your industry and deal complexity."}
                 </p>
                 <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                  <li className="flex items-center gap-2"><span className="text-emerald-500">✓</span> Per-project Bayesian prior tuning</li>
-                  <li className="flex items-center gap-2"><span className="text-emerald-500">✓</span> Silence penalty configuration</li>
-                  <li className="flex items-center gap-2"><span className="text-emerald-500">✓</span> Stage & signal impact customization</li>
+                  {((t as any).screens?.config?.checks || ["Per-project Bayesian prior tuning", "Silence penalty configuration", "Stage & signal impact customization"]).map((check: string, i: number) => (
+                    <li key={i} className="flex items-center gap-2"><span className="text-emerald-500">✓</span> {check}</li>
+                  ))}
                 </ul>
               </div>
               {/* Image */}
@@ -1199,7 +1334,7 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
                 </div>
                 {/* Floating badge */}
                 <div className="absolute -top-3 -right-3 bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
-                  CONFIGURABLE
+                  {(t as any).screens?.config?.badge || "CONFIGURABLE"}
                 </div>
               </motion.div>
             </motion.div>
