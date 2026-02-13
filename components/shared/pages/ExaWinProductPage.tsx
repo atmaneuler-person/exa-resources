@@ -148,6 +148,7 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         sectionTitle: "See It",
         sectionTitleAccent: "In Action",
         sectionSubtitle: "Manage every sales touchpoint with Bayesian precision — and turn uncertainty into winning strategies.",
+        reassurance: "EXA is making Bayesian accessible to everyone. No math degree required — our intelligent guide walks you through every step. It's easier than you think.",
         warRoom: {
           label: "Activity War Room",
           title: "Every Meeting Feeds the Engine",
@@ -311,6 +312,7 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         sectionTitle: "See It",
         sectionTitleAccent: "In Action",
         sectionSubtitle: "베이지안 분석으로 모든 영업 터치포인트를 정밀하게 관리하고, 불확실성을 승리 전략으로 전환합니다.",
+        reassurance: "EXA는 베이지안의 대중화를 선언합니다. 수학 전공자가 아니어도 괜찮습니다 — 인텔리전트 가이드가 모든 과정을 친절히 안내합니다. 생각보다 훨씬 Easy 합니다.",
         warRoom: {
           label: "Activity War Room",
           title: "모든 미팅이 엔진을 움직입니다",
@@ -474,6 +476,7 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         sectionTitle: "See It",
         sectionTitleAccent: "In Action",
         sectionSubtitle: "ベイジアン分析ですべての営業タッチポイントを精密に管理し、不確実性を勝利戦略に変えます。",
+        reassurance: "EXAはベイジアンを誰でも使えるものにします。数学の専門知識は不要です — インテリジェントガイドがすべてのステップを丁寧に案内します。思ったよりずっとEasyです。",
         warRoom: {
           label: "Activity War Room",
           title: "すべてのミーティングがエンジンを動かす",
@@ -637,6 +640,7 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         sectionTitle: "See It",
         sectionTitleAccent: "In Action",
         sectionSubtitle: "用贝叶斯分析精准管理每个销售触点，将不确定性转化为制胜策略。",
+        reassurance: "EXA让贝叶斯分析触手可及。无需数学背景 — 智能向导将引导您完成每一步。比您想象的要Easy得多。",
         warRoom: {
           label: "Activity War Room",
           title: "每次会议都驱动引擎",
@@ -800,6 +804,7 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         sectionTitle: "See It",
         sectionTitleAccent: "In Action",
         sectionSubtitle: "Quản lý mọi điểm tiếp xúc bán hàng với độ chính xác Bayesian — biến sự không chắc chắn thành chiến lược chiến thắng.",
+        reassurance: "EXA đưa Bayesian đến với tất cả mọi người. Không cần nền tảng toán học — hướng dẫn thông minh sẽ dẫn bạn qua từng bước. Easy hơn bạn nghĩ rất nhiều.",
         warRoom: {
           label: "Activity War Room",
           title: "Mỗi cuộc họp đều nuôi dưỡng Engine",
@@ -1129,7 +1134,11 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
               {(t as any).screens?.sectionTitle || "See It"} <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-700">{(t as any).screens?.sectionTitleAccent || "In Action"}</span>
             </h2>
             <p className="text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-              {(t as any).screens?.sectionSubtitle || "Real screenshots from the EXAWin platform — every feature designed for enterprise sales teams."}
+              {(t as any).screens?.sectionSubtitle || "Manage every sales touchpoint with Bayesian precision — and turn uncertainty into winning strategies."}
+            </p>
+            <p className="text-base text-gray-400 dark:text-gray-500 max-w-2xl mx-auto mt-3 flex items-center justify-center gap-2">
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-500 text-xs">✓</span>
+              <span className="italic">{(t as any).screens?.reassurance || "EXA is making Bayesian accessible to everyone. No math degree required — our intelligent guide walks you through every step. It's easier than you think."}</span>
             </p>
           </motion.div>
 
