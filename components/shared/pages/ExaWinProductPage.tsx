@@ -1136,7 +1136,7 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
             <p className="text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
               {(t as any).screens?.sectionSubtitle || "Manage every sales touchpoint with Bayesian precision — and turn uncertainty into winning strategies."}
             </p>
-            <p className="text-base text-indigo-600/80 dark:text-indigo-400/80 max-w-2xl mx-auto mt-4 text-center leading-relaxed">
+            <p className="text-base text-indigo-600/80 dark:text-indigo-400/80 max-w-3xl mx-auto mt-4 text-center leading-relaxed">
               <span className="italic">{(t as any).screens?.reassurance || "You don't need to understand engine blueprints to drive a car. Leave the complex probability math in EXA's engine room — just steer where the data points. The most sophisticated intelligence, delivered as the simplest experience."}</span>
             </p>
           </motion.div>
