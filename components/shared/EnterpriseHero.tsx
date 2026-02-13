@@ -6,13 +6,13 @@ import { HeroDistributionVisual } from './HeroDistributionVisual';
 import { MainPageData } from './types';
 
 interface HeroProps {
-  textData?: MainPageData['hero'];
+    textData?: MainPageData['hero'];
 }
 
 export const EnterpriseHero = ({ textData }: HeroProps) => {
     const sectionRef = useRef(null);
     const isInView = useInView(sectionRef, { once: true });
-    
+
     // Default fallback content (English)
     const content = textData || {
         label: "Enterprise AI 2.0",
@@ -65,10 +65,10 @@ export const EnterpriseHero = ({ textData }: HeroProps) => {
             <div className="absolute inset-0 z-0" />
 
             <div className="relative z-10 w-full max-w-screen-2xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
-                
+
                 {/* 2. Text Content (Left Aligned) */}
                 <div className="flex-1 space-y-8 md:space-y-20 text-left pt-6 md:pt-0">
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={isInView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.8 }}
@@ -80,7 +80,7 @@ export const EnterpriseHero = ({ textData }: HeroProps) => {
                         </span>
                     </motion.div>
 
-                    <motion.h1 
+                    <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={isInView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.8, delay: 0.2 }}
@@ -89,7 +89,18 @@ export const EnterpriseHero = ({ textData }: HeroProps) => {
                         {renderTitle(content.title)}
                     </motion.h1>
 
-                    <motion.div 
+                    {content.subtitle && (
+                        <motion.p
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.8, delay: 0.3 }}
+                            className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500"
+                        >
+                            {content.subtitle}
+                        </motion.p>
+                    )}
+
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={isInView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.8, delay: 0.4 }}
@@ -100,7 +111,7 @@ export const EnterpriseHero = ({ textData }: HeroProps) => {
                         </p>
                     </motion.div>
 
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={isInView ? { opacity: 1, scale: 1 } : {}}
                         transition={{ duration: 0.5, delay: 0.6 }}
@@ -113,7 +124,7 @@ export const EnterpriseHero = ({ textData }: HeroProps) => {
                             </span>
                         </button>
                         <button className="w-auto px-8 py-4 bg-orange-50/30 dark:bg-orange-500/5 border-2 border-orange-200/50 dark:border-orange-500/20 text-gray-900 dark:text-white rounded-full font-bold text-lg backdrop-blur-md hover:bg-orange-100/50 dark:hover:bg-orange-500/10 transition-all shadow-md hover:shadow-xl hover:-translate-y-1 active:translate-y-0">
-                           View Technical Whitepaper
+                            View Technical Whitepaper
                         </button>
                     </motion.div>
                 </div>
@@ -121,16 +132,16 @@ export const EnterpriseHero = ({ textData }: HeroProps) => {
                 {/* 3. Hero Visual (Right) */}
                 <div className="flex-1 w-full relative h-[500px] md:h-[700px] flex items-center justify-center">
                     <HeroDistributionVisual />
-                    
+
                     {/* Floating HUD: Inference Core (Top Right - Overlapping corner) */}
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, x: 20 }}
-                        animate={isInView ? { 
-                            opacity: 1, 
+                        animate={isInView ? {
+                            opacity: 1,
                             x: 0,
-                            y: [0, -10, 0] 
+                            y: [0, -10, 0]
                         } : {}}
-                        transition={{ 
+                        transition={{
                             x: { duration: 0.8, delay: 1.0 },
                             opacity: { duration: 0.8, delay: 1.0 },
                             y: {
@@ -149,13 +160,13 @@ export const EnterpriseHero = ({ textData }: HeroProps) => {
                     </motion.div>
 
                     {/* Overlay UI for 'Tech Feel' (Bottom Right) */}
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0 }}
-                        animate={isInView ? { 
+                        animate={isInView ? {
                             opacity: 1,
                             y: [0, 8, 0]
                         } : {}}
-                        transition={{ 
+                        transition={{
                             opacity: { delay: 1.2 },
                             y: {
                                 duration: 5,

@@ -1,6 +1,7 @@
 export interface HeroData {
   label: string;
   title: string;
+  subtitle?: string;
   desc: string;
   cta: string;
   videoLabel: string;

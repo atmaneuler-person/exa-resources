@@ -51,15 +51,15 @@ export const EnterpriseShowcase = ({ textData }: ShowcaseProps) => {
 
             {/* 2. Connection Lines */}
             <svg className="absolute inset-0 w-full h-full z-0 opacity-40" viewBox="0 0 1200 600">
-                <motion.path 
+                <motion.path
                     initial={{ pathLength: 0, opacity: 0 }}
                     whileInView={{ pathLength: 1, opacity: 0.4 }}
                     viewport={{ once: true }}
                     transition={{ duration: 2, ease: "easeInOut" }}
-                    d="M-50 300 Q 300 150 600 300 T 1250 300" 
-                    stroke="url(#gradient-line-showcase)" 
-                    strokeWidth="1" 
-                    fill="none" 
+                    d="M-50 300 Q 300 150 600 300 T 1250 300"
+                    stroke="url(#gradient-line-showcase)"
+                    strokeWidth="1"
+                    fill="none"
                 />
                 <defs>
                     <linearGradient id="gradient-line-showcase" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -68,33 +68,33 @@ export const EnterpriseShowcase = ({ textData }: ShowcaseProps) => {
                         <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
                     </linearGradient>
                 </defs>
-                
+
                 {/* Floating data dots */}
                 {[...Array(5)].map((_, i) => (
                     <motion.circle
                         key={i}
                         r="2"
                         fill="#f97316"
-                        initial={{ 
+                        initial={{
                             opacity: 0,
                             // @ts-ignore
                             "--offset-distance": "0%"
                         }}
-                        animate={{ 
+                        animate={{
                             opacity: [0, 1, 1, 0],
                             // @ts-ignore
                             "--offset-distance": "100%"
                         }}
-                        style={{ 
+                        style={{
                             offsetPath: "path('M-50 300 Q 300 150 600 300 T 1250 300')",
                             // @ts-ignore
                             offsetDistance: "var(--offset-distance)"
                         }}
-                        transition={{ 
-                            duration: 10 + i * 2, 
-                            repeat: Infinity, 
+                        transition={{
+                            duration: 10 + i * 2,
+                            repeat: Infinity,
                             ease: "linear",
-                            delay: i * 1.5 
+                            delay: i * 1.5
                         }}
                     />
                 ))}
@@ -112,7 +112,7 @@ export const EnterpriseShowcase = ({ textData }: ShowcaseProps) => {
                     <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tighter leading-[1] whitespace-pre-line break-keep">
                         {renderTitle(content.title)}
                     </h2>
-                    
+
                     {/* Level 2: Subtitle */}
                     {content.subtitle && (
                         <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-orange-500 tracking-tight leading-relaxed max-w-4xl mx-auto">
@@ -131,16 +131,26 @@ export const EnterpriseShowcase = ({ textData }: ShowcaseProps) => {
                 >
                     {renderDesc(content.desc)}
                 </motion.p>
-                
+
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.5 }}
-                    className="pt-6 relative flex justify-center group/btn-container"
+                    className="pt-6 relative flex flex-col items-center gap-8 group/btn-container"
                 >
-                    <button 
-                        className="inline-flex items-center gap-3 px-10 py-4 bg-white text-gray-950 font-bold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.1)] relative overflow-hidden"
+                    {/* 수미상관: Ready to dominate your market? */}
+                    <motion.h3
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.6 }}
+                        className="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tight"
+                    >
+                        Ready to dominate your market?
+                    </motion.h3>
+                    <button
+                        className="inline-flex items-center gap-3 px-10 py-4 bg-orange-500 text-white font-bold rounded-full hover:bg-orange-600 transition-all duration-300 shadow-[0_0_30px_rgba(249,115,22,0.3)] hover:shadow-[0_0_40px_rgba(249,115,22,0.5)] relative overflow-hidden text-lg"
                     >
                         <span className="relative z-10">{content.button}</span>
                         <svg className="w-5 h-5 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -157,61 +167,61 @@ export const EnterpriseShowcase = ({ textData }: ShowcaseProps) => {
                     transition={{ delay: 0.6, duration: 0.8 }}
                     className="relative mt-20 mx-auto max-w-6xl px-4"
                 >
-                     {/* Enhanced depth glow behind the dashboard */}
-                     <div className="absolute inset-0 bg-blue-600/20 blur-[150px] rounded-full opacity-30 pointer-events-none translate-x-[-10%]" />
-                     <div className="absolute inset-0 bg-orange-600/10 blur-[150px] rounded-full opacity-20 pointer-events-none translate-x-[10%]" />
-                     
-                     {/* Dashboard Image Container */}
-                     <div className="relative rounded-[10px] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 group/dashboard">
+                    {/* Enhanced depth glow behind the dashboard */}
+                    <div className="absolute inset-0 bg-blue-600/20 blur-[150px] rounded-full opacity-30 pointer-events-none translate-x-[-10%]" />
+                    <div className="absolute inset-0 bg-orange-600/10 blur-[150px] rounded-full opacity-20 pointer-events-none translate-x-[10%]" />
+
+                    {/* Dashboard Image Container */}
+                    <div className="relative rounded-[10px] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 group/dashboard">
                         <div className="aspect-[16/9] w-full bg-gray-900/50 relative overflow-hidden">
-                             <Image 
-                                src="/static/images/PO Risk Control Hub.svg" 
-                                alt="EXA Enterprise Dashboard" 
-                                fill 
+                            <Image
+                                src="/static/images/PO Risk Control Hub.svg"
+                                alt="EXA Enterprise Dashboard"
+                                fill
                                 className="object-cover brightness-105 contrast-105 transition-transform duration-700 group-hover/dashboard:scale-[1.02]"
-                             />
-                             
-                             {/* 1. Slow & Premium Neutral Light Scan Effect */}
-                             <motion.div 
+                            />
+
+                            {/* 1. Slow & Premium Neutral Light Scan Effect */}
+                            <motion.div
                                 className="absolute inset-0 w-full h-full pointer-events-none z-10"
                                 style={{
                                     background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%)',
                                 }}
                                 animate={isInView ? { x: ['-100%', '100%'] } : {}}
                                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                             />
-                             
-                             {/* Other Overlay elements remain as they appear on the 'image' surface */}
-                             {/* System status, pulse points, etc. */}
-                             {/* Relocated pulse point with relative offset: +35mm right, +10mm down */}
-                             <div className="absolute top-[93%] left-[54.5%] -translate-x-1/2 -translate-y-1/2 z-20">
-                                <motion.span 
+                            />
+
+                            {/* Other Overlay elements remain as they appear on the 'image' surface */}
+                            {/* System status, pulse points, etc. */}
+                            {/* Relocated pulse point with relative offset: +35mm right, +10mm down */}
+                            <div className="absolute top-[93%] left-[54.5%] -translate-x-1/2 -translate-y-1/2 z-20">
+                                <motion.span
                                     className="absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"
                                     animate={isInView ? { scale: [1, 2], opacity: [0.75, 0] } : {}}
                                     transition={{ duration: 1, repeat: Infinity }}
                                 ></motion.span>
                                 <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500 border border-white/50"></span>
-                             </div>
+                            </div>
 
-                             <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex justify-between items-end z-20">
-                                 <div>
-                                     <div className="flex items-center gap-2 mb-1">
-                                        <motion.div 
-                                            className="w-2 h-2 rounded-full bg-green-500" 
+                            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex justify-between items-end z-20">
+                                <div>
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <motion.div
+                                            className="w-2 h-2 rounded-full bg-green-500"
                                             animate={isInView ? { opacity: [0.5, 1, 0.5] } : {}}
                                             transition={{ duration: 2, repeat: Infinity }}
                                         />
                                         <div className="text-green-500 font-mono text-xs uppercase tracking-widest font-bold">System Online</div>
-                                     </div>
-                                      <div className="text-white font-bold text-lg tracking-tight">Bayesian PO Risk & Buffer Management</div>
-                                 </div>
-                                 <div className="text-right hidden sm:block">
-                                     <div className="text-gray-400 text-xs font-mono">Last Sync</div>
-                                     <div className="text-white font-mono text-sm">00:00:01s ago</div>
-                                 </div>
-                             </div>
+                                    </div>
+                                    <div className="text-white font-bold text-lg tracking-tight">Bayesian PO Risk & Buffer Management</div>
+                                </div>
+                                <div className="text-right hidden sm:block">
+                                    <div className="text-gray-400 text-xs font-mono">Last Sync</div>
+                                    <div className="text-white font-mono text-sm">00:00:01s ago</div>
+                                </div>
+                            </div>
                         </div>
-                     </div>
+                    </div>
                 </motion.div>
             </div>
         </section>
