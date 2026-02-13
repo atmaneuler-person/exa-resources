@@ -312,7 +312,7 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         sectionTitle: "See It",
         sectionTitleAccent: "In Action",
         sectionSubtitle: "베이지안의 대중화, EXA가 실현합니다.",
-        reassurance: "자동차를 운전하기 위해 엔진 설계도를 이해할 필요는 없습니다. 복잡한 확률 수학은 EXA의 엔진룸에 맡기고, 당신은 데이터가 가리키는 방향으로 핸들만 께으십시오. 가장 정교한 지능을, 가장 단순한 경험으로 제공합니다.",
+        reassurance: "자동차를 운전하기 위해 엔진 설계도를 이해할 필요는 없습니다. 복잡한 확률 수학은 EXA의 엔진룸에 맡기고, 당신은 데이터가 가리키는 방향으로 핸들만 꺾으십시오. 가장 정교한 지능을, 가장 단순한 경험으로 제공합니다.",
         warRoom: {
           label: "Activity War Room",
           title: "모든 미팅이 엔진을 움직입니다",
@@ -1136,9 +1136,8 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
             <p className="text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
               {(t as any).screens?.sectionSubtitle || "Manage every sales touchpoint with Bayesian precision — and turn uncertainty into winning strategies."}
             </p>
-            <p className="text-base text-gray-400 dark:text-gray-500 max-w-2xl mx-auto mt-3 flex items-center justify-center gap-2">
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-500 text-xs">✓</span>
-              <span className="italic">{(t as any).screens?.reassurance || "EXA is making Bayesian accessible to everyone. No math degree required — our intelligent guide walks you through every step. It's easier than you think."}</span>
+            <p className="text-base text-indigo-600/80 dark:text-indigo-400/80 max-w-2xl mx-auto mt-4 text-center leading-relaxed">
+              <span className="italic">{(t as any).screens?.reassurance || "You don't need to understand engine blueprints to drive a car. Leave the complex probability math in EXA's engine room — just steer where the data points. The most sophisticated intelligence, delivered as the simplest experience."}</span>
             </p>
           </motion.div>
 
