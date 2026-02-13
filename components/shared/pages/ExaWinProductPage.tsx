@@ -142,6 +142,13 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         hubBadge: "Coming Soon",
         hubDesc: "EXAWin's social feed is just the beginning. Integrate with EXA ERP Workspace Hub for a unified sales-operations-communication ecosystem.",
         hubModules: ["Team Chat", "Video Calls", "File Sharing", "Announcements"]
+      },
+      insight: {
+        label: "EXA Insight",
+        title: "Help That Understands Context",
+        desc: "No more searching through manuals. EXA Insight reads your current screen and delivers relevant guidance — from Bayesian fundamentals to advanced signal strategies. Every user becomes an expert.",
+        checks: ["Page-aware contextual documentation", "Bayesian formula explanations with visuals", "Built-in onboarding for new team members"],
+        badge: "SMART HELP"
       }
     },
     ko: {
@@ -271,6 +278,13 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         hubBadge: "Coming Soon",
         hubDesc: "EXAWin의 소셜 피드는 시작일 뿐입니다. EXA Workspace Hub와 통합되어 영업-운영-커뮤니케이션이 하나의 생태계로 연결됩니다.",
         hubModules: ["팀 채팅", "영상 통화", "파일 공유", "공지사항"]
+      },
+      insight: {
+        label: "EXA Insight",
+        title: "맥락을 이해하는 도움말",
+        desc: "더 이상 매뉴얼을 뒤질 필요가 없습니다. EXA Insight는 현재 화면을 읽고 베이지안 기초부터 고급 시그널 전략까지 관련 가이드를 즉시 제공합니다. 모든 사용자가 전문가가 됩니다.",
+        checks: ["페이지 인식 상황별 도움말", "시각적 베이지안 공식 설명", "신규 팀원 온보딩 내장"],
+        badge: "스마트 도움말"
       }
     },
     ja: {
@@ -400,6 +414,13 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         hubBadge: "Coming Soon",
         hubDesc: "EXAWinのソーシャルフィードは始まりに過ぎません。EXA Workspace Hubと統合し、営業・運営・コミュニケーションが一つのエコシステムに。",
         hubModules: ["チームチャット", "ビデオ通話", "ファイル共有", "お知らせ"]
+      },
+      insight: {
+        label: "EXA Insight",
+        title: "コンテキストを理解するヘルプ",
+        desc: "マニュアルを探す必要はもうありません。EXA Insightは現在の画面を読み取り、ベイジアンの基礎から高度なシグナル戦略まで、関連するガイダンスを即座に提供します。すべてのユーザーがエキスパートになれます。",
+        checks: ["ページ認識型コンテキストドキュメント", "視覚的ベイジアン公式解説", "新メンバー向け内蔵オンボーディング"],
+        badge: "スマートヘルプ"
       }
     },
     zh: {
@@ -529,6 +550,13 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         hubBadge: "Coming Soon",
         hubDesc: "EXAWin的社交信息流只是开始。与EXA Workspace Hub整合，实现销售-运营-沟通的统一生态系统。",
         hubModules: ["团队聊天", "视频通话", "文件共享", "公告"]
+      },
+      insight: {
+        label: "EXA Insight",
+        title: "理解上下文的智能帮助",
+        desc: "不再需要翻阅手册。EXA Insight读取当前屏幕，即时提供从贝叶斯基础到高级信号策略的相关指导。每位用户都能成为专家。",
+        checks: ["页面感知的上下文文档", "可视化贝叶斯公式解说", "内置新成员入职引导"],
+        badge: "智能帮助"
       }
     },
     vi: {
@@ -658,6 +686,13 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         hubBadge: "Coming Soon",
         hubDesc: "Social feed của EXAWin chỉ là khởi đầu. Tích hợp với EXA Workspace Hub để thống nhất bán hàng-vận hành-giao tiếp.",
         hubModules: ["Nhắn tin nhóm", "Gọi video", "Chia sẻ tệp", "Thông báo"]
+      },
+      insight: {
+        label: "EXA Insight",
+        title: "Trợ giúp thông minh theo ngữ cảnh",
+        desc: "Không cần lục tìm tài liệu nữa. EXA Insight đọc màn hình hiện tại và cung cấp hướng dẫn phù hợp — từ nền tảng Bayesian đến chiến lược tín hiệu nâng cao. Mọi người dùng đều trở thành chuyên gia.",
+        checks: ["Tài liệu nhận biết trang", "Giải thích công thức Bayesian trực quan", "Hướng dẫn sử dụng tích hợp cho thành viên mới"],
+        badge: "Trợ giúp thông minh"
       }
     },
   };
@@ -1066,7 +1101,60 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
             </motion.div>
           </div>
 
-          {/* Screenshot 3: Project Master */}
+          {/* Screenshot 3: EXA Insight — Contextual Help (Dark Mode Accent) */}
+          <div className="relative -mx-6 px-6 py-16 rounded-3xl bg-gradient-to-br from-gray-900 via-[#0a0a1a] to-gray-900 border border-gray-800/50 my-8">
+            {/* Subtle glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-violet-500/5 rounded-full blur-[100px] pointer-events-none" />
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-center relative z-10"
+            >
+              {/* Image */}
+              <motion.div
+                className="lg:col-span-3 relative group order-2 lg:order-1"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 200 }}
+              >
+                <div className="rounded-2xl overflow-hidden shadow-2xl shadow-violet-500/10 border border-gray-700/50">
+                  <Image
+                    src="/static/images/exawin-insight-help.png"
+                    alt="EXA Insight — Contextual help drawer explaining Bayesian analytics in real-time"
+                    width={1920}
+                    height={1080}
+                    className="w-full h-auto"
+                    quality={90}
+                  />
+                </div>
+                {/* Floating badge */}
+                <div className="absolute -top-3 -right-3 bg-gradient-to-r from-violet-500 to-purple-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg shadow-violet-500/30">
+                  {(t as any).insight?.badge || "SMART HELP"}
+                </div>
+              </motion.div>
+              {/* Text */}
+              <div className="lg:col-span-2 space-y-4 order-1 lg:order-2">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="w-10 h-10 rounded-xl bg-violet-900/40 flex items-center justify-center text-xl">💡</span>
+                  <span className="text-violet-400 font-bold text-sm uppercase tracking-wider">{(t as any).insight?.label || "EXA Insight"}</span>
+                </div>
+                <h3 className="text-2xl lg:text-3xl font-black text-white">
+                  {(t as any).insight?.title || "Help That Understands Context"}
+                </h3>
+                <p className="text-gray-400 leading-relaxed">
+                  {(t as any).insight?.desc || "No more searching through manuals. EXA Insight reads your current screen and delivers relevant guidance — from Bayesian fundamentals to advanced signal strategies. Every user becomes an expert."}
+                </p>
+                <ul className="space-y-2 text-sm text-gray-400">
+                  {((t as any).insight?.checks || ["Page-aware contextual documentation", "Bayesian formula explanations with visuals", "Built-in onboarding for new team members"]).map((check: string, i: number) => (
+                    <li key={i} className="flex items-center gap-2"><span className="text-violet-400">✓</span> {check}</li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Screenshot 4: Project Master */}
           <div>
             <motion.div
               initial={{ opacity: 0, y: 40 }}
