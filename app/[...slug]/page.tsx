@@ -227,12 +227,12 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
       return (
         <div className="flex flex-col w-full items-center">
           <Header />
-          <DocLayout allDocPosts={sortedPosts}>
+          <DocLayout allDocPosts={sortedPosts} locale={currentLocale}>
             <div className="py-12">
               <h2 className="text-2xl font-bold mb-6">Welcome to the {categoryName}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {sortedPosts.map(p => (
-                  <Link key={p.path} href={`/${p.path}`} className="p-6 border border-gray-100 rounded-2xl hover:border-orange-500 transition-all">
+                  <Link key={p.path} href={`/${currentLocale}/${p.path}`} className="p-6 border border-gray-100 rounded-2xl hover:border-orange-500 transition-all">
                     <h3 className="font-bold mb-2">{p.title}</h3>
                     <p className="text-sm text-gray-500 line-clamp-2">{p.summary}</p>
                   </Link>
@@ -348,7 +348,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
     return (
       <div className="flex flex-col w-full">
         <Header />
-        <DocLayout content={mainContent} allDocPosts={allDocPosts} toc={post.toc}>
+        <DocLayout content={mainContent} allDocPosts={allDocPosts} toc={post.toc} locale={currentLocale}>
           <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
         </DocLayout>
         <Footer />

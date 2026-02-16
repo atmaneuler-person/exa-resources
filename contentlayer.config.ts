@@ -116,6 +116,8 @@ export const Blog = defineDocumentType(() => ({
     title: { type: 'string', required: true },
     date: { type: 'date', required: true },
     order: { type: 'number', required: false }, // [NEW] For documentation ordering
+    section: { type: 'string', required: false }, // [NEW] Docs sidebar section grouping (e.g., 'EXAWin', 'EXA ERP')
+    sectionOrder: { type: 'number', required: false }, // [NEW] Section display order in sidebar
     tags: { type: 'list', of: { type: 'string' }, default: [] },
     lastmod: { type: 'date' },
     draft: { type: 'boolean' },
