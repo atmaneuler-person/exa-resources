@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -60,7 +60,14 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
       mobile: {
         title: "Intelligence in Your Pocket",
         subtitle: "A Complete Command Center, Anywhere",
-        desc: "Sales happen in the field, not at a desk. Access real-time probabilities, log meeting notes via voice, and get instant signal alerts on your phone or tablet. Fully compatible with iOS and Android."
+        desc: "Sales happen in the field, not at a desk. Access real-time probabilities, log meeting notes via voice, and get instant signal alerts on your phone or tablet. Fully compatible with iOS and Android.",
+        features: [
+          { icon: "📱", title: "PWA Native Experience", desc: "Install directly to your home screen — no app store needed. Launches instantly like a native app with full offline capability." },
+          { icon: "🎤", title: "Voice-First Input", desc: "Just finished a client meeting in the parking lot? Dictate your notes, signals, and action items hands-free. The engine processes it all." },
+          { icon: "🔔", title: "Real-Time Push Alerts", desc: "A teammate just commented on your deal. Your P(Win) crossed 80%. Never miss a critical moment — alerts arrive in seconds." },
+          { icon: "📴", title: "Offline-Ready", desc: "Underground garage. Rural client site. No signal? No problem. Log activities offline — everything syncs the moment you reconnect." },
+          { icon: "⚡", title: "Live P(Win) Dashboard", desc: "Check your portfolio's real-time win probabilities between meetings. One glance tells you which deals need immediate attention." }
+        ]
       },
       features: [
         {
@@ -131,13 +138,13 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         subtitle: "Every deal is a team mission. Communicate, react, and align — right inside EXAWin.",
         badge: "Real-Time Collaboration",
         features: [
-          { icon: "👍", title: "Reactions", desc: "Instantly react to activities — 'Great move', 'Needs attention', 'Follow up'.", color: "blue" },
-          { icon: "💬", title: "Comment Threads", desc: "Discuss strategy directly on each activity. Share insights, ask questions, give advice.", color: "purple" },
-          { icon: "📌", title: "Pin & @Mention", desc: "Pin critical activities. @mention teammates for instant attention on key deals.", color: "orange" },
-          { icon: "🔔", title: "Live Notifications", desc: "Get instant alerts when teammates react to or comment on your deal activities.", color: "emerald" }
+          { icon: "👍", title: "Reactions", desc: "Your junior rep just nailed a tough negotiation. Hit 'Great move' and the whole team sees it. Recognition drives performance — and the engine remembers team momentum.", color: "blue" },
+          { icon: "💬", title: "Comment Threads", desc: "A deal is stalling at Day 30. Your manager comments: 'Try the champion approach.' Strategy flows where the data lives — no more switching between Slack, email, and CRM.", color: "purple" },
+          { icon: "📌", title: "Pin & @Mention", desc: "Pin a make-or-break activity. @mention the VP when a $500K deal hits 85% P(Win). The right people see the right deals at the right moment.", color: "orange" },
+          { icon: "🔔", title: "Live Notifications", desc: "Your teammate just logged a critical signal on Project Alpha. You get the push alert in 3 seconds. React before the competitor does.", color: "emerald" }
         ],
         feedTitle: "Activity Social Feed",
-        feedDesc: "Every sales activity becomes a shared team asset. Like, comment, and elevate your team's collective sales IQ.",
+        feedDesc: "Forget scattered Slack threads and buried emails. Every meeting, every signal, every strategic insight — shared in one unified feed. Your team's collective intelligence compounds with every interaction.",
         hubTitle: "EXA Workspace Hub",
         hubBadge: "Coming Soon",
         hubDesc: "EXAWin's social feed is just the beginning. Integrate with EXA ERP Workspace Hub for a unified sales-operations-communication ecosystem.",
@@ -224,7 +231,14 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
       mobile: {
         title: "내 손안의 인텔리전스",
         subtitle: "언제 어디서나, 완벽한 지휘 통제",
-        desc: "영업은 책상이 아닌 현장에서 이루어집니다. 실시간 확률을 확인하고, 음성으로 미팅 노트를 기록하며, 중요한 신호 알림을 휴대폰이나 태블릿에서 즉시 받으십시오. iOS 및 Android 완벽 지원."
+        desc: "영업은 책상이 아닌 현장에서 이루어집니다. 실시간 확률을 확인하고, 음성으로 미팅 노트를 기록하며, 중요한 신호 알림을 휴대폰이나 태블릿에서 즉시 받으십시오. iOS 및 Android 완벽 지원.",
+        features: [
+          { icon: "📱", title: "PWA 네이티브 경험", desc: "앱스토어 없이 홈화면에 바로 설치. 네이티브 앱처럼 즉시 실행되며 완전한 오프라인 기능을 제공합니다." },
+          { icon: "🎤", title: "음성 우선 입력", desc: "주차장에서 고객 미팅을 마쳤나요? 핸즈프리로 메모, 시그널, 액션 아이템을 구술하세요. 엔진이 모든 것을 처리합니다." },
+          { icon: "🔔", title: "실시간 푸시 알림", desc: "팀원이 내 딜에 댓글을 달았습니다. P(Win)이 80%를 돌파했습니다. 결정적 순간을 놓치지 마세요 — 알림은 초 단위로 도착합니다." },
+          { icon: "📴", title: "오프라인 지원", desc: "지하 주차장. 시골 고객사. 전파 없음? 문제 없습니다. 오프라인에서 활동을 기록하면 연결 시 자동 동기화됩니다." },
+          { icon: "⚡", title: "실시간 P(Win) 대시보드", desc: "미팅 사이 이동 중 포트폴리오의 실시간 수주 확률을 확인하세요. 한 눈에 어떤 딜에 즉각 주의가 필요한지 알 수 있습니다." }
+        ]
       },
       features: [
         {
@@ -295,13 +309,13 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         subtitle: "모든 딜은 팀 미션입니다. EXAWin 안에서 바로 소통하고, 반응하고, 정렬하세요.",
         badge: "실시간 협업",
         features: [
-          { icon: "👍", title: "리액션", desc: "활동에 즉시 반응 — '잘했다', '주의 필요', '후속 필요'.", color: "blue" },
-          { icon: "💬", title: "댓글 스레드", desc: "각 활동에서 직접 전략을 논의합니다. 인사이트 공유, 질문, 조언.", color: "purple" },
-          { icon: "📌", title: "핀 & @멘션", desc: "중요 활동을 고정. @멘션으로 팀원의 즉각적 관심을 끌어냅니다.", color: "orange" },
-          { icon: "🔔", title: "실시간 알림", desc: "팀원이 내 딜 활동에 반응하거나 댓글을 달면 즉시 알림을 받습니다.", color: "emerald" }
+          { icon: "👍", title: "리액션", desc: "신입 영업사원이 어려운 협상을 해냈습니다. '잘했다'를 누르면 팀 전체가 봅니다. 인정이 성과를 만들고, 엔진은 팀 모멘텀을 기억합니다.", color: "blue" },
+          { icon: "💬", title: "댓글 스레드", desc: "Day 30에 딜이 교착 상태입니다. 매니저가 댓글을 답니다: '챔피언 전략을 써보세요.' 전략이 데이터가 있는 곳에서 바로 흐릅니다 — Slack, 이메일, CRM을 오가지 않아도 됩니다.", color: "purple" },
+          { icon: "📌", title: "핀 & @멘션", desc: "결정적 활동을 고정하세요. 5억 딜이 P(Win) 85%에 도달하면 VP를 @멘션합니다. 적절한 사람이 적절한 딜을 적절한 순간에 봅니다.", color: "orange" },
+          { icon: "🔔", title: "실시간 알림", desc: "팀원이 Project Alpha에 핵심 시그널을 기록했습니다. 3초 만에 푸시 알림을 받습니다. 경쟁사보다 먼저 대응하세요.", color: "emerald" }
         ],
         feedTitle: "Activity Social Feed",
-        feedDesc: "모든 영업 활동이 팀의 공유 자산이 됩니다. 좋아요, 댓글로 팀 전체의 영업 IQ를 높이세요.",
+        feedDesc: "흩어진 Slack 스레드와 묻혀버린 이메일은 잊으세요. 모든 미팅, 모든 시그널, 모든 전략적 인사이트가 하나의 통합 피드에서 공유됩니다. 팀의 집단 지성이 매 상호작용마다 복리로 성장합니다.",
         hubTitle: "EXA Workspace Hub",
         hubBadge: "Coming Soon",
         hubDesc: "EXAWin의 소셜 피드는 시작일 뿐입니다. EXA Workspace Hub와 통합되어 영업-운영-커뮤니케이션이 하나의 생태계로 연결됩니다.",
@@ -388,7 +402,14 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
       mobile: {
         title: "ポケットの中のインテリジェンス",
         subtitle: "いつでもどこでも、完全なコマンドセンター",
-        desc: "営業はデスクではなく現場で起こります。リアルタイムの確率を確認し、音声で会議メモを記録し、携帯電話やタブレットで重要なシグナルアラートを即座に受け取ります。iOSおよびAndroidに完全対応。"
+        desc: "営業はデスクではなく現場で起こります。リアルタイムの確率を確認し、音声で会議メモを記録し、携帯電話やタブレットで重要なシグナルアラートを即座に受け取ります。iOSおよびAndroidに完全対応。",
+        features: [
+          { icon: "📱", title: "PWAネイティブ体験", desc: "アプリストア不要でホーム画面に直接インストール。ネイティブアプリのように即起動し、完全なオフライン機能を提供します。" },
+          { icon: "🎤", title: "音声ファースト入力", desc: "駐車場でクライアントとのミーティングを終えたばかり？ハンズフリーでメモ、シグナル、アクションアイテムを口述。エンジンがすべてを処理します。" },
+          { icon: "🔔", title: "リアルタイムプッシュ通知", desc: "チームメイトがあなたのディールにコメント。P(Win)が80%を突破。決定的瞬間を逃しません — アラートは数秒で届きます。" },
+          { icon: "📴", title: "オフライン対応", desc: "地下駐車場。地方のクライアントサイト。電波なし？問題ありません。オフラインで活動を記録 — 再接続時にすべて同期されます。" },
+          { icon: "⚡", title: "リアルタイムP(Win)ダッシュボード", desc: "ミーティング間の移動中にポートフォリオのリアルタイム勝率を確認。一目でどのディールに即座の注意が必要かわかります。" }
+        ]
       },
       features: [
         {
@@ -459,13 +480,13 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         subtitle: "すべてのディールはチームミッション。EXAWin内で直接コミュニケーション、リアクション、アラインメント。",
         badge: "リアルタイムコラボレーション",
         features: [
-          { icon: "👍", title: "リアクション", desc: "活動に即座にリアクション — 'Good', '要注意', 'フォローアップ'。", color: "blue" },
-          { icon: "💬", title: "コメントスレッド", desc: "各活動で直接戦略を議論。インサイト共有、質問、アドバイス。", color: "purple" },
-          { icon: "📌", title: "ピン & @メンション", desc: "重要な活動を固定。@メンションでチームメートの即座の注目を。", color: "orange" },
-          { icon: "🔔", title: "リアルタイム通知", desc: "チームメートがあなたのディール活動にリアクションやコメントすると即座に通知。", color: "emerald" }
+          { icon: "👍", title: "リアクション", desc: "新人営業がタフな交渉を成功させました。'Good'を押せばチーム全体が見ます。認知がパフォーマンスを生み、エンジンはチームモメンタムを記憶します。", color: "blue" },
+          { icon: "💬", title: "コメントスレッド", desc: "Day 30でディールが停滞。マネージャーがコメント：'チャンピオン戦略を試して。' 戦略はデータのある場所で流れます — Slack、メール、CRMを行き来する必要はありません。", color: "purple" },
+          { icon: "📌", title: "ピン & @メンション", desc: "重要な活動をピン留め。5億円のディールがP(Win) 85%に達したらVPを@メンション。適切な人が適切なディールを適切なタイミングで見ます。", color: "orange" },
+          { icon: "🔔", title: "リアルタイム通知", desc: "チームメートがProject Alphaにキーシグナルを記録。3秒でプッシュ通知が届きます。競合より先に対応しましょう。", color: "emerald" }
         ],
         feedTitle: "Activity Social Feed",
-        feedDesc: "すべての営業活動がチームの共有資産に。いいね、コメントでチーム全体の営業IQを向上。",
+        feedDesc: "散在するSlackスレッドや埋もれたメールは忘れてください。すべてのミーティング、すべてのシグナル、すべての戦略的インサイトが一つの統合フィードで共有されます。チームの集合知が毎回のインタラクションで複利成長します。",
         hubTitle: "EXA Workspace Hub",
         hubBadge: "Coming Soon",
         hubDesc: "EXAWinのソーシャルフィードは始まりに過ぎません。EXA Workspace Hubと統合し、営業・運営・コミュニケーションが一つのエコシステムに。",
@@ -552,7 +573,14 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
       mobile: {
         title: "口袋里的智能",
         subtitle: "随时随地，完整的指挥中心",
-        desc: "销售发生在现场，而不是在办公桌前。在手机或平板电脑上查看实时概率，通过语音记录会议笔记，并获取即时信号警报。完全兼容 iOS 和 Android。"
+        desc: "销售发生在现场，而不是在办公桌前。在手机或平板电脑上查看实时概率，通过语音记录会议笔记，并获取即时信号警报。完全兼容 iOS 和 Android。",
+        features: [
+          { icon: "📱", title: "PWA原生体验", desc: "无需应用商店，直接安装到主屏幕。像原生应用一样即时启动，提供完整的离线功能。" },
+          { icon: "🎤", title: "语音优先输入", desc: "刚在停车场结束客户会议？免提口述备注、信号和行动项。引擎会处理一切。" },
+          { icon: "🔔", title: "实时推送通知", desc: "队友刚评论了你的交易。P(Win)突破了80%。不要错过关键时刻——提醒在几秒内到达。" },
+          { icon: "📴", title: "离线就绪", desc: "地下车库。偏远客户现场。没有信号？没问题。离线记录活动——重新连接时自动同步。" },
+          { icon: "⚡", title: "实时P(Win)仪表盘", desc: "在会议间的移动中查看投资组合的实时胜率。一目了然哪些交易需要立即关注。" }
+        ]
       },
       features: [
         {
@@ -623,13 +651,13 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         subtitle: "每笔交易都是团队任务。在EXAWin内直接沟通、反应、对齐。",
         badge: "实时协作",
         features: [
-          { icon: "👍", title: "反应", desc: "即时对活动做出反应 — '好动作'、'需关注'、'需跟进'。", color: "blue" },
-          { icon: "💬", title: "评论线程", desc: "直接在每个活动上讨论策略。分享洞察、提问、给出建议。", color: "purple" },
-          { icon: "📌", title: "置顶 & @提及", desc: "置顶关键活动。@提及队友以获得即时关注。", color: "orange" },
-          { icon: "🔔", title: "实时通知", desc: "当队友对您的交易活动做出反应或评论时，立即收到通知。", color: "emerald" }
+          { icon: "👍", title: "反应", desc: "新人销售拿下了一场艰难的谈判。点击'好动作'，整个团队都能看到。认可驱动绩效——引擎会记住团队动量。", color: "blue" },
+          { icon: "💬", title: "评论线程", desc: "Day 30交易陷入僵局。经理评论：'试试冠军策略。' 策略在数据所在的地方流动——不再在Slack、邮件和CRM之间来回切换。", color: "purple" },
+          { icon: "📌", title: "置顶 & @提及", desc: "置顶关键活动。当500万交易的P(Win)达到85%时@提及VP。对的人在对的时刻看到对的交易。", color: "orange" },
+          { icon: "🔔", title: "实时通知", desc: "队友刚在Project Alpha上记录了关键信号。3秒内收到推送通知。比竞争对手更快做出反应。", color: "emerald" }
         ],
         feedTitle: "Activity Social Feed",
-        feedDesc: "每项销售活动都成为团队共享资产。点赞、评论，提升团队整体的销售智商。",
+        feedDesc: "忘掉散落的Slack线程和被淹没的邮件吧。每次会议、每个信号、每个战略洞察——在一个统一信息流中共享。团队的集体智慧随着每次互动复利增长。",
         hubTitle: "EXA Workspace Hub",
         hubBadge: "Coming Soon",
         hubDesc: "EXAWin的社交信息流只是开始。与EXA Workspace Hub整合，实现销售-运营-沟通的统一生态系统。",
@@ -716,7 +744,14 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
       mobile: {
         title: "Trí tuệ trong Tầm tay",
         subtitle: "Trung tâm Chỉ huy Hoàn chỉnh, Mọi lúc Mọi nơi",
-        desc: "Bán hàng diễn ra tại hiện trường, không phải tại bàn làm việc. Truy cập xác suất thời gian thực, ghi lại ghi chú cuộc họp bằng giọng nói và nhận cảnh báo tín hiệu tức thì trên điện thoại hoặc máy tính bảng của bạn. Tương thích hoàn toàn với iOS và Android."
+        desc: "Bán hàng diễn ra tại hiện trường, không phải tại bàn làm việc. Truy cập xác suất thời gian thực, ghi lại ghi chú cuộc họp bằng giọng nói và nhận cảnh báo tín hiệu tức thì trên điện thoại hoặc máy tính bảng của bạn. Tương thích hoàn toàn với iOS và Android.",
+        features: [
+          { icon: "📱", title: "Trải nghiệm PWA gốc", desc: "Cài đặt trực tiếp lên màn hình chính — không cần app store. Khởi động nhanh như ứng dụng gốc với đầy đủ khả năng offline." },
+          { icon: "🎤", title: "Ưu tiên nhập giọng nói", desc: "Vừa kết thúc cuộc họp khách hàng ở bãi đỗ xe? Đọc ghi chú, tín hiệu và hành động cần thực hiện bằng giọng nói. Engine xử lý tất cả." },
+          { icon: "🔔", title: "Thông báo đẩy thời gian thực", desc: "Đồng nghiệp vừa bình luận về deal của bạn. P(Win) vượt 80%. Đừng bỏ lỡ khoảnh khắc quan trọng — thông báo đến trong vài giây." },
+          { icon: "📴", title: "Sẵn sàng offline", desc: "Hầm để xe. Công trường khách hàng vùng sâu. Không có sóng? Không vấn đề. Ghi nhận hoạt động offline — tự động đồng bộ khi kết nối lại." },
+          { icon: "⚡", title: "Bảng P(Win) thời gian thực", desc: "Kiểm tra xác suất thắng thời gian thực của danh mục giữa các cuộc họp. Một cái nhìn cho biết deal nào cần chú ý ngay lập tức." }
+        ]
       },
       features: [
         {
@@ -787,13 +822,13 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
         subtitle: "Mọi giao dịch đều là nhiệm vụ đội nhóm. Giao tiếp, phản ứng và đồng bộ — ngay trong EXAWin.",
         badge: "Cộng tác Thời gian thực",
         features: [
-          { icon: "👍", title: "Phản ứng", desc: "Phản ứng ngay lập tức với hoạt động — 'Tốt lắm', 'Cần chú ý', 'Theo dõi'.", color: "blue" },
-          { icon: "💬", title: "Chuỗi bình luận", desc: "Thảo luận chiến lược trực tiếp trên mỗi hoạt động. Chia sẻ, hỏi, tư vấn.", color: "purple" },
-          { icon: "📌", title: "Ghim & @Nhắc", desc: "Ghim hoạt động quan trọng. @nhắc đồng nghiệp để thu hút sự chú ý ngay.", color: "orange" },
-          { icon: "🔔", title: "Thông báo trực tiếp", desc: "Nhận thông báo ngay khi đồng nghiệp phản ứng hoặc bình luận trên hoạt động của bạn.", color: "emerald" }
+          { icon: "👍", title: "Phản ứng", desc: "Nhân viên mới vừa xử lý thành công cuộc đàm phán khó. Nhấn 'Tốt lắm' và cả đội đều thấy. Sự công nhận thúc đẩy hiệu suất — engine ghi nhớ momentum đội nhóm.", color: "blue" },
+          { icon: "💬", title: "Chuỗi bình luận", desc: "Deal đang bế tắc ở Day 30. Quản lý bình luận: 'Thử chiến lược champion.' Chiến lược lưu chuyển ngay tại nơi dữ liệu tồn tại — không cần chuyển qua Slack, email, CRM.", color: "purple" },
+          { icon: "📌", title: "Ghim & @Nhắc", desc: "Ghim hoạt động quyết định. Deal 10 tỷ đạt P(Win) 85% thì @nhắc VP. Đúng người thấy đúng deal vào đúng thời điểm.", color: "orange" },
+          { icon: "🔔", title: "Thông báo trực tiếp", desc: "Đồng nghiệp vừa ghi nhận tín hiệu quan trọng trên Project Alpha. Push notification đến trong 3 giây. Phản ứng trước đối thủ.", color: "emerald" }
         ],
         feedTitle: "Activity Social Feed",
-        feedDesc: "Mọi hoạt động bán hàng trở thành tài sản chung. Like, bình luận và nâng cao IQ bán hàng của cả đội.",
+        feedDesc: "Quên đi những thread Slack rời rạc và email bị chôn vùi. Mọi cuộc họp, mọi tín hiệu, mọi chiến lược — chia sẻ trong một feed thống nhất. Trí tuệ tập thể của đội tăng trưởng kép theo mỗi tương tác.",
         hubTitle: "EXA Workspace Hub",
         hubBadge: "Coming Soon",
         hubDesc: "Social feed của EXAWin chỉ là khởi đầu. Tích hợp với EXA Workspace Hub để thống nhất bán hàng-vận hành-giao tiếp.",
@@ -849,6 +884,34 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
 
   // Pagination State
   const [visiblePosts, setVisiblePosts] = useState(8);
+  const [activeMobileTab, setActiveMobileTab] = useState(0);
+  const [activeTextTab, setActiveTextTab] = useState(0);
+
+  // Auto-slide mobile screenshots every 3 seconds (right side)
+  // Alternates between dark and light mode images
+  const darkIndices = [0, 2, 4, 6]; // dark mode image indices
+  const lightIndices = [1, 3, 5, 7, 8, 9]; // light mode image indices
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveMobileTab(prev => {
+        // Check if current is dark (indices 0,2,4,6)
+        const isDark = [0, 2, 4, 6].includes(prev);
+        // Pick from opposite group
+        const pool = isDark ? [1, 3, 5, 7, 8, 9] : [0, 2, 4, 6];
+        return pool[Math.floor(Math.random() * pool.length)];
+      });
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Auto-cycle text focus every 4 seconds (left side, independent)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveTextTab(prev => (prev + 1) % 5);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
   const displayPosts = relatedPosts.slice(0, visiblePosts);
   const hasMore = visiblePosts < relatedPosts.length;
   const isExpanded = visiblePosts > 8;
@@ -932,6 +995,156 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
       </main>
 
 
+      {/* SECTION 3: MOBILE SUPPORT — Interactive Showcase */}
+      <section className="w-full py-24 bg-gray-900 overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-[50%] h-full bg-orange-500/5 blur-[100px] pointer-events-none" />
+        <div className="max-w-screen-2xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+          {/* Left: Text + Interactive Feature Tabs */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="space-y-6"
+          >
+            <span className="text-orange-500 font-bold tracking-widest text-sm uppercase block">
+              Any Device, Any Time
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight break-keep">
+              <span className="block mb-3">{t.mobile.title}</span>
+              <span className="text-gray-500 block">{t.mobile.subtitle}</span>
+            </h2>
+            <p className="text-lg text-slate-300 leading-relaxed max-w-xl">
+              {t.mobile.desc}
+            </p>
+
+            {/* Interactive Feature Tabs */}
+            {(t as any).mobile?.features && (
+              <div className="space-y-2 pt-2">
+                {((t as any).mobile.features as Array<{ icon: string; title: string; desc: string }>).map((feat, i) => (
+                  <motion.button
+                    key={i}
+                    onClick={() => setActiveTextTab(i)}
+                    onMouseEnter={() => setActiveTextTab(i)}
+                    className={`w-full flex items-start gap-3 p-3 rounded-xl border text-left transition-all duration-300 ${activeTextTab === i
+                      ? 'bg-orange-500/10 border-orange-500/40 shadow-lg shadow-orange-500/5'
+                      : 'bg-white/[0.02] border-white/[0.06] hover:border-white/10'
+                      }`}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.08 }}
+                  >
+                    <span className={`text-lg flex-shrink-0 mt-0.5 transition-transform duration-300 ${activeTextTab === i ? 'scale-125' : ''}`}>{feat.icon}</span>
+                    <div className="flex-1 min-w-0">
+                      <h4 className={`text-sm font-bold mb-0.5 transition-colors duration-300 ${activeTextTab === i ? 'text-orange-400' : 'text-white'}`}>{feat.title}</h4>
+                      <p className={`text-xs leading-relaxed transition-all duration-300 ${activeTextTab === i ? 'text-gray-300 max-h-20 opacity-100' : 'text-gray-500 max-h-0 opacity-0 overflow-hidden'}`}>{feat.desc}</p>
+                    </div>
+                    <div className={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 transition-colors duration-300 ${activeTextTab === i ? 'bg-orange-500' : 'bg-gray-700'}`} />
+                  </motion.button>
+                ))}
+              </div>
+            )}
+
+            {/* App Store Buttons */}
+            <div className="flex gap-4 pt-4">
+              <button className="flex items-center gap-3 bg-slate-800/80 hover:bg-slate-700 text-white px-6 py-3 rounded-2xl border border-slate-700 transition-colors duration-300 backdrop-blur-sm group">
+                <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 1.25.13 1.83.37-1.6 1-2.65 2.76-2.62 4.41.05 1.79 1.5 3.1 3.26 3.12.06.63.13 1.27.18 1.91zM13 3.5c.52-.7 1.15-1.4 1.97-1.5.17 1.84-1.68 3.56-3.29 3.53-.16-1.25.68-2.62 1.32-2.03z" />
+                </svg>
+                <div className="text-left">
+                  <div className="text-[10px] text-slate-400 font-medium leading-none mb-0.5">Download on</div>
+                  <div className="text-base font-bold leading-none">iOS App</div>
+                </div>
+              </button>
+
+              <button className="flex items-center gap-3 bg-slate-800/80 hover:bg-slate-700 text-white px-6 py-3 rounded-2xl border border-slate-700 transition-colors duration-300 backdrop-blur-sm group">
+                <svg className="w-6 h-6 fill-current text-green-400 group-hover:text-green-300 transition-colors" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.523 15.3414C17.523 16.7118 16.4063 17.8213 15.0294 17.8213C13.6521 17.8213 12.5358 16.7118 12.5358 15.3414C12.5358 13.9714 13.6521 12.8615 15.0294 12.8615C16.4063 12.8615 17.523 13.9714 17.523 15.3414ZM6.5912 15.3414C6.5912 16.7118 5.47464 17.8213 4.09761 17.8213C2.72058 17.8213 1.60394 16.7118 1.60394 15.3414C1.60394 13.9714 2.72058 12.8615 4.09761 12.8615C5.47464 12.8615 6.5912 13.9714 6.5912 15.3414ZM16.2737 5.76007L18.4735 1.95079C18.5772 1.76997 18.5147 1.53934 18.3323 1.43555C18.1511 1.33203 17.9197 1.39414 17.8152 1.57468L15.5862 5.43475C13.4862 4.47954 11.085 4.47954 8.98506 5.43475L6.756 1.57468C6.65158 1.39414 6.42014 1.33203 6.23891 1.43555C6.05652 1.53934 5.99403 1.76997 6.0977 1.95079L8.29749 5.76007C3.32832 7.03923 0 11.9547 0 17.2965H24.5714C24.5714 11.9547 21.2427 7.03923 16.2737 5.76007Z" />
+                </svg>
+                <div className="text-left">
+                  <div className="text-sm font-bold leading-none">Android</div>
+                </div>
+              </button>
+            </div>
+          </motion.div>
+
+          {/* Right: Auto-Sliding Phone Mockup with Real Screenshots */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="relative flex justify-center"
+          >
+            {(() => {
+              const mobileScreens = [
+                { src: '/static/images/mobile_projects.png', alt: 'My Projects - Dark', dark: true },
+                { src: '/static/images/mobile_analytics_light.png', alt: 'Bayesian Analytics - Light', dark: false },
+                { src: '/static/images/mobile_activity.png', alt: 'Activity Record - Dark', dark: true },
+                { src: '/static/images/mobile_activity_list_light.png', alt: 'Activity List - Light', dark: false },
+                { src: '/static/images/mobile_notifications.png', alt: 'Notifications - Dark', dark: true },
+                { src: '/static/images/mobile_settings_light.png', alt: 'Settings - Light', dark: false },
+                { src: '/static/images/mobile_analytics.png', alt: 'Bayesian Analytics - Dark', dark: true },
+                { src: '/static/images/mobile_recent_light.png', alt: 'Recent Activities - Light', dark: false },
+                { src: '/static/images/mobile_activity_light.png', alt: 'Activity Record - Light', dark: false },
+                { src: '/static/images/mobile_projects_light.png', alt: 'My Projects - Light', dark: false },
+              ];
+              const currentScreen = mobileScreens[activeMobileTab] || mobileScreens[0];
+              return (
+                <div className="relative w-full max-w-[274px]">
+                  {/* Phone Frame - border on outer, image in inner */}
+                  <div className="rounded-[10px] border-[11px] border-black bg-black" style={{
+                    boxShadow: currentScreen.dark
+                      ? '0 0 35px rgba(59,130,246,0.18), 0 0 70px rgba(59,130,246,0.08), 0 25px 50px -12px rgba(0,0,0,0.55)'
+                      : '0 0 40px rgba(255,255,255,0.15), 0 0 60px rgba(59,130,246,0.2), 0 25px 50px -12px rgba(0,0,0,0.55)'
+                  }}>
+                    <div className={`relative w-full h-[640px] rounded-[4px] overflow-hidden transition-colors duration-500 ${currentScreen.dark ? 'bg-[#0a1628]' : 'bg-white'}`}>
+
+                      {mobileScreens.map((screen, idx) => (
+                        <motion.div
+                          key={idx}
+                          className="absolute inset-0"
+                          initial={false}
+                          animate={{
+                            opacity: activeMobileTab === idx ? 1 : 0,
+                            x: activeMobileTab === idx ? 0 : activeMobileTab > idx ? -40 : 40,
+                            scale: activeMobileTab === idx ? 1 : 0.95,
+                          }}
+                          transition={{ duration: 0.5, ease: 'easeInOut' }}
+                          style={{ pointerEvents: activeMobileTab === idx ? 'auto' : 'none' }}
+                        >
+                          <Image
+                            src={screen.src}
+                            alt={screen.alt}
+                            fill
+                            className="object-cover object-top"
+                            sizes="280px"
+                            priority={idx === 0}
+                          />
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Slide Indicator Dots */}
+                  <div className="flex justify-center gap-1.5 mt-4">
+                    {mobileScreens.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveMobileTab(idx)}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${activeMobileTab === idx
+                          ? 'bg-blue-500 w-5'
+                          : 'bg-gray-600 hover:bg-gray-400'
+                          }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+          </motion.div>
+        </div>
+      </section>
       {/* SECTION 4: CORE FEATURES */}
       <section className="w-full py-32 bg-white dark:bg-gray-900">
         <div className="max-w-screen-2xl mx-auto px-6">
@@ -1616,151 +1829,10 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
       </section>
 
 
-      {/* SECTION 3: MOBILE SUPPORT */}
-      <section className="w-full py-24 bg-gray-900 overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-[50%] h-full bg-orange-500/5 blur-[100px] pointer-events-none" />
-        <div className="max-w-screen-2xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
-          {/* Left: Text */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-8"
-          >
-            <span className="text-orange-500 font-bold tracking-widest text-sm uppercase block">
-              Any Device, Any Time
-            </span>
-            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight break-keep">
-              <span className="block mb-3">{t.mobile.title}</span>
-              <span className="text-gray-500 block">{t.mobile.subtitle}</span>
-            </h2>
-            <p className="text-xl text-slate-300 leading-relaxed max-w-xl">
-              {t.mobile.desc}
-            </p>
-
-            {/* App Store Buttons */}
-            <div className="flex gap-4 pt-4">
-              <button className="flex items-center gap-3 bg-slate-800/80 hover:bg-slate-700 text-white px-6 py-3 rounded-2xl border border-slate-700 transition-colors duration-300 backdrop-blur-sm group">
-                <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 1.25.13 1.83.37-1.6 1-2.65 2.76-2.62 4.41.05 1.79 1.5 3.1 3.26 3.12.06.63.13 1.27.18 1.91zM13 3.5c.52-.7 1.15-1.4 1.97-1.5.17 1.84-1.68 3.56-3.29 3.53-.16-1.25.68-2.62 1.32-2.03z" />
-                </svg>
-                <div className="text-left">
-                  <div className="text-[10px] text-slate-400 font-medium leading-none mb-0.5">Download on</div>
-                  <div className="text-base font-bold leading-none">iOS App</div>
-                </div>
-              </button>
-
-              <button className="flex items-center gap-3 bg-slate-800/80 hover:bg-slate-700 text-white px-6 py-3 rounded-2xl border border-slate-700 transition-colors duration-300 backdrop-blur-sm group">
-                <svg className="w-6 h-6 fill-current text-green-400 group-hover:text-green-300 transition-colors" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17.523 15.3414C17.523 16.7118 16.4063 17.8213 15.0294 17.8213C13.6521 17.8213 12.5358 16.7118 12.5358 15.3414C12.5358 13.9714 13.6521 12.8615 15.0294 12.8615C16.4063 12.8615 17.523 13.9714 17.523 15.3414ZM6.5912 15.3414C6.5912 16.7118 5.47464 17.8213 4.09761 17.8213C2.72058 17.8213 1.60394 16.7118 1.60394 15.3414C1.60394 13.9714 2.72058 12.8615 4.09761 12.8615C5.47464 12.8615 6.5912 13.9714 6.5912 15.3414ZM16.2737 5.76007L18.4735 1.95079C18.5772 1.76997 18.5147 1.53934 18.3323 1.43555C18.1511 1.33203 17.9197 1.39414 17.8152 1.57468L15.5862 5.43475C13.4862 4.47954 11.085 4.47954 8.98506 5.43475L6.756 1.57468C6.65158 1.39414 6.42014 1.33203 6.23891 1.43555C6.05652 1.53934 5.99403 1.76997 6.0977 1.95079L8.29749 5.76007C3.32832 7.03923 0 11.9547 0 17.2965H24.5714C24.5714 11.9547 21.2427 7.03923 16.2737 5.76007Z" />
-                </svg>
-                <div className="text-left">
-                  <div className="text-sm font-bold leading-none">Android</div>
-                </div>
-              </button>
-            </div>
-          </motion.div>
-
-          {/* Right: Realistic Mobile Visual (POV) */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="relative flex justify-center"
-          >
-            <div className="relative w-full max-w-sm rounded-[2.5rem] overflow-hidden shadow-2xl shadow-orange-500/20 border-8 border-gray-900 bg-gray-950 group">
-              <Image
-                src="/static/images/mobile_dashboard_real.png"
-                alt="EXAWin Mobile App - Real World Usage"
-                width={600}
-                height={800}
-                className="object-cover w-full h-auto"
-              />
-
-              {/* Dynamic Screen Overlay */}
-              <div className="absolute top-[21%] left-[33%] w-[39%] h-[53%] bg-black/80 backdrop-blur-[1px] rounded-lg overflow-hidden p-2 flex flex-col items-center text-center">
-                {/* Header */}
-                <div className="flex justify-between w-full items-center mb-2 px-1">
-                  <span className="text-[8px] font-bold text-orange-500">EXAWin AI</span>
-                  <div className="flex items-center gap-1">
-                    <span className="w-1 h-1 rounded-full bg-green-500 animate-pulse"></span>
-                    <span className="text-[6px] text-gray-400">LIVE</span>
-                  </div>
-                </div>
-
-                {/* Project Name */}
-                <div className="text-[8px] text-gray-300 mb-1 w-full text-left px-1">Energy Project A</div>
-
-                {/* Main Probability Metric */}
-                <div className="my-2">
-                  <span className="text-[6px] text-gray-400 block mb-0.5">WIN PROBABILITY</span>
-                  <motion.div
-                    initial={{ scale: 0.5, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    animate={{ scale: [1, 1.05, 1], filter: ["brightness(1)", "brightness(1.2)", "brightness(1)"] }}
-                    transition={{
-                      type: "spring", stiffness: 300, damping: 10, delay: 0.1, // Fast entrance
-                      scale: { repeat: Infinity, duration: 2, ease: "easeInOut", delay: 1 }, // Continuous pulse
-                      filter: { repeat: Infinity, duration: 2, ease: "easeInOut", delay: 1 }
-                    }}
-                    className="text-2xl font-black text-white tracking-tighter"
-                  >
-                    88.2<span className="text-sm text-orange-500">%</span>
-                  </motion.div>
-                </div>
-
-                {/* Bayesian Parameters Grid */}
-                <div className="grid grid-cols-2 gap-1 w-full px-1 mb-2">
-                  <motion.div
-                    initial={{ x: -10, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="bg-gray-800/50 rounded p-1"
-                  >
-                    <div className="text-[6px] text-gray-500">ALPHA (Pos)</div>
-                    <div className="text-[10px] font-bold text-blue-400">8.5</div>
-                  </motion.div>
-                  <motion.div
-                    initial={{ x: 10, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    transition={{ delay: 0.25 }}
-                    className="bg-gray-800/50 rounded p-1"
-                  >
-                    <div className="text-[6px] text-gray-500">BETA (Neg)</div>
-                    <div className="text-[10px] font-bold text-red-400">1.5</div>
-                  </motion.div>
-                </div>
-
-                {/* Impedance / Decision Status */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  animate={{
-                    borderColor: ["rgba(34,197,94,0.3)", "rgba(34,197,94,0.8)", "rgba(34,197,94,0.3)"],
-                    backgroundColor: ["rgba(20,83,45,0.3)", "rgba(20,83,45,0.5)", "rgba(20,83,45,0.3)"]
-                  }}
-                  transition={{
-                    y: { type: "spring", stiffness: 200, delay: 0.3 }, // Fast entrance
-                    default: { repeat: Infinity, duration: 1.5, ease: "easeInOut", delay: 0.5 } // Continuous glow
-                  }}
-                  className="w-full bg-green-900/30 border border-green-500/30 rounded p-1 mt-auto mb-1"
-                >
-                  <div className="text-[6px] text-green-400 font-bold tracking-wider">IMPEDANCE MATCH</div>
-                  <div className="text-[8px] text-white font-bold">COMMIT</div>
-                </motion.div>
-              </div>
-
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-
       {/* NEW SECTION: ENTERPRISE INTEGRATION (Expanded) */}
-      <section className="w-full py-32 bg-[#0a0a0a] border-t border-white/5 relative overflow-hidden">
+      < section className="w-full py-32 bg-[#0a0a0a] border-t border-white/5 relative overflow-hidden" >
         {/* Subtle Grid Background */}
-        <div className="absolute inset-0 bg-[url('/static/images/grid.svg')] opacity-[0.03]" />
+        < div className="absolute inset-0 bg-[url('/static/images/grid.svg')] opacity-[0.03]" />
 
         <div className="max-w-screen-2xl mx-auto px-6 relative z-10 text-white">
 
@@ -1925,12 +1997,12 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
 
           </div>
         </div>
-      </section>
+      </section >
 
       {/* SECTION 1.5: PORTFOLIO OVERVIEW — Multi-Project Real-Time Cards */}
-      <section className="w-full py-24 lg:py-32 bg-white dark:bg-gray-950 relative overflow-hidden">
+      < section className="w-full py-24 lg:py-32 bg-white dark:bg-gray-950 relative overflow-hidden" >
         {/* Subtle background accent */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-orange-500/5 blur-[120px] rounded-full pointer-events-none" />
+        < div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-orange-500/5 blur-[120px] rounded-full pointer-events-none" />
 
         <div className="max-w-screen-2xl mx-auto px-6 relative z-10">
           {/* Section Header */}
@@ -2080,11 +2152,11 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
             })}
           </div>
         </div>
-      </section>
+      </section >
 
 
       {/* SECTION 5: ONBOARDING STEPS with Visual */}
-      <section className="w-full py-32 bg-white dark:bg-gray-900">
+      < section className="w-full py-32 bg-white dark:bg-gray-900" >
         <div className="max-w-screen-2xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="order-2 lg:order-1">
@@ -2317,10 +2389,10 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* SECTION 6: FINAL CTA */}
-      <section className="w-full py-32 bg-gray-900 text-white relative overflow-hidden">
+      < section className="w-full py-32 bg-gray-900 text-white relative overflow-hidden" >
         <div className="absolute inset-0 z-0 opacity-20">
           <Image src="/static/images/business_meeting.png" alt="bg" fill className="object-cover grayscale" />
         </div>
@@ -2337,9 +2409,9 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
             {t.final_cta.button}
           </a>
         </div>
-      </section>
+      </section >
 
       <Footer />
-    </div>
+    </div >
   );
 }
