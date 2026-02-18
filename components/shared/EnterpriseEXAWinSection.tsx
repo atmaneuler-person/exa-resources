@@ -17,6 +17,7 @@ interface EXAWinProps {
 export const EnterpriseEXAWinSection = ({ textData }: EXAWinProps) => {
     const pathname = usePathname();
     const currentLocale = pathname.split('/')[1] || siteConfig.defaultLocale;
+    const [mobileSlide, setMobileSlide] = React.useState(0);
 
     // Default fallback content (English)
     const content = textData || {
@@ -29,6 +30,14 @@ export const EnterpriseEXAWinSection = ({ textData }: EXAWinProps) => {
         feature1: "Global Access",
         feature2: "View Case Studies"
     };
+
+    // Auto-slide mobile screenshots every 3 seconds
+    React.useEffect(() => {
+        const timer = setInterval(() => {
+            setMobileSlide(prev => (prev + 1) % 2);
+        }, 3000);
+        return () => clearInterval(timer);
+    }, []);
 
     return (
         <section className="bg-gray-50 dark:bg-gray-950 py-24 lg:py-32">
@@ -99,10 +108,10 @@ export const EnterpriseEXAWinSection = ({ textData }: EXAWinProps) => {
                     </div>
 
                     {/* ── RIGHT COLUMN: Global Access + Screenshot ── */}
-                    <div className="lg:col-span-5 flex flex-col gap-5">
+                    <div className="lg:col-span-5 flex flex-col gap-5 relative">
 
-                        {/* Global Strategic Access Card — Wide & Short */}
-                        <div className="rounded-[2rem] bg-blue-600 dark:bg-blue-700 px-8 py-20 flex flex-col text-white relative overflow-hidden shadow-xl group">
+                        {/* Global Strategic Access Card — ORIGINAL SIZE */}
+                        <div className="rounded-[2rem] bg-blue-600 dark:bg-blue-700 px-8 py-20 flex flex-col text-white relative shadow-xl group">
                             <div className="relative z-10">
                                 <h4 className="text-lg font-bold mb-1">{content.feature1}</h4>
                                 <p className="text-blue-100 text-xs mb-3">
@@ -113,8 +122,29 @@ export const EnterpriseEXAWinSection = ({ textData }: EXAWinProps) => {
                                     <span className="px-3 py-1 bg-white/20 rounded-lg text-xs font-bold backdrop-blur-md">On-Premise</span>
                                 </div>
                             </div>
-                            <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <svg className="w-16 h-16 transform rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" /></svg>
+                            {/* Mobile Phone — absolute inside card, vertically centered */}
+                            <div className="absolute right-6 top-1/2 -translate-y-1/2 hidden sm:flex flex-col items-center z-20">
+                                <div className="w-[72px] h-[170px] rounded-[5px] border-[2px] border-black bg-black overflow-hidden shadow-2xl relative">
+                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-6 h-1 bg-black rounded-b-full z-10" />
+                                    {[
+                                        { src: '/static/images/mobile_analytics.png', alt: 'Bayesian Analytics' },
+                                        { src: '/static/images/mobile_activity_light.png', alt: 'Activity Record - Light' },
+                                    ].map((screen, idx) => (
+                                        <div
+                                            key={idx}
+                                            className="absolute inset-0 transition-opacity duration-700"
+                                            style={{ opacity: mobileSlide === idx ? 1 : 0 }}
+                                        >
+                                            <Image
+                                                src={screen.src}
+                                                alt={screen.alt}
+                                                fill
+                                                className="object-cover"
+                                                sizes="72px"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
 
