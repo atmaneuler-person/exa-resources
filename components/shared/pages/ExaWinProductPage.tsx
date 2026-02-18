@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -888,21 +888,51 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
   const [activeTextTab, setActiveTextTab] = useState(0);
 
   // Auto-slide mobile screenshots every 3 seconds (right side)
-  // Alternates between dark and light mode images
-  const darkIndices = [0, 2, 4, 6]; // dark mode image indices
-  const lightIndices = [1, 3, 5, 7, 8, 9]; // light mode image indices
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveMobileTab(prev => {
-        // Check if current is dark (indices 0,2,4,6)
-        const isDark = [0, 2, 4, 6].includes(prev);
-        // Pick from opposite group
-        const pool = isDark ? [1, 3, 5, 7, 8, 9] : [0, 2, 4, 6];
-        return pool[Math.floor(Math.random() * pool.length)];
-      });
+  // Fixed sequence: 6→8→2→1→5→4→0→7→3→9
+  // Only slides while the section is in viewport; resets to start on re-entry
+  const slideOrder = [6, 8, 2, 1, 5, 4, 0, 7, 3, 9];
+  const mobileSectionRef = useRef<HTMLElement>(null);
+  const slideStepRef = useRef(0);
+  const slideTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const startSliding = useCallback(() => {
+    // Reset to first in sequence
+    slideStepRef.current = 0;
+    setActiveMobileTab(slideOrder[0]);
+    // Clear any existing timer
+    if (slideTimerRef.current) clearInterval(slideTimerRef.current);
+    slideTimerRef.current = setInterval(() => {
+      slideStepRef.current = (slideStepRef.current + 1) % slideOrder.length;
+      setActiveMobileTab(slideOrder[slideStepRef.current]);
     }, 3000);
-    return () => clearInterval(timer);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const stopSliding = useCallback(() => {
+    if (slideTimerRef.current) {
+      clearInterval(slideTimerRef.current);
+      slideTimerRef.current = null;
+    }
   }, []);
+
+  useEffect(() => {
+    const section = mobileSectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startSliding();
+        } else {
+          stopSliding();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(section);
+    return () => {
+      observer.disconnect();
+      stopSliding();
+    };
+  }, [startSliding, stopSliding]);
 
   // Auto-cycle text focus every 4 seconds (left side, independent)
   useEffect(() => {
@@ -996,7 +1026,7 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
 
 
       {/* SECTION 3: MOBILE SUPPORT — Interactive Showcase */}
-      <section className="w-full py-24 bg-gray-900 overflow-hidden relative">
+      <section ref={mobileSectionRef} className="w-full py-24 bg-gray-900 overflow-hidden relative">
         <div className="absolute top-0 right-0 w-[50%] h-full bg-orange-500/5 blur-[100px] pointer-events-none" />
         <div className="max-w-screen-2xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
           {/* Left: Text + Interactive Feature Tabs */}
@@ -1093,11 +1123,15 @@ export const ExaWinProductPage = ({ params }: { params: { locale: string } }) =>
               return (
                 <div className="relative w-full max-w-[274px]">
                   {/* Phone Frame - border on outer, image in inner */}
-                  <div className="rounded-[10px] border-[11px] border-black bg-black" style={{
+                  <div className="rounded-[10px] border-[11px] border-[#1e1e32] bg-[#1a1a2e] relative" style={{
                     boxShadow: currentScreen.dark
                       ? '0 0 35px rgba(59,130,246,0.18), 0 0 70px rgba(59,130,246,0.08), 0 25px 50px -12px rgba(0,0,0,0.55)'
                       : '0 0 40px rgba(255,255,255,0.15), 0 0 60px rgba(59,130,246,0.2), 0 25px 50px -12px rgba(0,0,0,0.55)'
                   }}>
+                    {/* Glass highlight overlay */}
+                    <div className="absolute inset-0 rounded-[2px] pointer-events-none" style={{
+                      background: 'linear-gradient(165deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.03) 25%, transparent 50%)',
+                    }} />
                     <div className={`relative w-full h-[640px] rounded-[4px] overflow-hidden transition-colors duration-500 ${currentScreen.dark ? 'bg-[#0a1628]' : 'bg-white'}`}>
 
                       {mobileScreens.map((screen, idx) => (
