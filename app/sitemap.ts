@@ -9,7 +9,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const blogRoutes = allBlogs
     .filter((post) => {
       const isDocs = post._raw.sourceFilePath.toLowerCase().split('/').includes('docs');
-      return !post.draft && !isDocs;
+      const isPublicDoc = (post as any).public === true;
+      // [Selective Public Access] public: true인 Docs 문서는 sitemap에 포함 (검색엔진 노출)
+      return !post.draft && (!isDocs || isPublicDoc);
     })
     .map((post) => ({
       url: `${siteUrl}/${post.path}`,

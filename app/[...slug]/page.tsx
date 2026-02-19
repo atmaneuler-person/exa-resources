@@ -312,9 +312,13 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
   // [ISOLATION CHECK] Identify if content is 'Docs' based on folder structure index 2
   const isDocsContent = pathParts.length >= 3 && pathParts[2].toLowerCase() === 'docs';
 
+  // [Selective Public Access] public: true인 Docs 문서는 비로그인 접근 허용
+  const isPublicDoc = (post as any).public === true;
+  let isAuthenticated = false;
   if (isDocsContent) {
     const session = await auth();
-    if (!session?.user) {
+    isAuthenticated = !!session?.user;
+    if (!isPublicDoc && !isAuthenticated) {
       return <RestrictedContentGate postTitle={post.title} />;
     }
   }
@@ -348,7 +352,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
     return (
       <div className="flex flex-col w-full">
         <Header />
-        <DocLayout content={mainContent} allDocPosts={allDocPosts} toc={post.toc} locale={currentLocale}>
+        <DocLayout content={mainContent} allDocPosts={allDocPosts} toc={post.toc} locale={currentLocale} isAuthenticated={isAuthenticated}>
           <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
         </DocLayout>
         <Footer />

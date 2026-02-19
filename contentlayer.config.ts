@@ -123,6 +123,7 @@ export const Blog = defineDocumentType(() => ({
     tags: { type: 'list', of: { type: 'string' }, default: [] },
     lastmod: { type: 'date' },
     draft: { type: 'boolean' },
+    public: { type: 'boolean', default: false }, // [NEW] Docs 선택적 공개: true이면 비로그인 외부 접근 허용
     summary: { type: 'string' },
     description: { type: 'string' }, // [NEW] Added description field
     images: { type: 'list', of: { type: 'string' } },

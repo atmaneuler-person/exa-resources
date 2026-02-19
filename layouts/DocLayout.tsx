@@ -68,6 +68,7 @@ interface DocLayoutProps {
   allDocPosts: DocPost[];
   toc?: { value: string; url: string; depth: number }[];
   locale?: string;
+  isAuthenticated?: boolean; // [Selective Public Access] 로그인 상태 전달
   children: React.ReactNode;
 }
 
@@ -191,13 +192,31 @@ function groupBySection(posts: DocPost[]): SectionGroup[] {
   return sections;
 }
 
-export default function DocLayout({ content, allDocPosts, toc, locale, children }: DocLayoutProps) {
+export default function DocLayout({ content, allDocPosts, toc, locale, isAuthenticated = true, children }: DocLayoutProps) {
   const sections = groupBySection(allDocPosts);
 
+  // [Selective Public Access] 비로그인 시 공개 문서만 클릭 가능, 나머지 잠금
   const renderPostLink = (post: DocPost) => {
     const isActive = content?.path === post.path;
     const rawPath = post.path.startsWith('/') ? post.path : `/${post.path}`;
     const fullPath = locale ? `/${locale}${rawPath}` : rawPath;
+    const isPostPublic = (post as any).public === true;
+    const isLocked = !isAuthenticated && !isPostPublic && !isActive;
+
+    if (isLocked) {
+      // 잠금 상태: 클릭 불가, 자물쇠 아이콘 표시
+      return (
+        <span
+          key={post.path}
+          className="group flex items-center gap-2 px-3 py-1.5 text-[13px] rounded-lg text-gray-400 dark:text-gray-600 cursor-not-allowed select-none"
+          title="Log in to read this document"
+        >
+          <span className="w-3.5 h-3.5 flex-shrink-0 text-[10px]">🔒</span>
+          <span className="line-clamp-1">{post.title}</span>
+        </span>
+      );
+    }
+
     return (
       <Link
         key={post.path}
@@ -270,6 +289,24 @@ export default function DocLayout({ content, allDocPosts, toc, locale, children 
             );
           })}
         </nav>
+
+        {/* [Selective Public Access] 비로그인 사용자에게 로그인 유도 CTA */}
+        {!isAuthenticated && (
+          <div className="mt-6 mx-3 p-4 rounded-xl bg-gradient-to-br from-orange-50 to-orange-100/50 dark:from-orange-950/30 dark:to-orange-900/20 border border-orange-200/50 dark:border-orange-800/30">
+            <p className="text-xs font-bold text-orange-700 dark:text-orange-400 mb-2">
+              🔒 Full Access Required
+            </p>
+            <p className="text-[11px] text-orange-600/80 dark:text-orange-400/60 mb-3 leading-relaxed">
+              Log in to unlock all documentation.
+            </p>
+            <a
+              href="/login"
+              className="block w-full text-center text-xs font-bold py-2 px-3 rounded-lg bg-orange-600 text-white hover:bg-orange-700 transition-colors"
+            >
+              Log In
+            </a>
+          </div>
+        )}
       </aside>
 
       {/* MAIN CONTENT AREA: Only this part scrolls */}
