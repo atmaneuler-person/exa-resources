@@ -32,25 +32,31 @@ export async function generateMetadata(props: {
 }): Promise<Metadata | undefined> {
   const params = await props.params;
   const slugArray = params.slug;
-  const decodedPath = decodeURI(slugArray.join('/'));
 
-  // Try exact match
-  let post = allBlogs.find((p) => p.path === decodedPath);
+  // [OG Fix] Page 함수와 동일한 경로 매칭 로직 적용
+  const allLocales = siteConfig.locales as string[];
+  const isFirstSegmentLocale = allLocales.includes(slugArray[0]);
+  const currentLocale = isFirstSegmentLocale ? slugArray[0] : (siteConfig.defaultLocale || 'en');
+  const baseSlug = isFirstSegmentLocale ? slugArray.slice(1) : slugArray;
 
-  // Try with 'posts/' prefix
+  // posts/ prefix, locale 중복 제거 → slugIdentity 추출
+  const lookupSegments = [...baseSlug];
+  if (lookupSegments[0] === 'posts') lookupSegments.shift();
+  if (allLocales.includes(lookupSegments[0])) lookupSegments.shift();
+  const slugIdentity = lookupSegments.join('/');
+
+  // Page 함수와 동일한 targetPath 구성: posts/[locale]/[slugIdentity]
+  const targetPath = `posts/${currentLocale}/${slugIdentity}`;
+  let post = allBlogs.find((p) => p.path === targetPath);
+
+  // Fallback: locale 없이 직접 매칭
   if (!post) {
-    post = allBlogs.find((p) => p.path === `posts/${decodedPath}`);
+    post = allBlogs.find((p) => p.path === `${currentLocale}/${slugIdentity}`);
   }
-
-  // Try with 'posts/[defaultLocale]/' if path doesn't start with locale
+  // Fallback: 원래 전체 경로 매칭
   if (!post) {
-    // Check if first segment is locale
-    const firstSegment = slugArray[0];
-    const isLocale = siteConfig.locales.includes(firstSegment);
-    if (!isLocale) {
-      const locale = siteConfig.defaultLocale || 'en';
-      post = allBlogs.find((p) => p.path === `posts/${locale}/${decodedPath}`);
-    }
+    const decodedPath = decodeURI(slugArray.join('/'));
+    post = allBlogs.find((p) => p.path === decodedPath || p.path === `posts/${decodedPath}`);
   }
 
   if (!post) return;
