@@ -54,7 +54,29 @@ export async function generateMetadata(props: {
   }
 
   if (!post) return;
-  return { title: post.title, description: post.summary };
+
+  // [OG Image Fix] 포스트의 images frontmatter를 OG 이미지로 전달 (없으면 기본 socialBanner 사용)
+  const ogImages = post.images && post.images.length > 0
+    ? post.images
+    : [siteConfig.socialBanner];
+
+  return {
+    title: post.title,
+    description: post.summary,
+    openGraph: {
+      title: post.title,
+      description: post.summary || siteConfig.description,
+      url: `./${post.path}`,
+      siteName: siteConfig.title,
+      images: ogImages,
+      type: 'article',
+    },
+    twitter: {
+      title: post.title,
+      card: 'summary_large_image',
+      images: ogImages,
+    },
+  };
 }
 
 export const generateStaticParams = async () => {
