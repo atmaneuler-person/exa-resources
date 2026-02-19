@@ -72,7 +72,7 @@ export async function generateMetadata(props: {
     openGraph: {
       title: post.title,
       description: post.summary || siteConfig.description,
-      url: `./${post.path}`,
+      url: './',
       siteName: siteConfig.title,
       images: ogImages,
       type: 'article',
