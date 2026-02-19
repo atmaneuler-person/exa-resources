@@ -524,18 +524,18 @@ export const LegalPages: React.FC<LegalPagesProps> = ({ section, locale }) => {
         <title>{content.title} | EXAWin</title>
       </Head>
       <Header />
-      
+
       <main className="pt-32 pb-24 px-6 max-w-4xl mx-auto">
         <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           animate={{ opacity: 1, y: 0 }}
-           transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
         >
           <div className="mb-12 border-b border-gray-200 dark:border-gray-800 pb-8">
             <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">{content.title}</h1>
             <p className="text-gray-500 dark:text-gray-400 text-lg">{content.updated}</p>
           </div>
-          
+
           <div className="space-y-16">
             {content.sections.map((sec, idx) => (
               <section key={idx} className="space-y-6">
@@ -553,7 +553,7 @@ export const LegalPages: React.FC<LegalPagesProps> = ({ section, locale }) => {
 
           <div className="mt-20 pt-10 border-t border-gray-200 dark:border-gray-800 text-center">
             <p className="text-gray-500 text-base">
-                If you have any questions regarding these policies, please contact us at <a href={`mailto:contact@atmaneuler.com`} className="text-blue-600 dark:text-blue-400 hover:underline">contact@atmaneuler.com</a>.
+              If you have any questions regarding these policies, please contact us at <a href={`mailto:exa@exaeuler.com`} className="text-blue-600 dark:text-blue-400 hover:underline">exa@exaeuler.com</a>.
             </p>
           </div>
         </motion.div>

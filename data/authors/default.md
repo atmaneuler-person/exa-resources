@@ -3,7 +3,7 @@ name: exaeuler
 avatar: /static/images/avatar.png
 occupation: Business
 company: ATMAN
-email: contact@atmaneuler.com
+email: exa@exaeuler.com
 twitter:
 linkedin:
 github:
