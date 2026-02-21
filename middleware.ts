@@ -5,12 +5,17 @@ import { siteConfig } from './data/config/site.settings';
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // 1. Exclude public files, api, and internal next paths
+  // 1. Exclude public files, api, auth pages, and internal next paths
   if (
     pathname.startsWith('/static') ||
     pathname.startsWith('/api') ||
     pathname.startsWith('/admin') ||
     pathname.startsWith('/_next') ||
+    pathname.startsWith('/login') ||
+    pathname.startsWith('/register') ||
+    pathname.startsWith('/verify-email') ||
+    pathname.startsWith('/forgot-password') ||
+    pathname.startsWith('/reset-password') ||
     pathname === '/favicon.ico' ||
     pathname === '/robots.txt' ||
     pathname === '/sitemap.xml' ||
@@ -29,7 +34,7 @@ export function middleware(request: NextRequest) {
   // 3. Redirect if there is no locale
   const locale = siteConfig.defaultLocale || 'en';
   request.nextUrl.pathname = `/${locale}${pathname}`;
-  
+
   // Special case for root: / -> /ko
   if (pathname === '/') {
     request.nextUrl.pathname = `/${locale}`;

@@ -13,8 +13,8 @@ export default function RestrictedContentGate({ postTitle }: RestrictedContentGa
   const router = useRouter();
 
   const handleLogin = () => {
-      // Redirect to login page
-      router.push('/login');
+    // Redirect to login page
+    router.push('/login');
   };
 
   return (
@@ -30,20 +30,23 @@ export default function RestrictedContentGate({ postTitle }: RestrictedContentGa
           {postTitle}
         </h1>
         <p className="text-xl text-gray-500 mb-10 max-w-2xl mx-auto">
-          This content is restricted to authorized personnel only.<br/>
+          This content is restricted to authorized personnel only.<br />
           Please log in to access the full documentation.
         </p>
-        
+
         <div className="p-8 border border-gray-200 dark:border-gray-800 rounded-2xl bg-gray-50 dark:bg-gray-900/50 max-w-md mx-auto space-y-4">
-            <Button className="w-full h-12 text-lg" onClick={handleLogin}>
-              Log In to Continue
-            </Button>
-            <Button variant="outline" className="w-full h-12 text-lg" onClick={() => router.back()}>
-              Cancel
-            </Button>
-            <p className="mt-4 text-sm text-gray-400">
-              Don't have an account? Contact your administrator.
-            </p>
+          <Button className="w-full h-12 text-lg" onClick={handleLogin}>
+            Log In to Continue
+          </Button>
+          <Button variant="outline" className="w-full h-12 text-lg" onClick={() => router.back()}>
+            Cancel
+          </Button>
+          <p className="mt-4 text-sm text-gray-400">
+            Don&apos;t have an account?{' '}
+            <a href="/register" className="font-semibold text-orange-600 hover:text-orange-500">
+              Create account
+            </a>
+          </p>
         </div>
       </div>
       <Footer />
