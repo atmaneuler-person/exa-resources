@@ -18,6 +18,7 @@ model User {
   image         String?
   role          String    @default("USER") // USER, ADMIN
   source        String    @default("homepage") // homepage, exawin, manual
+  description   String?   // Admin memo (manual registration note)
   emailVerified Boolean   @default(false)
   verifyToken   String?   @unique
   verifySentAt  DateTime?
@@ -25,7 +26,8 @@ model User {
   resetSentAt   DateTime?
   isActive      Boolean   @default(true)
   lastLoginAt   DateTime?
-  newsletter    Boolean   @default(true) // Newsletter opt-in
+  newsletter    Boolean   @default(true) // Admin toggle: selectively include/exclude per send
+  unsubscribed  Boolean   @default(false) // User action: clicked unsubscribe in email
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 

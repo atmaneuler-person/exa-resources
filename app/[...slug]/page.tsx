@@ -138,6 +138,12 @@ export default async function Page(props: { params: Promise<{ slug: string[] }>,
     return <RefundPage locale={currentLocale} />;
   }
 
+  // Unsubscribe page — user clicked unsubscribe link in newsletter email
+  if (subPath === 'unsubscribe') {
+    const { default: UnsubscribePage } = await import('@/app/unsubscribe/page');
+    return <UnsubscribePage />;
+  }
+
   if (subPath === 'login') {
     const { LoginPage } = await import('@/components/shared/pages/LoginPage');
     return <LoginPage locale={currentLocale} />;
